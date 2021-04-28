@@ -98,7 +98,7 @@ class Compiler {
     // 拿到模块内容
     this.buildModule(path.resolve(this.root, this.entry), true);
 
-    console.log(this.modules, this.entry)
+    // console.log(this.modules, this.entry)
     // 发射一个文件 打包后的文件
     this.emitFile();
   }
