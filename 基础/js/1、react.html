@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      //  虚拟DOM 意思就是用js对象的形式描述DOM  就是内存中的一段JS代码
+
+      // jsx
+      // <div id="app">
+      //   1
+      // </div>
+
+      // React.createElement("div", {id: "app"}, );
+
+      const React = {
+        createElement: function (type, props, children) {
+          let pr = Object.keys(props)[0];
+          let str = `<${type} ${pr}="${props[pr]}">${children}</${type}>`;
+          return str;
+        },
+      };
+
+      let res = React.createElement(
+        "div",
+        {
+          id: "app",
+        },
+        "11"
+      );
+
+      // console.log(res,'res....');
+      document.getElementById("app").innerHTML = res
+    </script>
+  </body>
+</html>

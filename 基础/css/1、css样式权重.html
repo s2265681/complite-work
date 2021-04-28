@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>当两个样式都使用!important时</title>
+    <style>
+      #box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+
+      /* [val = '2']{
+				background-color: green !important;
+			} */
+
+      #box:first {
+        color: #f0f;
+      }
+
+      #box div:lang(en) {
+        background-color: orange;
+      }
+
+ 
+
+      P::selection{
+          color: #F00;
+      }
+
+      p::first-letter {
+        color: blue;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 当两个样式都使用!important时，权重值大的优先级更高 -->
+    <div id="box" style="background-color: #ff0">
+      <div val="1" lang="en">sssddaccca</div>
+      <div val="2">sssssadada</div>
+      <div val="3">3</div>
+      <p>jaiu</p>
+    </div>
+  </body>
+</html>

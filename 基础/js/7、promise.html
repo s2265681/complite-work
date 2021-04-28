@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+          function Promise(fn) {
+              let _this = this;
+              _this.promiseStatus = "pendding";
+              _this.promiseResult = null;
+              _this.callbacks = [];
+
+              function resolve(res) {
+                if (_this.promiseStatus !== "pendding") return
+                  _this.promiseStatus = "fulfilled";
+                  _this.promiseResult = res;
+                  // console.log(_this.callbacks,'_this.callbacks...');
+                  setTimeout(() => {
+                    _this.callbacks.forEach((item) => {
+                      item.resolveHandle(res)
+                    });
+                  }, 0);
+              }
+              function reject(result) {
+                  if (_this.promiseStatus !== "pendding") return
+                  _this.promiseStatus = "rejected";
+                  _this.promiseResult = result;
+                  setTimeout(() => {
+                    _this.callbacks.map((item) => {
+                      item.rejectHandle(result)
+                    });
+                  }, 0);
+              }
+              fn(resolve, reject);
+            }
+            Promise.prototype.then = function (resolveHandle, rejectHandle) {
+              let _this = this;
+                  if (typeof resolveHandle !== "function")resolveHandle = value=>value;
+                  if (typeof rejectHandle !== "function")rejectHandle = error => error
+              return new Promise((reoslove, reject)=>{
+                   function dealStatus(type){
+                     try{
+                         let result = type(_this.promiseResult)
+                         if(result instanceof Promise){
+                            result.then(r=>{
+                              reoslove(r)
+                            },j=>{
+                              reject(j)
+                            })
+                         }else{
+                          reoslove(result)
+                         }
+                      }
+                       catch(error){
+                         reject(error)
+                       }
+                    }
+                   if(_this.promiseStatus === 'fulfilled'){
+                          setTimeout(()=>{
+                             dealStatus(resolveHandle)
+                          })
+                      }
+                      if(_this.promiseStatus === 'rejected'){
+                         setTimeout(()=>{
+                            dealStatus(rejectHandle)
+                          })
+                      }
+                    if (_this.promiseStatus === "pendding") {
+                      _this.callbacks.push({
+                       resolveHandle: function(){
+                          dealStatus(resolveHandle)
+                        },
+                        rejectHandle: function(){
+                          dealStatus(rejectHandle)
+                        }
+                      });
+                    }
+              })
+            };
+
+                let p1 = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      resolve(1);
+                    }, 1000);
+                  });
+
+
+    //   Promise 设置缓存 装饰器 。。。。 
+      const catchMap = new Map();
+      function enableCache(target,name,descriptor) {
+        const val = descriptor.value;
+        descriptor.value = async function(...args){
+          const cacheKey = name+ JSON.stringify(args);
+          if(!catchMap.get(catchKey)){
+            const cacheValue = Promise.resolve(val.apply(this,args)).catch(_=>{
+              catchMap.set(cacheKey,null)
+            })
+             catchMap.set(cacheKey,cacheValue)
+          }
+          return catchMap.get(cacheKey)
+        }
+        return descriptor;
+      }
+
+      class PromiseClass {
+        @enableCache
+        static async getInfo(){}
+      }
+      PromiseClass.getInfo();
+      PromiseClass.getInfo();
+      PromiseClass.getInfo();
+      ...
+    </script>
+  </body>
+</html>

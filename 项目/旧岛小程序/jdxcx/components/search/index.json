@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "rock_tag": "/components/tag/index",
+    "rock_book": "/components/book/index",
+    "rock_loading": "/components/loading/index"
+  }
+}

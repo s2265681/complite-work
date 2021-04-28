@@ -1,0 +1,16 @@
+{
+  "name": "ls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fsdb.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^2.0.1",
+    "mysql2-promise": "^0.1.4",
+    "sequelize": "^5.21.2"
+  }
+}

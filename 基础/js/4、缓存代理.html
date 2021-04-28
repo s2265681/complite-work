@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const mult = function () {
+          console.log('sss');
+        let a = 1;
+        for (let l  of arguments) {
+          a = a * l;
+        }
+        return a;
+      };
+
+    // let result = mult(1, 2, 3, 4); // 24
+    const proxyMult = (function(){
+        let cache = {};
+        return function(){
+            let tag = Array.prototype.join.call(arguments,',')
+            if(cache[tag]){
+                return cache[tag]
+            }
+            cache[tag] = mult.apply(this,arguments)
+            return  cache[tag]
+        }
+    })()
+      console.log(mult(1, 2, 3, 4))
+      console.log(mult(1, 2, 3, 4))
+      console.log(mult(1, 2, 3, 4))
+      console.log(mult(1, 2, 3, 4))
+    //   console.log(proxyMult(1,2,3,4));
+    //   console.log(proxyMult(1,2,3,4));
+    //   console.log(proxyMult(1,2,3,4));
+    //   console.log(proxyMult(1,2,3,4));
+    </script>
+  </body>
+</html>

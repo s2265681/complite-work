@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="no-referrer" />
+    <!--页面头部添加-->
+    <meta name="description" content="石头网、商、怀旧网、摇滚商、我的主页" />
+    <meta name="keywords" content="石头网|商|怀旧网|摇滚商|我的主页" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-……equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title>微风不噪</title>
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./css/index.css" rel="stylesheet" type="text/css" />
+    <style type="text/css"></style>
+    <link rel="Shortcut Icon" href="./image/icon.png" type="image/x-icon" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <style>
+    /* 哀悼日：全局变灰 */
+    /* body{
+      filter:grayscale(100%);
+      -webkit-filter:grayscale(100%);
+      -moz-filter:grayscale(100%);
+      -o-filter:grayscale(100%);
+    } */
+  </style>
+  <script>
+    function goPAGE() {
+      if (
+        navigator.userAgent.match(
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        // /*window.location.href="你的手机版地址";*/
+        window.location.href = "http://m.rockshang.cn:60002/";
+      } else {
+        /*window.location.href="你的电脑版地址";    */
+        // window.location.href="http://172.16.5.149:8080/"
+      }
+    }
+    goPAGE();
+  </script>
+  <body>
+    <div id="header">
+      <header>
+        <div class="left_container">
+          <img src="./image/rock.jpeg" class="rock_img" />
+        </div>
+
+        <div class="right_container">
+          <div class="sendInfo">
+            <input type="text" placeholder="输入弹幕内容" v-model="sendValue" />
+            <button
+              class="sendbtn"
+              onclick="sendbtn()"
+              style="margin-right: 20px;"
+            >
+              发送弹幕
+            </button>
+          </div>
+
+          <div class="title">
+            <img src="./image/icon.png" class="user" />
+            {{$t('welcome')}}
+          </div>
+          <div class="mode">
+            <img
+              alt="模式"
+              class="modeImg"
+              title="切换模式"
+              :src="this.modeImg"
+              @click="changeMode"
+            />
+          </div>
+          <div class="githublogin" @click="githublogin" v-if="!isLogin">
+            <a
+              href="https://github.com/login/oauth/authorize?client_id=cbd2ab3e42f181361a0a&scope=s2265681:s2265681@163.com"
+            >
+              <img
+                src="http://img1.imgtn.bdimg.com/it/u=2751569205,4199288630&fm=26&gp=0.jpg"
+                class="githubImg"
+                title="github登录"
+              />
+            </a>
+          </div>
+          <div class="login" v-if="!isLogin">
+            {{$t('login')}}
+          </div>
+          <div class="logout" v-if="isLogin" @click="Logout">
+            {{$t('logout')}}
+          </div>
+          <div class="reg" v-if="!isLogin">
+            {{$t('register')}}
+          </div>
+          <!-- 中英切换 -->
+          <template>
+            <div class="changeLang">
+              <el-select
+                v-model="value"
+                placeholder="请选择"
+                @change="changeLang"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </div>
+          </template>
+          <div class="color_block">
+            <el-color-picker
+              v-model="color"
+              size="mini"
+              @change="changeColor"
+              show-alpha
+            ></el-color-picker>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="banner">
+      <div class="oshow">
+        <div class="animateTion">你好！</div>
+        <div class="animateTion">你来啦～</div>
+        <div class="animateTion">欢迎欢迎！</div>
+      </div>
+      <div class="container">
+        <div class="img-holder">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043894646&di=7804174a5b070381dcc8bae698e118b7&imgtype=0&src=http%3A%2F%2Fimg02.tooopen.com%2Fdowns%2Fimages%2F2010%2F9%2F5%2Fsy_20100905190851289019.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043894646&di=7804174a5b070381dcc8bae698e118b7&imgtype=0&src=http%3A%2F%2Fimg02.tooopen.com%2Fdowns%2Fimages%2F2010%2F9%2F5%2Fsy_20100905190851289019.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1562033781&di=475c76854c74c618648a0715d051a288&src=http://img3.redocn.com/tupian/20141105/shengdanjiejinsewujiaoxingsucai_3390853.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1562033781&di=475c76854c74c618648a0715d051a288&src=http://img3.redocn.com/tupian/20141105/shengdanjiejinsewujiaoxingsucai_3390853.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2467331667,1281901889&fm=26&gp=0.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2467331667,1281901889&fm=26&gp=0.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3620291636,167879879&fm=26&gp=0.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3620291636,167879879&fm=26&gp=0.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167391933,2819253739&fm=26&gp=0.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167391933,2819253739&fm=26&gp=0.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043181207&di=76d1ddc439cc89184b7178991ec90beb&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190623%2F6c0b9112dc8b497ba87097e24b56de2c.jpeg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043181207&di=76d1ddc439cc89184b7178991ec90beb&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190623%2F6c0b9112dc8b497ba87097e24b56de2c.jpeg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1562033781&di=daf89091360b5a85e4ad05f6270e8919&src=http://pic.58pic.com/58pic/15/31/45/78358PIC9BZ_1024.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1562033781&di=daf89091360b5a85e4ad05f6270e8919&src=http://pic.58pic.com/58pic/15/31/45/78358PIC9BZ_1024.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3158854118,3975222720&fm=26&gp=0.jpg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3158854118,3975222720&fm=26&gp=0.jpg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043417202&di=f866eeb1822924b293fe9527d3e2509c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F22%2F20120522233128_fJz3U.jpeg"
+          />
+          <div class="img-ref">
+            <img
+              src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562043417202&di=f866eeb1822924b293fe9527d3e2509c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F22%2F20120522233128_fJz3U.jpeg"
+            />
+          </div>
+        </div>
+        <div class="img-holder">
+          <img
+            src="https://t7.baidu.com/it/u=319596051,1759430984&fm=191&app=48&size=h300&n=0&g=4n&f=JPEG?sec=1853310920&t=1e50870f217f19514ffa1424d276437b"
+          />
+          <div class="img-ref">
+            <img
+              src="https://t7.baidu.com/it/u=319596051,1759430984&fm=191&app=48&size=h300&n=0&g=4n&f=JPEG?sec=1853310920&t=1e50870f217f19514ffa1424d276437b"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="controller">
+        Go to:
+        <input type="text" class="" />
+      </div>
+      <div class="scrolller-container">
+        <div class="scroller"></div>
+      </div>
+    </div>
+    <div id="app">
+      <content>
+        <div class="o_container">
+          <div class="o_img">
+            <img src="./image/1th.jpeg" class="t_img1" />
+          </div>
+          <ul class="info">
+            <li>
+              <a href="https://s2265681.github.io/" target="_blank">
+                <img
+                  src="http://img-home.7yue.pro/images/index/封面5.png"
+                  class="o_img"
+                />
+                <span class="li_title">
+                  <img src="./image/icon.png" class="github" />
+                  {{$t('personalblog')}}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://blog.csdn.net/weixin_44160385" target="_blank">
+                <img
+                  src="http://img-home.7yue.pro/images/index/封面6.png"
+                  class="o_img"
+                />
+                <span class="li_title">
+                  <img
+                    src="http://img4.imgtn.bdimg.com/it/u=3783135555,2666644865&fm=26&gp=0.jpg"
+                    class="bk"
+                  />
+                  <span>{{$t('csdnblog')}}</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/s2265681" target="_blank">
+                <img
+                  src="http://img-home.7yue.pro/images/index/封面7.png"
+                  class="o_img"
+                />
+                <span class="li_title">
+                  <img
+                    src="http://img1.imgtn.bdimg.com/it/u=2751569205,4199288630&fm=26&gp=0.jpg"
+                    class="github"
+                  />
+                  <span>Github</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="o_container">
+          <div class="o_img">
+            <img src="./image/2th.jpeg" class="t_img1" />
+          </div>
+          <ul class="info">
+            <li>
+              <img
+                src="http://img-home.7yue.pro/images/index/封面1.png"
+                class="o_img"
+              />
+              <img src="./image/xcx.jpg" class="img_xcx" />
+              <span class="li_title">
+                {{$t('applet')}}
+              </span>
+            </li>
+            <li>
+              <a href="http://project.rockshang.cn/items/#/" target="_blank">
+                <img
+                  src="http://img-home.7yue.pro/images/index/封面2.png"
+                  class="o_img"
+                />
+                <span class="li_title">
+                  {{$t('project')}}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.npmjs.com/package/rockui" target="_blank">
+                <img
+                  src="http://img-home.7yue.pro/images/index/封面3.png"
+                  class="o_img"
+                />
+                <span class="li_title">
+                  {{$t('rockUi')}}
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </content>
+      <footer>
+        <div class="t_container">
+          <img src="./image/wx.jpg" class="wx" />
+          <span>{{$t('followme')}}</span>
+        </div>
+        <div class="message_container">
+          <!-- <img src="./image/leavemsg.png" /> -->
+          <div class="message">
+            <div class="msg_title">{{$t('messageBoard')}}</div>
+
+            <el-row :gutter="10" class="msg_block">
+              <el-col
+                :xs="8"
+                :sm="8"
+                :md="8"
+                :lg="8"
+                :xl="8"
+                class="ereycol"
+                v-for="item in dataSource"
+                :key="item.message"
+              >
+                <div class="userinfo">
+                  <img :src="item.avatar_url" class="userImg" :key="item.id" />
+                  <span class="username">{{item.username}}</span>
+                </div>
+                <div class="msg_content">
+                  {{item.message}}
+                </div>
+              </el-col>
+            </el-row>
+
+            <div class="more" v-if="ismore&&!extend" @click="getMore">
+              <span>{{$t('checkmore')}}></span>
+            </div>
+            <div class="more" v-if="extend" @click="hiderMore">
+              <span>{{$t('packup')}}></span>
+            </div>
+          </div>
+          <div class="inputMsg">
+            <span class="title">{{$t('writeMessage')}}</span>
+            <el-input
+              type="textarea"
+              :rows="5"
+              :placeholder="$t('sayme')"
+              v-model="form.message"
+            >
+            </el-input>
+            <span class="tip">
+              {{$t("tip")}}
+            </span>
+            <div class="finish" @click="submit">{{$t('done')}}</div>
+          </div>
+        </div>
+        <div class="b_container">
+          <span>Copyright © 2019-2020 {{$t("name")}} <a href="http://www.beian.miit.gov.cn/" target="_blank">浙ICP备19021909号</a></span>
+        </div>
+      </footer>
+      <!-- 提交表单 -->
+      <el-dialog
+        :title="formType===1?'注册':'登录'"
+        :visible.sync="dialogFormVisible"
+      >
+        <el-form :model="modelForm" ref="modelForm">
+          <el-form-item
+            label="用户名"
+            :label-width="formLabelWidth"
+            prop="username"
+            :rules="[
+                  { required: true, message: '用户名不能为空'}
+                ]"
+          >
+            <el-input
+              v-model="modelForm.username"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="密码"
+            :label-width="formLabelWidth"
+            prop="password"
+            :rules="[
+                  { required: true, message: '密码不能为空'}
+                ]"
+          >
+            <el-input
+              v-model="modelForm.password"
+              type="password"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            v-if="formType===1"
+            label="联系方式"
+            :label-width="formLabelWidth"
+            prop="phone"
+            :rules="[
+                 { required: true, message: '联系方式不能为空'}
+               ]"
+          >
+            <el-input v-model="modelForm.phone" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item
+            v-if="formType===1"
+            label="邀请码"
+            :label-width="formLabelWidth"
+            prop="code"
+            :rules="[
+               { required: true, message: '邀请码不能为空'}
+             ]"
+          >
+            <el-input
+              v-model="modelForm.code"
+              style="width: 200px;"
+              autocomplete="off"
+            ></el-input>
+            <el-button @click="sendCode" :disabled="disabled"
+              >{{btnTitle}}</el-button
+            >
+          </el-form-item>
+
+          <el-form-item
+            v-if="formType!==1"
+            label="验证码"
+            :label-width="formLabelWidth"
+            prop="captcha"
+            :rules="[
+           { required: true, message: '图形验证码不能为空'}
+         ]"
+          >
+            <el-input
+              v-model="modelForm.captcha"
+              style="width: 200px;"
+              autocomplete="off"
+              class="captalInput"
+            ></el-input>
+            <img :src="captchaUrl" @click="changeCaptcha" class="captcha" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="cancleModel">取 消</el-button>
+          <el-button type="primary" @click="submitInfo">确 定</el-button>
+        </div>
+      </el-dialog>
+      <!-- 回到顶部 -->
+      <div
+        class="page-component-up"
+        v-if="_header.scrollTop>=200"
+        @click="_header.goTop"
+      >
+        <i class="el-icon-caret-top" :style="{color:_header.color}"></i>
+      </div>
+    </div>
+  </body>
+  <script src="./js/jquery.js"></script>
+  <script src="./js/TweenMax.min.js"></script>
+  <script src="js/Draggable.min.js"></script>
+  <script src="./js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- axios -->
+  <script type="module">
+    import Util from "./utils/index.js";
+    axios.defaults.baseURL = Util.url;
+    axios.defaults.withCredentials = true;
+    // 请求拦截
+    axios.interceptors.request.use(
+      function(config) {
+        // 这里的config包含每次请求的内容
+        const token = JSON.parse(localStorage.getItem("islogin"));
+        if (token) {
+          config.headers.Authorization = "Bearer " + `${token}`;
+        } else if (config.status === 401) {
+          _app.$message({
+            message: "未授权，请重新登录",
+            type: "error"
+          });
+          localStorage.setItem("islogin", null);
+        }
+        return config;
+      },
+      function(error) {
+        return Promise.reject(error);
+      }
+    );
+
+    axios.interceptors.response.use(
+      response => response.data,
+      error => {
+        // 这里对 error 预期结果是包含具体错误信息和状态码
+        if (error && error.response && error.response.status) {
+          switch (error.response.status) {
+            case 500:
+              if (error.response.data.code === 0) {
+                _app.$message({
+                  message: error.response.data.message,
+                  type: "error"
+                });
+              }
+              // do something...
+              break;
+            case 404:
+              // do something...
+              break;
+            default:
+              // do something...
+              break;
+          }
+        }
+      }
+    );
+  </script>
+  <script src="//unpkg.com/vue-i18n/dist/vue-i18n.js"></script>
+  <script>
+    // 中英切换
+    var i18n = new VueI18n({
+      locale:
+        window.localStorage.getItem("user_lang") == null
+          ? "zh"
+          : window.localStorage.getItem("user_lang"), // 语言标识
+      // locale:"zh",
+      messages: {
+        zh: {
+          welcome: "欢迎来到我的网页",
+          login: "登录",
+          register: "注册",
+          logout: "注销",
+          followme: "快扫码关注我们",
+          messageBoard: "留言板",
+          checkmore: "查看更多留言",
+          packup: "收起",
+          writeMessage: "写新留言",
+          sayme: "有什么想对我说的，畅所欲言吧！",
+          tip:
+            "留言会公开显示，请勿在留言下面写微信号等私人联系方式，谨防诈骗。如果你不想发布公开留言，也可发送邮件到s2265681@163.com与我联系",
+          done: "完成",
+          name: "微风不噪",
+          personalblog: "个人技术博客",
+          csdnblog: "CSDN博客",
+          applet: "旧岛小程序(扫我关注)",
+          project: "项目集",
+          rockUi: "RockUI"
+        },
+        en: {
+          welcome: "Welcome to my page",
+          login: "login",
+          register: "register",
+          logout: "logout",
+          followme: "follow me",
+          messageBoard: "message board",
+          checkmore: "checkmore",
+          packup: "packup",
+          writeMessage: "writeMessage",
+          sayme: "Welcome! Pls leave any words you want to say.",
+          tip:
+            "The message will be displayed publicly. Please do not write WeChat ID or other personal contact information below the message to prevent fraud. If you do not want to post a public message, you can also send an email to s2265681@163.com to contact me",
+          done: "done",
+          name: "rockshang",
+          personalblog: "Personal technology blog",
+          csdnblog: "CSDN Blog",
+          applet: "applet(sweep me)",
+          project: "project",
+          rockUi: "blogErp"
+        }
+      }
+    });
+  </script>
+  <script type="module">
+    const header = new Vue({
+      el: "#header",
+      i18n,
+      data() {
+        return {
+          sendValue: "",
+          isLogin: JSON.parse(localStorage.getItem("islogin")) || 0,
+          color: "rgba(248, 234, 209, 0.8)",
+          modeImg: "./image/color.jpg",
+          mode: JSON.parse(localStorage.getItem("mode")) || 0,
+          scrollTop: 0, //监听浏览器的高度
+          options: [
+            {
+              value: "zh",
+              label: "中文"
+            },
+            {
+              value: "en",
+              label: "英文"
+            }
+          ],
+          value:
+            window.localStorage.getItem("user_lang") == null
+              ? "zh"
+              : window.localStorage.getItem("user_lang")
+        };
+      },
+      created() {
+        const github = this.decode("github");
+        const islogin = JSON.parse(localStorage.getItem("islogin"));
+        window.localStorage.setItem("user_lang", "zh");
+        if (github && !islogin) this.githublogin();
+        const mode = JSON.parse(localStorage.getItem("mode"));
+        if (!mode) {
+          // 0
+          let modeDeadColor = "rgba(0,0,0,0.3)";
+          document.querySelector("HTML").style.background = modeDeadColor;
+          document.querySelector(
+            ".message_container"
+          ).style.background = modeDeadColor;
+          document.querySelector(
+            ".t_container"
+          ).style.background = modeDeadColor;
+          document.querySelector(".finish").style.background = modeDeadColor;
+          this.modeImg = "./image/light.jpg";
+        } else {
+          this.changeColor();
+        }
+      },
+      mounted() {
+        window.addEventListener("scroll", this.handleScroll);
+      },
+      destroyed() {
+        document.removeEventListener("scroll", this.handleScroll);
+      },
+      methods: {
+        decode(name) {
+          if (!name) return;
+          return (
+            decodeURIComponent(
+              (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
+                location.href
+              ) || [, ""])[1].replace(/\+/g, "%20")
+            ) || null
+          );
+        },
+        changeLang(lang) {
+          // 切换语言
+          this.$i18n.locale = lang;
+          this.value = lang;
+          window.localStorage.setItem("user_lang", lang);
+        },
+        goTop() {
+          // 滚到开头
+          window.pageYOffset = 0;
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        },
+        handleScroll() {
+          //获取滚动时的高度
+          this.scrollTop =
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop;
+        },
+        changeColor: function(e) {
+          let mycolor = e || "rgba(248, 234, 209, 0.8)";
+          document.querySelector("HTML").style.background = mycolor;
+          document.querySelector(
+            ".message_container"
+          ).style.background = mycolor;
+          document.querySelector(".t_container").style.background = mycolor;
+        },
+        changeMode() {
+          const mode = JSON.parse(localStorage.getItem("mode"));
+          let modeDeadColor = "rgba(0,0,0,0.3)";
+          let modeBrightColor = "#fff";
+          if (!mode) {
+            // 0
+            localStorage.setItem("mode", 1);
+            document.querySelector("HTML").style.background = modeDeadColor;
+            document.querySelector(
+              ".message_container"
+            ).style.background = modeDeadColor;
+            document.querySelector(
+              ".t_container"
+            ).style.background = modeDeadColor;
+            document.querySelector(".finish").style.background = modeDeadColor;
+            this.modeImg = "./image/light.jpg";
+          } else {
+            // 1 light
+            localStorage.setItem("mode", 0);
+            document.querySelector("HTML").style.background = modeBrightColor;
+            document.querySelector(
+              ".message_container"
+            ).style.background = modeBrightColor;
+            document.querySelector(
+              ".t_container"
+            ).style.background = modeBrightColor;
+            document.querySelector(".finish").style.background = "#ececec";
+            this.modeImg = "./image/color.jpg";
+          }
+        },
+        Logout() {
+          localStorage.setItem("islogin", null);
+          this.isLogin = false;
+          window.location.replace(window.location.origin);
+          localStorage.setItem("userInfo", null);
+          this.$message({
+            message: "注销成功",
+            type: "success"
+          });
+        },
+        // github 登录
+        githublogin() {
+          const token = this.decode("token");
+          const username = this.decode("username");
+          const avatar_url = this.decode("avatar_url");
+          if (!token) {
+            setTimeout(
+              this.$message({
+                message: "正在登录，请稍后",
+                type: "success"
+              }),
+              3000
+            );
+          }
+          if (token && !this.isLogin) {
+            this.$message({
+              message: "恭喜你，登录成功",
+              type: "success"
+            });
+            this.isLogin = true;
+            const data = { token, avatar_url, username };
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            localStorage.setItem("islogin", JSON.stringify(token));
+          }
+        }
+      }
+    });
+    window._header = header;
+  </script>
+  <script type="module">
+    import Util from "./utils/index.js";
+    const app = new Vue({
+      el: "#app",
+      i18n,
+      data() {
+        return {
+          isLogin: JSON.parse(localStorage.getItem("islogin")) || 0,
+          form: {
+            message: "",
+            username: "",
+            avatar_url:
+              "http://pic.51yuansu.com/pic3/cover/02/63/69/59fc9e8a7a49e_610.jpg"
+          },
+          modelForm: {
+            username: "",
+            password: "",
+            phone: "",
+            code: "",
+            captcha: ""
+          },
+          formType: 1, // 1注册or2登录
+          formLabelWidth: "120px",
+          dialogFormVisible: false,
+          dataSource: [],
+          ismore: false,
+          extend: false,
+          githublogin: false,
+          captchaUrl: "",
+          btnTitle: "获取验证码",
+          disabled: false
+        };
+      },
+      created() {
+        // const github = this.decode("github");
+        // const islogin = JSON.parse(localStorage.getItem("islogin"));
+        // if (github && !islogin) this.githubLogin(github);
+      },
+      // 监听
+      watch: {
+        // 如果 question 发生改变，这个函数就会运行
+        dataSource: function(newdataSource) {
+          if (this.extend) return;
+          if (newdataSource.length > 6) {
+            this.ismore = true;
+            this.dataSource.length = 6;
+          }
+        }
+      },
+      mounted: function() {
+        this.getMsg();
+        this.changeCaptcha();
+      },
+      methods: {
+        submit() {
+          if (!this.form.message) return;
+          if (!this.isLogin) {
+            _header.goTop();
+            this.$message({
+              message: "请先登录！",
+              type: "error"
+            });
+            return;
+          }
+          this.postMsg();
+        },
+        getMsg: async function() {
+          let res = await axios.get("/message");
+          this.dataSource = res.list;
+        },
+        // 新增
+        postMsg: async function() {
+          this.form.username =
+            JSON.parse(localStorage.getItem("userInfo")) &&
+            JSON.parse(localStorage.getItem("userInfo")).username;
+          this.form.avatar_url =
+            (JSON.parse(localStorage.getItem("userInfo")) &&
+              JSON.parse(localStorage.getItem("userInfo")).avatar_url) ||
+            this.form.avatar_url;
+          let res = await axios.post("/message", this.form);
+          if (res.code === 1) {
+            // this.dataSource.unshift({message:this.form.message,username:'scygc2015'})
+            this.$message({
+              message: "恭喜你，提交成功",
+              type: "success"
+            });
+            this.getMsg();
+            this.form.message = "";
+          } else {
+            this.$message({
+              message: "提交失败！",
+              type: "error"
+            });
+          }
+        },
+        getMore() {
+          this.ismore = true;
+          this.extend = true;
+          this.getMsg();
+        },
+        hiderMore() {
+          this.dataSource.length = 6;
+          this.ismore = true;
+          this.extend = false;
+        },
+        cancleModel() {
+          this.dialogFormVisible = false;
+          this.$refs["modelForm"].resetFields();
+          this.clearInter(); // 清楚定时器
+        },
+        // 切换图形验证码
+        changeCaptcha() {
+          this.captchaUrl = Util.url + "/captcha?r=" + Date.now();
+        },
+
+        // 注册或者登录
+        submitInfo() {
+          this.$refs["modelForm"].validate(async valid => {
+            if (valid) {
+              if (this.formType === 1) this.register();
+              if (this.formType === 2) this.login();
+            } else {
+              return false;
+            }
+          });
+        },
+        // 注册
+        register: async function() {
+          let res = await axios.post("/register", this.modelForm);
+          if (res.code === 1) {
+            this.$message({
+              message: "恭喜你，注册成功",
+              type: "success"
+            });
+          } else {
+            this.$message({
+              message: "注册失败！",
+              type: "error"
+            });
+          }
+          this.cancleModel();
+        },
+        // 登录
+        login: async function() {
+          let res = await axios.post("/login", this.modelForm);
+          if (res.code === 1) {
+            this.$message({
+              message: "恭喜你，登录成功",
+              type: "success"
+            });
+            this.cancleModel();
+            localStorage.setItem("islogin", JSON.stringify(res.token));
+            localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
+            this.isLogin = JSON.stringify(res.token);
+            _header.isLogin = true;
+          } else {
+            this.$message({
+              message: "登录失败！",
+              type: "error"
+            });
+            this.cancleModel();
+          }
+        },
+        //倒计时
+        validateBtn() {
+          let time = 60;
+          this.timer = setInterval(() => {
+            if (time == 0) {
+              clearInterval(this.timer);
+              this.disabled = false;
+              this.btnTitle = "获取验证码";
+            } else {
+              this.btnTitle = time + "秒后重试";
+              this.disabled = true;
+              time--;
+            }
+          }, 1000);
+        },
+        // 清楚计时器
+        clearInter() {
+          clearInterval(this.timer);
+          this.btnTitle = "获取验证码";
+          this.disabled = false;
+        },
+        // 发送短信验证码
+        sendCode: async function() {
+          const code = this.modelForm.code;
+          this.$refs.modelForm.validateField("phone");
+          const phone = this.modelForm.phone;
+          if (!phone) {
+            return;
+          }
+          if (!/^1[345678]\d{9}$/.test(phone)) {
+            this.$message({
+              message: "请输入正确的手机号",
+              type: "error"
+            });
+            return;
+          }
+          this.validateBtn();
+          axios.get("/sms?to=" + phone).then(res => {
+            if (res.ok) {
+              this.$message({
+                message: "发送成功，请注意查收",
+                type: "success"
+              });
+            }
+          });
+        }
+      }
+    });
+
+    // 登录按钮
+    const login = document.querySelector(".login");
+    const reg = document.querySelector(".reg");
+    // const githublogin = document.querySelector(".githublogin");
+
+    login.addEventListener("click", function() {
+      app.formType = 2;
+      app.dialogFormVisible = true;
+    });
+
+    reg.addEventListener("click", function() {
+      app.dialogFormVisible = true;
+      app.formType = 1;
+    });
+
+    // github登录
+    // githublogin.addEventListener("click", async function() {
+    //   setTimeout(
+    //     app.$message({
+    //       message: "正在登录，请稍后",
+    //       type: "success"
+    //     }),
+    //     3000
+    //   );
+    // });
+
+    // window.onload = function() {
+    //   const islogin = JSON.parse(localStorage.getItem("islogin"));
+    //   // isMode(false)
+    //   if (islogin) {
+    //     login.innerHTML = _header.$t('logout')
+    //     reg.style.display = "none";
+    //     githublogin.style.display = "none";
+    //   } else {
+    //     login.innerHTML = _header.$t('login')
+    //     reg.style.display = "block";
+    //     githublogin.style.display = "block";
+    //   }
+    // };
+    window._app = app;
+  </script>
+  <!-- 鼠标点击 -->
+  <script>
+    /* 鼠标特效 */
+    var a_idx = 0;
+    jQuery(document).ready(function($) {
+      $("body").click(function(e) {
+        var a = new Array(
+          "❤记得好评哦❤",
+          "❤记得打赏哦❤",
+          "❤记得关注哦❤",
+          "❤赞一个❤"
+        );
+        var $i = $("<span></span>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+          y = e.pageY;
+        $i.css({
+          "z-index": 99,
+          top: y - 20,
+          left: x,
+          position: "absolute",
+          "font-weight": "bold",
+          color:
+            "rgb(" +
+            ~~(255 * Math.random()) +
+            "," +
+            ~~(255 * Math.random()) +
+            "," +
+            ~~(255 * Math.random()) +
+            ")"
+        });
+        $("body").append($i);
+        $i.animate(
+          {
+            top: y - 180,
+            opacity: 0
+          },
+          1500,
+          function() {
+            $i.remove();
+          }
+        );
+      });
+    });
+  </script>
+  <!-- 发送弹幕 -->
+  <script>
+    var sShowList = document.querySelectorAll(".oshow div"), // 获取所有html元素
+      oShow = document.querySelector(".oshow"),
+      oBanner = document.querySelector(".banner"),
+      oSend = document.getElementById("sendTxt");
+    // ,
+    // oBtn = document.querySelector('.sendbtn')
+
+    for (var i = 0; i < sShowList.length; i++) {
+      init(sShowList[i]);
+    }
+
+    function sendbtn() {
+      const newNode = oShow.appendChild(document.createElement("div"));
+      newNode.innerHTML = _header.sendValue;
+      newNode.className = "animateTion";
+      init(newNode);
+    }
+
+    function init(obj) {
+      var screenHeight = document.documentElement.clientHeight,
+        screenWidth = document.documentElement.clientWidth,
+        sendHeight = oBanner.clientHeight,
+        maxLeft = screenWidth - obj.clientWidth,
+        maxTop = sendHeight - obj.clientHeight;
+      //  obj.style.left =  Math.random()*10 + maxLeft + 'px';
+      obj.style.left = 1440 + obj.clientWidth + "px";
+      obj.style.top = Math.random() * maxTop + "px";
+      obj.style.color = changeColor();
+      move(obj, maxLeft);
+    }
+
+    function move(obj, maxLeft) {
+      obj.style.left = maxLeft + "px";
+      maxLeft -= 4;
+      if (maxLeft >= -obj.clientWidth) {
+        requestAnimationFrame(function() {
+          move(obj, maxLeft);
+        });
+      } else {
+        oShow.removeChild(obj);
+      }
+    }
+
+    function changeColor() {
+      return (
+        "#" +
+        Math.random()
+          .toString(16)
+          .slice(-6)
+      );
+    }
+  </script>
+</html>

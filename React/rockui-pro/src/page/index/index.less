@@ -1,0 +1,38 @@
+.text_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 111;
+    font-size: 26px;
+    color: #fff;
+    font-weight: 600;
+    animation: changeTxt 2s ease 3s 1 forwards;
+    opacity: 0;
+}
+
+.into_text_color{
+    transition: color 2s;
+    color: bisque !important;
+}
+
+@keyframes changeTxt{
+    0%{ 
+        opacity: 0;
+        transform: skewX(100deg);
+    }
+    100%{
+        opacity: 1;
+        transform: skewX(0deg);
+    }
+    
+}
+
+
+
+.into_text_color{
+    color: #fff;
+}

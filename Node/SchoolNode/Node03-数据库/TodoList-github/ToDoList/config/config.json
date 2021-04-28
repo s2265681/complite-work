@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "shang5036",
+    "database": "todolist",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "shang5036",
+    "database": "todolist",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "shang5036",
+    "database": "todolist",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

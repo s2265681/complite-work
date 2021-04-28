@@ -1,0 +1,22 @@
+<view class='container'>
+  <view class='header'>
+    <epsoide_rock index="{{classicData.index}}" class="epsoide"></epsoide_rock>
+    <view class="like-container">
+      <like_rock class="like" like="{{likeStatus}}" bind:like="onLike" count="{{likeCount}}">
+      </like_rock>
+      <rock-img-btn class="share-btn" open-type="share">
+        <image slot="img" class="share" src="/images/icon/share.png"></image>
+      </rock-img-btn>
+    </view>
+  </view>
+
+  <movie_rock hidden="{{classicData.type!==100}}" img="{{classicData.image}}" content="{{classicData.content}}"></movie_rock>
+
+  <essay_rock hidden="{{classicData.type!==300}}" img="{{classicData.image}}" content="{{classicData.content}}"></essay_rock>
+
+
+  <music_rock wx:if="{{classicData.type==200}}" src="{{classicData.url}}" img="{{classicData.image}}" content="{{classicData.content}}"></music_rock>
+
+
+  <navi_rock title="{{classicData.title}}" bind:left="onNext" bind:right="onPrevious" latest="{{latest}}" first="{{first}}" class="navi"></navi_rock>
+</view>

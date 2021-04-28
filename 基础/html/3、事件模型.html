@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: #ff0;
+    }
+  </style>
+  <body>
+    <input type="text" id="my-input" />
+  </body>
+  <script>
+    var input = document.getElementById("my-input");
+    input.addEventListener("keypress", checkName, false);
+    function checkName(e) {
+      if (e.charCode < 97 || e.charCode > 122) {
+        e.preventDefault();
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let arr = [1,2,3,4,5]
+    let arr1 = arr.forEach(function(item,index,arr){
+        console.log(item,index,arr);
+        return item + 1
+    })
+    console.log(arr1,'arr1');
+    console.log(arr,'arr');
+    // 通过map返回的数组和原数组没有引用关系
+    // map返回的数组的长度 一定
+    // forEach 不能是返回新数 组，只能在原有基础上修改数组
+    // flatMap  如果返回二维数组可以直接扁平化成一维数组
+    // reduce  （ 第一项后后面的和， item , 索引， array）=》 初始化值
+
+</script>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "spider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.0",
+    "cheerio": "^0.19.0",
+    "eventproxy": "^0.3.4",
+    "superagent": "^1.4.0",
+    "iconv":"^2.2.1",
+    "mongodb":"^"
+
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index",
+    "start": "node server.js"
+  }
+}

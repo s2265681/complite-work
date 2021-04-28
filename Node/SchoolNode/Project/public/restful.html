@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>restful</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div style="display:flex;flex-direction:column">
+        <el-input
+          v-model="form.name"
+          placeholder="姓名"
+          autocomplete="off"
+        ></el-input>
+        <el-button @click="get">GET</el-button>
+        <el-button @click="post">POST</el-button>
+        <el-button @click="del">DELETE</el-button>
+        <el-button @click="put">PUT</el-button>
+        <el-button @click="logs=[]">clearLog</el-button>
+      </div>
+      <!--日志-->
+      <ul>
+        <li v-for="(log,idx) in logs" :key="idx">
+          {{ log }}
+        </li>
+      </ul>
+    </div>
+    <script>
+      axios.defaults.baseURL = "http://localhost:3001/api";
+      axios.interceptors.response.use(
+        response => {
+          app.logs.push(JSON.stringify(response.data));
+          return response;
+        },
+        err => {
+          app.log.push(JSON.stringify(response.data));
+          return Promise.reject(err);
+        }
+      );
+    </script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          form: {
+            name: ""
+          },
+          logs: []
+        },
+        created() {},
+        methods: {
+          async post() {
+            let res = await axios.post("/member", this.form);
+          },
+          get: async function() {
+            let res = await axios.get("/member?name=" + this.form.name);
+          },
+          async put() {
+            await axios.put("/member/2", this.form);
+          },
+          async del() {
+            let res = await axios.delete("/member/" + this.form.name);
+          }
+        },
+        mounted: function() {}
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>to do list- vue+express</title>
+    <!-- 引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+</head>
+<body>
+    <div id="app">
+        <input v-model="name"><button @click="add">增加</button>
+        <table>
+            <th>
+                <td>id</td>
+                <td>name</td>
+                <td>stock</td>
+            </th>
+            <tr v-for="item in list" >
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.stock}}</td>
+                <td>修改</td>
+                <td  v-on:click="delete1(item.id)">删除</td>
+            </tr>
+        </table>
+        <!--分页-->
+        <div class="page-bar">
+                <ul>
+                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                <li v-if="cur==1"><a class="banclick">上一页</a></li>
+            <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}"> 
+                <a v-on:click="btnClick(index)">{{ index }}</a>
+                </li>
+                <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                <li><a>共<i>{{all}}</i>页</a></li>
+            </ul>
+        </div>
+    </div>
+   <script>
+      const host = "http://localhost:3009"
+
+      const app = new Vue({
+          el:'#app',
+          data:{
+              list:[],
+              name:'',
+              message:"Hello Vue!",
+
+              all: 10, //总页数
+              cur: 1,//当前页码
+              totalPage: 10,//当前条数
+            
+          },
+          computed: {
+                //分页
+                indexs: function(){
+                var left = 1;
+                var right = this.all;
+                var ar = [];
+                if(this.all>= 5){
+                if(this.cur > 3 && this.cur < this.all-2){
+                left = this.cur - 2
+                right = this.cur + 2
+                }else{
+                if(this.cur<=3){
+                left = 1
+                right = 5
+                }else{
+                right = this.all
+                left = this.all -4
+                }
+                }
+                }
+                while (left <= right){
+                ar.push(left)
+                left ++
+                }
+                return ar
+                }
+                },
+          created(){
+            this.getList()
+          },
+          methods:{
+              pageClick(){
+                 this.getList()
+              },
+              //分页
+                btnClick: function(data){//页码点击事件
+                if(data != this.cur){
+                this.cur = data
+                }
+                //根据点击页数请求数据
+                this.getList()
+                },
+                pageClick: function(){
+                //根据点击页数请求数据
+                this.getList()
+                },
+              getList:async function (){
+                  let res =await axios.get(host+'/list?currendIndex='+this.cur+'&&totlePage='+this.totalPage)
+                  console.log(res,'res')
+                  this.list =res.data.data
+                  this.all=res.data.allCount
+              },
+              add:async function (){
+                  let res =await axios.post(host+'/list',{name:this.name,price:12})
+                 if(res.data.code){
+                    this.getList()
+                    this.name=''
+                 }
+              },
+              delete1:async function(e){
+                 let res =await axios.delete(host+'/list/'+e)
+                 console.log(res.data.code,'res')
+                 if(res.data.code){
+                     this.getList()
+                 }
+
+              }
+          },
+          mounted:function(){
+          } 
+      })
+
+   </script>
+    <style>
+        /*分页*/
+        .page-bar{
+        margin:40px auto;
+        margin-top: 150px;
+
+        }
+        ul,li{
+        margin: 0px;
+        padding: 0px;
+        }
+        li{
+        list-style: none
+        }
+        .page-bar li:first-child>a {
+        margin-left: 0px
+        }
+        .page-bar a{
+        border: 1px solid #ddd;
+        text-decoration: none;
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #5D6062;
+        cursor: pointer;
+        margin-right: 20px;
+        }
+        .page-bar a:hover{
+        background-color: #eee;
+        }
+        .page-bar a.banclick{
+        cursor:not-allowed;
+        }
+        .page-bar .active a{
+        color: #fff;
+        cursor: default;
+        background-color: #E96463;
+        border-color: #E96463;
+        }
+        .page-bar i{
+        font-style:normal;
+        color: #d44950;
+        margin: 0px 4px;
+        font-size: 12px;
+        }
+
+ 
+    </style>
+</body>
+</html>

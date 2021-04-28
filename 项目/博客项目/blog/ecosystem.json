@@ -1,0 +1,28 @@
+{
+    "apps:":[
+      {
+          "name":"blog_h5",
+          "script":"app.js",
+          "env":{
+              "COMMON_VARIABLE":"true"
+          },
+          "env_production":{
+              "NODE_ENV":"production"
+          }
+      }
+    ],
+    "deploy":{
+        "production": {
+            "user":"root",
+            "host":["39.96.71.193"],
+            "port":"22",
+            "ref":"orign/master",
+            "repo":"git@gitee.com:rock_shang/blog.git",
+            "path":"/home/rock/www/website/blog_h5",
+            "ssh_options":"StrictHostKeyChecking=no",
+            "env":{
+                "NODE_ENV": "production"
+            }
+        }
+    }
+}

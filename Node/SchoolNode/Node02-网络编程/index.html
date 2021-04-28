@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    2212
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+   (async ()=>{
+    axios.defaults.baseURL = "http://localhost:3003"
+    axios.default.withCredentials = true
+     const res = await axios.get('/users',{
+         headers:{
+             'X-Token':'jijie'
+         }
+     })
+     console.log('data',res.data)
+   })()
+</script>
+<!-- 
+     使用jsonP解决跨域的方案
+<script type="text/javascript">
+    function callbackFunction(result, methodName)
+    {
+        console.log(result,'result///')
+    }
+    </script>
+    <script type="text/javascript" src="www.localhost:3003/users?jsoncallback=callbackFunction"></script> -->
+
+</html>
+

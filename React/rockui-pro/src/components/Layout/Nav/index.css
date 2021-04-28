@@ -1,0 +1,16 @@
+
+.header{
+    height: 60px;
+    line-height: 60px;
+    /* background-color: #f00; */
+    border-bottom: #eee 1px solid;
+    padding: 0 20px;
+}
+
+.nav{
+    float: right;
+}
+
+.nav a{
+    margin-right: 20px;
+}

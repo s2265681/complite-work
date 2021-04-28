@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>单例设计模式</title>
+  </head>
+  <body>
+    <div>
+      <button id="loginBtn">登陆</button>
+      <button id="clearloginBtn">注销</button>
+    </div>
+    <!-- 解决的问题 减少实例重复实例化的问题 -->
+    <script>
+      const Model3 = function (money) {
+        return money * 3;
+      };
+      const ModelY = function (money) {
+        return money * 4;
+      };
+      const getModelMoney = function (fn, money) {
+        return fn(money);
+      };
+     console.log( getModelMoney(Model3, 1000));
+
+      console.log(getModelMoney(ModelY, 1000)); // 4000
+    </script>
+  </body>
+</html>

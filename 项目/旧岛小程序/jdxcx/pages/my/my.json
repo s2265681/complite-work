@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "rock-tag": "/components/tag/index",
+    "rock-img-btn":"/components/image-button/index",
+    "previe-cmp":"/components/preview/index"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .parent {
+      width: 100%;
+      height: 400px;
+      background-color: orange;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .parent div {
+      height: 200px;
+      /* margin: 10px; */
+    }
+
+    .one {
+      background-color: #f00;
+      flex: none;
+      flex-basis: 200px;
+    }
+
+    .two {
+      /* flex: 1 1 auto; */
+      flex: auto;
+      background-color: #f0f;
+    }
+
+    .three {
+      flex-shrink: 1;
+    }
+
+    .four {
+      flex-shrink: 1;
+
+      /* align-self: flex-end; */
+    }
+  </style>
+  <body>
+    <div class="parent">
+      <div class="one">1</div>
+      <div class="two">2</div>
+      <!-- <div class="three">3</div>
+        <div class="four">4</div> -->
+    </div>
+  </body>
+</html>

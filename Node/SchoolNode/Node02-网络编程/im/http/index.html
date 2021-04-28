@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单的聊天工具 - vue+express</title>
+    <!-- 引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="message">
+        <button v-on:click="send">发送</button>
+        <button v-on:click="clear">清空</button>
+        <div v-for="item in list">{{item}}</div>
+    </div>
+   <script>
+      const host = "http://localhost:3009"
+      const app = new Vue({
+          el:'#app',
+          data:{
+              list:[],
+              message:"Hello Vue!"
+          },
+          methods:{
+              send:async function(){
+                  let res = await axios.post(host+'/send',{
+                      message: this.message
+                  })
+                  this.list = res.data
+              },
+              clear:async function (){
+                  let res =await axios.post(host+'/clear')
+                  this.list = res.data
+              },
+              getList:async function (){
+                  let res =await axios.post(host+'/list')
+                  console.log(res,'res')
+                  this.list = res.data
+              },
+          },
+          mounted:function(){
+            // this.getList()
+            //   console.log(console.log(this.list ,'list//'))
+            //    const res = await axios.get(host + '/list')
+            // //    console.log(res,'res')
+            //    this.list = res.data
+
+              setInterval(async () => {
+                  const res = await axios.get(host + '/list')
+                  this.list = res.data
+              },1000);
+          },
+        
+      })
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    var obj = { a: 1, b: 2 };
+
+    var handle = {
+      set: function (target, key, value) {
+        console.log(target, key, value,"这里设置了属性");
+        target[key] = value;
+      },
+      get: function (target, key) {
+        console.log("这里获取了属性");
+        return target[key];
+      },
+      has: function (target, key) {
+        return key in target;
+      },
+    };
+    var p = new Proxy(obj, handle); // 为obj 设置代理，拦截对obj的操作
+    console.log(p,'p');
+    console.log(obj,'obj');
+    p.a = 20;
+    console.log(p.a);
+    console.log("b" in p);
+  </script>
+</html>

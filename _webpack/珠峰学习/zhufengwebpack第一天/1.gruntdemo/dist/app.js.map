@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/app.js"],"names":["sum","a","b"],"mappings":";;AAAA,IAAIA,GAAG,GAAG,SAANA,GAAM,CAACC,CAAD,EAAGC,CAAH;AAAA,SAAOD,CAAC,GAACC,CAAT;AAAA,CAAV","sourcesContent":["let sum = (a,b)=>a+b;"],"file":"app.js"}

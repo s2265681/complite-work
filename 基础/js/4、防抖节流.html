@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    div {
+      height: 4000px;
+      width: 100%;
+      background-color: #ff0;
+    }
+  </style>
+  <body>
+    <div>1111</div>
+  </body>
+  <script>
+    function scroll() {
+      console.log("scroll");
+    }
+    function debounce(callback, delay = 1000) {
+      let t = null;
+      return function () {
+        clearTimeout(t);
+        t = setTimeout(callback, delay);
+      };
+    }
+
+    function throttl(callback, timer = 2000) {
+      let oldT = new Date();
+      return function () {
+        let newT = new Date();
+        if (newT - oldT > timer) {
+          callback();
+          oldT = newT;
+        }
+      };
+    }
+
+    function throttle2(callback, timer = 2000) {
+      let t = null;
+      return function () {
+        if (!t) {
+         t = setTimeout(() => {
+            callback();
+            t = null;
+          }, timer);
+        }
+      };
+    }
+    window.onscroll = throttle2(scroll);
+  </script>
+</html>

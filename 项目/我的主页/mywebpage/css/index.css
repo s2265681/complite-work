@@ -1,0 +1,344 @@
+
+*{
+    height:'100%';
+    width:'100%';
+    font-family: cursive;
+    padding: 0;
+    margin: 0;
+}
+
+/* 设置鼠标图片样式 */
+* {  
+    cursor: url('../image/curson.gif'), default!important;
+   }
+   
+body{
+    background:#f8f8f8;
+    overflow-x: hidden;
+}
+
+header{
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 30px;
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    padding: 0 25px;
+    position: relative;
+}
+
+
+header .login , header .register, header .exit , header .logout{
+   cursor: pointer;
+   margin-right: 10px;
+}
+
+
+header .left_container .rock_img{
+   width: 100px;
+}
+
+header .right_container{
+    display: flex;
+    min-width: 20%;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 10px;
+}
+
+header .right_container .title{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+}
+
+header .right_container .title .user{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.changeLang .el-select{
+
+    width: 77px;
+    margin-right: 12px;
+    margin-left: 3px;
+}
+
+.changeLang .el-select .el-input__inner{
+    border: none;
+}
+
+.banner{
+    height: 550px;
+    margin-top: 49px;
+    overflow: hidden;
+    width: 100%;
+       position: relative;
+}
+
+.banner .oshow{
+
+   width: 100%;
+}
+
+.banner .oshow .animateTion {
+    width: 250px;
+    position: relative;
+    z-index: 1000;
+    font-size: 25px;
+}
+
+content .o_container {
+    background: #fff;
+    margin: 55px;
+    padding-bottom: 30px;
+    box-shadow: 0 0 30px #eaeaea;
+}
+
+content .o_container .o_img{
+    display: flex;
+    justify-content: center;
+}
+
+content .o_container .t_img1{
+    width: 120px;
+}
+
+.o_container ul.info {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+}
+
+.o_container ul.info li{
+    text-align: center;
+    position: relative;
+}
+
+.o_container ul.info li .img_xcx{
+    height: 180px;
+    position: absolute;
+    top: 50%;
+    margin-top: -100px;
+    left: 50%;
+    margin-left: -90px;
+    border-radius: 50%;
+}
+
+
+.o_container ul.info li .li_title{
+     margin-top: 10px;
+     display: block;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.o_container ul.info li .li_title img.bk{
+    width: 50px;
+    height: 39px;
+}
+.o_container ul.info li .li_title img.github{
+    width: 21px;
+    height: 19px;
+    margin-right:15px;
+}
+
+
+.o_container .info .o_img{
+    width: 270px;
+}
+
+.githublogin{
+    width: 27px;
+    text-align: center;
+    padding-top: 2px;
+    margin-right: 10px;
+}
+
+img.githubImg{
+    width: 17px;
+    height: 17px;
+    margin-top: -3px;
+
+}
+.captalInput{
+    float: left;
+}
+.captcha{
+    width: 150px;
+    height: 50px;
+    position: relative;
+    left: 10px;
+    top: -5px;
+}
+
+footer{
+
+}
+
+footer .t_container{
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    padding: 10px;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer .t_container .wx{
+    width: 180px;
+    margin-bottom: 10px;
+}
+
+/* footer .message_container img{
+   width:100%;
+} */
+footer .message_container {
+    /* height: 700px; */
+    background: #fff;
+    padding: 0px 20%;
+    padding-bottom:1px;
+}
+
+footer .message {
+  
+}
+
+footer .message .msg_title{
+    font-size: 26px;
+    font-family: serif;
+    margin-bottom: 20px;
+}
+
+footer .message .msg_block{
+   /* width: 100%; */
+   /* display: flex; */
+}
+
+footer .message .userImg{
+    width: 33px;
+    border-radius: 50%;
+    margin: 5px;
+ }
+
+ footer .message  .more{
+    text-align: center;
+    color: #000;
+    text-align: center;
+ }
+ footer .message  .more span{
+     cursor: pointer;
+     margin-top: 10px;
+     font-family: serif;
+ }
+
+ footer .inputMsg{
+    margin: 40px 100px;
+ }
+
+ footer .inputMsg .title{
+    font-size: 25px;
+    font-family: serif;
+    margin-bottom: 20px;
+}
+
+footer .inputMsg  .el-textarea__inner{
+    margin: 20px 0;
+    font-size: 21px;
+}
+
+footer .inputMsg .tip{
+    color: #999;
+}
+ 
+ footer .message .msg_block .ereycol{
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 150px;
+ }
+
+footer .message .msg_block .userinfo{
+      display: flex;
+      height: 42px;
+      line-height: 42px;
+      /* background-color: aqua; */
+  }
+
+  footer .message .msg_block .msg_content{
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+
+  footer .inputMsg .finish{
+    font-size: 20px;
+    background: #ececec;
+    color: #fff;
+    width: 80px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 10px 4px;
+    border-radius: 25px;
+  }
+
+footer .b_container{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #aaa;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.page-component-up{
+    background-color: #fff;
+    position: fixed;
+    right: 100px;
+    bottom: 150px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 0 6px rgba(0,0,0,.12);
+    z-index: 5;
+}
+.page-component-up i{ 
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+.mode{
+    width: 40px;
+    text-align: center;
+    padding-top: 2px;
+}
+.color_block{
+    position: relative;
+    top: 7px;
+    left: 2px;
+    margin-right: 2px;
+}
+
+.mode img{
+    width: 20x;
+    height:20px;
+    cursor: pointer;
+}
+
+
+
+
+body,footer .message_container,footer .t_container,content{
+    /* background-color: rgba(0,0,0,0.3) !important; */
+}
+

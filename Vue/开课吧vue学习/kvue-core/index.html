@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 插值绑定 -->
+        <p>{{name}}</p>
+
+        <p>{{age}}</p>
+        <p>
+            {{doubleAge}}
+        </p>
+
+        <!-- 指令解析 -->
+        <p k-text="nameTest"></p>
+        <!-- 事件绑定 -->
+        <button @click="changeName">呵呵,换名字</button>
+        <br/>
+
+        <!-- 双向绑定 -->
+        <input type="text" k-model="inputText"/>
+        <!-- html解析 -->
+        <div k-html="html"></div>
+
+        <!-- 双向绑定的值 -->
+        <div>双向绑定的值:{{inputText}}</div>
+
+    </div>
+    <script src="./kvue.js"></script>
+    <script src="./compile.js"></script>
+    <!-- <script>
+            const app = new KVue({
+                data:{
+                    test:"I am test",
+                    foo:{
+                        bar:"bar"
+                    }
+                }
+            })
+    
+            app.$data.test="hello,kaikeba!";
+            app.$data.foo.bar="oh my bar";
+        </script> -->
+    <script>
+        const kapp = new KVue({
+            el:"#app",
+            data:{
+                name:"I am name",
+                nameTest:"我是测试v-text的代码",
+                age:12,
+                html:"<button>这是一个按钮</button>",
+                inputText:"我是双向绑定的初始值"
+            },
+            created() {
+                console.log("开始啦");
+                setTimeout(()=>{
+                    this.name="我是测试，我变啦"
+                },1500);
+            },
+            methods:{
+                changeName(){
+                    this.name="哈喽，开课吧";
+                    this.age =123456;
+                }
+            }
+        })
+        // console.log(app.$data,'app.$data')
+        // app.$data.name="hello,kaikeba!";
+        // app.$data.foo.bar="oh my bar";
+    </script>
+</body>
+</html>

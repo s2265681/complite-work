@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>to do list- vue+express</title>
+    <!-- 引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+       <!-- 引入样式 -->
+       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+       <!-- 引入组件库 -->
+       <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="app">
+        oath-login<br/>
+        <a href="/api/github/login">github登录</a><br/>
+        login-session <br/>
+        <input v-model="name">
+        <input v-model="pwd">
+        <button @click="login">login</button>
+        <button @click="loginout">loginOut</button>
+        <button @click="clear">clearLog</button>
+        <button @click="getInfo">getUserInfo</button>
+        <div>{{JSON.stringify(log)}}</div>
+    </div>
+   <script>
+      const host = "http://localhost:3001/api"
+      const app = new Vue({
+          el:'#app',
+          data:{
+            name:'',
+            pwd:'',
+            log:[]
+          },
+          created(){
+
+          },
+          methods:{
+            login:async function (){
+                console.log(this.name,'this.name')
+                  let res =await axios.post(host+'/login',{name:this.name,pwd:this.pwd})
+                  this.log=[]
+                  this.log.push(res.data)
+              },
+              loginout:async function (){
+                  let res =await axios.post(host+'/loginout')
+                  this.log=[]
+                  this.log.push(res.data)
+              },
+              getInfo:async function (){
+                  let res =await axios.get(host+'/info')
+                  this.log.push(res.data)
+              },
+              clear:async function (){
+                 this.log = []
+              },
+
+          },
+          mounted:function(){
+              this.getInfo()
+          } 
+      })
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* ul{
+             width: 360px;
+             list-style: none;
+        }
+        li{
+            width: 100px;
+            height: 100px;
+            background-color: #f00;
+            float: left;
+            margin: 10px;
+        } */
+      /* ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 320px;
+        margin-left: -40px;
+      }
+      li {
+        width: 100px;
+        height: 100px;
+        background-color: #f00;
+        margin-bottom: 10px;
+        margin-right: 10px;
+      }
+      li:nth-of-type(3n) {
+        margin-right: 0;
+      } */
+
+      ul {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+      }
+      li {
+        background-color: #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+    </ul>
+  </body>
+</html>

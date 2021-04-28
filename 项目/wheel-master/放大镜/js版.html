@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper{
+        padding: 30px 10%;
+    }
+    .current-box , .target-box{
+        float: left;
+    }
+
+    .current-box{
+        position: relative;
+    }
+
+    .current-box .current-image-box{
+        width: 300px;
+        height: 300px;
+    }
+    
+    .current-box .current-image-box img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .current-box .mast{
+        position: absolute;
+        width: 100px;
+        height:100px;
+        background-color: rgba(255, 0, 0, 0.3);
+        top: 0;
+        left: 0;
+        display:none;
+    }
+
+    .target-image-box{
+        position: relative;
+        width: 400px;
+        height: 400px;
+        overflow: hidden;
+        border: 2px dashed #999;
+    }
+    .target-image-box .target-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+</style>
+<body>
+    <div class="wrapper">
+         <div class="current-box">
+              <div class="current-image-box">
+                 <img  class="current-image" src="./images/1.jpeg"></img>
+              </div>
+              <div class="mast"></div>
+         </div>
+         <div class="target-image-box">
+            <img class="target-image" src="./images/1.jpeg"></img>
+         </div>
+    </div>
+</body>
+<script>
+    // 思路，
+    // 1、通过计算当前照片和mask的比例计算出要展示的照片的大小来
+    let  wrapper = document.getElementsByClassName('wrapper')[0],
+    currentBox = document.getElementsByClassName('current-box')[0],
+    currentImageBox = document.getElementsByClassName('current-image-box')[0],
+    currentImage = document.getElementsByClassName('current-image')[0],
+    mast = document.getElementsByClassName('mast')[0],
+    targetImageBox = document.getElementsByClassName('target-image-box')[0],
+    targetImage =  document.getElementsByClassName('target-image')[0];
+    // 获取元素的高度和宽地的方法
+    function getStyle(element,attr){
+        return Number.parseInt(window.getComputedStyle(element)[attr])
+    }
+    // 设置css样式的方法
+    function setCss(element,attr,value){
+        element.style[attr] = value
+    }
+    // 获取offset到BODY的距离
+    function offset(element){
+        let offsetL = element.offsetLeft,
+            offsetT=element.offsetTop,
+            parentEle=element.offsetParent;
+        while(parentEle&&parentEle.targetName !=='BODY'){
+            offsetL+= parentEle.offsetLeft;
+            offsetT+= parentEle.offsetTop;
+            parentEle = parentEle.offsetParent;
+        }
+        return {
+            left:offsetL,
+            top:offsetT
+        }
+    }
+    // 让mask比上当前盒子的比例乘以目标盒子的宽高为目标图片的宽高
+    let currentH = getStyle(currentBox,'height'),
+    currentW = getStyle(currentBox,'width'),
+    currentL = currentBox.offsetLeft,
+    currentT = currentBox.offsetTop,
+    mastH = getStyle(mast,'height'),
+    mastW = getStyle(mast,'width'),
+    mastL = offset(mast).left,
+    mastT = offset(mast).top,
+    targetW = getStyle(targetImageBox,'height'),
+    targetH = getStyle(targetImageBox,'width');
+    setCss(targetImage,'width', currentW/mastW*targetW + 'px')
+    setCss(targetImage,'height', currentH/mastH*targetH + 'px')
+    let scale = currentW/mastW*targetW / currentW;
+    // console.log(scale,'scale')  // 4
+    // 2、按住遮照鼠标状态变为move状态，绑定移动事件
+    // 3、计算进入的时候的当前点的坐标，计算滑动的距离占
+    let entryPointX,entryPointY,slideX,slideY;
+    // 计算滑动的值
+    function computed(ev){
+        let offsetX = ev.pageX - currentL - mastH/2,
+        offsetY = ev.pageY- currentT - mastW/2;
+        // 边界判断
+        let minL = 0,
+        minT = 0,
+        maxL = currentW - mastW,
+        maxT = currentH- mastH;
+        offsetX  = offsetX < minL ? 0 :  offsetX > maxL? maxL : offsetX;
+        offsetY  = offsetY < minT ? 0:  offsetY > maxT? maxT : offsetY;
+        setCss(mast,'top', offsetY  + 'px')
+        setCss(mast,'left', offsetX  + 'px')
+        // 判断目标图片滑动的距离，和mask是相反的倍数关系
+        setCss(targetImage,'top', - offsetY*scale  + 'px')
+        setCss(targetImage,'left', - offsetX*scale  + 'px')
+    }
+
+    currentBox.addEventListener('mouseenter',function(ev){
+        setCss(mast,'cursor', 'move')
+        setCss(mast,'display', 'block')
+        computed(ev)
+    })
+    currentBox.addEventListener('mousemove',computed)
+    currentBox.addEventListener('mouseleave',function(ev){
+      setCss(mast,'cursor', 'default')
+      setCss(mast,'display', 'none')
+    })
+
+</script>
+</html>

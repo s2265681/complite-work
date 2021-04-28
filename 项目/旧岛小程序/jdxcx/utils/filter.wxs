@@ -1,0 +1,30 @@
+var format = function(txt) {
+  if (!txt) {
+    return
+  }
+  var reg = getRegExp('\\\\n', 'g')
+  return txt.replace(reg, '\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+}
+
+var limit = function(array,length){
+  return array.slice(0,length)
+}
+// 不复用写到内部
+// var getTagStyle = function (index){
+//     if (index === 0) {
+//       return 'ex-tag1'
+//     } else if (index === 1) {
+//       return 'ex-tag2'
+//     }
+//     return 
+//   }
+
+//独立的模块
+// module.exports = {}
+// const 是js ES6中的标准语法
+// wxs不能使用es6的语法
+module.exports = {
+  format: format,
+  limit: limit
+  // getTagStyle: getTagStyle
+}

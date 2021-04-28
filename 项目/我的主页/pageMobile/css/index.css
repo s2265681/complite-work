@@ -1,0 +1,408 @@
+html{
+    overflow-x: hidden;
+}
+body{
+    overflow-x: hidden;
+}
+
+/* @media screen and (max-width: 1024px){
+    img.bg {
+        left: 50%;
+        margin-left: -512px; }
+} */
+.roleRow{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.rowBox{
+    margin:0 auto;
+    height: 1rem;
+    line-height: 1rem;
+    padding-left: 0.2rem;
+}
+.h_logo{
+    width: 1.3rem;
+    height: 0.6rem;
+    
+}
+
+/* +++++++++===第一页===+++++++++ */
+.rowOne{
+    width: 100%;
+    margin:0 auto;
+    height: 16rem;
+    /* background: #ff0; */
+    overflow: hidden;
+    padding-top: 1rem;
+}
+
+.rowOne .rowOne-left{
+    width: 50%;
+    float: left;
+}
+.rowone-img{
+    width: 100%;
+    padding: 0 0.84rem;
+}
+.rowone-img img{
+    width: 100%;
+}
+
+.rowOne .rowOne-right{
+    width: 50%;
+    float: left;
+}
+
+.rowOne-title{
+     padding-top: 0.77rem;
+     padding-bottom: 0.29rem;
+     font-size: 0.32rem;
+     font-family: PingFangSC-Semibold;
+     font-weight: bold;
+ }
+ .rowOne .rowOne-left .rowOne-title{
+    color:  rgb(16,43,108);
+    padding-left: 0.71rem;
+ }
+ .rowOne .rowOne-right .rowOne-title{
+    color:rgb(249,28,61);
+    padding-right: 0.58rem;
+}
+
+.rowOne .rowOneImgs img{
+    width: 100%;
+    margin-bottom: 0.43rem;
+
+}
+
+.big-info{
+    width: 100%;
+
+}
+
+#carousel-example-generic1{
+    width: 100%;
+    overflow: hidden;
+}
+/* 公用标题 */
+.rowSky{
+    text-align: center;
+    position: relative;
+}
+
+.rowSky>.maintitle{
+    font-family: PingFangSC-Semibold;
+    font-size: 0.4rem;
+    color: rgb(42,42,42);
+    margin-bottom: 0.2rem;
+    display: block;
+    position: relative;
+    z-index: 10;
+    font-weight: bold;
+}
+
+ .rowSky>.smalltitle{
+    font-family: PingFangSC-Regular;
+    font-size: 0.28rem;
+    color: rgb(102,102,102);
+    display: block;
+    margin-bottom:0.8rem;
+}
+
+.rowSky>.line{
+    width: 3rem;
+    margin-left: -1.5rem;
+    border: 0.1rem solid rgb(250,204,208);
+    display: block;
+    position: absolute;
+    top:0.27rem;
+    left: 50%;
+    z-index: 1;
+    box-shadow: 3px 3px 35px rgb(231,0,18,0.1) inset;
+}
+
+.dote{
+    display: inline-block;
+    position: relative;
+    top: -8px;
+    width: 10px;
+}
+
+
+/* +++++++++++++第二页+++++++++++++++ */
+.rowTwo{
+    width: 100%;
+    margin:0 auto;
+    height: 10rem; 
+    padding-top: 0.79rem;
+    overflow: hidden;
+  
+}
+
+.rowTwo .smalltitle{
+    margin-bottom: 0rem;
+}
+
+.rowTwo  .carousel-indicators {
+    bottom: -0.52rem;
+}
+.rowTwoImgs{
+    width: 100%;
+    /* height: 400px; */
+    /* background: #f00; */
+    margin-top: 0.8rem;
+    padding:0 0.4rem;
+    display: flex;
+    justify-content: space-between;
+
+}
+.rowTwoImgs img{
+    float: left;
+    width: 2.5rem;
+    height: 2rem;
+    /* height: 0.92rem; */
+    /* margin-top: 0.2rem; */
+    
+    /* width: 100%; */
+  
+
+}
+
+/* footer */
+.footer{
+    width: 100%;
+    height: 10.rem; 
+    background: url(../image/yd-footer.png) no-repeat;
+    padding-top: 0.823rem;
+    background-size:180%;
+    padding: 0.6rem 0.6rem 0.3rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    font-family: PingFangSC-Regular;
+}
+
+.footer .f-title{
+    display:flex;
+     text-decoration: none;
+     width:100%;
+    height: 0.75rem;
+    color: #fff;
+    text-align: center;
+    background: #ff0947;
+    border-radius: 0.5rem;
+    font-family: PingFangSC-Regular;
+    line-height: 0.75rem;
+    margin: 0  auto 0.4rem auto;
+    justify-content: center;
+    font-size: 0.36rem;
+
+}
+.footer .f-info{
+    width: 120%;
+    /* background: #f00; */
+    font-size: 0.24rem;
+    color:rgba(255,255,255,0.6);
+    margin-bottom: 0.40rem;
+    line-height: 0.48rem;
+}
+
+.footer .codeImg{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.footer .codeImg img{
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.19rem;
+}
+.footer .introduce{
+   font-size: 0.24rem;
+   color:rgba(255,255,255,0.6);
+   line-height: 0.48rem;
+}
+.footer  .codentitle{
+    /* width: 1rem; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 0.24rem;
+    color:rgba(255,255,255,0.6);
+    /* margin-bottom: 0.5rem; */
+}
+
+.fix-phone{
+    position: fixed;
+    bottom: 0.3rem;
+    right: 0.2rem;
+    z-index: 100;
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* 悬浮菜单 */
+.cc-menu-right {
+    background: #f00;
+    position: fixed;
+    top: 0;
+    right: -1px; 
+    width: 0px;
+    height: 100%;
+    border-right: #959595 3px solid;
+    z-index: 999;
+}
+.cc-menu-right ul{
+    list-style-type: none;
+    position: absolute;
+    top: 100px;
+}
+.cc-menu-right ul li {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 2px;
+    text-align: center;
+    position: relative;
+}
+.cc-menu-right ul li a .icon {
+    position: absolute;
+    top: 0px;
+    right: 88px;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+    background: #959595;
+    border-radius: 3px 0 0 3px;
+}
+.cc-menu-right ul li a{
+    text-decoration: none;
+}
+.cc-menu-right ul li a span {
+    position: relative;
+    top: 0px;
+    /* left: -220px; */
+    left: -88px;
+    display: block;
+    width: 260%;
+    height: 100%;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    border-radius: 3px 0 0 3px;
+
+}
+
+.l1 a span{
+    background: #f00;
+}
+
+.l2 a span{
+    background: orange;
+}
+.icon img{
+    width: 30px;
+    height: 30px;
+}
+.wxcode{
+    position: relative;
+    left: -10px;
+    z-index: 1000;
+    display: none;
+
+}
+#s2{
+    position: relative;
+    left: -287px;
+    top: -120px;
+}
+#s1{
+    font-size: 18px;
+}
+
+.copy{
+        width: 128%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 50px; */
+        font-size:0.19rem;
+        padding-top: 0.1rem;
+        margin-top: 0.2rem;
+        margin-left: -0.6rem;
+        margin-bottom: -0.15rem;
+        border-top: rgba(255, 255, 255, 0.2) 1px solid;
+        clear: both;
+        color: rgba(255, 255, 255, 0.62);
+}
+
+
+
+
+
+
+
+
+.block-info{
+    padding: 0.2rem;
+    position: relative;
+}
+
+.block-img{
+    width: 100%;
+    height: 3rem;
+    border-radius: .4rem;
+}
+.block-title{
+    font-size: .3rem;
+    font-family: cursive;
+    text-align: center;
+    display: block;
+    line-height: .7rem;
+}
+.jdxcx{
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin-left: -1rem;
+    margin-top: -1rem;
+    border-radius: .3rem;
+    opacity: .9;
+}
+
+
+.t_block_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.t_block_info img.bk{
+    height: 2rem;
+    margin-left: .7rem;
+}
+
+.t_title{
+    font-size: .3rem;
+    font-family: cursive;
+}
+
+.github{
+    width: 1rem;
+    height: 1rem;
+}
+.user{
+    width: .6rem;
+}
+
+.maintitle .titleImg{
+    width: 1.5rem;
+    height: 1.3rem;
+}

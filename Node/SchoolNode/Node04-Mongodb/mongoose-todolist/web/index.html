@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>to do list- vue+express</title>
+    <!-- 引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+       <!-- 引入样式 -->
+       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+       <!-- 引入组件库 -->
+       <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="name"><button @click="add">增加</button>
+        <table>
+            <th>
+                <td>序号</td>
+                <td>姓名</td>
+                <td>库存</td>
+            </th>
+            <tr v-for="item in list" >
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.stock}}</td>
+                <td>修改</td>
+                <td  v-on:click="delete1(item.id)">删除</td>
+            </tr>
+        </table>
+        <!--分页-->
+        <el-pagination 
+            layout="prev,pager,next" 
+            @current-change="currentChange" 
+            :total="total"
+            >
+        </el-pagination>
+    </div>
+   <script>
+      const host = "http://localhost:3000/api"
+
+      const app = new Vue({
+          el:'#app',
+          data:{
+              list:[],
+              name:'',
+              message:"Hello Vue!",
+              page:1,
+              total:10,
+              totalPage:10
+            
+          },
+          created(){
+            this.getList()
+          },
+          methods:{
+             currentChange(page) {
+                this.page=page  
+                this.getList();
+             },
+              getList:async function (){
+                  let res =await axios.get(host+'/list?currendIndex='+this.page+'&&totlePage='+this.totalPage)
+                  console.log(res,'res')
+                  this.list =res.data.data
+                  this.total=res.data.total
+              },
+              add:async function (){
+                  let res =await axios.post(host+'/list',{name:this.name,price:12})
+                 if(res.data.code){
+                    this.getList()
+                    this.name=''
+                 }
+              },
+              delete1:async function(e){
+                 let res =await axios.delete(host+'/list/'+e)
+                 console.log(res.data.code,'res')
+                 if(res.data.code){
+                     this.getList()
+                 }
+
+              }
+          },
+          mounted:function(){
+          } 
+      })
+
+   </script>
+</body>
+</html>

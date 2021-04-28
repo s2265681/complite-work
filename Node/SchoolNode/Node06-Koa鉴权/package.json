@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "co-redis": "^2.1.1",
+    "koa-session": "^5.12.3",
+    "redis": "^2.8.0"
+  }
+}

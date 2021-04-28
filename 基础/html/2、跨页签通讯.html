@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>iframe</body>
+  <script>
+    const bc = new BroadcastChannel("AlienZHOU");
+
+    // 收到来自页面的消息后，在 iframe 间进行广播
+    window.addEventListener("message", function (e) {
+      console.log(e, "eeeeee11");
+      bc.postMessage(e.data);
+    });
+
+    /* iframe 内代码 */
+    // 对于收到的（iframe）广播消息，通知给所属的业务页面
+    bc.onmessage = function (e) {
+      console.log(e, "eeeeee22");
+      window.parent.postMessage(e.data, "*");
+    };
+
+    /* 页面逻辑 */
+    // navigator.serviceWorker.register("./sw.js").then(function () {
+    //   console.log("Service Worker 注册成功");
+    // });
+
+    // navigator.serviceWorker.controller.postMessage('sssssss');
+
+    // navigator.serviceWorker.addEventListener("message", function (e) {
+    //     console.log(e,'e....');
+    //   const text = "[receive] " + e + " —— tab ";
+    // });
+  </script>
+</html>

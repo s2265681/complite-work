@@ -1,0 +1,21 @@
+{
+  "name": "rpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "r-pack": "./bin/r-pack.js"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.13.16",
+    "@babel/traverse": "^7.13.17",
+    "@babel/types": "^7.13.17",
+    "babylon": "^6.18.0"
+  }
+}

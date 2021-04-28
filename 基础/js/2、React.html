@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function create() {
+      let args = [...arguments];
+      let fn = args.shift();
+      // 创造一个空对象，隐式原型指向构造函数的原型(继承构造函数原型伤的属性方法)
+      let obj = Object.create(fn.prototype);
+      // 调用构造函数，绑定this为新对象
+      fn.apply(obj, args);
+      return typeof obj === "object" ? obj : {};
+    }
+
+    function test(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    let t = create(test, "lisi", 123);
+    console.log(t); // {name:'lisi', age:'124'}
+  </script>
+</html>

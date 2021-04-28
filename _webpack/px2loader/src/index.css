@@ -1,0 +1,11 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+#root{
+    width: 750px; /*px*/
+    height: 750px;
+    background-color: gray;
+    color: #f00;
+}

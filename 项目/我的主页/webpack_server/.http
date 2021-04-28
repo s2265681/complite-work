@@ -1,0 +1,18 @@
+# POST http://dummy.restapiexample.com/api/v1/create HTTP/1.1
+#  GET http://localhost:3000/api/message HTTP/1.1
+
+ POST http://localhost:3000/api/message HTTP/1.1
+
+content-type: application/json
+
+# {
+#     "message":"Hendry",
+#     "username":"jenny",
+#     "id":"2"
+# }
+
+#  {
+#     "name":"Hendry",
+#     "salary":"61888",
+#     "age":"26"
+# }

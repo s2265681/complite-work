@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <!-- <script src="./promise.js">
+    </script> -->
+    <script type="module">
+        import MPromise from '/promise.js'
+        // // const Promise = require('./promise.js')
+        // // console.log(MPromsie,11111);
+        let p = new MPromise((resolve,reject)=>{
+            // setTimeout(()=>{
+                resolve('22222')
+            // },1000)
+        })
+        // p.then().then(v=>{
+        //     // return '11'
+        // }).then(r=>{
+        //     console.log(r,'rr');
+        //     // return 11
+        // },v=>{
+        //     // console.log(v,'vvv');
+        // }).catch(ee=>{console.log(ee,'ee');})
+        //   .finally(function(a){
+        //     console.log(a,'finally');
+        // })
+
+        // console.log(33333);
+        // console.log(p,'ppp');
+        let res = p.then(val=>{
+            throw 'fail'
+            console.log(val);
+            return '111111'
+            return new Promise((resolve,reject)=>reject(111111))
+        }).catch(error=>{
+            console.log(error);
+        })
+        console.log(p,'ppppp');
+        console.log(res,'res...');
+
+        // let res2 = p.catch(val2=>{
+        //     console.log(val2);
+        // })
+        // console.log(res2,'res2');
+        // p.catch(err=>{
+        //     console.log(err,'rrrrr');
+        // })
+
+        // console.log(3333)
+
+        p.then().then(val=>{
+            console.log(val,222);
+            // throw 'OOOO'
+        }).then(val=>{
+            console.log(3333);
+        }).catch(e=>{
+            console.log(e,'eeee');
+        })
+
+        // let p1 = new Promise((resolve,reject)=> setTimeout(()=>resolve(1)))
+        // let p2 = new Promise((resolve,reject)=> resolve(2))
+        // let p3 = new Promise((resolve,reject)=> resolve(3))
+        // let res = Promise.all([p1,p2,p3])
+        // console.log(res,'res...');
+
+        // let p1 = Promise.resolve(Promise.resolve(11))
+        // console.log(p1,'p1');
+
+        // let p1 = Promise.reject(Promise.reject(11))
+        // console.log(p1,'p1');
+    </script>
+    <script>
+        /*
+        * 第一步  搭框架实现同步改变内部状态的三种情况  resolve(1)  reject(2)  throw 'Error'  
+          第二步  实现内部只能改变一次状态  .then  resolveFun  rejectFun  加入异步执行
+          第三步  then方法  加入异步情况 方法加入队列  callbacks = [] 
+          第四步  this.then(undefined,rejectFun)
+          第五步  对then方法返回结果进行处理(是否返回promise) 返回一个promise 对异常处理
+          第六步  对then方法处理异步 
+          第七步  补充 优化
+          第八步  添加catch 返回this.then()
+          第九步  添加promise.all 方法  promise.race  promise.resolve  promise.reject
+          第十步  封装代码成class
+        */
+    </script>
+  </body>
+</html>

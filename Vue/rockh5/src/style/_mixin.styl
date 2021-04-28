@@ -1,0 +1,117 @@
+@import './_var.styl'
+// 转化为 vw
+r(px)
+  round(px / 375 * 100, 6) vw
+line-1px($dir = bottom, $color = #EBEBEB, $radius = 0, $style = solid)
+  content " "
+  pointer-events none
+  box-sizing border-box
+  position absolute
+  transform-origin 0 0
+  if $dir is bottom
+    border-bottom 1px $style $color
+    bottom 0
+    left 0
+    width 100%
+    transform-origin: 0 bottom
+    @media (min-resolution: 2dppx)
+      width 200%
+      transform scale(0.5)
+    @media (min-resolution: 3dppx)
+      width 300%
+      transform scale(0.333)
+  else if $dir is top
+    border-top 1px $style $color
+    top 0
+    left 0
+    width 100%
+    transform-origin: 0 top
+    @media (min-resolution: 2dppx)
+      width 200%
+      transform scale(0.5)
+    @media (min-resolution: 3dppx)
+      width 300%
+      transform scale(0.333)
+  else if $dir is left
+    border-left 1px $style $color
+    top 0
+    left 0
+    height 100%
+    transform-origin: left 0
+    @media (min-resolution: 2dppx)
+      height 200%
+      transform scale(0.5)
+    @media (min-resolution: 3dppx)
+      height 300%
+      transform scale(0.333)
+  else if $dir is right
+    border-right 1px $style $color
+    top 0
+    right 0
+    height 100%
+    transform-origin: right 0
+    @media (min-resolution: 2dppx)
+      height 200%
+      transform scale(0.5)
+    @media (min-resolution: 3dppx)
+      height 300%
+      transform scale(0.333)
+  else
+    left 0
+    top 0
+    border 1px $style $color
+    border-radius $radius
+    width 100%
+    height 100%
+    @media (min-resolution: 2dppx)
+      width 200%
+      height 200%
+      border-radius $radius * 2
+      transform scale(0.5)
+    @media (min-resolution: 3dppx)
+      width 300%
+      height 300%
+      border-radius $radius * 3
+      transform scale(0.333)
+border-1px($dir = bottom, $color = #EBEBEB, $radius = 0, $style = solid)
+  position relative
+  if $dir is all
+    &::before
+      line-1px($dir, $color, $radius, $style)
+  else
+     &::after
+      line-1px($dir, $color, $radius, $style)
+// 清除浮动
+clearfix()
+  &::after
+    content " "
+    display table
+    clear both
+// 隐藏滚动条
+hide-scrollbar()
+  &::-webkit-scrollbar
+    width 0
+    height 0
+// iconfont
+iconfont()
+  width 1em
+  height 1em
+  vertical-align -0.15em
+  fill currentColor
+  overflow hidden
+// 超出省略号
+ellipsis(line = 1)
+  if line is 1
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+  else
+    overflow hidden
+    display -webkit-box
+    -webkit-box-orient vertical
+    -webkit-line-clamp $line
+// 点击高亮
+tap-color($color, $percent = 10%)
+  background-color: $color
+  &:active
+    background-color: darken($color, $percent)

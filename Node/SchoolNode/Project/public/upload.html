@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>upload</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+  </head>
+  <style>
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+      border-color: #409eff;
+    }
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 178px;
+      height: 178px;
+      line-height: 178px;
+      text-align: center;
+    }
+    .avatar {
+      width: 178px;
+      height: 178px;
+      display: block;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <el-upload
+        class="avatar-uploader"
+        action="http://localhost:3001/api/member/posts"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload"
+      >
+        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+
+
+    </div>
+    <img src="http://localhost:3001/api/captcha" id="captcha" />
+    <input type="text" id="inp" />
+    <button onclick="sumbit()">提交</button>
+
+    <span id="show" style="color:#f00"></span>
+    <!-- 短信验证码 -->
+    <input type="text" id="phone" placeholder="请输入手机号"/>
+    <button onclick="sms()" >发送验证码</button>
+    <input type="text" id="phonecode" placeholder="请输入手机验证码"/>
+    <button onclick="smslogin()" >验证码登录</button>
+    <script>
+    </script>
+    <script>
+      document.getElementById("captcha").onclick = function() {
+        captcha.src = "http://localhost:3001/api/captcha?r=" + Date.now();
+      };
+
+      function sumbit() {
+        const val = document.getElementById("inp").value;
+        axios.post("/api/submit", { val: val }).then(res => {
+          document.getElementById("show").innerText = res.data;
+        });
+      }
+
+      // 发送验证码
+      function sms() {
+        const phone = document.getElementById("phone").value;
+        axios.get("/api/sms?to="+phone).then(res => {
+        });
+      }
+      // 验证码登录
+      function smslogin() {
+        const code = document.getElementById("phonecode").value;
+        const phone = document.getElementById("phone").value;
+        axios.post("/api/smslogin", { code:code,phone:phone }).then(res => {
+          document.getElementById("show").innerText = res.data;
+        });
+      }
+    </script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          imageUrl:
+            "http://localhost:3001/images/1fbf4d9c284d8da69e6a648a55e3bf85"
+        },
+        methods: {
+          handleAvatarSuccess(res, file) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+          },
+          beforeAvatarUpload(file) {
+            const isJPG = file.type === "image/jpeg";
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isJPG) {
+              this.$message.error("上传头像图片只能是 JPG 格式!");
+            }
+            if (!isLt2M) {
+              this.$message.error("上传头像图片大小不能超过 2MB!");
+            }
+            return isJPG && isLt2M;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

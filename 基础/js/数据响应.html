@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="inp" />
+      <span>ss</span>
+    </div>
+    <script>
+      class E {
+        constructor(obg, fn) {
+          (this.val = obg || ""), (this.que = [fn]);
+        }
+        get value() {
+          console.log(this, "get");
+        }
+        set value(e) {
+          console.log("set");
+          this.val = e || "";
+          this.que.map((l) => l());
+        }
+      }
+      let e = new E("", fn);
+      let span = document.querySelector("span");
+      function fn() {
+        span.innerHTML = e.val || "";
+      }
+      fn();
+      const inp = document.getElementById("inp");
+      inp.addEventListener("change", function (v) {
+        e.value = v.target.value;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{{!-- 欢迎视频 --}}
+{{#if showVideo}}
+<video id="home-banner-video" autoplay muted>
+    <source src="https://img.kaikeba.com/slogan_new.mp4" type="video/mp4">
+</video>
+{{else}}
+{{/if}}
+{{!-- 课程列表 --}}
+{{#each vipCoures}}
+   <div class="vip-course-item">
+       <div><span>商品名称：</span>{{name}}<span></span></div>
+       <div>{{description}}</div>
+       <div><img src="{{poster}}" alt=""></div>
+       {{#each cooperation}}
+          {{!-- <img src="{{.}}" alt=""> --}}
+       {{/each}}
+   </div>
+{{/each}}
+
+
+{{!-- 引进jquery 隐藏 去掉 video --}}
+{{#contentFor 'jquery'}}
+   <script>
+      $("#home-banner-video").on("ended",function(){
+           $(this).remove();
+      })
+   </script> 
+{{/contentFor}}
+
+       

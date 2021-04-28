@@ -1,0 +1,61 @@
+@import './_var.styl'
+@import './_mixin.styl'
+
+.tn-btn-group
+  padding $btn-group-padding
+  & > .tn-btn
+    margin-top $btn-marginTop
+    margin-left $btn-marginLeft
+    &:first-child
+      margin-top 0
+      margin-left 0
+.tn-btn
+  text-align center
+  position relative
+  margin 0
+  padding 0
+  border none
+  pointer-events auto
+  user-select none
+  outline none
+  display inline-block
+  box-sizing content-box
+  white-space nowrap
+  font-size: $btn-font
+  border-radius $btn-radius
+  color $btn-color-default
+  &--large
+    display block
+    width 100%
+    font-weight bold
+    height $btn-height-large
+    font-size $btn-font-large
+  &--small
+    min-width $btn-width-small
+    height $btn-height-small
+    padding $btn-padding
+  &--mini
+    min-width $btn-width-mini
+    height $btn-height-mini
+    font-size $btn-font-mini
+  &--primary
+    background-color $btn-bg-primary
+    tap-color($btn-bg-primary, 10%)
+  &--warning
+    background-color $btn-bg-warning
+    tap-color($btn-bg-warning, 10%)
+  &--danger
+    background-color $btn-bg-danger
+    tap-color($btn-bg-danger, 10%)
+  &--hollow
+    background-color $btn-bg-hollow
+    color $btn-color-hollow
+    tap-color($btn-bg-hollow, 3%)
+    border-1px(all, $btn-border-hollow, $btn-radius)
+  &--circle
+    border-radius $btn-radius-circle
+  &--square
+    border-radius 0
+  &--disabled
+    background $btn-bg-disabled
+    color $btn-color-disabled

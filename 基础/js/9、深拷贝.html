@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function cloneObject(target, source) {
+      var names = Object.getOwnPropertyNames(source); // 不可遍历属性也获取到
+      for (let i = 0; i < names.length; i++) {
+        var desc = Object.getOwnPropertyDescriptor(source, names[i]); // 源 属性
+        console.log(desc);
+        if (typeof desc.value === "object" && typeof desc.value !== null) {
+          var obj;
+          if (Array.isArray(desc.value)) {
+            obj = [];
+          } else {
+            obj = {};
+          }
+          console.log(desc);
+          Object.defineProperty(target, names[i], {
+            configurable: desc.configurable, // 不可删除
+            enumerable: desc.enumerable, // 是否可遍历
+            value: obj, // 值
+            writeable: desc.writeable, // 是否可修改
+          });
+          cloneObject(obj, desc.value);
+        } else {
+          Object.defineProperty(target, names[i], desc);
+        }
+      }
+    }
+    // 验证
+    let obj = {
+      a: 1,
+      b: 2,
+      c: {
+        d: 10,
+        e: 20,
+        set f(value) {
+          this.a = value;
+        },
+        get f() {
+          return this.a;
+        },
+      },
+      set f(value) {
+        this.a = value;
+      },
+      get f() {
+        return this.a;
+      },
+    };
+    Object.defineProperty(obj, "h", {
+      value: 10,
+    });
+    let obj1 = {};
+    cloneObject(obj1, obj);
+    console.log(obj1, "ddddddd");
+  </script>
+</html>

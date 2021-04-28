@@ -1,0 +1,54 @@
+.resume_wrapper{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.resume_left_wrapper{
+    width: 20%;
+    border-right: 1px dashed #aaa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.resume_left_wrapper button{
+    width: 200px;
+}
+.resume_edit_wrapper{
+    position: relative;
+   background-color: orange;
+   width: 90%;
+   height: 90vh;
+   border: 1px solid #999;
+   overflow-y: scroll;
+   padding-bottom: 40px;
+}
+
+.resume_right_wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.preview_wrapper {
+    margin-left: 20px;
+    background: #fff;
+    border-left: #333 dashed 1px;
+    height: 90vh;
+    width: 30%;
+    padding: 10px 0;
+}
+
+.btn_preview{
+    display: flex;
+    justify-content: space-around;
+}
+
+.resume_delete_btn{
+    position: absolute !important;
+    right: 5px;
+    z-index: 2;
+    cursor: pointer;
+    
+}

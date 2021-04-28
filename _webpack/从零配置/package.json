@@ -1,0 +1,43 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "从零配置",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production npx webpack",
+    "dev": "cross-env NODE_ENV=development && DEV_TYPE=dev npx webpack",
+    "serve": "cross-env NODE_ENV=development && DEV_TYPE=serve webpack-dev-server",
+    "dll": "npx webpack --config webpack.dll.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-react": "^7.13.13",
+    "@types/webpack": "^5.28.0",
+    "D": "^1.0.0",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "cross-env": "^7.0.3",
+    "eslint-loader": "^4.0.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "4",
+    "html-withimg-loader": "^0.1.16",
+    "mini-css-extract-plugin": "^1.5.0",
+    "url-loader": "^4.1.1",
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.13.15",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.24.0",
+    "react": "16",
+    "react-dom": "16"
+  }
+}

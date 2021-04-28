@@ -1,0 +1,2 @@
+- 前端vue
+- 后端 node sequelize

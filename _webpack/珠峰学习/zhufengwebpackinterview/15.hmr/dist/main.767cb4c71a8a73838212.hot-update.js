@@ -1,0 +1,14 @@
+webpackHotUpdate("main",{
+
+/***/ "./webpackHotDevClient.js":
+/*!********************************!*\
+  !*** ./webpackHotDevClient.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("let socket = io(\"/\");//先通过socket.io连接服务器\nlet currentHash;//当前的hash\nlet lastHash;//上一次的hash\nconst onConnected = () => {\n  console.log(\"客户端已经连接\");\n  //6. 客户端会监听到此hash消息\n  socket.on(\"hash\", (hash) => {\n    currentHash = hash;\n  });\n  //7. 客户端收到`ok`的消息\n  socket.on(\"ok\", () => {\n    hotCheck();\n  });\n  socket.on(\"disconnect\", () => {\n     lastHash = currentHash = null;\n  });\n};\n//8.执行hotCheck方法进行更新\nfunction hotCheck() {\n  debugger\n  if (!lastHash || lastHash === currentHash) {\n    return (lastHash = currentHash);\n  }\n  //9.向 server 端发送 Ajax 请求，服务端返回一个hot-update.json文件，该文件包含了所有要更新的模块的 `hash` 值和chunk名\n  hotDownloadManifest().then((update) => {\n    let chunkIds = Object.keys(update.c);//['main']\n    chunkIds.forEach((chunkId) => {\n      //10. 通过JSONP请求获取到最新的模块代码\n      hotDownloadUpdateChunk(chunkId);\n    });\n  });\n}\n\nfunction hotDownloadUpdateChunk(chunkId) {\n  var script = document.createElement(\"script\");\n  script.charset = \"utf-8\";\n  script.src = \"/\" + chunkId + \".\" + lastHash+ \".hot-update.js\";\n  document.head.appendChild(script);\n}\nfunction hotDownloadManifest() {\n  var url = \"/\" + lastHash + \".hot-update.json\";\n  return fetch(url).then(res => res.json()).catch(error=>{console.log(error);});\n}\n//11. 补丁JS取回来后会调用`webpackHotUpdate`方法\nwindow.webpackHotUpdate = (chunkId, moreModules) => {\n  for (let moduleId in moreModules) {\n    let oldModule = __webpack_require__.c[moduleId];//获取老模块\n    let { parents } = oldModule;//父亲们 儿子们\n    var module = (__webpack_require__.c[moduleId] = {\n      i: moduleId,\n      exports: {},\n      parents,\n      // children,\n      hot: window.hotCreateModule(),\n    });\n    moreModules[moduleId].call(\n      module.exports,\n      module,\n      module.exports,\n      __webpack_require__\n    );\n    parents.forEach((parent) => {\n      let parentModule = __webpack_require__.c[parent];\n      parentModule.hot &&\n        parentModule.hot._acceptedDependencies[moduleId] &&\n        parentModule.hot._acceptedDependencies[moduleId]();\n    });\n    lastHash = currentHash;\n  }\n};\nsocket.on(\"connect\", onConnected);\nwindow.hotCreateModule = () => {\n  var hot = {\n    _acceptedDependencies: {}, //接收的依赖\n    accept: function (dep, callback) {\n      for (var i = 0; i < dep.length; i++) {\n        hot._acceptedDependencies[dep[i]] = callback;\n        //hot._acceptedDependencies['./title']=callback\n      }\n    },\n  };\n  return hot;\n}\n\n\n//# sourceURL=webpack:///./webpackHotDevClient.js?");
+
+/***/ })
+
+})

@@ -1,0 +1,15 @@
+{
+  "name": "12.loader",
+  "version": "1.0.0",
+  "description": "- Compiler.js中会为将用户配置与默认配置合并，其中就包括了loader部分\r - webpack 就会根据配置创建NormalModuleFactory,它可以用来创建NormalModule\r - 在工厂创建 NormalModule 实例之前还要通过 loader 的 resolver 来解析 loader 路径\r - 在 NormalModule 实例创建之后，则会通过其build方法来进行模块的构建\r - 构建模块的第一步就是使用loader来加载并处理模块内容\r - 而`loader-runner`这个库就是webpack中loader 的运行器\r - 将 loader 处理完的模块内容输出，进入后续的编译流程",
+  "main": "runner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.44.1"
+  }
+}

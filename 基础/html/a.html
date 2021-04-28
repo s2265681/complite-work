@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="test()">点击发送消息</button>
+    <iframe src="./2、跨页签通讯.html"></iframe>
+  </body>
+  <script>
+    function test() {
+      window.frames[0].window.postMessage("aaaa", "*");
+    }
+    
+    window.addEventListener('message', function (e) {
+        // …… do something
+        console.log(e,'aaaaaa')
+    });
+
+  </script>
+</html>

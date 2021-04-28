@@ -1,0 +1,47 @@
+<!-- 块级格式上下文 —— 决定了浏览器中的某块区域渲染对布局的影响 -->
+
+<!-- 产生BFC的条件 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+
+    #app1 {
+      width: 100px;
+      min-height: 10px;
+      background-color: orange;
+      /* overflow: hidden; */
+      /* display: inline-block */
+      /* float: left; */
+      /* position: fixed; */
+    }
+
+    #app2 {
+      background-color: #f00;
+      width: 20px;
+      height: 100px;
+      float: left;
+    }
+  </style>
+  <body>
+
+    <div id="app1">
+        <div id="app2">我是子元素</div>
+    </div>
+    <script>
+      // 作用 设置了BFC的父元素，其子元素不会影响外面元素布局，也就是对当前父元素设置了浮动、overflow、display：行内table-cell等
+      // 1、浮动
+      // 2、根元素
+      // 3、display: inline-block、table-cell
+      // 4、position: fixed  absolute
+      // 5、overflow 不为hidden  auto 、 hidden
+
+      // 利用BFC解决双margin重合的问题，解决是触发BFC，使称为两个独立的上下文，display: inline-block 或者float
+    </script>
+  </body>
+</html>

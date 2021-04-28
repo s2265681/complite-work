@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "like_rock": "/components/like/index",
+    "movie_rock": "/components/classic/movie/movie",
+    "essay_rock": "/components/classic/essay/index",
+    "music_rock": "/components/classic/music/index",
+    "epsoide_rock": "/components/epsoide/index",
+    "rock-img-btn": "/components/image-button/index"
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    高阶函数...
+  </body>
+  <script>
+    // 把函数作为参数传递给另一个函数
+    function once(fn) {
+      let done = false;
+      return function () {
+        // if (!done) {
+          done = true;
+          console.log(arguments,'arguments')
+          return fn.apply(this, arguments);
+        // }
+      };
+    }
+    let pay = once(function (money {
+      console.log(`支付${money} RMB`);
+    });
+    pay(5);
+    pay(6);
+    pay(7);
+
+    // 把函数作为另一个函数的返回结果
+  </script>
+</html>
