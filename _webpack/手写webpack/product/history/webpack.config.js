@@ -1,6 +1,4 @@
 let path = require("path");
-let Plu = require('./plugin/Plu')
-
 module.exports = {
   mode: "development",
   entry: "./src/index.js",
@@ -8,14 +6,12 @@ module.exports = {
      rules:[{
         test: /\.(css|less)$/i, // 基于正则处理
         use:[
-            path.resolve(__dirname,'loader','style-loader'),
-            path.resolve(__dirname,'loader','less-loader'),
-            // 'style-loader',
-            // 'less-loader'
+           "style-loader",   // css插入到HEAD中,内嵌式加入
+           "css-loader",     // 编译解析@import/URL这种语法
+           "less-loader"
         ]
       }]
   },
-  plugins:[new Plu()],
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
