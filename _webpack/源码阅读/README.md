@@ -61,69 +61,70 @@ Object.keys(this.hooks).forEach((hookName) => {
 });
 ```
 
-### 2、webpack的执行流程
+### 2、webpack 的执行流程
 
-Compiler的钩子
-- environment SyncHook  设置node环境变量
-- afterEnvironment SyncHook  设置环境变量完成
-- entryOption SyncBailHook context,entry  解析入口文件
-- afterPlugins SyncHook compiler  挂在插件结束
-- afterResolvers SyncHook compiler  解析路径后触发
-- beforeRun AsyncSeriesHook compiler  开始运行前
-- run AsyncSeriesHook compiler  开始运行
-- normalModuleFactory SyncHook normalModuleFactory  创建模块工厂
-- contextModuleFactory SyncHook contextModulefactory  创建上下文模块工厂
-- beforeCompile AsyncSeriesHook params  开始编译前
-- compile SyncHook params  编译
-- thisCompilation SyncHook compilation,params  启动编译
-- compilation SyncHook compilation,params  创建一个compition
-- make AsyncParallelHook compilation  最核心代码 从入口文件开始编译
-- afterCompile AsyncSeriesHook compilation  编译完成
-- shouldEmit SyncBailHook compilation  是否要生成文件
-- emit AsyncSeriesHook compilation  生成文件
-- afterEmit AsyncSeriesHook compilation  资源已经生成
-- done AsyncSeriesHook stats  整个编译完成
+Compiler 的钩子
 
+- environment SyncHook 设置 node 环境变量
+- afterEnvironment SyncHook 设置环境变量完成
+- entryOption SyncBailHook context,entry 解析入口文件
+- afterPlugins SyncHook compiler 挂在插件结束
+- afterResolvers SyncHook compiler 解析路径后触发
+- beforeRun AsyncSeriesHook compiler 开始运行前
+- run AsyncSeriesHook compiler 开始运行
+- normalModuleFactory SyncHook normalModuleFactory 创建模块工厂
+- contextModuleFactory SyncHook contextModulefactory 创建上下文模块工厂
+- beforeCompile AsyncSeriesHook params 开始编译前
+- compile SyncHook params 编译
+- thisCompilation SyncHook compilation,params 启动编译
+- compilation SyncHook compilation,params 创建一个 compition
+- make AsyncParallelHook compilation 最核心代码 从入口文件开始编译
+- afterCompile AsyncSeriesHook compilation 编译完成
+- shouldEmit SyncBailHook compilation 是否要生成文件
+- emit AsyncSeriesHook compilation 生成文件
+- afterEmit AsyncSeriesHook compilation 资源已经生成
+- done AsyncSeriesHook stats 整个编译完成
 
-Compition的钩子
-- addEntry SyncHook entry,name  添加入口 ./src/index.js
-- buildModule SyncHook module  编译入口模块
-- normalModuleLoader SyncHook loaderContext,module  拿到正常模块加载起
-- succeedModule SyncHook module  成功加载模块
-- succeedEntry SyncHook entry,name,module  入口解析成功
-- finishModules AsyncSeriesHook modules  完成模块编译
-- seal SyncHook  封包， 一旦封装之后，不能再向内添加新的模块了
-- optimizeDependenciesBasic SyncBailHook modules  优化依赖项
-- optimizeDependencies SyncBailHook modules  
+Compition 的钩子
+
+- addEntry SyncHook entry,name 添加入口 ./src/index.js
+- buildModule SyncHook module 编译入口模块
+- normalModuleLoader SyncHook loaderContext,module 拿到正常模块加载起
+- succeedModule SyncHook module 成功加载模块
+- succeedEntry SyncHook entry,name,module 入口解析成功
+- finishModules AsyncSeriesHook modules 完成模块编译
+- seal SyncHook 封包， 一旦封装之后，不能再向内添加新的模块了
+- optimizeDependenciesBasic SyncBailHook modules 优化依赖项
+- optimizeDependencies SyncBailHook modules
 - optimizeDependenciesAdvanced SyncBailHook modules
 - afterOptimizeDependencies SyncHook modules
 
-- beforeChunks SyncHook  生成chunk
-- afterChunks SyncHook chunks 完成生成chunk
+- beforeChunks SyncHook 生成 chunk
+- afterChunks SyncHook chunks 完成生成 chunk
 
-- optimize SyncHook  优化模块
+- optimize SyncHook 优化模块
 - optimizeModulesBasic SyncBailHook modules
 - optimizeModules SyncBailHook modules
 - optimizeModulesAdvanced SyncBailHook modules
 - afterOptimizeModules SyncHook modules
 
-- optimizeChunksBasic SyncBailHook chunks,chunkGroups  优化chunk
+- optimizeChunksBasic SyncBailHook chunks,chunkGroups 优化 chunk
 - optimizeChunks SyncBailHook chunks,chunkGroups
 - optimizeChunksAdvanced SyncBailHook chunks,chunkGroups
 - afterOptimizeChunks SyncHook chunks,chunkGroups
 
-- optimizeTree AsyncSeriesHook chunks,modules  优化依赖树
+- optimizeTree AsyncSeriesHook chunks,modules 优化依赖树
 - afterOptimizeTree SyncHook chunks,modules
 - optimizeChunkModulesBasic SyncBailHook chunks,modules
 - optimizeChunkModules SyncBailHook chunks,modules
 - optimizeChunkModulesAdvanced SyncBailHook chunks,modules
 - afterOptimizeChunkModules SyncHook chunks,modules
 
-- shouldRecord SyncBailHook  是否要记录
-- reviveModules SyncHook modules,records  比对恢复
-- optimizeModuleOrder SyncHook modules  优化模块顺序
+- shouldRecord SyncBailHook 是否要记录
+- reviveModules SyncHook modules,records 比对恢复
+- optimizeModuleOrder SyncHook modules 优化模块顺序
 - advancedOptimizeModuleOrder SyncHook modules
-- beforeModuleIds SyncHook modules  处理模块id
+- beforeModuleIds SyncHook modules 处理模块 id
 
 - moduleIds SyncHook modules
 - optimizeModuleIds SyncHook modules
@@ -133,27 +134,57 @@ Compition的钩子
 - beforeChunkIds SyncHook chunks
 - optimizeChunkIds SyncHook chunks
 - afterOptimizeChunkIds SyncHook chunks
-- recordModules SyncHook modules,records  记录模块
-- recordChunks SyncHook chunks,records  记录chunk
-- beforeHash SyncHook   
-- chunkHash SyncHook chunk,chunkHash  生成hash
-- contentHash SyncHook chunk  
-- afterHash SyncHook 
-- recordHash SyncHook records  记录hash
-- beforeModuleAssets SyncHook  生成模块资源之前
-- shouldGenerateChunkAssets SyncBailHook  是否生成模块资源
+- recordModules SyncHook modules,records 记录模块
+- recordChunks SyncHook chunks,records 记录 chunk
+- beforeHash SyncHook
+- chunkHash SyncHook chunk,chunkHash 生成 hash
+- contentHash SyncHook chunk
+- afterHash SyncHook
+- recordHash SyncHook records 记录 hash
+- beforeModuleAssets SyncHook 生成模块资源之前
+- shouldGenerateChunkAssets SyncBailHook 是否生成模块资源
 - beforeChunkAssets SyncHook 生成代码块资源之前
 - chunkAsset SyncHook chunk,filename
-- additionalChunkAssets SyncHook chunks  添加额外资源
-- record SyncHook compilation,records  
-- additionalAssets AsyncSeriesHook 
+- additionalChunkAssets SyncHook chunks 添加额外资源
+- record SyncHook compilation,records
+- additionalAssets AsyncSeriesHook
 - optimizeChunkAssets AsyncSeriesHook chunks
 - afterOptimizeChunkAssets SyncHook chunks
-- optimizeAssets AsyncSeriesHook assets   压缩资源
+- optimizeAssets AsyncSeriesHook assets 压缩资源
 - afterOptimizeAssets SyncHook assets
-- needAdditionalSeal SyncBailHook  
-- afterSeal AsyncSeriesHook  封装之后
-- needAdditionalPass SyncBailHook 
-
+- needAdditionalSeal SyncBailHook
+- afterSeal AsyncSeriesHook 封装之后
+- needAdditionalPass SyncBailHook
 
 > - 模块 、 代码块、 资源、 入口
+
+### Stas 对象
+
+- 回调函数中得到 stas 对象
+
+> npx webpack --config ./webpack.config.js --json > stats.json
+
+npm i webpack-bundle-analyzer
+
+- 生成代码分析报告，提升代码质量和网站性能
+
+```js
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+plugins:[
+    new WebpackBundleAnalyzer() // 默认配置
+    // 配置项
+    analyzerMode:'server',
+    analyzerHost:'127.0.0.1',
+    analyzerPort:'8888',
+    ...
+]
+
+ package.json
+ {
+    "scripts":{
+        "generateAnalyzFile":"webpack --config ./webpack.config.js --json > stats.json",  // 生成分析文件
+        "analyz":"webpack-bundle-analyzer --port 8888 ./stats.json"  // 启动展示打包报告的http服务器
+    }
+ }
+```

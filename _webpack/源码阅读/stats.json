@@ -1,0 +1,381 @@
+{
+  "errors": [], 
+  "warnings": [],
+  "version": "4.46.0",
+  "hash": "023ef386bc6f43155d36",
+  "time": 76,
+  "builtAt": 1619686278549,
+  "publicPath": "",
+  "outputPath": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/dist",
+  "assetsByChunkName": { "main": "bundle.js" },
+  "assets": [
+    {
+      "name": "0.bundle.js",
+      "size": 278,
+      "chunks": [0],
+      "chunkNames": [],
+      "info": {},
+      "emitted": true
+    },
+    {
+      "name": "bundle.js",
+      "size": 9059,
+      "chunks": ["main"],
+      "chunkNames": ["main"],
+      "info": {},
+      "emitted": true
+    }
+  ],
+  "filteredAssets": 0,
+  "entrypoints": {
+    "main": {
+      "chunks": ["main"],
+      "assets": ["bundle.js"],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "namedChunkGroups": {
+    "main": {
+      "chunks": ["main"],
+      "assets": ["bundle.js"],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "chunks": [
+    {
+      "id": 0,
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 23,
+      "names": [],
+      "files": ["0.bundle.js"],
+      "hash": "a9e513df8bd2683d2322",
+      "siblings": [],
+      "parents": ["main"],
+      "children": [],
+      "childrenByOrder": {},
+      "modules": [
+        {
+          "id": "./src/lily.js",
+          "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/lily.js",
+          "name": "./src/lily.js",
+          "index": 2,
+          "index2": 2,
+          "size": 23,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [0],
+          "issuer": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "issuerId": "./src/index.js",
+          "issuerName": "./src/index.js",
+          "issuerPath": [
+            {
+              "id": "./src/index.js",
+              "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+              "name": "./src/index.js"
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "assets": [],
+          "reasons": [
+            {
+              "moduleId": "./src/index.js",
+              "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+              "module": "./src/index.js",
+              "moduleName": "./src/index.js",
+              "type": "import()",
+              "userRequest": "./lily",
+              "loc": "4:0-43"
+            },
+            {
+              "moduleId": "./src/index.js",
+              "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+              "module": "./src/index.js",
+              "moduleName": "./src/index.js",
+              "type": "import()",
+              "userRequest": "./lily",
+              "loc": "8:0-43"
+            }
+          ],
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 1,
+          "source": "module.exports = 'lily'"
+        }
+      ],
+      "filteredModules": 0,
+      "origins": [
+        {
+          "moduleId": "./src/index.js",
+          "module": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "moduleName": "./src/index.js",
+          "loc": "4:0-43",
+          "request": "./lily",
+          "reasons": []
+        },
+        {
+          "moduleId": "./src/index.js",
+          "module": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "moduleName": "./src/index.js",
+          "loc": "8:0-43",
+          "request": "./lily",
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "id": "main",
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "size": 236,
+      "names": ["main"],
+      "files": ["bundle.js"],
+      "hash": "a205a281ddebd8b0991d",
+      "siblings": [],
+      "parents": [],
+      "children": [0],
+      "childrenByOrder": {},
+      "modules": [
+        {
+          "id": "./src/hello.js",
+          "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/hello.js",
+          "name": "./src/hello.js",
+          "index": 1,
+          "index2": 0,
+          "size": 24,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": ["main"],
+          "issuer": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "issuerId": "./src/index.js",
+          "issuerName": "./src/index.js",
+          "issuerPath": [
+            {
+              "id": "./src/index.js",
+              "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+              "name": "./src/index.js"
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "assets": [],
+          "reasons": [
+            {
+              "moduleId": "./src/index.js",
+              "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+              "module": "./src/index.js",
+              "moduleName": "./src/index.js",
+              "type": "cjs require",
+              "userRequest": "./hello",
+              "loc": "2:14-32"
+            }
+          ],
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 1,
+          "source": "module.exports = 'hello'"
+        },
+        {
+          "id": "./src/index.js",
+          "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "name": "./src/index.js",
+          "index": 0,
+          "index2": 1,
+          "size": 212,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": ["main"],
+          "issuer": null,
+          "issuerId": null,
+          "issuerName": null,
+          "issuerPath": null,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "assets": [],
+          "reasons": [
+            {
+              "moduleId": null,
+              "moduleIdentifier": null,
+              "module": null,
+              "moduleName": null,
+              "type": "single entry",
+              "userRequest": "./src/index.js",
+              "loc": "main"
+            }
+          ],
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 0,
+          "source": "\nconst hello = require('./hello');\n\nimport(/**webpackChunkname lazy**/'./lily').then(res=>{\n   console.log(res.default)\n})\n\nimport(/**webpackChunkname lazy**/'./lily').then(res=>{\n    console.log(res.default)\n })"
+        }
+      ],
+      "filteredModules": 0,
+      "origins": [
+        {
+          "module": "",
+          "moduleIdentifier": "",
+          "moduleName": "",
+          "loc": "main",
+          "request": "./src/index.js",
+          "reasons": []
+        }
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "id": "./src/hello.js",
+      "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/hello.js",
+      "name": "./src/hello.js",
+      "index": 1,
+      "index2": 0,
+      "size": 24,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": ["main"],
+      "issuer": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+      "issuerId": "./src/index.js",
+      "issuerName": "./src/index.js",
+      "issuerPath": [
+        {
+          "id": "./src/index.js",
+          "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "name": "./src/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "assets": [],
+      "reasons": [
+        {
+          "moduleId": "./src/index.js",
+          "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "module": "./src/index.js",
+          "moduleName": "./src/index.js",
+          "type": "cjs require",
+          "userRequest": "./hello",
+          "loc": "2:14-32"
+        }
+      ],
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 1,
+      "source": "module.exports = 'hello'"
+    },
+    {
+      "id": "./src/index.js",
+      "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+      "name": "./src/index.js",
+      "index": 0,
+      "index2": 1,
+      "size": 212,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": ["main"],
+      "issuer": null,
+      "issuerId": null,
+      "issuerName": null,
+      "issuerPath": null,
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "assets": [],
+      "reasons": [
+        {
+          "moduleId": null,
+          "moduleIdentifier": null,
+          "module": null,
+          "moduleName": null,
+          "type": "single entry",
+          "userRequest": "./src/index.js",
+          "loc": "main"
+        }
+      ],
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 0,
+      "source": "\nconst hello = require('./hello');\n\nimport(/**webpackChunkname lazy**/'./lily').then(res=>{\n   console.log(res.default)\n})\n\nimport(/**webpackChunkname lazy**/'./lily').then(res=>{\n    console.log(res.default)\n })"
+    },
+    {
+      "id": "./src/lily.js",
+      "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/lily.js",
+      "name": "./src/lily.js",
+      "index": 2,
+      "index2": 2,
+      "size": 23,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [0],
+      "issuer": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+      "issuerId": "./src/index.js",
+      "issuerName": "./src/index.js",
+      "issuerPath": [
+        {
+          "id": "./src/index.js",
+          "identifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "name": "./src/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "assets": [],
+      "reasons": [
+        {
+          "moduleId": "./src/index.js",
+          "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "module": "./src/index.js",
+          "moduleName": "./src/index.js",
+          "type": "import()",
+          "userRequest": "./lily",
+          "loc": "4:0-43"
+        },
+        {
+          "moduleId": "./src/index.js",
+          "moduleIdentifier": "/Users/rockshang/Desktop/complete-works/_webpack/源码阅读/src/index.js",
+          "module": "./src/index.js",
+          "moduleName": "./src/index.js",
+          "type": "import()",
+          "userRequest": "./lily",
+          "loc": "8:0-43"
+        }
+      ],
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 1,
+      "source": "module.exports = 'lily'"
+    }
+  ],
+  "filteredModules": 0,
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 5,
+      "debug": false
+    }
+  },
+  "children": []
+}
