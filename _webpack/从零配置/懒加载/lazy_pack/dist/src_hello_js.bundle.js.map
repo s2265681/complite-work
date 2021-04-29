@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/hello.js"],"names":[],"mappings":";;;;;;;;AAAA,oB","file":"src_hello_js.bundle.js","sourcesContent":["console.log('hello')"],"sourceRoot":""}
