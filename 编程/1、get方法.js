@@ -6,7 +6,7 @@ const get = (data, path, defaultValue = void 0) => {
   let result = data;
   for (const path of paths) {
     result = Object(result)[path]; // edge case data -> null
-    if (result == null) {
+    if (result == null) { 
       return defaultValue;
     }
   }
