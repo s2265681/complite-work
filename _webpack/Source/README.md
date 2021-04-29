@@ -10,8 +10,7 @@ const pkg = require(pkgPath);
 require(path.resolve(path.dirname(pkgPath), "./bin/cli.js"));
 ```
 
-- debugger 这个入口文件
-  node debugger
+- debugger 这个入口文件 node debugger
 
 思路
 
@@ -98,34 +97,28 @@ Compition 的钩子
 - optimizeDependencies SyncBailHook modules
 - optimizeDependenciesAdvanced SyncBailHook modules
 - afterOptimizeDependencies SyncHook modules
-
 - beforeChunks SyncHook 生成 chunk
 - afterChunks SyncHook chunks 完成生成 chunk
-
 - optimize SyncHook 优化模块
 - optimizeModulesBasic SyncBailHook modules
 - optimizeModules SyncBailHook modules
 - optimizeModulesAdvanced SyncBailHook modules
 - afterOptimizeModules SyncHook modules
-
 - optimizeChunksBasic SyncBailHook chunks,chunkGroups 优化 chunk
 - optimizeChunks SyncBailHook chunks,chunkGroups
 - optimizeChunksAdvanced SyncBailHook chunks,chunkGroups
 - afterOptimizeChunks SyncHook chunks,chunkGroups
-
 - optimizeTree AsyncSeriesHook chunks,modules 优化依赖树
 - afterOptimizeTree SyncHook chunks,modules
 - optimizeChunkModulesBasic SyncBailHook chunks,modules
 - optimizeChunkModules SyncBailHook chunks,modules
 - optimizeChunkModulesAdvanced SyncBailHook chunks,modules
 - afterOptimizeChunkModules SyncHook chunks,modules
-
 - shouldRecord SyncBailHook 是否要记录
 - reviveModules SyncHook modules,records 比对恢复
 - optimizeModuleOrder SyncHook modules 优化模块顺序
 - advancedOptimizeModuleOrder SyncHook modules
 - beforeModuleIds SyncHook modules 处理模块 id
-
 - moduleIds SyncHook modules
 - optimizeModuleIds SyncHook modules
 - afterOptimizeModuleIds SyncHook modules
@@ -188,3 +181,29 @@ plugins:[
     }
  }
 ```
+
+### module 会根据依赖关系生成 chunk
+
+1、每个入口文件天然就是一个 chunk，此入口文件和依赖的模块生成一个 chunk 2、如果某个模块里有动态引入语句 import，就会由 import 单独生成一个新的代码快，这个代码快里放置这个动态引入的模块依赖的模块 3、spitchunks，实现同步的代码分割，把多个代码里共同的模块提取成一个单独的代码快，还可以把某些模块，比如 node_modules 里的模块单独提取出来成一一个代码快
+
+
+
+### webpack执行流程
+
+- Webpack的执行流程是一个串行的过程，依次执行
+
+- 初始化参数，从配置文件和Shell语句中读取合并参数，得到最终的参数；
+
+- 开始编译：用上一步的参数初始化Compiler对象，加载所有配置的插件，执行对象的run方法开始编译，确定入口，根据配置中的entry找出所有的入口文件
+
+- 编译模块：从入口文件触发，调用所有配置的Loader对模块进行编译，再找出该模块依赖的模块，递归本步骤知道所有入口依赖的文件都经过本步骤的处理
+
+- 完成模块的编译： 在经过第4步使用Loader翻译完所有模块后，得到了每一个模块被翻译的最终内容以及他们之间的依赖关系
+
+- 输出资源： 根据入口和模块之间的依赖关系，组装成一个个包含多个模块的Chunk，再把每个Chunk转换成一个单独的文件加入到输出列表，这步骤是可以修改出内容的最后机会
+
+- 输出完成：在确定输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统
+
+- 在以上过程中，Webpack后在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用webpack提供的API改变webapck的运行结果。
+
+  ![](http://img.zhufengpeixun.cn/webpackcode.jpg)
