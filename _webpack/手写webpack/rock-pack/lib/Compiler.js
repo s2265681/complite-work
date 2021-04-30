@@ -1,9 +1,10 @@
 let path = require("path");
 let fs = require("fs");
-const babylon = require("babylon");
-let types = require("@babel/types");
-const traverse = require("@babel/traverse").default;
-const generator = require("@babel/generator").default;
+const babylon = require("babylon"); // 源代码转化为语法树
+let types = require("@babel/types"); // 是否指定或者生成一个新节点
+const traverse = require("@babel/traverse").default; // 递归分析依赖节点 维护来整个树状态 可以实现节点的增删
+const generator = require("@babel/generator").default; // 将AST节点转化成代码
+
 let ejs = require("ejs");
 const { SyncHook } = require("tapable");
 // babylon 把源码转化成AST
@@ -18,7 +19,7 @@ class Compiler {
     // 需要报错入口文件路径
     this.entryId; // ‘./src/index.js’
     // 需要保存所有的模块依赖
-    this.modules = {};
+    this.modules = {}; // 存放着所有的模块
     this.entry = config.entry; //入口文件路径
     // 工作路径
     this.root = process.cwd();
@@ -75,14 +76,23 @@ class Compiler {
   }
 
   // 解析源码
+  /**
+   *
+   * @param {*} source
+   * @param {*} parentPath
+   * @returns
+   * *  源代码-> babylon 转成语法树 -> traverse递归语树结构 -> types 操作节点 -> generator
+   */
   parse(source, parentPath) {
     // AST 解析语法树
-    let ast = babylon.parse(source);
+    let ast = babylon.parse(source, {
+      plugin: ["dynamicImport"],
+    });
     let dependencies = []; // 依赖的数组
     traverse(ast, {
-      CallExpression(p) {
+      CallExpression(nodePath) {
         // a()  require()  执行表达式
-        let node = p.node; // 对应的节点
+        let node = nodePath.node; // 对应的节点
         if (node.callee.name === "require") {
           node.callee.name = "__webpack_require__";
           let moduleName = node.arguments[0].value; // 渠道的就是模块的引用名字
@@ -90,6 +100,16 @@ class Compiler {
           moduleName = "./" + path.join(parentPath, moduleName); // ./ src/ a.js
           dependencies.push(moduleName);
           node.arguments = [types.stringLiteral(moduleName)];
+        }else if(types.isImport(node.callee)){
+            let moduleName =  node.arguments[0].value;
+        //   import("./hello").then((result) => {
+        //     console.log(result.default);
+        //   });
+        // 整个替换上面代码
+          node.replaceWithSourceString(`
+              __webpack_require__.e("${moduleName}").then(__webpack_require__.t.bind(__webpack_require__,${moduleName}))
+          `)
+          this.buildModule()
         }
       },
     });
@@ -101,7 +121,9 @@ class Compiler {
   }
 
   // 构建模块
-  buildModule(modulePath, isEntry) {
+  // 配置懒加载
+
+  buildModule(modulePath, isEntry, chunkId) {
     // 拿到模块的内容
     let source = this.getSource(modulePath);
     // 拿到模块id modulePath = modulePath - this.root
@@ -166,10 +188,10 @@ class Compiler {
   }
 }
 
-const webpack = (webpackOptions, callback) => {
-  let compiler = new Compiler(webpackOptions);
-  compiler.run(callback);
-  return compiler;
-};
+// const webpack = (webpackOptions, callback) => {
+//   let compiler = new Compiler(webpackOptions,callback);
+//   compiler.run(callback);
+//   return compiler;
+// };
 
-module.exports = webpack;
+module.exports = Compiler;
