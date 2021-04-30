@@ -21,6 +21,7 @@ button.innerHTML = "按钮";
 button.addEventListener("click", function () {
     // debugger
   import("./hello").then((result) => {
+    //   debugger
     console.log(result.default);
   });
 });

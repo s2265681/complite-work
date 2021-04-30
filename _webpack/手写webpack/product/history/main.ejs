@@ -1,0 +1,14 @@
+(() => {
+    var __webpack_modules__ = {
+      <%for(let key in modules){%>
+      "<%-key%>": (module, __unused_webpack_exports, __webpack_require__) => {eval(`<%-modules[key]%>`) },
+      <%}%>
+    };
+    function __webpack_require__(moduleId) {
+      var module = {}
+      __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+      return module.exports;
+    }
+    __webpack_require__("<%-entryId%>");
+  })();
+  

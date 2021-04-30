@@ -1,13 +1,57 @@
 (() => {
+    var installedModules = []
+    var installedChunks = {
+        main: 0
+    }
     var __webpack_modules__ = {
       <%for(let key in modules){%>
       "<%-key%>": (module, __unused_webpack_exports, __webpack_require__) => {eval(`<%-modules[key]%>`) },
       <%}%>
     };
     function __webpack_require__(moduleId) {
-      var module = {}
+      if(installedModules[moduleId]) {
+          return installedModules[moduleId].exports;
+      }
+      var module = installedModules[moduleId] = {
+          i: moduleId,
+          l: false,
+          exports: {}
+      }
       __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
       return module.exports;
+    }
+    __webpack_require__.o = (obj, chunkId) => obj.hasOwnProperty(chunkId);
+
+    __webpack_require__.e = function(chunkId){
+        var installedChunkData = __webpack_require__.o(installedChunks, chunkId)
+        ? installedChunks[chunkId]
+        : undefined;
+        if(installedChunkData !== 0) {
+            return new Promise((resolve,reject)=>{
+                installedChunks[chunkId] = resolve
+                let script = document.createElement('script')
+                script.src = chunkId;
+                document.body.appendChild(script)
+             })
+        }else{
+            return new Promise(res=> {
+                 res()
+                installedChunks[chunkId] = 0;
+            })
+        }
+    }
+    __webpack_require__.t = function(value){
+        value = __webpack_require__(value)
+        return {
+            default: value
+        }
+    }
+    window.webpackJsonp = (chunkId,moreModules) => {
+        for(moduleId in moreModules) {
+            __webpack_modules__[moduleId] = moreModules[moduleId]
+            installedChunks[chunkId]()
+            installedChunks[chunkId] = 0
+        }
     }
     __webpack_require__("<%-entryId%>");
   })();
