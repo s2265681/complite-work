@@ -1,0 +1,28 @@
+{
+  "name": "px2loader",
+  "version": "1.0.0",
+  "description": "为什么使用loader 如何使用 它有什么问题 如何改变它",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "css": "^3.0.0",
+    "css-loader": "^5.2.4",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.1",
+    "less-loader": "^8.1.1",
+    "tapable": "^2.2.0"
+  }
+}

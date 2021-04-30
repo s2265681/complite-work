@@ -10,10 +10,10 @@ compiler.run((err, stats) => {
     console.log(err);
   } else {
     console.log(
-      stats.toJson({
-        hash: true,
-        assets: false,
-      })
+    //   stats.toJson({
+    //     hash: true,
+    //     assets: false,
+    //   })
     );
   }
 });

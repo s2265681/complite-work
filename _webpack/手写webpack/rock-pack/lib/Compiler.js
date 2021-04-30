@@ -10,6 +10,7 @@ const { SyncHook } = require("tapable");
 // @babel/traverse 遍历对应的节点
 // @babel/types 替换结果
 // @babel/generator  将AST结果生成代码
+
 class Compiler {
   constructor(config) {
     // enrty output
@@ -40,7 +41,7 @@ class Compiler {
         plugin.apply(this);
       });
     }
-    this.hooks.afterPlugins.call()
+    this.hooks.afterPlugins.call();
   }
   getSource(modulePath) {
     console.log(modulePath, "modulePath...");
@@ -62,7 +63,7 @@ class Compiler {
       if (test.test(modulePath)) {
         function nextLoader() {
           let loader = require(use[len--]);
-          content = loader.call(_this,content);
+          content = loader.call(_this, content);
           if (len >= 0) {
             nextLoader();
           }
@@ -127,7 +128,7 @@ class Compiler {
     });
   }
 
-  emitFile() {
+  emitFiles() {
     // 发射文件  用数据  渲染模版
     // 用数据渲染
     // 拿到输出到哪个目录下
@@ -142,28 +143,33 @@ class Compiler {
     fs.writeFileSync(main, this.assets[main]);
   }
 
-  run() {
+  run(cb = () => {}) {
     this.hooks.run.call();
     // 解析依赖
     // 执行创建模块的依赖关系
     // 拿到模块内容
     this.hooks.compile.call();
-
     this.buildModule(path.resolve(this.root, this.entry), true);
-
     this.hooks.afterCompiler.call();
     // console.log(this.modules, this.entry)
     // 发射一个文件 打包后的文件
-    this.emitFile();
+    this.emitFiles();
     this.hooks.emit.call();
     this.hooks.done.call();
+    cb();
   }
 
-  async(){
-      return function(err, code){
-          console.log(err,code)
-      }
+  async() {
+    return function (err, code) {
+      console.log(err, code);
+    };
   }
 }
 
-module.exports = Compiler;
+const webpack = (webpackOptions, callback) => {
+  let compiler = new Compiler(webpackOptions);
+  compiler.run(callback);
+  return compiler;
+};
+
+module.exports = webpack;

@@ -1,0 +1,21 @@
+{
+  "name": "px2loader",
+  "version": "1.0.0",
+  "description": "为什么使用loader 如何使用 它有什么问题 如何改变它",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generateAnalyzFile": "webpack --config ./webpack.config.js --json > stats.json",
+    "analyz": "webpack-bundle-analyzer --port 8888 ./stats.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21"
+  }
+}
