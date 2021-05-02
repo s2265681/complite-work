@@ -121,23 +121,132 @@ return content;
 }
 ```
 
+#### 实现懒加载
 
+> 实现原理 通过 ast 解析 将 import 语法 进行拆分 分成和 main 相互独立的 chunk， 根据不同的 chunk emit 成不同的模块  
+> 实现了 webpack.e webpack.t 在 e 中主要是返回了 promise 格式的代码 将 chunkid = resolve 创建 script 标签 src 等于 chunkid
+> 在每次异步执行时 都会创建一个 script 标签 后面通过 installedChunk 全局维护 加入缓存 如果创建过 就直接然后 promise.resolve 否则在进行上步骤
 
-####  实现懒加载
-
-
+- index.js
 
 ```js
 let button = document.createElement("button");
 button.innerHTML = "按钮";
 button.addEventListener("click", function () {
-    debugger
+  debugger;
   import("./hello").then((result) => {
     console.log(result.default);
   });
 });
 
 console.log("index");
-document.body.appendChild(button)
+document.body.appendChild(button);
 ```
 
+- Compiler 模块
+  > 改造的点 按照 import 区分 成两个 chunk main 模块 和 其他模块
+  > 替换 import 节点 改为 replaceWithSourceString
+
+```js
+// 整个替换上面代码 异步加载我们的代码 封装一下 通过.default 拿到值
+nodePath.replaceWithSourceString(`
+    __webpack_require__.e("${dependencyChunkId}").then(__webpack_require__.t.bind(__webpack_require__, "${dependencyModuleId}"))
+`);
+
+// ... 发射代码阶段 循环chunks 按照不同的chunId 发射不同的ejs模版
+ emitFiles() {
+    // 发射文件  用数据  渲染模版
+    // 用数据渲染
+    // 拿到输出到哪个目录下
+    console.log(this.chunks,'chunks');
+    // 现在 增加 懒加载写法
+    Object.keys(this.chunks).forEach(chunkId=>{
+        if(chunkId == 'main'){
+            let outputFile = path.join(this.config.output.path, this.config.output.filename);
+            let moduleTemplateStr = this.getSource(path.join(__dirname, "main.ejs"));
+            let bundle = ejs.compile(moduleTemplateStr)({ entryId: this.entryId,modules:this.chunks[chunkId]})
+            fs.writeFileSync(outputFile, bundle , 'utf8');
+        }else{
+            let outputFile = path.join(this.config.output.path, chunkId);
+            let chunkTemplateStr = this.getSource(path.join(__dirname, "chunk.ejs"));
+            let bundle = ejs.compile(chunkTemplateStr)({ chunkId, modules:this.chunks[chunkId]})
+            fs.writeFileSync(outputFile, bundle , 'utf8');
+        }
+    })
+```
+
+- chunk.ejs
+```js
+window.webpackJsonp("<%-chunkId%>",{
+   <%for(moduleId in modules){%> 
+     "<%-moduleId%>":(function(module,exports,__webpack_require__){
+         <%-modules[moduleId]%>
+     }),
+   <%}%>
+});
+```
+
+- main.ejs
+```js
+(() => {
+    var installedModules = []
+    var installedChunks = {
+        main: 0
+    }
+    var __webpack_modules__ = {
+      <%for(let key in modules){%>
+      "<%-key%>": (module, __unused_webpack_exports, __webpack_require__) => {eval(`<%-modules[key]%>`) },
+      <%}%>
+    };
+    function __webpack_require__(moduleId) {
+      if(installedModules[moduleId]) {
+          return installedModules[moduleId].exports;
+      }
+      var module = installedModules[moduleId] = {
+          i: moduleId,
+          l: false,
+          exports: {}
+      }
+      __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+      return module.exports;
+    }
+    __webpack_require__.o = (obj, chunkId) => obj.hasOwnProperty(chunkId);
+
+    __webpack_require__.e = function(chunkId){
+        var installedChunkData = __webpack_require__.o(installedChunks, chunkId)
+        ? installedChunks[chunkId]
+        : undefined;
+        if(installedChunkData !== 0) {
+            return new Promise((resolve,reject)=>{
+                installedChunks[chunkId] = resolve
+                let script = document.createElement('script')
+                script.src = chunkId;
+                document.body.appendChild(script)
+             })
+        }else{
+            return new Promise(res=> {
+                 res()
+                installedChunks[chunkId] = 0;
+            })
+        }
+    }
+    __webpack_require__.t = function(value){
+        value = __webpack_require__(value)
+        return {
+            default: value
+        }
+    }
+    window.webpackJsonp = (chunkId,moreModules) => {
+        for(moduleId in moreModules) {
+            __webpack_modules__[moduleId] = moreModules[moduleId]
+            installedChunks[chunkId]()
+            installedChunks[chunkId] = 0
+        }
+    }
+    __webpack_require__("<%-entryId%>");
+  })();
+  
+```
+
+
+#### 

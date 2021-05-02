@@ -177,7 +177,7 @@ class Compiler {
     // 用数据渲染
     // 拿到输出到哪个目录下
     console.log(this.chunks,'chunks');
-    // 现在 增加 懒加载写法
+    // 现在 增加 懒加载写法 
     Object.keys(this.chunks).forEach(chunkId=>{
         if(chunkId == 'main'){
             console.log('sssss');
