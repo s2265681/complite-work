@@ -1,13 +1,15 @@
+import { useState } from 'react';
+//useRef只能放在函数里 
 
-import { useState,useEffect, useLayoutEffect } from 'react';
-function useForm(initialValues){
-    const [formData,setFormData] = useState(initialValues)
-    const setFormValue = (key,value)=>{
-        setFormData({...initialValues,[key]:value})
+function useForm(initialValues) {
+    const [formData, setFormData] = useState(initialValues);
+    const setFormValue = (key, value) => {
+        setFormData({ ...formData, [key]: value });
     }
-    const resetFormValue = ()=>{
-        setFormData(initialValues)
+    const resetFormValues = () => {
+        setFormData(initialValues);
     }
-    return [formData, setFormValue,resetFormValue]
+    return [formData, setFormValue, resetFormValues];
 }
+
 export default useForm;

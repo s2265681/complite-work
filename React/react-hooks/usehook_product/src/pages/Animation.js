@@ -1,9 +1,7 @@
-import React from 'react'
-
+import React from "react";
+import useAnimation from "../hooks/useAnimation";
+import "./Animation.css";
 export default function Animation() {
-    return (
-        <div>
-            Animation
-        </div>
-    )
+  const [className, toggle] = useAnimation("circle", "active");
+  return <div className={className} onClick={toggle}></div>;
 }
