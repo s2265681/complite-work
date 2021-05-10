@@ -1,7 +1,4 @@
-
-
-
-import { useState,useEffect, useLayoutEffect } from 'react';
+import { useState,useEffect, useLayoutEffect, useRef } from 'react';
 function useDrag(){
     // DOM位置 useRef 保存对象 可以在组件多次渲染的时候 保持不变
     const positionRef = useRef({
@@ -23,9 +20,12 @@ function useDrag(){
             const { clientX , clientY } = event.targetTouches[0];
             positionRef.current.currentX = positionRef.current.lastX + (clientX - startX)
             positionRef.current.currentY = positionRef.current.lastY + (clientY - startY)
+            console.log(positionRef,'positionRef...');
             forceUpdate({})
         }
         const end = function(event){
+            console.log(event,'event...');
+            const { clientX, clientY } = event.changedTouches[0]
             positionRef.current.lastX = positionRef.current.lastX + (clientX - startX)
             positionRef.current.lastY = positionRef.current.lastY + (clientY - startY)
             domRef.current.removeEventListener('touchmove',move)
@@ -34,7 +34,7 @@ function useDrag(){
         domRef.current.addEventListener('touchstart',start)
     }, [])
     // 让那个dom元素进行移动
-    let style = [{x: positionRef.currentX, y:positionRef.currentY}] 
+    let style = [{x: positionRef.current.currentX, y:positionRef.current.currentY}] 
     return [style,domRef]
 }
 export default useDrag;
