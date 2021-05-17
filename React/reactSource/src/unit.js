@@ -1,7 +1,7 @@
 import { Element, createElement } from "./element";
 import $ from "jquery";
 let diffQueue; // 差异队列
-let updateDepth=0; // 更新的级别
+let updateDepth = 0; // 更新的级别
 
 // 父类
 class Unit {
@@ -23,7 +23,7 @@ class TextUnit extends Unit {
   update(nextElement) {
     if (this._currentElement !== nextElement) {
       this._currentElement = nextElement;
-      $(`[data-reactid=${this._reactid}]`).html(this._currentElement);
+      $(`[data-reactid="${this._reactid}"]`).html(this._currentElement);
     }
   }
 }
@@ -71,7 +71,7 @@ class NativeUnit extends Unit {
           // eslint-disable-next-line no-loop-func
           children.forEach((child, index) => {
             let childUnit = createUnit(child); // 可能是字符串也可能是一个react元素 虚拟DOM
-            this._renderedChildrenUnites.push(childUnit)
+            this._renderedChildrenUnites.push(childUnit);
             let childHTMLString = childUnit.getHTMLString(
               `${this._reactid}.${index}`
             );
@@ -86,90 +86,113 @@ class NativeUnit extends Unit {
     return tagStart;
   }
   update(nextElement) {
-      // 1、更新属性
+    //   debugger
+    console.log(nextElement, "nextElement.......");
+    // 1、更新属性
     let oldProps = this._currentElement.props;
     let newProps = nextElement.props;
-    this.updateDOMProperties(oldProps,newProps)
-    this.updateDOMChildren(nextElement.props.children)
+    this.updateDOMProperties(oldProps, newProps);
+    this.updateDOMChildren(nextElement.props.children);
   }
   // 此处要把新的儿子门传过来，然后老得儿子们进行对比，然后找出差异，进行修改DOM
-  updateDOMChildren(newChildrenElements){
-      this.diff(diffQueue,newChildrenElements)
+  updateDOMChildren(newChildrenElements) {
+    this.diff(diffQueue, newChildrenElements);
   }
-  diff(diffQueue,newChildrenElements){
+  diff(diffQueue, newChildrenElements) {
     // let oldChildrenElement = this._currentElement.props.children;
-    let oldChildrenUnitMap = this.getOldChildrenMap(this._renderedChildrenUnites)
-    console.log(oldChildrenUnitMap,'oldChildrenUnitMap')
+    let oldChildrenUnitMap = this.getOldChildrenMap(
+      this._renderedChildrenUnites
+    );
+    console.log(oldChildrenUnitMap, "oldChildrenUnitMap");
     // console.log(oldChildrenElement,'oldChildrenElement.')
     // console.log(this._renderedChildrenUnites,'_renderedChildrenUnites.')
-
     // 先找老得集合里看看有没有能用的， 有就复用，没有就创建新的
-    let newChildren = this.getNewChildren(oldChildrenUnitMap,newChildrenElements)
+    let newChildren = this.getNewChildren(
+      oldChildrenUnitMap,
+      newChildrenElements
+    );
+    console.log(newChildren, "newChildren>>>.");
   }
   // 构建新的数组
-  getNewChildren(oldChildrenUnitMap,newChildrenElements){
-      let newChildren = [];
-      newChildrenElements.forEach((newElement,index)=>{
-          let newKey =  (newElement.props &&  newElement.props.key) || index.toString();
-          let oldUnit = oldChildrenUnitMap[newKey]; // 找到老得unit
-          let oldElement = oldUnit&&oldUnit._currentElement;  // 获取老元素
-          if(shouldDeepCompare(oldElement,newElement)){
-               oldUnit.update(newElement); // 递归操作 
-               newChildren.push(oldUnit)
-          }else{
-               // 不一样 推倒重来
-               let nextUnit = createUnit(newElement);
-               newChildren.push(nextUnit)
-          }
-      })
-      return newChildren;
-  }
-  getOldChildrenMap(childrenUnits=[]){
-      let map = {};
-      for(let i =0;i<childrenUnits.length;i++){
-          let unit = childrenUnits[i]._currentElement;
-          let key = (unit.props &&  unit.props.key) || i.toString();
-          map[key] = unit;
+  getNewChildren(oldChildrenUnitMap, newChildrenElements) {
+    console.log(oldChildrenUnitMap, newChildrenElements, "???");
+    let newChildren = [];
+    newChildrenElements.forEach((newElement, index) => {
+      let newKey =
+        (newElement.props && newElement.props.key) || index.toString();
+      let oldUnit = oldChildrenUnitMap[newKey]; // 找到老得unit
+      let oldElement = oldUnit && oldUnit._currentElement; // 获取老元素
+      // 比较元素类型是否一样
+      if (shouldDeepCompare(oldElement, newElement)) {
+        // 递归更新操作
+        oldUnit.update(newElement);
+        // 复用
+        newChildren.push(oldUnit);
+      } else {
+        // 不一样 推倒重来
+        let nextUnit = createUnit(newElement);
+        newChildren.push(nextUnit);
       }
-      return map
+    });
+    return newChildren;
   }
-  updateDOMProperties(oldProps,newProps){
-     // 循环
-     let propName;
-     for(propName in oldProps){  // 循环老得属性集合, 看一下新的属性中是否包含此属性
-         if(!newProps.hasOwnProperty(propName)){
-             // 不包含删除属性
-             $(`[data-reactid="${this._reactid}"]`).removeAttr(propName)
-         }
-         // 如果是绑定的事件， 解除委托的事件绑定
-         if(/on[A-Z].test(propName)/){
-             $(document).undelegate(`.${this._reactid}`);
-         }
-         for (const propName in newProps) {
-             if(propName=='children'){
-                 continue
-             }else  if(/on[A-Z]/.test(propName)){
-                let eventName = propName.slice(2).toLowerCase(); // click
-                $(document).delegate(
-                  `[data-reactid="${this._reactid}"]`,
-                  `${eventName}.${this.reactid}`,
-                  newProps[propName]
-                );
-             }else if(propName == 'style'){
-                 // 直接修改掉样式属性
-                 let styleObj = newProps['style'];
-                 Object.entries(styleObj).map(([attr,value])=>{
-                     $(`[data-reactid="${this._reactid}"]`).css(attr,value)
-                 })
-             }else if(propName=='className'){
-                //  $(`[data-reactid="${this._reactid}"]`)[0].className = newProps[propName]
-                $(`[data-reactid="${this._reactid}"]`).attr('class',newProps[propName]) 
-             }else{
-                 // 直接改掉属性
-                 $(`[data-reactid="${this._reactid}"]`).newProps(propName,newProps[propName])
-             }
-         }
-     }
+  getOldChildrenMap(childrenUnits = []) {
+    let map = {};
+    for (let i = 0; i < childrenUnits.length; i++) {
+      let unit = childrenUnits[i];
+      let key =
+        (unit._currentElement.props && unit._currentElement.props.key) ||
+        i.toString();
+      map[key] = unit;
+    }
+    return map;
+  }
+  updateDOMProperties(oldProps, newProps) {
+    // 循环
+    let propName;
+    for (propName in oldProps) {
+      // 循环老得属性集合, 看一下新的属性中是否包含此属性
+      if (!newProps.hasOwnProperty(propName)) {
+        // 不包含删除属性
+        $(`[data-reactid="${this._reactid}"]`).removeAttr(propName);
+      }
+      // 如果是绑定的事件， 解除委托的事件绑定
+    //   if (/^on[A-Z]/.test(propName)) {
+    //     $(document).undelegate(`.${this._reactid}`);
+    //   }
+    }
+
+    for (const propName in newProps) {
+      if (propName == "children") {
+        continue;
+      } else if (/^on[A-Z]/.test(propName)) {
+        // let eventName = propName.slice(2).toLowerCase(); // click
+        // $(document).delegate(
+        //   `[data-reactid="${this._reactid}"]`,
+        //   `${eventName}.${this.reactid}`,
+        //   newProps[propName]
+        // );
+      } else if (propName == "style") {
+        // 直接修改掉样式属性
+        let styleObj = newProps["style"];
+        Object.entries(styleObj).map(([attr, value]) => {
+          $(`[data-reactid="${this._reactid}"]`).css(attr, value);
+        });
+      } else if (propName == "className") {
+        //  $(`[data-reactid="${this._reactid}"]`)[0].className = newProps[propName]
+        $(`[data-reactid="${this._reactid}"]`).attr(
+          "class",
+          newProps[propName]
+        );
+      } else {
+        //  debugger
+        // 直接改掉属性
+        $(`[data-reactid="${this._reactid}"]`).prop(
+          propName,
+          newProps[propName]
+        );
+      }
+    }
   }
 }
 
@@ -186,13 +209,13 @@ class compositeUnit extends Unit {
       this._compositeInstance.state,
       partialState
     ));
-    console.log(nextState, "nextState....");
+    // console.log(nextState, "nextState....");
     // 新的属性对象
     let nextProps = this._currentElement.props;
     // 判断 shouldComponentUpdate
     let c =
       this._compositeInstance.shouldComponentUpdate &&
-      !this._compositeInstance.shouldComponentUpdate(nextProps,nextState);
+      !this._compositeInstance.shouldComponentUpdate(nextProps, nextState);
     if (c) {
       return;
     }
@@ -207,7 +230,8 @@ class compositeUnit extends Unit {
     if (shouldDeepCompare(preRenderedElement, nextRenderElement)) {
       // 如果新旧两个元素一样进行深度比较 把更新的工作交给上次渲染的
       preRenderUnitInstance.update(nextRenderElement);
-      this._compositeInstance.componentDidUpdate && this._compositeInstance.componentDidUpdate();
+      this._compositeInstance.componentDidUpdate &&
+        this._compositeInstance.componentDidUpdate();
       // this._compositeInstance
     } else {
       // 不深比较 就是直接替换...  创建一个新的原色
@@ -228,9 +252,8 @@ class compositeUnit extends Unit {
     // 调用组件的render方法，或得要渲染的元素
     let renderedElement = compositeInstance.render();
     // 得到这个原色对应的unit
-    let renderedUnitInstance = (this._renderedUnitInstance = createUnit(
-      renderedElement
-    ));
+    let renderedUnitInstance = (this._renderedUnitInstance =
+      createUnit(renderedElement));
     // 通过unit可以或得他的html 标记markup
     let renderedHTMLString = renderedUnitInstance.getHTMLString(this._reactid);
     // 给document绑定事件 当mounted的时候执行
@@ -253,19 +276,22 @@ function createUnit(element) {
   }
 }
 // 深比较
-function shouldDeepCompare(oldElement,newElement) {
-// 先判断类型
-if(oldElement!==null && newElement!==null){
+function shouldDeepCompare(oldElement, newElement) {
+  // 先判断类型
+  if (oldElement !== null && newElement !== null) {
     let oldType = typeof oldElement;
     let newType = typeof newElement;
-    if((oldType==='string'||oldType==='number')&&(newType==='string'||newType==='number')){
-        return true
+    if (
+      (oldType === "string" || oldType === "number") &&
+      (newType === "string" || newType === "number")
+    ) {
+      return true;
     }
-    if(oldElement instanceof Element && newElement instanceof Element){
-        return oldElement.type == newElement.type
+    if (oldElement instanceof Element && newElement instanceof Element) {
+      return oldElement.type == newElement.type;
     }
-}
-return false
+  }
+  return false;
 }
 
 export { createUnit };
