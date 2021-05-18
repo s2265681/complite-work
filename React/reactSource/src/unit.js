@@ -1,6 +1,8 @@
 import { Element, createElement } from "./element";
 import $ from "jquery";
-let diffQueue; // 差异队列
+import types from './types'
+
+let diffQueue = []; // 差异队列
 let updateDepth = 0; // 更新的级别
 
 // 父类
@@ -71,6 +73,7 @@ class NativeUnit extends Unit {
           // eslint-disable-next-line no-loop-func
           children.forEach((child, index) => {
             let childUnit = createUnit(child); // 可能是字符串也可能是一个react元素 虚拟DOM
+            childUnit._mountIndex = index;
             this._renderedChildrenUnites.push(childUnit);
             let childHTMLString = childUnit.getHTMLString(
               `${this._reactid}.${index}`
@@ -96,27 +99,81 @@ class NativeUnit extends Unit {
   }
   // 此处要把新的儿子门传过来，然后老得儿子们进行对比，然后找出差异，进行修改DOM
   updateDOMChildren(newChildrenElements) {
+    updateDepth++
     this.diff(diffQueue, newChildrenElements);
+    console.log(diffQueue,'diffQueue>>>')
+    updateDepth--
+    // 深度优先遍历 整个树遍历完成
+    if(updateDepth===0){ 
+        this.patch(diffQueue)
+        diffQueue = []
+    }
   }
+
+  patch(diffQueue){
+     let deleteChildren = []; // 删除的所有节点
+     let deleteMap = {}; // 这里暂存能复用的节点
+     for(let i=0;i<diffQueue.length;i++){
+         let difference = diffQueue[i];
+         
+     }
+  }
+
   diff(diffQueue, newChildrenElements) {
+      debugger
     // let oldChildrenElement = this._currentElement.props.children;
-    let oldChildrenUnitMap = this.getOldChildrenMap(
-      this._renderedChildrenUnites
-    );
-    console.log(oldChildrenUnitMap, "oldChildrenUnitMap");
-    // console.log(oldChildrenElement,'oldChildrenElement.')
-    // console.log(this._renderedChildrenUnites,'_renderedChildrenUnites.')
+    let oldChildrenUnitMap = this.getOldChildrenMap(this._renderedChildrenUnites);
     // 先找老得集合里看看有没有能用的， 有就复用，没有就创建新的
-    let newChildren = this.getNewChildren(
-      oldChildrenUnitMap,
-      newChildrenElements
-    );
-    console.log(newChildren, "newChildren>>>.");
+    let {newChildrenUnitMap , newChildrenUnits } = this.getNewChildren(oldChildrenUnitMap,newChildrenElements);
+    
+    let lastIndex = 0; // 一个已经确定位置的索引
+    for (let i=0;i< newChildrenUnits.length; i++) {
+        let newUnit = newChildrenUnits[i];
+        // 第一个拿到的就是newKey=A
+        let newKey = (newUnit._currentElement.props &&  newUnit._currentElement.props.key) || i.toString();
+        let oldChildUnit = oldChildrenUnitMap[newKey]
+        if(oldChildUnit === newUnit){  // 如果说新老一致说明复用了老节点
+            if(oldChildUnit._mountIndex < lastIndex){
+                diffQueue.push({
+                    parentId: this._reactid,
+                    parentNode: $(`[data-reactid="${this._reactid}"]`),
+                    type:types.MOVE,
+                    fromIndex:oldChildUnit._mountIndex,
+                    toIndex: i 
+                })
+            }
+            lastIndex = Math.max(lastIndex,oldChildUnit._mountIndex)
+        }else{
+           // 两个不相等
+           diffQueue.push({
+            parentId: this._reactid,
+            parentNode: $(`[data-reactid="${this._reactid}"]`),
+            type:types.INSERT,
+            toIndex: i,
+            markUp:newUnit.getHTMLString(`${this._reactid}.${i}`)
+           })
+        }
+        newUnit._mountIndex = i;
+    }
+
+    for (let oldKey in oldChildrenUnitMap) {
+        let oldChild = oldChildrenUnitMap[oldKey];
+        // 老得key在新的key中没有的话标记删除
+       if(!newChildrenUnitMap.hasOwnProperty(oldKey)){
+        diffQueue.push({
+            parentId: this._reactid,
+            parentNode: $(`[data-reactid="${this._reactid}"]`),
+            type:types.REMOVE,
+            fromIndex: oldChild._mountIndex
+        })
+       }
+    }
   }
   // 构建新的数组
   getNewChildren(oldChildrenUnitMap, newChildrenElements) {
     console.log(oldChildrenUnitMap, newChildrenElements, "???");
-    let newChildren = [];
+    let newChildrenUnits = [];
+    let newChildrenUnitMap ={};
     newChildrenElements.forEach((newElement, index) => {
       let newKey =
         (newElement.props && newElement.props.key) || index.toString();
@@ -127,14 +184,16 @@ class NativeUnit extends Unit {
         // 递归更新操作
         oldUnit.update(newElement);
         // 复用
-        newChildren.push(oldUnit);
+        newChildrenUnits.push(oldUnit);
+        newChildrenUnitMap[newKey] = oldUnit;
       } else {
         // 不一样 推倒重来
         let nextUnit = createUnit(newElement);
-        newChildren.push(nextUnit);
+        newChildrenUnits.push(nextUnit);
+        newChildrenUnitMap[newKey] = nextUnit;
       }
     });
-    return newChildren;
+    return { newChildrenUnitMap , newChildrenUnits }
   }
   getOldChildrenMap(childrenUnits = []) {
     let map = {};

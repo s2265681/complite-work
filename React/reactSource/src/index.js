@@ -95,24 +95,28 @@ class Count extends React.Component {
     };
   }
   componentDidMount() {
-    this.setState({ odd: !this.state.odd });
+    setTimeout(()=>{
+        this.setState({ odd: !this.state.odd });
+     },1000)
   }
 
   render() {
+      console.log(this.state.odd,'this.state.odd');
     if (this.state.odd) {
       return React.createElement(
         "ul",
         { key: "wrapper" },
         React.createElement("li", { key: "A" }, "A"),
         React.createElement("li", { key: "B" }, "B"),
-        React.createElement("li", { key: "C" }, "C")
+        React.createElement("li", { key: "C" }, "C"),
+        React.createElement("li", { key: "D" }, "D")
       );
     }
     return React.createElement(
       "ul",
       { key: "wrapper" },
-      React.createElement("li", { key: "A" }, "AI"),
-      React.createElement("li", { key: "CI" }, "CI"),
+      React.createElement("li", { key: "A" }, "A1"),
+      React.createElement("li", { key: "C" }, "C1"),
       React.createElement("li", { key: "B" }, "BI"),
       React.createElement("li", { key: "E" }, "EI"),
       React.createElement("li", { key: "F" }, "FI")
