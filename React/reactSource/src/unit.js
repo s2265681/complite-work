@@ -112,7 +112,7 @@ class NativeUnit extends Unit {
   
   // 通过打布丁比对新旧节点， 完成差异部分的更新，减少DOM操作，优化
   patch(diffQueue){
-    debugger
+    // debugger
      let deleteChildren = []; // 删除的所有节点
      let deleteMap = {}; // 这里暂存能复用的节点
      for(let i=0;i<diffQueue.length;i++){
@@ -120,7 +120,10 @@ class NativeUnit extends Unit {
          if(difference.type === types.MOVE || difference.type === types.REMOVE){
              let fromIndex = difference.fromIndex;
              let oldChild = $(difference.parentNode.children().get(fromIndex)); // 某一个儿子元素
-              deleteMap[fromIndex] = oldChild
+              if(!deleteMap[difference.parentId]){
+                 deleteMap[difference.parentId] = {}
+              }
+              deleteMap[difference.parentId][fromIndex] = oldChild
               deleteChildren.push(oldChild)
          }
      }
@@ -134,7 +137,7 @@ class NativeUnit extends Unit {
                     this.insertChildAt(difference.parentNode,difference.toIndex,$(difference.markUp))
                     break;
                 case types.MOVE:
-                    this.insertChildAt(difference.parentNode,difference.toIndex,deleteMap[difference.fromIndex] )
+                    this.insertChildAt(difference.parentNode,difference.toIndex,deleteMap[difference.parentId][difference.fromIndex] )
                     break;
                 default:
                     break;
@@ -176,8 +179,10 @@ class NativeUnit extends Unit {
                     parentId: this._reactid,
                     parentNode: $(`[data-reactid="${this._reactid}"]`),
                     type:types.REMOVE,
-                    fromIndex: oldChildUnit._mountIndex
+                    fromIndex: oldChildUnit._mountIndex,
+                    currentNode: $(oldChildUnit)[0]._currentElement,
                    })
+               this._renderedChildrenUnites = this._renderedChildrenUnites.filter(item=>item!=oldChildUnit)
                $(document).undelegate(`.${oldChildUnit._reactid}`)
             }
            // 两个不相等
@@ -186,7 +191,7 @@ class NativeUnit extends Unit {
             parentNode: $(`[data-reactid="${this._reactid}"]`),
             type:types.INSERT,
             toIndex: i,
-            markUp:newUnit.getHTMLString(`${this._reactid}.${i}`)
+            markUp:newUnit.getHTMLString(`${this._reactid}.${i}`),
            })
         }
         newUnit._mountIndex = i;
@@ -196,12 +201,16 @@ class NativeUnit extends Unit {
         let oldChild = oldChildrenUnitMap[oldKey];
         // 老得key在新的key中没有的话标记删除
        if(!newChildrenUnitMap.hasOwnProperty(oldKey)){
-        diffQueue.push({
-            parentId: this._reactid,
-            parentNode: $(`[data-reactid="${this._reactid}"]`),
-            type:types.REMOVE,
-            fromIndex: oldChild._mountIndex
-        })
+            diffQueue.push({
+                parentId: this._reactid,
+                parentNode: $(`[data-reactid="${this._reactid}"]`),
+                type:types.REMOVE,
+                fromIndex: oldChild._mountIndex,
+                currentNode:$(oldChild)[0]._currentElement,
+            })
+         //如果要删除掉某个节点 要删除对应的unit也删除掉，同时删除事件委托
+         this._renderedChildrenUnites = this._renderedChildrenUnites.filter(item=>item!=oldChild)
+         $(document).undelegate(`.${oldChild._reactid}`)
        }
     }
   }
@@ -227,6 +236,8 @@ class NativeUnit extends Unit {
         let nextUnit = createUnit(newElement);
         newChildrenUnits.push(nextUnit);
         newChildrenUnitMap[newKey] = nextUnit;
+
+        this._renderedChildrenUnites[index] = nextUnit
       }
     });
     return { newChildrenUnitMap , newChildrenUnits }

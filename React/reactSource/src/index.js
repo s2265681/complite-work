@@ -87,43 +87,74 @@ import React from "./react";
 
 // React.render(element, document.getElementById("app"));
 
-class Count extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      odd: true,
-    };
-  }
-  componentDidMount() {
-    setTimeout(()=>{
-        this.setState({ odd: !this.state.odd });
-     },1000)
-  }
+// class Count extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       odd: true,
+//     };
+//   }
+//   componentDidMount() {
+//     setTimeout(()=>{
+//         this.setState({ odd: !this.state.odd });
+//      },1000)
+//   }
 
-  render() {
-      console.log(this.state.odd,'this.state.odd');
-    if (this.state.odd) {
-      return React.createElement(
-        "ul",
-        { key: "wrapper" },
-        React.createElement("li", { key: "A" }, "A"),
-        React.createElement("li", { key: "B" }, "B"),
-        React.createElement("li", { key: "C" }, "C"),
-        React.createElement("li", { key: "D" }, "D")
-      );
+//   render() {
+//       console.log(this.state.odd,'this.state.odd');
+//     if (this.state.odd) {
+//       return React.createElement(
+//         "ul",
+//         { key: "wrapper" },
+//         React.createElement("li", { key: "A" }, "A"),
+//         React.createElement("li", { key: "B" }, "B"),
+//         React.createElement("li", { key: "C" }, "C"),
+//         React.createElement("li", { key: "D" }, "D")
+//       );
+//     }
+//     return React.createElement(
+//       "ul",
+//       { key: "wrapper" },
+//       React.createElement("span", { key: "A" }, "A1"),
+//       React.createElement("li", { key: "C" }, "C1"),
+//       React.createElement("li", { key: "B" }, "BI"),
+//       React.createElement("li", { key: "E" }, "EI"),
+//       React.createElement("li", { key: "F" }, "FI")
+//     );
+//   }
+// }
+
+class Todo extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = { list:[], text: ''}
     }
-    return React.createElement(
-      "ul",
-      { key: "wrapper" },
-      React.createElement("span", { key: "A" }, "A1"),
-      React.createElement("li", { key: "C" }, "C1"),
-      React.createElement("li", { key: "B" }, "BI"),
-      React.createElement("li", { key: "E" }, "EI"),
-      React.createElement("li", { key: "F" }, "FI")
-    );
-  }
+    onChange=(event)=>{
+        this.setState({text: event.target.value })
+    }
+    handleClick=(event)=>{
+        let text = this.state.text;
+        this.setState({
+            list: [...this.state.list, text],
+            text:''
+         })
+    }
+    onDel=(idx)=>{
+        this.setState({
+            list:[...this.state.list.slice(0,idx),...this.state.list.slice(idx+1)]
+        })
+    }
+    render(){
+        let lists = this.state.list.map((item,index)=>{
+            return React.createElement('div',{},item,React.createElement('button',{onClick:()=>this.onDel(index)},'x'))
+        })
+        let input = React.createElement('input',{onKeyup:this.onChange,value:this.state.text})
+        let button =  React.createElement('button',{onClick:this.handleClick},'+')
+        return React.createElement('div',{},input,button, React.createElement('div',{}, ...lists));
+    }
 }
-let element = React.createElement(Count, {
+
+let element = React.createElement(Todo, {
   name: "计数器",
 });
 

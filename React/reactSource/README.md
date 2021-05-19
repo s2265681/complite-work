@@ -223,7 +223,7 @@ class Count extends React.Component {
     return React.createElement(
       "ul",
       { key: "wrapper" },
-      React.createElement("li", { key: "A" }, "A1"),
+      React.createElement("span", { key: "A" }, "A1"),
       React.createElement("li", { key: "C" }, "C1"),
       React.createElement("li", { key: "B" }, "BI"),
       React.createElement("li", { key: "E" }, "EI"),
@@ -288,6 +288,59 @@ React.render(element, document.getElementById("app"));
 
 
 ## 11、 todos
+
+#### 11-1、index.js
+```js
+
+class Todo extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = { list:[], text: ''}
+    }
+    onChange=(event)=>{
+        this.setState({text: event.target.value })
+    }
+    handleClick=(event)=>{
+        let text = this.state.text;
+        this.setState({
+            list: [...this.state.list, text]
+         })
+    }
+    onDel=(idx)=>{
+        this.setState({
+            list:[...this.state.list.slice(0,idx),...this.state.list.slice(idx+1)]
+        })
+    }
+    render(){
+        let lists = this.state.list.map((item,index)=>{
+            return React.createElement('div',{ },item,React.createElement('button',{onClick:()=>this.onDel(index)},'x'))
+        })
+        let input = React.createElement('input',{onKeyup:this.onChange,value:this.state.text})
+        let button =  React.createElement('button',{onClick:this.handleClick},'+')
+
+        return React.createElement('div',{},input,button,...lists);
+    }
+}
+
+let element = React.createElement(Todo, {
+  name: "计数器",
+});
+
+React.render(element, document.getElementById("app"));
+```
+
+#### unit.js bug fix
+
+> 如果要删除掉某个节点 要删除对应的unit也删除掉，同时删除事件委托
+```js
+getNewChildren 方法
+//+ 
+this._renderedChildrenUnites[index] = nextUnit
+
+diff 方法中
+this._renderedChildrenUnites = this._renderedChildrenUnites.filter(item=>item!=oldChild)
+
+```
 
 ## 10、 diff 策略
 
