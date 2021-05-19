@@ -115,7 +115,7 @@ class Count extends React.Component {
     return React.createElement(
       "ul",
       { key: "wrapper" },
-      React.createElement("li", { key: "A" }, "A1"),
+      React.createElement("span", { key: "A" }, "A1"),
       React.createElement("li", { key: "C" }, "C1"),
       React.createElement("li", { key: "B" }, "BI"),
       React.createElement("li", { key: "E" }, "EI"),

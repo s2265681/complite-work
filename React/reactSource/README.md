@@ -115,14 +115,14 @@ React.render(element, document.getElementById("app"));
 
 ```js
 import types from './types'
-//... function diff 
+//... function diff
  diff(diffQueue, newChildrenElements) {
       debugger
     // let oldChildrenElement = this._currentElement.props.children;
     let oldChildrenUnitMap = this.getOldChildrenMap(this._renderedChildrenUnites);
     // 先找老得集合里看看有没有能用的， 有就复用，没有就创建新的
     let {newChildrenUnitMap , newChildrenUnits } = this.getNewChildren(oldChildrenUnitMap,newChildrenElements);
-    
+
     let lastIndex = 0; // 一个已经确定位置的索引
     for (let i=0;i< newChildrenUnits.length; i++) {
         let newUnit = newChildrenUnits[i];
@@ -136,7 +136,7 @@ import types from './types'
                     parentNode: $(`[data-reactid="${this._reactid}"]`),
                     type:types.MOVE,
                     fromIndex:oldChildUnit._mountIndex,
-                    toIndex: i 
+                    toIndex: i
                 })
             }
             lastIndex = Math.max(lastIndex,oldChildUnit._mountIndex)
@@ -193,7 +193,99 @@ export default {
 
 #### 10-1、src/index.js
 
+>  通过打布丁比对新旧节点， 完成差异部分的更新，减少DOM操作，优化
+```js
+class Count extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      odd: true,
+    };
+  }
+  componentDidMount() {
+    setTimeout(()=>{
+        this.setState({ odd: !this.state.odd });
+     },1000)
+  }
+
+  render() {
+      console.log(this.state.odd,'this.state.odd');
+    if (this.state.odd) {
+      return React.createElement(
+        "ul",
+        { key: "wrapper" },
+        React.createElement("li", { key: "A" }, "A"),
+        React.createElement("li", { key: "B" }, "B"),
+        React.createElement("li", { key: "C" }, "C"),
+        React.createElement("li", { key: "D" }, "D")
+      );
+    }
+    return React.createElement(
+      "ul",
+      { key: "wrapper" },
+      React.createElement("li", { key: "A" }, "A1"),
+      React.createElement("li", { key: "C" }, "C1"),
+      React.createElement("li", { key: "B" }, "BI"),
+      React.createElement("li", { key: "E" }, "EI"),
+      React.createElement("li", { key: "F" }, "FI")
+    );
+  }
+}
+let element = React.createElement(Count, {
+  name: "计数器",
+});
+
+React.render(element, document.getElementById("app"));
+```
+
 #### 10-2、react/unit.js
+
+```js
+// 通过打布丁比对新旧节点， 完成差异部分的更新，减少DOM操作，优化
+  patch(diffQueue){
+    debugger
+     let deleteChildren = []; // 删除的所有节点
+     let deleteMap = {}; // 这里暂存能复用的节点
+     for(let i=0;i<diffQueue.length;i++){
+         let difference = diffQueue[i];
+         if(difference.type === types.MOVE || difference.type === types.REMOVE){
+             let fromIndex = difference.fromIndex;
+             let oldChild = $(difference.parentNode.children().get(fromIndex)); // 某一个儿子元素
+              deleteMap[fromIndex] = oldChild
+              deleteChildren.push(oldChild)
+         }
+     }
+     // 删除
+     $.each(deleteChildren,(idx,item)=>$(item).remove())
+     // 插入
+     for(let i=0;i<diffQueue.length;i++){
+         let difference = diffQueue[i];
+             switch(difference.type){
+                case types.INSERT:
+                    this.insertChildAt(difference.parentNode,difference.toIndex,$(difference.markUp))
+                    break;
+                case types.MOVE:
+                    this.insertChildAt(difference.parentNode,difference.toIndex,deleteMap[difference.fromIndex] )
+                    break;
+                default:
+                    break;
+             }
+     }
+  }
+
+  // function diff add  >>>>
+  if(oldChildUnit){ // 如果老得元素有要删除
+        diffQueue.push({
+            parentId: this._reactid,
+            parentNode: $(`[data-reactid="${this._reactid}"]`),
+            type:types.REMOVE,
+            toIndex: oldChildUnit._mountIndex
+            })
+        $(document).undelegate(`.${oldChildUnit._reactid}`)
+    }
+ // >>>>>
+```
+
 
 ## 11、 todos
 
