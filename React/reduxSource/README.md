@@ -318,4 +318,45 @@ let reducers = combineReducers({
 
 export default reducers
 ```
-'
+
+
+
+#### 1-7 Context 上下文
+
+使用
+方法一：
+```js
+let ThemeContext = React.createContext(); // Provider Consumer
+class Content extends React.Component {
+  static contextType = ThemeContext;
+  render() {
+    return (
+      <div style={{ border: `5px solid ${this.context.color}` }}>Content
+         <button onClick={()=> this.context.changeColor('#f00')}>变红</button>
+         <button onClick={()=> this.context.changeColor('#0f0')}>变绿</button>
+      </div>
+    );
+  }
+}
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: "orange",
+    };
+  }
+  changeColor = () => {
+    this.setState({
+      color: this.state.color,
+    });
+  };
+  render() {
+    let value = { color: this.state.color, changeColor: this.changeColor };
+    return (
+      <ThemeContext.Provider value={value}>
+          <Content />
+      </ThemeContext.Provider>
+    );
+  }
+}
+```
