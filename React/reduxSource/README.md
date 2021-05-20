@@ -1,5 +1,8 @@
 ## Redux
 
+> 为什么使用 redux => 单向数据流、缺少共享数据，需要状态提升，为了解决组件的数据共享问题
+> 状态、读取改变、订阅
+
 ### 1、 手写 redux
 
 #### 1-1、步骤
@@ -180,26 +183,26 @@ ReactDOM.render(
 );
 ```
 
+#### 1-5、 bindActionCreators.js
 
-
-
-#### 1-5、 bindActionCreators.js 
-> 原理： 抽象函数简化store中状态的绑定, 将store.dispatch({...}) 抽到函数中去完成
+> 原理： 抽象函数简化 store 中状态的绑定, 将 store.dispatch({...}) 抽到函数中去完成
 
 ```js
-function bindActionCreators(actionCreators,dispatch){
-    if(typeof actionCreators === 'function'){
-        return (...args)=> dispatch(actionCreators(...args))
-    }
-    let bondActionCreators = {}
-    for (const key in actionCreators) {
-        bondActionCreators[key] = (...args)=> dispatch(actionCreators[key](...args))
-    }
-    return bondActionCreators
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === "function") {
+    return (...args) => dispatch(actionCreators(...args));
+  }
+  let bondActionCreators = {};
+  for (const key in actionCreators) {
+    bondActionCreators[key] = (...args) =>
+      dispatch(actionCreators[key](...args));
+  }
+  return bondActionCreators;
 }
 ```
 
 index.js
+
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
@@ -258,11 +261,61 @@ class App extends React.Component {
     );
   }
 }
-ReactDOM.render(<App></App>,document.getElementById("root"));
+ReactDOM.render(<App></App>, document.getElementById("root"));
 ```
-
-
-
 
 #### 1-6、 combineReducers.js
 
+> redux 永远只有一个仓库，reducer 也只有一个， 状态树也只能有一个， 但是组件可能有 N 个多，reducer 会非常复杂，需要分工
+> 解决 通过 combineReducers 将多个 reducer 合在一起
+
+redux/combineReducers.js
+```js
+function combineReducers(reducers = {}) {
+  let reducerKeys = Object.keys(reducers); // [counter1,counter2]
+  return function (state = {}, action) {
+    let hasChange = false; // 状态是否修改
+    let nextState = {};
+    for (let i = 0; i < reducerKeys.length; i++) {
+      let key = reducerKeys[i]; // counter1
+      const previousStateForKey = state[key]; // {number:0}
+      const reducer = reducers[key]; // counter1
+      let nextStateForKey = reducer(previousStateForKey, action); // {type:'ADD1'} {number:0}
+      nextState[key] = nextStateForKey;
+      hasChange = hasChange || nextStateForKey !== previousStateForKey;
+    }
+    return hasChange ? nextState : state;
+  };
+}
+
+export default combineReducers;
+```
+
+
+reducers/index.js
+```js
+import counter1 from './counter1'
+import counter2 from './counter2'
+import { combineReducers } from '../../redux/index'
+/**
+ * {
+ *   counter1: { number1:0},
+ *   counter1: { number2:0}
+ * }
+ */
+// export default function(state={},action){
+//   let nextState = {};
+//   nextState.counter1 = counter1(state.counter1,action)
+//   nextState.counter2 = counter2(state.counter2,action)
+//   console.log(nextState,'nextState...object');
+//   return nextState;
+// }
+
+let reducers = combineReducers({
+    counter1,
+    counter2
+})
+
+export default reducers
+```
+'
