@@ -4,7 +4,9 @@ import { connect } from "../react-redux";
 import PureComponent from "../react/PureComponent";
 import { MINU1 } from "../action-types";
 
-class Count1 extends PureComponent {
+
+ @connect(mapStateToProps, mapDispatchToProps) 
+ class Count1 extends PureComponent {
   constructor(props,context) {
     super(props);
     this.state = {
@@ -34,4 +36,5 @@ let mapDispatchToProps = (dispatch) => ({
     dispatch({ type: "MINU1", payload: 1 });
   },
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Count1);
+
+export default Count1;
