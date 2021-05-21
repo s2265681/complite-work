@@ -5,7 +5,7 @@ import PureComponent from "../react/PureComponent";
 import { MINU1 } from "../action-types";
 
 
- @connect(mapStateToProps, mapDispatchToProps) 
+
  class Count1 extends PureComponent {
   constructor(props,context) {
     super(props);
@@ -37,4 +37,4 @@ let mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default Count1;
+export default connect(mapStateToProps, mapDispatchToProps)(Count1)
