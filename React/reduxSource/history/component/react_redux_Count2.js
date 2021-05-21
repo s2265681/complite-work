@@ -1,9 +1,7 @@
 import React from "react";
-import actions from "../store/actions/counter2";
-import { connect } from '../react-redux'
-import PureComponent from '../react/PureComponent'
-
-class Count2 extends PureComponent {
+import actions from "../store/actions/counter1";
+import { connect } from 'react-redux'
+class Count2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +9,6 @@ class Count2 extends PureComponent {
     };
   }
   render() {
-      console.log('render2');
     return (
       <div>
         <div>{this.props.number}</div>
@@ -24,4 +21,4 @@ class Count2 extends PureComponent {
 }
 
 let mapStateFromProps = (state) => state.counter2;
-export default connect(mapStateFromProps,actions)(Count2)
+export default connect(mapStateFromProps, actions)(Count2);

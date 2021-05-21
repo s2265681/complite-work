@@ -1,21 +1,25 @@
 import React from "react";
-let ThemeContext = React.createContext(); // Provider Consumer
+// let ThemeContext = React.createContext(); // Provider Consumer
+import  createContext from '../react/Context'
+let ThemeContext = createContext();
 
-class Header extends React.Component {
-  static contextType = ThemeContext;
-  render() {
-    return (
-      <div style={{ border: `5px solid ${this.context.color}` }}> Header</div>
-    );
-  }
+function Header() {
+  return (
+    <ThemeContext.Consumer>
+      {(value) => (
+        <div style={{ border: `5px solid ${value.color}` }}> Header</div>
+      )}
+    </ThemeContext.Consumer>
+  );
 }
 
 class Main extends React.Component {
   static contextType = ThemeContext;
   render() {
+    this.context = Main.contextType.Provider.value || {};
     return (
       <div style={{ border: `5px solid ${this.context.color}` }}>
-          Main
+        Main
         <Content />
       </div>
     );
@@ -24,11 +28,19 @@ class Main extends React.Component {
 
 class Content extends React.Component {
   static contextType = ThemeContext;
+  constructor(props,context){
+      super(props)
+     
+  }
   render() {
+    console.log(this.context,'.......')
+    this.context = Content.contextType.Provider.value;
+
     return (
-      <div style={{ border: `5px solid ${this.context.color}` }}>Content
-         <button onClick={()=> this.context.changeColor('#f00')}>变红</button>
-         <button onClick={()=> this.context.changeColor('#0f0')}>变绿</button>
+      <div style={{ border: `5px solid ${this.context.color}` }}>
+        Content
+        <button onClick={() => this.context.changeColor("#f00")}>变红</button>
+        <button onClick={() => this.context.changeColor("#0f0")}>变绿</button>
       </div>
     );
   }
@@ -44,7 +56,7 @@ class Page extends React.Component {
 
   changeColor = (color) => {
     this.setState({
-      color
+      color,
     });
   };
   render() {

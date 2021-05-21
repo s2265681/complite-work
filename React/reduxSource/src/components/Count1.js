@@ -1,36 +1,27 @@
 import React from "react";
-import { bindActionCreators } from "../redux/index";
-
 import actions from "../store/actions/counter1";
-import store from "../store/index";
+import { connect } from '../react-redux'
+import PureComponent from '../react/PureComponent'
 
-let bindActions = bindActionCreators(actions, store.dispatch);
-
-class Count1 extends React.Component {
+class Count1 extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      number: store.getState().counter1.number,
+      number: props.number,
     };
   }
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() =>
-      this.setState({ number: store.getState().counter1.number })
-    );
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
   render() {
+    console.log('render1');
     return (
       <div>
-        <div>{this.state.number}</div>
-        <button onClick={() => bindActions.add(5)}>+</button>
+        <div>{this.props.number}</div>
+        <button onClick={()=>this.props.add(5)}>+</button>
         <br />
-        <button onClick={() => bindActions.minus(5)}>-</button>
+        <button onClick={()=>this.props.minus(5)}>-</button>
       </div>
     );
   }
 }
 
-export default Count1;
+let mapStateFromProps = (state) => state.counter1;
+export default connect(mapStateFromProps,actions)(Count1)

@@ -1,6 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
+// import { Provider } from "react-redux";
+import { Provider } from "./react-redux/index";
 
-import Page from './components/Page'
+import Count1 from "./components/Count1";
+import Count2 from "./components/Count2";
+import store from "./store/index"
+// import Context from './components/Context'
 
-ReactDOM.render(<Page/>,document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <Count1 />
+    <hr/>
+    <Count2 />
+  </Provider>,
+  document.getElementById('root')
+)

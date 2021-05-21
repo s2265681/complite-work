@@ -323,8 +323,10 @@ export default reducers
 
 #### 1-7 Context 上下文
 
-使用
-方法一：
+##### 1-7-1 使用
+> 使用 方法一： 通过static 静态方式获取   static contextType = ThemeContext;
+> 通过 this.context 获取
+
 ```js
 let ThemeContext = React.createContext(); // Provider Consumer
 class Content extends React.Component {
@@ -360,3 +362,178 @@ class Page extends React.Component {
   }
 }
 ```
+
+> 使用 方法二： 通过Consumer 接收
+```js
+function Header() {
+  return (
+    <ThemeContext.Consumer>
+      {(value) => (
+        <div style={{ border: `5px solid ${value.color}` }}> Header</div>
+      )}
+    </ThemeContext.Consumer>
+  );
+}
+
+```
+
+##### 1-7-2 手写Context
+
+> 原理是， 将value这个静态属性挂载到Provider上面，使用的时候直接从Provider上读取，老得context也可以，但是每个组件都需要传递，不推荐了已经
+
+```js
+import React from "react";
+function createContext() {
+  class Provider extends React.Component {
+    static value;
+    constructor(props) {
+      super(props);
+      Provider.value = props.value;
+    }
+    // componentWillReceiveProps(nextProps,preState){
+    //     Provider.value = nextProps.value;
+    // }
+    // 关键是每次变更 都要更新Provider上面的value属性， value作为静态属性 更容易让各个组件获取到实例上的值
+    static getDerivedStateFromProps(nextProps, preState) {
+      Provider.value = nextProps.value;
+      return preState;
+    }
+    render() {
+      return this.props.children;
+    }
+  }
+  class Consumer extends React.Component {
+    render() {
+      return this.props.children(Provider.value);
+    }
+  }
+  return {
+    Provider,
+    Consumer,
+  };
+}
+export default createContext;
+
+```
+
+#### 1-7-3  高阶组件
+> 就是一个函数 接受一个组件 返回一个新组件 为了更好的复用
+> 高阶组件复用 不是太好用， 不是很完美 包一两层还可以接受
+
+```js
+import React from "react";
+
+/**
+ * @param {} WrapperComponent 
+ * @returns 
+ * 高阶函数 将一个函数作为参数和返回值  在其他语言是不可以的
+ * 高阶组件 组件可以作为函数的参数和返回值
+ */
+function widthLogger(WrapperComponent){
+  return class extends React.Component{
+      componentWillMount(){
+          this.start = Date.now();
+      }
+      componentDidMount(){
+          console.log('当前组件花费了'+  (Date.now()  - this.start)  + 'ms');
+      }
+      render(){
+          return <WrapperComponent/>
+      }
+  }
+}
+
+export { widthLogger }
+```
+
+#### 1-7-4、 render props
+> 一种React组件间使用的一个值为函数的prop共享代码技术， render prop接受一个函数，返回一个react元素并调用它而不是实现自己的渲染逻辑
+
+```js
+<DataProver render={data=>(<div>hello {data.target}</div>)}>
+```
+
+
+#### 1-7-5、 react-redux 
+> 1、 react-redux 是什么做了什么事？  1、 简化redux的使用 2、通过高阶组件抽离公共部分，将订阅操作和dispatch和状态通过高阶组件中完成注入，在组件中可直接通过props使用  3、通过Provider将store从根组件注入，在高阶组件中使用
+
+##### 1-7-5-1、 react-redux的使用
+> cnpm i react-redux -S
+
+index.js
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import Count1 from "./components/Count1";
+import Count2 from "./components/Count2";
+import store from "./store/index"
+ReactDOM.render(
+  <Provider store={store}>
+    <Count1 />
+    <hr/>
+    <Count2/>
+  </Provider>,
+  document.getElementById('root')
+)
+```
+
+component/Count1.js
+```js
+import React from "react";
+import actions from "../store/actions/counter1";
+import { connect } from 'react-redux'
+class Count1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      number: props.number,
+    };
+  }
+  render() {
+    return (
+      <div>
+        <div>{this.props.number}</div>
+        <button onClick={()=>this.props.add(5)}>+</button>
+        <br />
+        <button onClick={()=>this.props.minus(5)}>-</button>
+      </div>
+    );
+  }
+}
+
+let mapStateFromProps = (state) => state.counter1;
+export default connect(mapStateFromProps, actions)(Count1);
+
+```
+
+##### 1-7-5-2、 react-redux手写原理
+
+- Provder 的逻辑
+> Provider是一个组件， 包裹了根组件并且接受注入store， 通过react的Context上下文Provider提供
+
+react-redux/Provider.js
+```js
+import ReactReduxContext from "./ProviderContext";
+import React from "react";
+
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <ReactReduxContext.Provider value={this.props.store}>
+          {this.props.children}
+      </ReactReduxContext.Provider>
+    );
+  }
+}
+
+```
+
+react-redux/connect.js
+> connect 是一个高阶组件, 包裹当前组件， 将store的方法和数据在这里拿到操作，并且注入到当前组件的props上
+> 执行两个方法 第一个参数是两个映射的state和第二个参数是actions， 
+> 第二个函数的参数是当前组件的名字
+
