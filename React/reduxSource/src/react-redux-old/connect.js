@@ -1,8 +1,5 @@
 import React from "react";
-import ReactReduxContext from "./ProviderContext";
 import bindActionCreators from "../redux/bindActionCreators";
-import PropTypes from "prop-types";
-
 /**
  *
  * @param {} mapStateToProps
@@ -14,8 +11,7 @@ import PropTypes from "prop-types";
 function connect(mapStateToProps, actions) {
   return function (WrapComponent) {
     return class extends React.Component {
-    //   static contextTypes = ReactReduxContext;
-      static contextTypes = {
+      static ContextTypes = {
         store: PropTypes.shape({
           getState: PropTypes.func.isRequired,
           dispatch: PropTypes.func.isRequired,
@@ -23,7 +19,6 @@ function connect(mapStateToProps, actions) {
         }),
       };
       constructor(props, context) {
-          console.log(context,'context>>>>>');
         super(props);
         this.state = mapStateToProps(context.store.getState());
         if (typeof actions === "function") {

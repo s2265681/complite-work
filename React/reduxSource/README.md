@@ -523,17 +523,140 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <ReactReduxContext.Provider value={this.props.store}>
+      <ReactReduxContext.Provider value={{store:this.props.store}}>
           {this.props.children}
       </ReactReduxContext.Provider>
     );
   }
 }
+```
 
+react-redux/ProviderContext.js
+> ? createContext 中 static contentType 与 this.context 的关系
+```js
+// import createContext  from '../react/Context.js'
+import {createContext} from 'react'
+let ReactReduxContext = createContext()
+export default ReactReduxContext
 ```
 
 react-redux/connect.js
 > connect 是一个高阶组件, 包裹当前组件， 将store的方法和数据在这里拿到操作，并且注入到当前组件的props上
 > 执行两个方法 第一个参数是两个映射的state和第二个参数是actions， 
 > 第二个函数的参数是当前组件的名字
+>  mapStateFromProps 将state进行拆分 配合浅比较进行优化 
+```js
+import React from "react";
+import ReactReduxContext from "./ProviderContext";
+import bindActionCreators from "../redux/bindActionCreators"
+/**
+ * 
+ * @param {} mapStateToProps 
+ * @param {*} actions 
+ * @returns  {Function}  
+ * 自方法负责把组件库和仓库进行关联链接
+ *  mapStateToProps 将state进行拆分 配合浅比较进行优化 
+ */
+function connect(mapStateToProps, actions) {
+  return function (WrapComponent) {
+    return class extends React.Component {
+      static contextType = ReactReduxContext;
+      constructor(props, context) {
+        super(props);
+        this.state = mapStateToProps(context.store.getState());
+        if(typeof actions === 'function'){
+            this.bindAction = actions(context.store.dispatch,props)
+        }else{
+            this.bindAction = bindActionCreators(actions, context.store.dispatch);
+        }
+      }
+      componentDidMount() {
+        this.unsubscribe = this.context.store.subscribe((oldstate,newstate) => this.setState(mapStateToProps(this.context.store.getState())))
+      }
+      componentWillUnmount() {
+        this.unsubscribe();
+      }
+      render() {
+        return <WrapComponent {...this.state} {...this.bindAction}/>;
+      }
+    };
+  };
+}
+export default connect;
+```
 
+react-redux/index.js
+```js
+import connect from './connect'
+import Provider from './Provider'
+
+export {
+    Provider,
+    connect
+}
+```
+
+component/Count1.js
+```js
+import React from "react";
+import actions from "../store/actions/counter1";
+import { connect } from "../react-redux";
+import PureComponent from "../react/PureComponent";
+import { MINU1 } from "../action-types";
+
+class Count1 extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      number: props.number,
+    };
+  }
+  render() {
+    console.log("render1");
+    return (
+      <div>
+        <div>{this.props.number}</div>
+        <button onClick={() => this.props.add(5)}>+</button>
+        <br />
+        <button onClick={() => this.props.minus(5)}>-</button>
+      </div>
+    );
+  }
+}
+//* 使用更简单， 减少无用渲染
+let mapStateToProps = (state) => state.counter1;
+//* 传入actions对象也可以函数也可以做兼容
+let mapDispatchToProps = (dispatch) => ({
+  add() {
+    dispatch({ type: "ADD1", payload: 1 });
+  },
+  minus() {
+    dispatch({ type: "MINU1", payload: 1 });
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Count1);
+```
+
+react/PrueComponent
+```js
+import React from 'react'
+export default class PureComponent extends React.Component{
+    static isPureComponent = true;
+    shouldComponentUpdate(nextProps){
+        // 询问组件是否需要刷新
+       let oldProps = this.props;
+       if( oldProps === null || typeof oldProps !== 'object' || nextProps === null || typeof nextProps !== 'object'){
+          return true
+       }
+       if(Object.keys(oldProps).length !==Object.keys(nextProps).length){
+        return true
+       }
+       for (const oldKey in oldProps) {
+           if(!nextProps.hasOwnProperty(oldKey) || nextProps[oldKey] !== oldProps[oldKey] ){
+            return true
+           }
+       }
+       return false
+    }
+}
+```

@@ -4,7 +4,7 @@ export default function (state = initState, actions) {
   switch (actions.type) {
     case types.ADD1:
       return { ...state, number: state.number + actions.payload };
-    case types.MINUS1:
+    case types.MINU1:
       return { ...state, number: state.number - actions.payload };
     default:
       return state;
