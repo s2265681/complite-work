@@ -1,6 +1,3 @@
-
-
-
 调试模式
 node debugger.js
 
