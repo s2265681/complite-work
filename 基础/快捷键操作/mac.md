@@ -31,3 +31,4 @@
 - command + l 选中当前行
 - command + T 切换TERMINAL
 - command + K 展开收起当前代码块
+- command + J 多行合一行
