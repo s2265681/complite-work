@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+</head>
+<body>
+    <div id="root">
+        <div id="parent">
+            <div id="child">
+                点击
+            </div>
+        </div>
+    </div>
+    <script>
+        let root = document.getElementById('root');
+        let parent = document.getElementById('parent');
+        let child = document.getElementById('child');
+        //listenToNativeEvent('click',false,root);
+        //listenToNativeEvent( 'click',true,root);
+
+        //root的捕获阶段的处理函数React处理事件
+        root.addEventListener('click',event=>dispatchEvent(event,true),true);
+        //root的冒泡阶段的处理函数React处理事件s
+        root.addEventListener('click',event=>dispatchEvent(event,false),false);
+        function dispatchEvent(event,isCapture){
+            //console.log(event,isCapture);
+            let paths = [];//事件的传播路径数组[child,parent,root,body,document]
+            let currentTarget = event.target;//事件源
+            while(currentTarget){
+                paths.push(currentTarget);
+                currentTarget=currentTarget.parentNode;
+            }
+            if(isCapture){//如果当前是捕获阶段
+                for(let i=paths.length-1;i>=0;i--){//[document,body,root,parent.child]
+                    let handler = paths[i].onClickCapture;//react捕获事件
+                    handler&&handler();
+                }
+            }else{
+                for(let i=0;i<paths.length;i++){//[child,parent,root,body,document]
+                    let handler = paths[i].onClick;//react冒泡事件
+                    handler&&handler();
+                }
+            }
+
+        }
+        root.addEventListener('click',()=>{
+         console.log('root容器元素原生事件捕获');
+        },true);
+        root.addEventListener('click',()=>{
+         console.log('root容器元素原生事件冒泡');
+        },false);
+        parent.addEventListener('click',()=>{
+         console.log('父元素原生事件捕获');
+        },true);
+        parent.addEventListener('click',()=>{
+         console.log('父元素原生事件冒泡');
+        },false);
+        child.addEventListener('click',()=>{
+         console.log('子元素原生事件捕获');
+        },true);
+        child.addEventListener('click',()=>{
+         console.log('子元素原生事件冒泡');
+        },false);
+        root.onClick = ()=>{
+            console.log('root容器React事件冒泡');
+        }
+        root.onClickCapture = ()=>{
+            console.log('root容器React事件捕获');
+        }
+        parent.onClick = ()=>{
+            console.log('父元素React事件冒泡');
+        }
+        parent.onClickCapture = ()=>{
+            console.log('父元素React事件捕获');
+        }
+        child.onClick = ()=>{
+            console.log('子元素React事件冒泡');
+        }
+        child.onClickCapture = ()=>{
+            console.log('子元素React事件捕获');
+        }
+        //事件的原则不管是捕获阶段还是冒泡阶段，都是先注册，先执行
+    </script>
+</body>
+</html>
