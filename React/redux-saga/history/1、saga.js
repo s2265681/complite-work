@@ -34,7 +34,7 @@ export function* watchAndLog() {
    while(true){
        console.log('before action')
        let action = yield take('*');
-       console.log('after action', action)
+       console.log('after action')
        let state = yield select(state => state.counter)
        console.log('state', state)
    }
