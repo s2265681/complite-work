@@ -355,3 +355,25 @@ if(this.props.list.length == 0){
 
 
 
+- 客户端服务端统一样式
+
+  react-reater-config 模块 匹配多级路由
+
+```js
+npm i   react-reater-config
+```
+
+> import { renderRoutes , matchRoutes } from 'react-reater-config'
+
+```js
+import { renderRoutes , matchRoutes } from 'react-reater-config'
+
+{/*
+  {routes.map((route, index) => (
+        <Route {...route} key={index} />
+  ))} 
+*/}
+
+{renderRoutes(routes)}
+```
+

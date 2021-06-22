@@ -4,9 +4,10 @@ import React, { Component, Fragment } from "react";
 import { Route, StaticRouter, matchPath } from "react-router-dom";
 import { renderToString } from "react-dom/server";
 import routes from "../router";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import { Provider } from "react-redux";
 import { getServerStore } from "../store";
+import { renderRoutes , matchRoutes } from 'react-router-config'
 
 export default function (req, res) {
   let context = {};
@@ -17,16 +18,16 @@ export default function (req, res) {
   // req.path   => /user/123456
   // route.path => /user/:id
   // matchRoutes 这个方法可以处理嵌套路由
-  // let matchedRoutes = matchRoutes(routes, req.path);
-  let matchedRoutes = routes.filter((route) => {
-    return matchPath(req.path, route);
-  });
-  console.log(matchedRoutes, "matchedRoutes..");
+  let matchedRoutes = matchRoutes(routes, req.path);
+//   let matchedRoutes = routes.filter((route) => {
+//     return matchPath(req.path, route);
+//   });
+
   let promises = [];
   // 当前匹配到的路由如果需要异步请求数据，那么就在这里请求数据
-  matchedRoutes.forEach((route) => {
-    if (route.loadData) {
-      promises.push(route.loadData(store))
+  matchedRoutes.forEach((item) => {
+    if (item.route.loadData) {
+      promises.push(item.route.loadData(store))
     }
   });
   Promise.all(promises).then(function () {
@@ -34,14 +35,11 @@ export default function (req, res) {
     var html = renderToString(
       <Provider store={store}>
         <StaticRouter context={context} location={req.path}>
-          <Fragment>
-            <Header />
-            <div className="container" style={{ marginTop: 70 }}>
-              {routes.map((route, index) => (
+        
+              {/* {routes.map((route, index) => (
                 <Route {...route} key={index} />
-              ))}
-            </div>
-          </Fragment>
+              ))} */}
+              {renderRoutes(routes)}
         </StaticRouter>
       </Provider>
     );

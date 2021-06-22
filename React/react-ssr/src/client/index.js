@@ -5,17 +5,15 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Header from "../components/Header";
 import { Provider } from "react-redux";
 import { getClientStore } from "../store";
+import { renderRoutes , matchRoutes } from 'react-router-config'
+
 ReactDOM.hydrate(
   <Provider store={getClientStore()}>
     <BrowserRouter>
-      <Fragment>
-        <Header />
-        <div className="container" style={{ marginTop: 70 }}>
-            {routes.map((route,index)=>(
+            {/* {routes.map((route,index)=>(
                 <Route {...route} key={index}/>
-            ))}
-        </div>
-      </Fragment>
+            ))} */}
+            {renderRoutes(routes)}
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
