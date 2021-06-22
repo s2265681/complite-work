@@ -296,5 +296,62 @@ npm run dev
   }));
   ```
 
+
+
+
+
+- 难点怎么匹配路由获取对应的接口数据
+
+  将路由改成配置项的方式
+
+  ```js
   
+  // 集中式路由
+  export default [
+      [
+          {
+              path: '/',
+              component: Home,
+              exact: true,
+              key: '/',
+              // 加载数据，如果此配置项有了这个属性，那么意味着需要加载异步数据
+              loadData: Home.loadData
+          },
+          {
+              path: '/counter',
+              component: Counter,
+              key: '/counter'
+          }
+      ]
+  ]
+  
+  // export default (
+  //     <Fragment>
+  //         <Route path="/" exact component={Home}/>
+  //         <Route path="/counter" exact component={Counter}/>
+  //     </Fragment>
+  // )
+  ```
+
+  
+
+​       服务端获取数据， 通过路由中的loadData加载一个方法，执行调用页面接口，将数据放到window.context上面，在客户端的store中将页面初始值放到这里
+
+```js
+export function getClientStore(){
+    let initState = window.context.state;
+    return createStore(reducers,initState,applyMiddleware(thunk,logger))
+}
+```
+
+客户端页面调用的时候，如果有初始值就不要在调用接口
+
+```js
+// 注意：这里访问的是客户端的仓库
+if(this.props.list.length == 0){
+  this.props.getHomeList();
+}
+```
+
+
 

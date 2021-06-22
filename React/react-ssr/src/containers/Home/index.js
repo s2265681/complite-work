@@ -29,7 +29,8 @@ Home = connect(
     actions
 )(Home);
 // 此方法是用来异步加载数据的方法，用这个方法可以加载数据并且放到仓库中去
-// Home.loadData = function(store){
-//   return store.dispatch(actions.getHomeList());
-// };
+Home.loadData = function(store){
+  // dispatch方法的返回值就是派发的action， 最后返回的就是promise
+  return store.dispatch(actions.getHomeList());
+};
 export default Home;
