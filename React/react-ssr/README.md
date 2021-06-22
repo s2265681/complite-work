@@ -1,3 +1,5 @@
+
+
 # React-ssr
 
 ### 1、什么是服务端渲染
@@ -296,7 +298,49 @@ npm run dev
   }));
   ```
 
+​       2、node代理添加node中间层
 
+​       server.js
+
+```js
+// 如果是服务器端请求数据，则直接访问 API 服务器的 4000 端口
+// 如果是客户端请求数据，则要访问 node 服务器（中间层）的 3000 端口
+// 让 node 服务器帮我们访问 API 服务器的 4000 端口请求数据
+// 总结：客户端向 node 服务器请求数据，node 服务器转发给 API 服务器
+// 如果浏览器不直接访问 API 接口服务器，那么就不存在跨域的问题，node 服务器访问 API 接口服务器不存在跨域问题
+// 如果访问的路径是以 /api 开头的，会交给代理服务器处理
+/ /api/users => http://127.0.0.1:4000/api/users
+app.use('/api', proxy('http://127.0.0.1:4000', {
+  proxyReqPathResolver(req) {
+    return `/api${req.url}`;
+  }
+}));
+```
+
+Store/index.js
+
+在readux-thunk中传入不同的客户端和服务端的request
+
+```js
+export function getClientStore(){
+    let initState = window.context.state;
+    return  createStore(reducers,initState,applyMiddleware(thunk.withExtraArgument(ClientRequest),logger))
+}
+```
+
+```js
+import axios from 'axios';
+
+// 如果是服务器端请求数据，则直接访问 API 服务器的 4000 端口
+// 如果是客户端请求数据，则要访问 node 服务器（中间层）的 3000 端口
+// 让 node 服务器帮我们访问 API 服务器的 4000 端口请求数据
+
+// 创建一个 axios 的实例, 配置 baseURL 的基准路径
+export default axios.create({
+    baseURL: '/'
+});
+
+```
 
 
 
@@ -377,3 +421,211 @@ import { renderRoutes , matchRoutes } from 'react-reater-config'
 {renderRoutes(routes)}
 ```
 
+App.js
+
+```js
+import React, { Component, Fragment } from "react";
+import { renderRoutes, matchRoutes } from "react-router-config";
+import Header from "../components/Header";
+class App extends Component {
+  render() {
+    //   console.log(this.props)
+    return (
+      <Fragment>
+        <Header />
+        <div className="container" style={{ marginTop: 70 }}>
+          {renderRoutes(this.props.route.routes)}
+        </div>
+      </Fragment>
+    );
+  }
+}
+
+export default App;
+```
+
+
+
+### 7、权限
+
+注册登陆
+
+登陆通过设置cookie的携带进行，设置axios的cookie值
+
+server/request.js
+
+```js
+export default (req) => axios.create({
+    baseURL: 'http://localhost:4000',
+    headers: {
+        cookie: req.get('cookie') || ''
+    }
+});
+```
+
+Api/server.js 接口设置session
+
+```js
+let session = require('express-session');
+let app = express();
+// let cors = require('cors');
+// 如果浏览器不直接访问 API 接口服务器，那么就不存在跨域的问题，node 服务器访问 API 接口服务器不存在跨域问题
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: 'react-test'
+}));
+
+```
+
+server/index.js 设置正向代理
+
+```js
+// 如果是服务器端请求数据，则直接访问 API 服务器的 4000 端口
+// 如果是客户端请求数据，则要访问 node 服务器（中间层）的 3000 端口
+// 让 node 服务器帮我们访问 API 服务器的 4000 端口请求数据
+// 总结：客户端向 node 服务器请求数据，node 服务器转发给 API 服务器
+// 如果浏览器不直接访问 API 接口服务器，那么就不存在跨域的问题，node 服务器访问 API 接口服务器不存在跨域问题
+// 如果访问的路径是以 /api 开头的，会交给代理服务器处理
+// /api/users => http://127.0.0.1:4000/api/users
+app.use('/api', proxy('http://127.0.0.1:4000', {
+    proxyReqPathResolver(req) {
+        return `/api${req.url}`;
+    }
+}));
+
+```
+
+App.js   服务端通过App.loadData这个属性获取getUser这个方法，来判断是否登陆了
+
+```js
+App.loadData = function (store) {
+  return store.dispatch(actions.getUser());
+};
+
+// 设置重定向到首页
+ return this.props.user ? (
+   <div className="row">
+   <div className="col-md-6 col-md-offset-6">个人中心</div>
+   </div>
+ ) : (
+   <Redirect to="/login"/>
+ );
+
+```
+
+
+
+
+
+### 8、设置css样式
+
+webapck.config.js
+
+```js
+// 服务端
+module:{
+  rules:[
+    {
+      test:/\.css$/,
+      use:[
+        'isomorphic-style-loader',
+        {
+          loader:'css-loader',
+          options:{
+            modules:true
+          }
+        }
+      ]
+    }
+  ]
+}
+// 客户端
+module:{
+  rules:[
+    {
+      test:/\.css$/,
+      use:[
+        'style-loader',
+        {
+          loader:'css-loader',
+          options:{
+            modules:true
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
+server/render.js   通过context收集css
+
+```js
+import React, { Component, Fragment } from "react";
+// import Home from "../containers/Home";
+// import Counter from "../containers/Counter";
+
+export default function (req, res) {
+  // css 代码进行收集
+   let context = { csses:[] };
+   // ...
+    let cssStr = context.csses.join("\n")
+    // ...
+    res.send(`
+            <html>
+                <head>
+                    <title>React-SSR</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" />
+                    <style type="text/css">${cssStr}</style>
+                </head>
+                <body>
+                <div id="root">${html}</div>
+                <script>
+                    window.context={
+                        state:${JSON.stringify(store.getState())}
+                    }
+                </script>
+                <script src="/client.js"></script>
+                </body>
+            </html>`);
+  });
+}
+
+```
+
+
+
+**withStyles.js. 设置高阶组件  通过 this.props.staticContext 让服务端拿到样式， 使样式和客户端渲染一致，解决刷新页面闪动的问题**
+
+```js
+import React,{Component} from 'react';
+
+export default function withStyles(OriginalComponent,styles){
+    class ProxyComponent extends Component{
+        componentWillMount(){
+            if(this.props.staticContext){
+              // _getCss方法可以得到处理后的 css 源代码
+              this.props.staticContext.csses.push(styles._getCss());
+            }
+        }
+        render(){
+            return <OriginalComponent {...this.props}/>
+        }
+    }
+    return ProxyComponent;
+}
+```
+
+
+
+
+
+### 未完任务 
+
+- 登陆和退出的相关跳转
+- 

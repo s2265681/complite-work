@@ -12,5 +12,20 @@ module.exports= merge(base,{
         filename:'server.js'
     },
     externals:[nodeExternal()],
- 
+    module:{
+        rules:[
+            {
+                test:/\.css$/,
+                use:[
+                    'isomorphic-style-loader',
+                    {
+                        loader:'css-loader',
+                        options:{
+                            modules:true
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 })

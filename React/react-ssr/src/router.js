@@ -4,12 +4,18 @@ import { Route } from 'react-router-dom'
 
 import Home from './containers/Home'
 import Counter from './containers/Counter'
+import Login from './containers/Login'
 import App from './containers/App'
+import  NotFound from './containers/NotFound'
+import  Profile from './containers/Profile'
+
+
 
 export default [
     {
         path: '/',
         component: App,
+        loadData: App.loadData,
         routes:[
             {
                 path: '/',
@@ -23,6 +29,21 @@ export default [
                 path: '/counter',
                 component: Counter,
                 key: '/counter'
+            },
+            {
+                path: '/login',
+                component: Login,
+                key: '/login'
+            },
+            {
+                path: '/profile',
+                component: Profile,
+                key: '/profile'
+            },
+            
+            {
+                component: NotFound,
+                key: '/NotFound'
             }
         ]
     }

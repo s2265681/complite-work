@@ -2,7 +2,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let session = require('express-session');
 let app = express();
-let cors = require('cors');
+// let cors = require('cors');
 // 如果浏览器不直接访问 API 接口服务器，那么就不存在跨域的问题，node 服务器访问 API 接口服务器不存在跨域问题
 
 
@@ -14,9 +14,9 @@ app.use(session({
     secret: 'react-test'
 }));
 
-app.use(cors({
-    origin:'http://localhost:3000'
-}));
+// app.use(cors({
+//     origin:'http://localhost:3000'
+// }));
 
 let users = [{id: 1, name: 'user1'}, {id: 2, name: 'user2'}];
 app.get('/api/users', function (req, res) {

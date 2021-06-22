@@ -1,11 +1,10 @@
 import * as types from "../action-types";
-import axios from "axios";
 
 export default {
     getHomeList() {
       // 这里使用 redux-thunk 中间件
       return function (dispatch, getState, request) {
-        return axios.get("http://localhost:4000/api/users").then(function (result) {
+        return request.get("/api/users").then(function (result) {
           let list = result.data;
           dispatch({
             type: types.SET_HOME_LIST,
