@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <marquee id="box"></marquee>
+  </body>
+  <script>
+      let box = document.getElementById('box')
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", "http://v1.hitokoto.cn");
+    // xhr.setRequestHeader("xxx", "zhufeng");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        // 获取响应头信息
+        //   console.log(xhr.getResponseHeader('date'))
+        //   console.log(xhr.getallResponseHeaders());
+        // 获取响应主体
+        let res =  JSON.parse(xhr.responseText);
+        console.log(res.hitokoto,'res>>')
+        box.innerHTML = res.hitokoto
+      }
+    };
+    xhr.send()
+    console.log(xhr, "xhr");
+  </script>
+</html>

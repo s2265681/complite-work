@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      display: flex;
+    }
+    #games {
+      background-color: #000;
+    }
+
+    #box {
+      position: relative;
+      width: 400px;
+    }
+
+    #restart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      /* transform: translateX(-50%) translateY(-50%); */
+      transform: translate(-50%, -50%);
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div style="width: 30%;">
+        <div id="box">
+          <canvas id="games" width="400" height="400"></canvas>
+          <button id="restart">startGame</button>
+        </div>
+
+        <button id="btn1">暂停</button>
+        <button id="btn2">继续</button>
+      </div>
+      <div style="width: 25%;">
+        <pre>
+                <h3>html代码</h3>
+                <div id = content>
+
+                </div>
+            </pre>
+      </div>
+      <div style="width: 25%;">
+        <pre>
+                <h3>javascript代码</h3>
+                const canvas = document.querySelector("#games");
+                const ctx = canvas.getContext("2d");
+                const restart = document.querySelector("#restart");
+            
+                const snack = {
+                  x: 16,
+                  y: 16,
+                  w: 16,
+                  h: 16,
+                  lastDir: 0,
+                  offsetX: 16,
+                  offsetY: 0,
+                };
+            
+                const food = {
+                  x: 0,
+                  y: 0,
+                  w: 16,
+                  h: 16,
+                };
+            
+                const snackBody = [];
+            
+                for (let i = 0; i < 5; i++) {
+                  snack.x += snack.w;
+                  snackBody.unshift({ ...snack });
+                }
+            
+                snackBody.forEach((item) => {
+                  ctx.fillStyle = "red";
+                  ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+                });
+            
+                const getRandom = (min, max) => {
+                  return Math.floor(Math.random() * (max - min)) + min;
+                };
+                const getRandomRect = (min, max) => {
+                  const x = getRandom(0, 25) * food.w;
+                  const y = getRandom(0, 25) * food.h;
+                  if (snackBody.findIndex((e) => e.x === x && e.y === y) != -1)
+                    return getRandomRect();
+                  return { x, y };
+                };
+                const { x, y } = getRandomRect(0, 25);
+                food.x = x;
+                food.y = y;
+                console.log(food, "food");
+                ctx.fillStyle = "green";
+                ctx.fillRect(food.x, food.y, food.w - 1, food.h - 1);
+            
+                // 动画
+                let speed = 0;
+                let animateId;
+                const renderAnimate = () => {
+                  animateId = window.requestAnimationFrame(renderAnimate);
+                  if (++speed < 10) return;
+                  speed = 0;
+                  snack.x += snack.offsetX;
+                  snack.y += snack.offsetY;
+                  if (snack.x < 0 || snack.x > canvas.width) {
+                    gameOver();
+                    return;
+                  }
+                  if (snack.y < 0 || snack.y > canvas.height) {
+                    gameOver();
+                    return;
+                  }
+                  if (
+                    snackBody.findIndex(
+                      (item) => item.x === snack.x && item.y === snack.y
+                    ) != -1
+                  ) {
+                    gameOver();
+                    return;
+                  }
+            
+                  ctx.clearRect(0, 0, 400, 400);
+                  if (food.x === snack.x && food.y === snack.y) {
+                    const { x, y } = getRandomRect(0, 25);
+                    food.x = x;
+                    food.y = y;
+                  } else {
+                    snackBody.pop();
+                  }
+                  snackBody.unshift({ ...snack });
+                  snackBody.forEach((item) => {
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+                  });
+            
+                  ctx.fillStyle = "green";
+                  ctx.fillRect(food.x, food.y, food.w - 1, food.h - 1);
+                };
+            
+                const gameOver = () => {
+                  ctx.font = "18px Arial";
+                  ctx.textAlign = "center";
+                  ctx.fillText("Game Over!!", canvas.width / 2, canvas.height / 2);
+            
+                  window.cancelAnimationFrame(animateId);
+                  restart.style.display = "block";
+                };
+            
+                // 重新开始
+                restart.addEventListener("click", () => {
+                  ctx.clearRect(0, 0, 400, 400);
+                  restart.style.display = "none";
+                  snackBody.splice(0, snackBody.length - 1);
+                  snack.x = 0;
+                  snack.y = 0;
+                  snack.offsetX = 16;
+                  snack.offsetY = 0;
+                  for (let i = 0; i < 5; i++) {
+                    snack.x += snack.w;
+                    snackBody.unshift({ ...snack });
+                  }
+            
+                  snackBody.forEach((item) => {
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+                  });
+                  renderAnimate();
+                });
+            
+                renderAnimate();
+            
+                const btn1 = document.querySelector("#btn1");
+                btn1.addEventListener("click", () => {
+                  console.log("bton");
+                  cancelAnimation(animateId);
+                });
+                const btn2 = document.querySelector("#btn2");
+                btn2.addEventListener("click", () => {
+                  console.log("bton");
+                  renderAnimate();
+                });
+            
+                window.addEventListener("keydown", (e) => {
+                  if (Math.abs(e.which - snack.lastDir) === 2) return;
+                  snack.lastDir = e.which;
+                  switch (e.which) {
+                    case 40:
+                      console.log("down");
+                      snack.offsetY = snack.h;
+                      snack.offsetX = 0;
+                      // snack.y = snack.y + snack.h
+                      break;
+                    case 39:
+                      console.log("right");
+                      // snack.x = snack.x + snack.w
+                      snack.offsetX = snack.w;
+                      snack.offsetY = 0;
+                      break;
+                    case 37:
+                      console.log("left");
+                      // snack.x = snack.x - snack.w
+                      snack.offsetX = -snack.w;
+                      snack.offsetY = 0;
+            
+                      break;
+                    case 38:
+                      console.log("up");
+                      // snack.y = snack.y - snack.h
+                      snack.offsetY = -snack.h;
+                      snack.offsetX = 0;
+                      break;
+                  }
+                });
+              </pre
+        >
+      </div>
+    </div>
+  </body>
+  <script>
+    const canvas = document.querySelector("#games");
+    const ctx = canvas.getContext("2d");
+    const restart = document.querySelector("#restart");
+    const content = document.querySelector("#content");
+    content.innerText = `
+       <div id="box">
+            <canvas id="games" width="400" height="400">
+            </canvas>
+            <button id="restart">startGame</button>
+        </div>
+        <button id="btn1">暂停</button>
+        <button id="btn2">继续</button>
+    `;
+    const snack = {
+      x: 16,
+      y: 16,
+      w: 16,
+      h: 16,
+      lastDir: 0,
+      offsetX: 16,
+      offsetY: 0,
+    };
+
+    const food = {
+      x: 0,
+      y: 0,
+      w: 16,
+      h: 16,
+    };
+
+    const snackBody = [];
+
+    for (let i = 0; i < 5; i++) {
+      snack.x += snack.w;
+      snackBody.unshift({ ...snack });
+    }
+
+    snackBody.forEach((item) => {
+      ctx.fillStyle = "red";
+      ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+    });
+
+    const getRandom = (min, max) => {
+      return Math.floor(Math.random() * (max - min)) + min;
+    };
+    const getRandomRect = (min, max) => {
+      const x = getRandom(0, 25) * food.w;
+      const y = getRandom(0, 25) * food.h;
+      if (snackBody.findIndex((e) => e.x === x && e.y === y) != -1)
+        return getRandomRect();
+      return { x, y };
+    };
+    const { x, y } = getRandomRect(0, 25);
+    food.x = x;
+    food.y = y;
+    console.log(food, "food");
+    ctx.fillStyle = "green";
+    ctx.fillRect(food.x, food.y, food.w - 1, food.h - 1);
+
+    // 动画
+    let speed = 0;
+    let animateId;
+    const renderAnimate = () => {
+      animateId = window.requestAnimationFrame(renderAnimate);
+      if (++speed < 10) return;
+      speed = 0;
+      snack.x += snack.offsetX;
+      snack.y += snack.offsetY;
+      if (snack.x < 0 || snack.x > canvas.width) {
+        gameOver();
+        return;
+      }
+      if (snack.y < 0 || snack.y > canvas.height) {
+        gameOver();
+        return;
+      }
+      if (
+        snackBody.findIndex(
+          (item) => item.x === snack.x && item.y === snack.y
+        ) != -1
+      ) {
+        gameOver();
+        return;
+      }
+
+      ctx.clearRect(0, 0, 400, 400);
+      if (food.x === snack.x && food.y === snack.y) {
+        const { x, y } = getRandomRect(0, 25);
+        food.x = x;
+        food.y = y;
+      } else {
+        snackBody.pop();
+      }
+      snackBody.unshift({ ...snack });
+      snackBody.forEach((item) => {
+        ctx.fillStyle = "red";
+        ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+      });
+
+      ctx.fillStyle = "green";
+      ctx.fillRect(food.x, food.y, food.w - 1, food.h - 1);
+    };
+
+    const gameOver = () => {
+      ctx.font = "18px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Game Over!!", canvas.width / 2, canvas.height / 2);
+
+      window.cancelAnimationFrame(animateId);
+      restart.style.display = "block";
+    };
+
+    // 重新开始
+    restart.addEventListener("click", () => {
+      ctx.clearRect(0, 0, 400, 400);
+      restart.style.display = "none";
+      snackBody.splice(0, snackBody.length - 1);
+      snack.x = 0;
+      snack.y = 0;
+      snack.offsetX = 16;
+      snack.offsetY = 0;
+      for (let i = 0; i < 5; i++) {
+        snack.x += snack.w;
+        snackBody.unshift({ ...snack });
+      }
+
+      snackBody.forEach((item) => {
+        ctx.fillStyle = "red";
+        ctx.fillRect(item.x, item.y, item.w - 1, item.h - 1);
+      });
+      renderAnimate();
+    });
+
+    renderAnimate();
+
+    const btn1 = document.querySelector("#btn1");
+    btn1.addEventListener("click", () => {
+      console.log("bton");
+      cancelAnimation(animateId);
+    });
+    const btn2 = document.querySelector("#btn2");
+    btn2.addEventListener("click", () => {
+      console.log("bton");
+      renderAnimate();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (Math.abs(e.which - snack.lastDir) === 2) return;
+      snack.lastDir = e.which;
+      switch (e.which) {
+        case 40:
+          console.log("down");
+          snack.offsetY = snack.h;
+          snack.offsetX = 0;
+          // snack.y = snack.y + snack.h
+          break;
+        case 39:
+          console.log("right");
+          // snack.x = snack.x + snack.w
+          snack.offsetX = snack.w;
+          snack.offsetY = 0;
+          break;
+        case 37:
+          console.log("left");
+          // snack.x = snack.x - snack.w
+          snack.offsetX = -snack.w;
+          snack.offsetY = 0;
+
+          break;
+        case 38:
+          console.log("up");
+          // snack.y = snack.y - snack.h
+          snack.offsetY = -snack.h;
+          snack.offsetX = 0;
+          break;
+      }
+    });
+  </script>
+</html>

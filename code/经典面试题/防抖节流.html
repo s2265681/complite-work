@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流</title>
+</head>
+<style>
+    body{
+        height: 3000px;
+        background-color: orange;
+    }
+</style>
+<body>
+    防抖
+</body>
+
+<script>
+// // debounce
+// function debounce(){
+//    console.log('sssss')
+// }
+
+// // 处理函数
+// function handle(){
+
+// }
+
+// // 滚动事件
+// window.addEventListener('scroll',debounce(handle,500))
+
+/*
+* 每次触发先清掉之前的定时器，再赋新的
+* fn [function] 需要防抖的函数
+* delay [number] 毫秒，防抖期限值
+*/
+ function debounce(fn,deplay=200){
+//    console.log('sssss')
+   let timer = null;
+   return function(){
+       if(timer){  
+         // 已经计时了重新计时
+         clearTimeout(fn,deplay);
+       }
+         // 一定会执行
+           timer=setTimeout(fn,deplay);
+       
+   }
+}
+
+
+function showTop  () {
+    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+　　console.log('滚动条位置：' + scrollTop);
+}
+
+// window.onscroll  = showTop
+window.addEventListener('scroll',debounce(showTop,1000))
+
+</script>
+</html>

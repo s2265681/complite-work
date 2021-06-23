@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复杂的旋转正方体</title>
+</head>
+<style>
+
+  .box{
+    transform-style: preserve-3d;
+    transform: rotate3d(1,1,0,-30deg);
+    margin:500px;
+    /* animation: boxAnimation 5s infinite alternate; */
+    transform-style:preserve-3d;
+    transform:translateZ(-100px) rotateY(30deg) rotateX(30deg);
+    transition:2s;
+    /* perspective: 500; */
+    /* -webkit-perspective: 300; Safari and Chrome */
+  }
+
+  @keyframes boxAnimation {
+     from{
+       transform: rotateX(0deg) rotateY(0deg);
+     }
+     to{
+      transform: rotateX(360deg) rotateY(360deg);
+     }
+  }
+
+  .box div{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -200px;
+    left: 50%;
+    margin-left: -100px;
+  }
+/* 前 */
+  .box div:first-child{
+    /* transform: translateZ(100px); */
+    background-color: rgba(255,0,0,0.2);
+    transform-origin:bottom;
+    transform:translateZ(100px) rotateX(0deg);
+    transition:2s;
+  }
+
+/* 后 */
+  .box div:nth-child(2){
+    transform: translateZ(-100px);
+    background-color: rgba(255,123,0,0.2);
+  }
+/* 左 */
+  .box div:nth-child(3){
+    transform: translateX(-100px) rotateY(90deg);
+    background-color: rgba(255,0,122,0.2);
+  }
+/* 右 */
+  .box div:nth-child(4){
+    transform: translateX(100px) rotateY(-90deg);
+    background-color: rgba(0,0,111,0.2);
+  }
+/* 上 */
+  .box div:nth-child(5){
+    transform: translateY(-100px) rotateX(-90deg);
+    background-color: rgba(0,120,0,0.2);
+  }
+/* 下 */
+  .box div:nth-child(6){
+    transform: translateY(100px) rotateX(90deg);
+    background-color: rgba(25,10,30,0.2);
+  }
+
+  .box:hover{
+    transform:translateZ(-100px) rotateY(360deg);
+  }
+
+  .box:hover div:nth-child(1){
+	   transform:translateZ(100px) rotateX(-90deg);
+}
+
+</style>
+<body>
+   <div class="box">
+     <div></div>
+     <div></div>
+     <div></div>
+     <div></div>
+     <div></div>
+     <div></div>
+   </div>
+</body>
+</html>

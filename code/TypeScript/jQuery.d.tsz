@@ -1,0 +1,3 @@
+
+// 声明文件 + .d.ts
+declare var jQuery:(selector:string) => any

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现左图右文布局</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+    }
+    .common {
+      background-color: antiquewhite;
+      height: 100vh;
+      /* overflow: hidden; */
+    }
+    .common div {
+      height: 100vh;
+    }
+
+    .common .left {
+      background-color: orangered;
+    }
+    .common .right {
+      background-color: beige;
+    }
+
+    /* 第一种 flex布局 */
+    /* .box{
+     display: flex;
+     display: -webkit-flex;
+    }
+
+    .left{
+        flex:0 1 200px;
+    }
+    .right{
+        // flex:1 1 0%; 
+        flex: 1;
+    }  */
+
+    /* 第二种 利用左侧 positon：fixed 定位  右侧margin-left:200*/
+    /* .box{
+    }
+
+    .left{
+        width:200px;
+        position: fixed;
+    }
+    .right{
+    margin-left: 200px;
+    } 
+    */
+
+    /* 第三种 图文都左float，利用 calc 计算宽度的方法，注意运算符两边加空格*/
+     /* .box {
+    }
+
+    .left {
+      float: left;
+      width: 200px;
+    }
+    .right {
+      float: left;
+      width: calc(100% - 200px);
+    }  */
+
+    /* 第四种 利用float 和 margin的方式 */
+    /* .box {
+    }
+
+    .left {
+      float: left;
+      width: 200px;
+    }
+    .right {
+        margin-left:200px;
+    }  */
+
+    /* 第五种 利用左侧float：left 和 右侧overflow:auto|hidden形成bfc实现, 因为float不会占dom空间，只会占文字空间 */
+    /* .box {
+    }
+    .left {
+      float: left;
+      width: 200px;
+    }
+    .right {
+        overflow: auto; 
+    }   */
+
+    /* 第六种  绝对定位 absolute */
+    .box {
+        position: relative;
+    }
+    .left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 200px;
+    }
+    .right {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        width: 100%;
+    }   
+
+    /* 第七种： 利用 display: table 实现*/
+    /* .box {
+         display: table; 
+        }
+
+    .left {
+        display: table-cell; 
+        width: 200px;
+    }
+    .right {
+        display: table-cell; 
+    }   */
+
+    /* 第八种： 利用 display: box 实现 需加前缀*/
+    /* .box {
+      display: -webkit-box;
+      display: box;
+    }
+
+    .left {
+      width: 200px;
+    }
+    .right {
+    } */
+  </style>
+  <body>
+    <div class="box common">
+      <div class="left">左边导航区</div>
+      <div class="right">
+        <div style="background: aqua;width: 300px;height: 200px;">121</div>
+        右边内容区 右边内容区 右边内容区 右边内容区 右边内容区 右边内容区
+        右边内容区 右边内容区 右边内容区 右边内容区 右边内容区 右边内容区
+        右边内容区 右边内容区 右边内容区 右边内容区 右边内容区 右边内容区
+      </div>
+    </div>
+  </body>
+</html>

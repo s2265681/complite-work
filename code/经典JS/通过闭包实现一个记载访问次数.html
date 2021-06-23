@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    访问记录<div id="num"></div>
+
+    <button onclick="clic()">点击1</button>
+    <button onclick="clic1()">点击2</button>
+</body> 
+<script>
+    let num = document.getElementById('num')
+    window.onload=function(){
+        // console.log(test()())
+    }
+
+    function test(i){
+        let a = ++i
+        console.log(a)
+        return a++
+    }
+
+    // let v= test(3)
+    function clic(){
+        console.log(test(3))
+        // const vv =  v()
+        // console.log(vv,'vvv')
+    }
+
+    // let v1= test(90)
+    // function clic1(){
+    //     const vv =  v1()
+    //     console.log(vv,'vvv')
+    // }
+  
+
+</script>
+</html>

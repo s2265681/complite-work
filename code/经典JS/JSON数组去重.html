@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    JSON数组去重复项
+</body>
+<script>
+    // var arr = [
+    //     {"name" : "1","value" : "qqq","age" : "10"},
+    //     {"name" : "2","value" : "eee","age" : "20"},
+    //     {"name" : "4","value" : "rrr","age" : "50"},
+    //     {"name" : "5","value" : "ttt","age" : "100"},
+    //     {"name" : "1","value" : "qqq","age" : "10"},
+    //     12,
+    //     23,
+    //     12
+    //     ];
+
+    // var arr = [1,2,2,3,4,5,3,4]
+        
+        //方法一
+        
+        // var hash = {};
+        // //  JSON 数组去重的思路就是 利用对象中寻找key的方式，依次把对象中key的值放进去，如果里面已经有了，就不添加当前的item
+        //     arr = [...new Set(arr)].reduce(function(item, next) {
+        //         console.log(next,'next')
+        //         next instanceof Object&&  hash[next.name] ? '' : hash[next.name] =  item.push(next);
+        //         return item
+        //     }, [])
+        // console.log(arr);
+        
+        //方法二
+    //     for (var i = 0; i < arr.length; i++) {
+    //         // debugger
+    //             for (var j =i+1; j <arr.length; ) {
+    //                 if (arr[i] == arr[j]) {//判断条件可以按照个人需求改
+    //                     arr.splice(j, 1);
+    //                 }
+    //                 else j++;
+    //             }
+    //         }
+    //    console.log(arr)
+
+
+    //  var hash = {}
+    //  arr =  arr.reduce((item,next)=>{  // 不会改变原数组
+    //         hash[next] ? '' : hash[next] = item.push(next)
+    //         return item
+    //     },[])
+
+    // for(let i=0;i<arr.length;i++){
+    //      for(let j=i+1;j<arr.length;){
+    //         if(arr[i]===arr[j]){
+    //             arr.splice(j,1)
+    //         }else{
+    //             j++
+    //         }
+    //      }
+    // }
+
+        // 数组的clone
+        // Object.clone()
+        var arr = [1,2,2,3,4,5,3,4]
+        var arr1 =  Object.clone(arr)
+
+        // var arr1 = arr.splice(0)
+        // arr=[1,2,2,3,4,5,3,4]
+        arr1.push(0,1)
+        console.log(arr,'aar')
+        console.log(arr1,'aar111')
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box{
+       display: flex;
+       align-items: center;
+       border: #000 1px solid;
+    }
+    
+    #box div{
+       height: 200px;
+       margin: 5px;
+       border: #000 1px solid;
+    }
+
+    #box div:first-child{
+       width: 200px;
+       background-color: antiquewhite;
+    }
+
+    #box div:nth-child(2){
+       flex: 1.5 1 auto;
+       background-color:aqua;
+       height: 100px;
+    }
+
+    #box div:nth-child(3){
+       flex: 1 1 auto;
+    }
+
+    #box div:nth-child(4){
+       width: 200px;
+       height: 100px;
+       align-self: flex-start;
+    }
+
+</style>
+<body>
+    <div id="box">
+        <div>定宽200</div>
+        <div>不定款1.5</div>
+        <div>不定款1</div>
+        <div>定款200，上浮</div>
+    </div>
+</body>
+<script>
+   function test(url,name){
+      var res = ''
+      //var reg = new RegExp(`${name}=(\\w+)`,'g')
+      var reg = eval(`/${name}=(\\w+)/g`)
+      var a =  url.replace(reg,(str,t1)=>res=t1)
+      return res
+   }
+   var t = test('www.baidu.com?aaa=111&bbb=lisi1','bbb')
+   console.log(t,'tt')
+</script>
+</html>

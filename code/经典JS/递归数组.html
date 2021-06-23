@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归</title>
+</head>
+<style>
+</style>
+<body>
+    
+</body>
+<script>
+const nodes = [
+   {
+   id: 1,
+   text: 'text1',
+      children: [
+      {
+         id: 2,
+         text: 'text2',
+         parentId: 1,
+         children: [
+            {
+            id: 4,
+            text: 'text4',
+            parentId: 2
+            }
+               ]
+      },
+      {
+         id: 3,
+         text: 'text3',
+         parentId: 1
+         }
+      ]
+   }
+]
+
+let res = []
+function test(list){
+   if(!(list instanceof Array))return
+   list.forEach(el=>{
+      if(el.children instanceof Array){
+         test(el.children)
+      } 
+         delete el.children
+         res.push(el)
+   })
+   return res
+}
+
+var t = test(nodes)
+console.log(t,'t')
+
+</script>
+</html>

@@ -1,0 +1,18 @@
+
+$background-color: #F90;
+
+.wrapper{
+    .demo_one{
+        width: 100px;
+        height: 100px;
+        background-color: $background-color;
+        transition: transform 2s ease-out .2s;
+        cursor: pointer;
+        &:hover{
+            background-color: #f00;
+            // width: 200px;
+            transform: rotate(45deg);
+        }
+    }
+    
+}

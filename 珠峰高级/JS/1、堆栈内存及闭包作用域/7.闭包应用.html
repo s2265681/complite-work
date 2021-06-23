@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+  </style>
+  <body>
+    <button index="0">红</button>
+    <button index="1">绿</button>
+    <button index="2">蓝</button>
+    <button index="3">黑</button>
+    <button index="4">粉</button>
+  </body>
+  <script>
+    /**
+     *  在ES6之前只有全局上下文和私有上下文
+     *  EC(G) arr ... , btns
+     *  循环中给每个按钮都添加了点击事件行为，但是都没有执行，循环结束时 i=5，此时
+     *  当点击按钮执行函数的时候，形成私有上下文，scope[[EC(G)]]，没有形参赋值，代码执行时 i 不是自己的私有变量，所以找全局i
+     *  解决方式1: 用函数包一层，
+     */
+    let btns = document.getElementsByTagName("button");
+    let arr = ["red", "green", "blue", "black", "pink"];
+    for (var i = 0; i < btns.length; i++) {
+      // 子执行函数形成一个私有上下文，
+      (function (i) {
+        /**
+         *  EC（AN）
+         *  作用域链 <EC(AN),EC(G)>
+         *  形参赋值 i=0
+         */
+        // btn[0].onclick = AAAFFF000([[scope]]:EC(AN))
+        btns[i].onclick = function () {
+          /**
+           * 私有上下文 EC(EV)
+           *   作用域链：  <EC(EV)， EC(AN)>
+           *   这里的再遇到的i，不再是全局的i，而是上级作用域中EC(AN)的闭包中保存的i
+           */
+          var color = arr[i];
+          document.body.style.backgroundColor = color;
+        };
+      })(i); // 把每一轮的实参I传给私有上下文中的形参i，第一轮传递的是0
+    }
+
+    /**
+     *  解决方式2: 用函数包一层
+     */
+    let btns = document.getElementsByTagName("button");
+    let arr = ["red", "green", "blue", "black", "pink"];
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].onclick = (function (i) {
+        return function () {
+          var color = arr[i];
+          document.body.style.backgroundColor = color;
+        };
+      })(i);
+    }
+
+    /**
+     *  解决方式3: 用let， 类似于闭包的机制
+     *  let 的特点
+     *  在ES6中基于let、const创建的函数，如果出现在非函数和对象的大括号当中，大括号里包裹的是一个全新的作用域
+     *  ES5以前没有块级作用域的概念，所以除函数外，都是全局作用域
+     *  ES6产生块级作用域，形成私有作用域
+     */
+
+    // 每一轮都会形成一个私有的作用域，并且又一个私有变量i，分别存储每一轮的索引
+    // 循环5轮，会形成6个作用域(加一个for循环的父作用域) —— 也不是全局的
+    // let的块级作用域是浏览器底层自己实现的，比我们实现的闭包要好一些
+    let btns = document.getElementsByTagName("button");
+    let arr = ["red", "green", "blue", "black", "pink"];
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].onclick = function () {
+        var color = arr[i];
+        document.body.style.backgroundColor = color;
+      };
+    }
+
+    /**
+     *  解决方式3: 用let， 类似于闭包的机制
+     * 真实项目中遇到循环事件绑定的，我们最好告别闭包机制，包括let，ES6
+     */
+    let btns = document.getElementsByTagName("button");
+    let arr = ["red", "green", "blue", "black", "pink"];
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].myIndex = i;
+      btns[i].onclick = function () {
+        // => this 为当前操作的按钮
+        var color = arr[this.myIndex];
+        document.body.style.backgroundColor = color;
+      };
+    }
+
+    /**
+     *  解决方式4: 最好的方式 —— 利用事件委托和target事件源(性能最好)
+     *  在结构上就存储元素索引
+     */
+    let btns = document.getElementsByTagName("button");
+    let arr = ["red", "green", "blue", "black", "pink"];
+    document.body.onclick = function (ev) {
+      let target = ev.target,
+        targetName = target.tagName;
+      // 当前点了按钮，target事件源就是这个按钮
+      if (targetName === "BUTTON") {
+        var index = target.getAttribute("index");
+        this.style.backgroundColor = arr[index];
+      }
+    };
+  </script>
+</html>

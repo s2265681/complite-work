@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正则表达式---面试题</title>
+  </head>
+  <body>
+    面试题
+  </body>
+  <script>
+    // 第一题 1、 1、 今日头条面试题，实现一个printf函数
+    //   var str = 'myname is ${name},my age is ${age};'
+    //   var info = {
+    //     name:'liming',
+    //     age:20
+    //   }
+
+    //   function printf(str,info){
+    //    var reg = /\$\{(\w+)\}/g;
+    //    return str.replace(reg,function(match,key){
+    //       //  return info[match.splice(2,-1)]
+    //       console.log(match,key,'match,key')
+    //    })
+    // }
+
+    //   var v = printf(str,info)
+    //   console.log(v)
+  </script>
+  <script>
+    // // 第二题
+    // 法一：
+    // const extractStr = str => {
+    //   let arr = [];
+    //    str.replace(/:\w*\./g, function(match, key) {
+    //      if(!match){
+    //       arr = ['']
+    //        }else{
+    //         arr.push(match.slice(1, -1));
+    //        }
+    //   });
+    //   return arr;
+    // }; /* TODO */
+    // 法二：
+    // const extractStr = (str) => {
+    //     let reg = /:(\w*)./g
+    //     let arr = []
+    //     str.replace(reg,($1,$2)=>{
+    //        arr.push($2)
+    //     })
+    //      return arr
+    //     }
+  // var r =  extractStr("My name is:Jerry. My age is:12.");  // ["Jerry", "12"]
+  // var r = extractStr('::.VasDJR')  // [""]
+  // var r = extractStr('wLBnub..fbFdSQ...wZxbZG::..uWJSqk')  // [""]
+  // var r = extractStr('vMbyzB:dTwOAT.LDMCUUccFSzS:VbQiIH.:bnzMLn.:QqCZOi.:xwVdRd.')  // ["dTwOAT", "VbQiIH", "bnzMLn", "QqCZOi", "xwVdRd"]
+  // var r = extractStr('uCPNuM:xkvCRT.aPponnQCbmps:oTJlRd.:naGhDo.:RcPIuF.:WVYwNW. ')  // ["xkvCRT", "oTJlRd", "naGhDo", "RcPIuF", "WVYwNW"]
+  // var r = extractStr('bZeJqpGeavjv:ZdDOXY')
+  // var r = extractStr('')
+  //  console.log(r,'r')  
+     
+  //  ['Jerry', '12']
+  </script>
+  <script>
+    // 把数字转换成中文
+    // 完成将 toChineseNum， 可以将数字转换成中文大写的表示，处理到万级别，例如 toChineseNum(12345)，返回 一万二千三百四十五。
+    // function toCNum(n) {
+    // let bitPos = 0, rs = '', zeroNum = 0;
+    // while (n > 0) {
+    //     let curNum = n % 10;
+    //     if (curNum === 0) {
+    //         zeroNum++;
+    //         bitPos++;
+    //     } else {
+    //         if (bitPos === zeroNum)
+    //             zeroNum = 0;
+    //         else if (zeroNum > 0) {
+    //             rs = '零' + rs;
+    //             zeroNum = 0;
+    //         }
+    //         rs = unit[curNum] + bit[bitPos++] + rs;
+    //     }
+    //     n = Math.floor(n / 10);
+    // }
+    // return rs;
+
+    // while (num > 0) {
+    //     piece = num % 10000;
+    //     resultStr = toCNum(piece) + section[sectionPos] + (needZero ? '零' : '') + resultStr;
+    //     needZero = piece < 1000 && piece > 0;
+    //     sectionPos++;
+    //     num = Math.floor(num / 10000);
+    // }
+    // return resultStr;
+    // }
+
+    // var r = toCNum(123)
+    // console.log(r,'r')
+
+    // import React from 'react'
+    
+    // export default function 正则面试题() {
+    //   return (
+    //     <div>
+          
+    //     </div>
+    //   )
+    // }
+    
+  </script>
+
+  <script>
+//  小科去了一家新的公司做前端主管，发现里面的前端代码有一部分是 C/C++ 程序员写的，他们喜欢用下划线命名，例如： is_good。小科决定写个脚本来全部替换掉这些变量名。
+// 完成 toCamelCaseVar 函数，它可以接受一个字符串作为参数，可以把类似于 is_good 这样的变量名替换成 isGood。
+// 变量名首尾的下划线不需要做处理，中间的下划线全部删除并且处理成驼峰。
+
+const toCamelCaseVar = (variable) => variable.replace(/(?:[^_])(_+)([^_])/g,(a,b,c)=> a[0]+c.toUpperCase())
+
+// => ?: 的区别就是多匹配出一项还是不匹配的区别
+// const toCamelCaseVar = (variable) => variable.replace(/([^_])(_+)([^_])/g,(a,b,c,d)=> a[0]+d.toUpperCase())
+
+
+var v =toCamelCaseVar('_$this_is__name_')
+console.log(v,'v')
+
+
+  </script>
+</html>
+
+

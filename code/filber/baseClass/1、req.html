@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+       <div id="odiv" style="background:blue;width: 0px; height: 20px;"></div>
+       <button id="btn">按钮</button>
+    </div>
+    <script>
+        const Odiv = document.getElementById('odiv')
+        const btn = document.getElementById('btn')
+        console.log(Odiv,'Odiv')
+
+        let start;
+        function process(){
+            Odiv.style.width = Odiv.offsetWidth + 1 + 'px'
+            Odiv.innerHTML = (Odiv.offsetWidth) + '%';
+            if(Odiv.offsetWidth<100){
+                let current = Date.now();
+                console.log(current-start)
+                start = current
+                requestAnimationFrame(process)
+            }
+        }
+
+        btn.addEventListener('click',()=>{
+            Odiv.style.width = 0;
+            let current= Date 
+            start = current;
+            requestAnimationFrame(process)
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL地址栏参数的获取</title>
+</head>
+<body>
+    URL地址栏参数的获取
+</body>
+<script>
+    var url = window.location.search.slice(1);
+    // url = "name=lisi&age=20&school=xiaoxue";
+    // console.log(url.trim())
+    // 求参数取出放到对象中
+    // obj={
+    //   name:'lisi';
+    //   age:20;
+    //   school:'xiaoxue';
+    // }
+
+    // 法一：
+    var obj={};
+    url.replace(/\s*/gm,'').split('&').forEach(el=>{       // ['name=lisi','age=20',school='xiaoxue']
+        var key = el.split('=')[0];
+        var value = el.split('=')[1];   // ['name','lisi']
+        obj[key]=value
+    })
+ 
+    // 法二：正则表达式
+    var obj={};
+    url = "name=lisi&age=20&school=xiaoxue";
+    function getQueryString(name){
+        var reg = eval(`/(^|&)${name}=([^&]*)(&|$)/i`)
+    //    var u = reg.exec(url)
+    //    console.log(u,'u')
+        var r = url.match(reg)
+        if (r != null) return unescape(r[2]); 
+        return null
+    }
+  obj['name'] =  getQueryString('name')
+  obj['age'] =  getQueryString('age')
+  obj['school'] =  getQueryString('school')
+  console.log(obj,'mmm')
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    地址栏查询参数
+    www.baidu.com?name=lisi&age=25
+</body>
+<script>
+    // 查询参数组成对象
+    function mapQueryParams(){
+      if(window.location.search.substr(0,1)!=='?')return 
+       let withParamsUrl =  window.location.search.substr(1) // name=lisi&age=25
+       let paramsArr = withParamsUrl.split('&')
+       let parmasObj = {}
+       for(let i =0; i<paramsArr.length;i++){
+           parmasObj[paramsArr[i].split('=')[0]] = paramsArr[i].split('=')[1]
+       }
+       return parmasObj
+    }
+    mapQueryParams()
+
+    // 正则写一个传入key查询对应的参数的函数
+    const queryParams=(name)=>(
+        typeof name==='string'?
+        unescape(
+            window.location.search
+            .substr(1)
+            .match(new RegExp(`(^|&)${name}=([^&]*)(&|$)`))[2]
+        ):'需要传入字符串'
+    );
+    let q = queryParams('age')
+    console.log(q,'qq')
+</script>
+</html>

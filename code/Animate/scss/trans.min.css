@@ -1,0 +1,1 @@
+.wrapper .demo_one{width:100px;height:100px;background-color:#F90;transition:transform 2s ease-out .2s;cursor:pointer}.wrapper .demo_one:hover{background-color:#f00;transform:rotate(45deg)}

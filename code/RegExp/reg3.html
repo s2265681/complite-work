@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式1</title>
+</head>
+<body>
+    正则表达式 （三）：
+    string.replace(//,'str')
+    <div>
+      <input type="text" placeholder="请输入要查找的文字" id="searchTxt">
+      <input type="text" placeholder="请输入想要替换的文字" id="repTxt">
+      <button id="search">查找</button>
+      <button id="replace">替换</button>
+    </div>
+    <div id="box">
+        美女。你怎么这么美呢，你美的不可方物，让我不敢直视！
+    </div>
+</body>
+<script>
+     const searchTxt = document.getElementById('searchTxt');
+     const repTxt = document.getElementById('repTxt');
+     const search = document.getElementById('search');
+     const replace = document.getElementById('replace');
+     let box =  document.getElementById('box');
+     let boxTxt =  document.getElementById('box').innerHTML;
+
+     // 查找并高亮
+     search.onclick=function(){
+      const searchVal = searchTxt.value;
+        var result =  boxTxt.replace(eval(`/${searchVal}/g`),`<span style="color:#f00">${searchVal}</span>`)
+        box.innerHTML = result
+     }
+
+      // 替换
+      replace.onclick=function(){
+        const searchVal = searchTxt.value;
+        const repVal = repTxt.value
+        var result =  boxTxt.replace(eval(`/${searchVal}/g`),`<span style="color:#f00">${repVal}</span>`)
+        box.innerHTML = result
+     }
+
+</script>
+</html>

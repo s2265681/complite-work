@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+  <style>
+  .list-group-item {
+    cursor: pointer;
+    border-radius: 0;
+    border: none;
+    background: rgba(0,0,0,.8);
+    color: white;
+    margin: 0;
+    position: static;
+  }
+  .tabs {
+    position: relative;
+    background: #eee;
+  }
+  .tabs .list-group {
+    width: 20rem;
+    margin-bottom: 0;
+  }
+  .tab-pane {
+    box-shadow: 0 5px 20px gray;
+    background: white;
+    padding: 2rem;
+    position: absolute;
+    left: 20rem;
+    height: 100%;
+    top: 0;
+    writing-mode: vertical-lr;
+  }
+  .tab-pane-items {
+    display: inline-block;
+    margin: 1rem 3rem 1rem 1rem;
+    color: black;
+    writing-mode: horizontal-tb;
+  }
+  span.image {
+    padding: 10px 20px;
+    margin-right: 1rem;
+    background: #ccccff;
+  }
+  </style>
+  <title>Document</title>
+</head>
+<body style="padding-top: 2rem;">
+  <div class="container" id="app">
+    <div class="tabs">
+      <ul class="list-group">
+        <li :class="['list-group-item', index==menu.active?'active':'']" 
+          v-for="(item,index) in menu.items" @mouseover="menu.active=index" 
+          @mouseleave="menu.active=-1" :key="index">{{item}}
+          <div v-show="menu.active==index" class="tab-pane">
+            <div v-for="n in (((index+1)*31)%19)" class="tab-pane-items">
+              <span class="image"></span>
+              <a href="#">iPhone手机</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  new Vue({
+    el: '#app',
+    data: {
+      menu: {
+        active: 1,
+        items: [
+          '手机 电话卡',
+          '笔记本',
+          '电视 盒子',
+          '路由器 智能硬件',
+          '移动电源 电池 插线板',
+          '耳机 音箱',
+          '保护套 贴膜',
+          '线材 支架 储存卡',
+          '箱包 服饰 鞋 眼镜',
+          '生活周边'
+        ]
+      }
+    }
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<body>
+ 
+    <input type="button" value="赞 (1)"/>
+    <input type="button" value="赞 (1)"/>
+    <input type="button" value="赞 (1)"/>
+    <script>
+        function holdOn() {
+            var value = 1;
+            return function () {
+                this.value = "赞 ("+ ++value + ")"
+            }
+        }
+        var inputs = document.getElementsByTagName('input')
+     
+        for(var i=0;i<inputs.length;i++) {
+            inputs[i].onclick = holdOn()
+        }
+    </script>
+    </body>

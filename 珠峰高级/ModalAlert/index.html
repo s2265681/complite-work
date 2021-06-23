@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">alert>>></div>
+  </body>
+  <script src="./ModalAlert.js"></script>
+  <script>
+    let modal = ModalAlert({
+      title: '系统提示',
+      template: null,
+      drag: true,
+      buttons: [
+        {
+          text: '确定',
+          click() {
+            // this： 当前实例
+          },
+        },
+      ],
+    });
+    // modal.open()  // => 打开
+    // modal.close() //=> 关闭
+    // // 基于发布订阅，实现回调函数的监听
+    // modal.on('init/open/close/dragstart/dragmove,dragend',[func])
+    // modal.off(...)
+  </script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>start</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    .boxSty{
+        background: #000;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .startSty{
+        background-color: #eaeadc;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    @keyframes varStart {
+        0%{
+            opacity: .2;
+        }
+        50%{
+            opacity: .5;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+
+
+</style>
+<body>
+    <div id="box"></div>
+</body>
+
+<script>
+    var box = document.getElementById('box')
+    box.classList.add('boxSty')
+    var startDom = document.createElement('div')
+    for(let i=0;i<100;i++){
+        let ranHeight = Math.floor(Math.random()*100)+'%'
+        let ranWidth = Math.floor(Math.random()*100)+'%'
+        let domSize = Math.floor(Math.random()*10)+'px'
+       let  startDom =  document.createElement('div')
+        startDom.classList.add('startSty')
+        startDom.style.top = ranHeight
+        startDom.style.left = ranWidth
+        startDom.style.width = domSize
+        startDom.style.height = domSize
+        startDom.style.opacity = Math.random()
+        startDom.style.animation = `varStart ${Math.random()*10+3}s ease-in-out infinite`;
+        box.appendChild(startDom)
+    }
+
+</script>
+</html>

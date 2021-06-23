@@ -1,0 +1,45 @@
+
+/* 搜索栏样式 */
+.container ul{
+    list-style-type: none;
+    margin: 0 40px;
+
+}
+
+.container span{
+    display: inline-block;
+    float: left;
+    /* margin: 0 40px; */
+    width: 100px;
+}
+
+.container li{
+    float: left;
+    margin: 0 40px;
+    cursor: pointer;
+}
+
+/* 商品列表样式 */
+.ItemContainer{
+    color: aqua;
+    margin: 20px 0;
+    border: none;
+}
+
+.ItemContainer .RowList{
+    width: 100%;
+}
+
+.ItemContainer .RowList .everyDiv{
+    width: 90%;
+    height: 300px;
+    margin: 10px;
+    margin: 0 auto;
+    padding: 7px;
+    box-shadow:3px 0px 5px #eeeeee
+}
+
+.ItemContainer .RowList img{
+    width: 100%;
+    height: 200px;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现盒子水平垂直居中</title>
+</head>
+<style>
+ .common{
+     width: 100%;
+     height: 100vh;
+     background-color: antiquewhite
+ }
+ .common div{
+     background-color: aquamarine;
+ }
+/* 第一种方式 绝对定位+margin拉回 , 缺点： 盒子宽高要知道*/
+  /* .container{
+      position: relative;
+  }
+  .info{
+     width: 300px;
+     height: 300px;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     margin-left: -150px;
+     margin-top: -150px;
+  } */
+
+    /* 第二种方式 绝对定位+ transform:translate 拉回 优点：垂直居中未知宽高的盒子*/
+  /* .container{
+      position: relative;
+  }
+  .info{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translateX(-50%) translateY(-50%);
+  } */
+
+   /* 第三种方式 父元素设置弹性盒子 flex布局 设置justcontent和item-aline 缺点：低版本浏览器兼容问题*/
+   /* .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .info{
+
+  } */
+
+     /* 第四种方式父元素设置display:table-cell，子元素设置margin：0 auto；布局--缺点：父元素和子元素都需要知道宽度，不常用*/
+  /* .container{
+      display: table-cell;
+      width: 1000px;
+      vertical-align: middle;
+    }
+   .info{
+       width: 300px;
+       margin: 0 auto;
+    } */
+
+/* 第五种方式-css新特性：父元素display:box; box-align和box-pack 各个浏览器支持不同，需要加内核前缀 已经越来越多支持-webkit-box*/
+    /* 垂直居中 */
+    /* 水平居中 */
+  /* .container{
+    display: -webkit-box;
+    -webkit-box-align: center;  
+    -webkit-box-pack: center;
+    }
+
+   .info{
+
+    } */
+
+/* 第六种方式  绝对定位 + margin:auto 盒子的宽高需要知道 */
+/* 原理是块级元素默认会水平充满屏幕，通过绝对定位，四个方向充满后，设置宽高后，此时一侧如果为定值，一侧为剩余空间，如果两侧为auto，那么就会平分剩余空间。 */
+.container {
+    /* display: relative; */
+}
+.info{
+   position: absolute;
+   top:0;
+   left:0;
+   right:0;
+   bottom:0;
+   margin: auto;
+   width: 200px;
+   height: 20px;
+}
+
+</style>
+<body>
+     <div class="container common">
+          <div class="info">
+              要居中的盒子
+          </div>
+     </div> 
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="1-underscore的root对象解读.html" content="content" charset="utf-8">
+    <title>面向对象</title>
+</head>
+<body>
+</body>
+<!-- <script src="./index.js"></script> -->
+<script>
+    // 面向过程
+    // (function(){
+    //     var root = this;
+    //       root._ = {}
+    //     // 这里添加自己的方法
+    //     _.reverse = function(string){
+    //          return string.split('').reverse().join('');
+    //     }
+    // })()
+    // 面向对象
+    (function(){
+        var root = this;
+          var _ = function(){}
+          root._ = _
+          var _ = function(obj) {
+              if(!(this instanceof _)) return new _(obj);
+              this._wrapped = obj;
+          }
+        // 这里添加自己的方法
+        _.reverse = function(string){
+             return string.split('').reverse().join('');
+        }
+    })()
+</script>
+<script>
+    // 面向过程
+    // var res = _.reverse('hello')
+    // console.log(res,'res')
+ 
+    // 面向对象
+    var res = _('hello').reverse()
+    console.log(res,'res')
+
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .spanSty {
+      width: 100px;
+      height: 100px;
+      display: block;
+      background-color: #f00;
+    }
+  </style>
+  <body>
+    <div id="box"></div>
+    <script>
+      /*
+       * 重绘：样式发生改变，没有更改dom结构
+       * 回流：当前dom元素位置大小发生变化。
+       * 优化思路： 不是创建一个span放置在页面中，而是5个提前创建好，整体添加到页面中
+       * + createDocumentFragument 文档碎片
+       * + 字符串拼接
+       */
+      ```js
+        for (let i = 1; i <= 5; i++) {
+            let span = document.createElement("span");
+            span.classList.add("spanSty");
+            span.innerHTML = i;
+            box.appendChild(span);
+        }
+      ```
+    //  1、
+        let frag= document.createDocumentFragment()   
+    //  2、 
+
+    //  3、 浏览器的渲染队列机制
+     + 上一行代码修改元素样式，此时并没有直接同志浏览器去渲染
+     继续向下执行，把执行中的遇到的修改元素样式的操作
+     如果不在有修改样式的操作，或者遇到了获取样式的操作，则终端
+    let box = document.getElementById('box')
+    setTimeout(()=>{
+        box.style.left='100px'
+        box.style.top='100px'
+    },1000)
+    => 真实项目中我们应该读写分离，把设置样式和获取样式的操作分离开，
+    减少DOM回流的操作
+    放弃传统操作dom的时代，基于vue和react开始数据影响试图模式
+    分离读写操作(现代浏览器的渲染机制——样式集中处理)
+    样式集中处理 
+    div.style.cssText ="width:12px;height:12px;"
+    div.className=''
+    元素的批量修改
+
+    </script>
+  </body>
+</html>

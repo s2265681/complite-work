@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    input {
+      background: none;
+      outline: none;
+      border: #999 solid 1px;
+      width: 250px;
+      height: 30px;
+      margin: 100px;
+    }
+
+    /* 选中时 */
+    input:focus{
+      background: none;
+      outline: none;
+      color: #f00;
+      animation: inp 1s ease forwards;
+    }
+
+    @keyframes inp {
+      0% {
+        border-color: antiquewhite;
+      }
+      100% {
+        border-color: orange;
+      }
+    }
+  </style>
+  <body>
+    <input type="text" />
+  </body>
+</html>

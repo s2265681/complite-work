@@ -1,0 +1,13 @@
+
+
+
+//  .babelrc配置
+
+{
+    "presets": ["env"],
+    "plugins": [
+        ["transform-react-jsx", {
+            "pragma": "React.createElement"
+        }]
+    ]
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div id="app">
+      {{message}}
+      <input v-model="message" />
+
+
+    </div> -->
+
+    <!-- <div id="app-2">
+      <span v-bind:title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+      </span>
+    </div> -->
+
+    <!-- <div id="app-5">
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">反转消息</button>
+    </div> -->
+
+    <div id="app-3">
+      <p v-if="seen">现在你看到我了</p>
+      <button v-on:click="reverseSeen">反转消息</button>
+    </div>
+  </body>
+  <script type="module">
+    import { RockVue as Vue } from './rockVue.js';
+    new Vue({
+      el: '#app-3',
+      data: {
+        seen: false,
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('');
+        },
+        reverseSeen: function () {
+          this.seen = !this.seen;
+          // console.log(this.seen, ' this.seen');
+        },
+      },
+    });
+  </script>
+</html>

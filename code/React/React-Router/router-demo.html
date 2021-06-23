@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>
+            <a href="#/">灰色</a>
+            <a href="#/blue">蓝色</a>
+            <a href="#/green">绿色</a>
+            <a href="#/red">红色</a>
+        </li>
+    </ul>
+</body>
+<script>
+
+function Router() {
+    this.routes = {};
+    this.currentUrl = '';
+}
+Router.prototype.route = function(path, callback) {
+    this.routes[path] = callback || function(){};
+    console.log(this,'this')
+};
+Router.prototype.refresh = function() {
+    this.currentUrl = location.hash.slice(1) || '/';
+    this.routes[this.currentUrl]();
+};
+Router.prototype.init = function() {
+    window.addEventListener('load', this.refresh.bind(this), false);
+    window.addEventListener('hashchange', this.refresh.bind(this), false);
+}
+
+let router = new Router();
+router.init();
+
+var content = document.querySelector('body');
+
+// change Page anything
+function changeBgColor(color) {
+    content.style.backgroundColor = color;
+}
+
+router.route('/', function() {
+    changeBgColor('gray');
+});
+
+router.route('/blue', function() {
+    changeBgColor('blue');
+});
+router.route('/green', function() {
+    changeBgColor('green');
+});
+router.route('/red', function() {
+    changeBgColor('red');
+});
+</script>
+</html>

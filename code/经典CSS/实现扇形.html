@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实现一个扇形</title>
+</head>
+<style>
+  .fan{
+    width: 0;
+    height: 0;
+    border: 100px solid #f00;
+    border-color:  transparent transparent #ff0 transparent;
+    border-radius: 20%;
+    transform:rotate(30deg);
+  }
+
+  .fanAnimote{
+    position: relative;
+    animation:mymove infinite 5s alternate;
+  }
+
+  @keyframes mymove {
+    from {
+      top: 100px;
+      left: 100px;
+    }
+    to {
+      top: 500px;
+      left: 200px;
+    }
+  }
+
+</style>
+<body>
+  <div class="fan fanAnimote"></div>
+</body>
+</html>

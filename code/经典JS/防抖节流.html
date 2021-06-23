@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function fn() {
+      console.log("onresize");
+    }
+
+    window.onresize = trottle2(fn, 2000);
+
+    // 防抖  --  高频事件执行完wait后执行自定义动作
+    // 关键点 闭包 执行的时候先清掉定时器在赋值定时器
+    // 定时器清掉， 不让定时器工作了， 每次都清掉定时器， 等最后执行完在执行一次定时器
+    // function deboundce(fn,wait){
+    //     var timeout=0;
+    //     return function(){
+    //         console.log(timeout,'timeout')
+    //         if(timeout!==undefined){
+    //             clearTimeout(timeout)
+    //             timeout = setTimeout(()=>fn(),wait)
+    //         }
+    //     }
+    // }
+
+    // 节流1 -- 高频事件执行中，delay次执行
+    // 用闭包的特点，保证返回一个函数，保存变量的需要
+    //  时间戳和当前时间前一次时间对比，时间差大于delay的时间执行，
+    //  否则前一次的时间改为现在的时间
+    // function trottle1(fn,delay){
+    //     let pre = new Date();
+    //     return function(){
+    //         let now = new Date()
+    //         console.log(now-pre,'/')
+    //         console.log(now-pre>=delay)
+    //         if(now-pre>=delay){
+    //             setTimeout(()=>fn(),delay)
+    //             pre = now
+    //         }
+    //     }
+    // }
+
+    // 节流2 -- 利用定时器， 根据定时器是不是有值判断定时器还在不在工作
+    // 清理调定时器是让定时器关闭，赋值为空   定时器还在工作
+    function trottle2(fn,delay){
+        let timer = null
+        return function(){
+            console.log(timer,'///')
+            if(!timer){
+                timer =  setTimeout(()=>{
+                    fn(),
+                    timer = null
+                    // clearTimeout(timer)
+                },delay)
+            }
+        }
+    }
+  </script>
+</html>

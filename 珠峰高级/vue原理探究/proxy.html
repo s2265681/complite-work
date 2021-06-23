@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let object = { num: 0, name: 'liming' };
+      // 根据observed包装后，在get的时候获取值，set的时候修改值
+      function reactive(obj) {
+        let observed = new Proxy(obj, {
+          get: function (obj, prop) {
+            // obj代表所以对象 {name: "张三", age:12}  props 代表获取谁
+            console.log(obj, prop);
+            return obj[prop];
+          },
+          set: function (obj, prop, value) {
+            // obj代表所以对象 {name: "张三", age:12} props 代表替换谁 value 代表要替换的值
+            console.log(obj, prop, value);
+            obj[prop] = value;
+            return true;
+          },
+        });
+        return observed;
+      }
+      let result = reactive(object);
+      console.log(result.num, '///');
+      result.name = 'xiaohua';
+      console.log(object, 'object');
+    </script>
+  </body>
+</html>

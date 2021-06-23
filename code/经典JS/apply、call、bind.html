@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    apply、bind、call
+  </body>
+
+  <script>
+    var liming = {
+      name: "LiMing"
+    };
+    var WangHong = {
+      name: "WangHong"
+    };
+    var XiaoFei = {
+      name: "XiaoFei",
+      sayName: function(age, a) {
+        age = age || 18;
+        alert(this.name + "年龄为" + age + a);
+      }
+    };
+
+
+    Function.prototype.mybind = function(){
+        var context = arguments[0]
+        var self = this;
+        return function(){
+            self.apply(context,arguments)
+        }
+    }
+
+
+    // XiaoFei.sayName.bind(WangHong)(1,2); // apply 后面的参数需要是个数组
+
+    var a = XiaoFei.sayName.mybind(WangHong); 
+    console.log(a,'a')
+    a('name',11)
+  </script>
+</html>

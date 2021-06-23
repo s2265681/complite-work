@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式1</title>
+</head>
+<body>
+     正则表达式 （一）：
+      reg.test()
+     高亮一段文字中指定的文字，要求颜色自定义
+    <div id="text">你怎么这么美呢，你美的不可方物，让我不忍打断</div>
+</body>
+<!-- <script type="text/vbscript"> -->
+<script type="text/javascript">
+    // return
+   var text = document.getElementById('text')
+//    console.log(text.innerText,'text')
+
+//    text.value
+  // 自定义挂载一个字符原型方法
+  String.prototype.replaceAt=function(index,replacement,color){
+    //   const color = '#ff0'
+      const txt= this.substr(0,index)+`<span style="color:${color}">${replacement}</span>`+ this.substr(index+replacement.length);
+      return  txt.trim()
+    }
+
+    // 写一个需求，把一行字符串中所有的美字找出来替换
+    var str = "你怎么这么美呢，你美的不可方物，让我不忍打断,哈哈,美还是美的嘛！！";
+    // var reg = new RegExp('美','g')
+    const v = '美'
+    // var reg = /v/g;
+    // 正则参数穿变量，两种方式，第一种构造函数的方式，第二种eval动态转化方式
+    // var reg = new RegExp(v,'g')
+    //  var reg = eval('/'+v+'/g')
+     var reg = eval(`/${v}/g`)
+     console.log(reg,'reg')
+
+    // reg.lastIndex // 0 从0开始
+    // reg.lastIndex = 1 // 从1 开始
+    // reg.test(str)   // true  => reg.lastIndex  // false  跳出
+    var result = ""
+    function test(str,retxt,color){
+            if(reg.test(str)){
+              let ind = reg.lastIndex-1
+              str = str.replaceAt(ind,retxt,color)
+              result = str
+              test(str,retxt,color)
+             }
+            return result
+    }
+   
+   const rel =  test(str,'丑','#f00')
+   text.innerHTML = rel
+
+</script>
+
+
+</html>

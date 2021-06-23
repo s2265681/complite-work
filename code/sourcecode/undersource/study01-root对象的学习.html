@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="1-underscore的root对象解读.html" content="content" charset="utf-8">
+    <title>root对象的学习</title>
+</head>
+<body>
+</body>
+<script src="./index.js"></script>
+<script>
+    // 浏览器端的全局对象window
+    // node端的全局对象global
+    // 浏览器的this，self都是window对象
+    // window === window.window || window === window.self 
+    // global === global.global || global === global.self
+    var root  = typeof self  === 'object' && self.self === self && self || 
+                typeof global === 'object' && global.global === global && global ||
+                this || {}
+    // 判断self是不是对象，判断self.self === self , 返回self
+    // 判断global是不是对象，判断global.global === global , 返回global
+    // 最后返回global或者this对象，如果global，this，self都不存在，返回{}对象
+</script>
+<script>
+    console.log(root,'root')
+</script>
+</html>

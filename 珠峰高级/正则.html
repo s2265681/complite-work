@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+
+  !function(){
+    //  匹配URL
+    function parserUrl(){
+       let obj = {}
+        this.replace( /([^&#=?]+)=([^&#=?]+)/g, (...[,$1,$2])=> obj[$1] = $2)
+        this.replace( /#([^&#=?]+)/g, (...[,$1])=>obj['HASH'] = $1)
+        return obj;
+    }
+    // 解析千分符
+    function splitNum(){
+        // 正则切分 每三个数一组  用到了分组 正向预查
+       let reg = /(\d{1,3})(?=(\d{3})+$)/g
+       return  this.replace(reg,(reg)=>reg[0] + ',')
+    }
+    // 字符串格式化
+    function formateTime(){
+      let reg = /(\d{4})(\d{1,2})(\d{1,2})/
+      this.replace(reg,res=>{
+        console.log(res,'res')
+      })
+    }
+    ['parserUrl','splitNum','formateTime'].forEach(item=>{
+      String.prototype[item] = eval(item)
+    })
+  }()
+  // let url = "http://www.baidu.com?from=wx&name=lisi#vedio"
+  // console.log(url.parserUrl())
+  // let num = "23445689032312"
+  // console.log(num.splitNum(),'/')
+  // let num = "4, 567  ,890  ,232  ,312"
+
+  let str = "2019/8/13 16:51:3";
+  console.log(str.formateTime())
+
+</script>
+</html>

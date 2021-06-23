@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .three_dot{
+        width: 20px;
+        height: 20px;
+        background-color:aqua;
+        border-radius: 50%;
+        position: relative;
+         animation: three_dot 2s ease 0s alternate infinite;
+        -webkit-animation: three_dot 2s ease 0s alternate infinite;
+    }
+    .three_dot::before,.three_dot::after{
+        position: absolute;
+        top: 0px;
+        width: 20px;
+        height: 20px;
+        background-color:aqua;
+        content: '';
+        border-radius: 50%;
+    }
+    .three_dot::before{
+        left: -40px;
+        animation: three_dot 2s ease 0s alternate;
+        -webkit-animation: three_dot 2s ease 0s alternate;    }
+    .three_dot::after{
+        left: 40px;
+        animation: three_dot 2s ease 0s alternate;
+        -webkit-animation: three_dot 2s ease 0s alternate;    }
+
+    @keyframes three_dot{
+        0%{
+            /* opacity: 1; */
+            transform:scaleX(1)
+
+        }
+        25%{
+            opacity: 0.8;
+            transform:scaleX(1.4)
+        }
+        50%{
+            opacity: 0.5;
+            transform:scaleX(1.9)
+        }
+        75%{
+            opacity: 0.8;
+            transform:scaleX(1.9)
+        }
+        100%{
+            opacity: 1;
+            transform:scaleX(1.9)
+        }
+    } 
+    @keyframes three_dot_before{
+        0%{
+            opacity: 1;
+        }
+        25%{
+            opacity: 1;
+        }
+        50%{
+            opacity: 0.8;
+        }
+        75%{
+            opacity: 0.5;
+        }
+        100%{
+            opacity: 0.8;
+        }
+    } 
+    @keyframes three_dot_after{
+        0%{
+            opacity: 1;
+        }
+        25%{
+            opacity: 1;
+        }
+        50%{
+            opacity: 1;
+        }
+        75%{
+            opacity: 0.5;
+        }
+        100%{
+            opacity: 0.8;
+        }
+    } 
+
+</style>
+<body>
+    <div class="box">
+        <div class="three_dot"></div>
+    </div>
+</body>
+</html>

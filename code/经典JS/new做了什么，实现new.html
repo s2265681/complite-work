@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    new 
+</body>
+<script>
+    function Foo(name,age){
+       this.name = name;
+       this.age = age;
+       var year = '12'
+       Foo.prototype.play = "打球"
+       return this
+    }
+
+// 自己实现一个new 
+function myNew(fn){
+    myNew.target = fn  // 加一个静态属性，供函数判断是否被new
+    // let Foo = new Object()
+    // Foo.__proto__ =  fn.prototype  // 浏览器实现的方法不能直接使用，用Object.create()替代
+    let obj = Object.create(fn.prototype)
+    let isResult  =  fn.apply(obj,[].slice.call(arguments,1));
+    // 如果函数有返回值，判断返回值是对象还是方法
+    if(isResult instanceof Object||typeof isResult ==='function'){
+        console.log('this')
+       return isResult
+    }
+    return obj
+}
+
+const f = myNew(Foo , 'lisi','12' )
+console.log(f,'ffff')
+console.log(f.name)  // 'lisi'
+console.log(f.age)   // 'age'
+console.log(f.play)  // '打球'
+
+
+//  new 做了什么
+//  1、 创建了一个对象并且返回了一个对象
+//  2、 新增了一个__proto__ 的属性 指向了自己的原型
+//  3、 this 指向了函数 
+
+
+
+
+
+
+
+
+</script>
+</html>

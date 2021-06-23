@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式1</title>
+</head>
+<body>
+    正则表达式 （二）：
+    reg.exec()
+</body>
+<script>
+    // var str = "你怎么这么美呢，你美的不可方物，让我不忍打断"
+    // var reg = /美/g
+    // while(true){
+    //   const res = reg.exec(str)
+    //   if(!res)break;
+    //   const arr = res.input
+    //   const inx = res.index
+    //   let newArr  = [...arr]
+    //   newArr[inx] = "丑"
+    //   console.log(newArr,'newArr')
+    // }
+    
+    var str = "你怎么这么美呢，你美的不可方物，让我不忍打断"
+    var reg = /美/g
+    var  result = ""
+    function test(str1){
+        const res = reg.exec(str1)
+        if(!res){
+          return
+        }else{
+          const txtArr = [...res.input]
+           txtArr[res.index] = "丑"
+           result = yy.join('')
+          test(result)
+        }    
+        return result   
+    }
+    const aa = test(str)  // "你怎么这么丑呢，你丑的不可方物，让我不忍打断" 
+
+</script>
+</html>

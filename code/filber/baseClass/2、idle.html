@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 这是一个全局属性
+    // 用户告诉浏览器，我现在执行一格callback函数，但是优先级比较低，告诉浏览器，空闲事件帮我执行cakkback
+    // 但是到了超时时间了，就必须马上执行
+    // window.requestIdleCallback(callback,{timeout:1000})
+
+    function sleep(delap){  //  delap = 50
+        // 睡眠
+        for(var start= Date.now(); Date.now() - start <= delap;){
+            
+        }
+    }
+    const works = [
+        ()=>{
+            console.log('第一个任务开始');
+            sleep(20)  // 一针16.6因此需要把控制钱给浏览器
+            console.log('第一个任务结束')
+        },
+        ()=>{
+            console.log('第二个任务开始');
+            sleep(30)
+            console.log('第二个任务结束')
+        },
+        ()=>{
+            console.log('第三个任务开始');
+            sleep(30)
+            console.log('第三个任务结束')
+            // console.log(Date.now()-startTime)
+        }
+    ]
+     
+    
+
+    requestIdleCallback(workLoop,{timeout: 1000});
+     
+    function workLoop(deadline){
+        console.log(`本真的剩余时间为${parseInt(deadline.timeRemaining())}`)
+          // deadline是一个对象，有两个属性
+            // timeRemaining() 
+            // didTimeout 此callback任务是否超时
+        while((deadline.timeRemaining() >0|| deadline.didTimeout) && works.length>0){   
+            // 如果此侦的剩余时间超过0ms或已经超时了，执行下一个任务
+            perforUnitOfWork()
+        }// 如果没有剩余时间了，就需要放弃执行任务控制权，交给浏览器
+ 
+        if(works.length>0){  // 说明还有维完成的任务
+            window.requestIdleCallback(workLoop,{timeout: 1000});
+        }
+    }
+
+    function perforUnitOfWork(){
+        // shift 取出数组中的第一个元素 执行
+          works.shift()()
+    }
+
+</script>
+</html>
