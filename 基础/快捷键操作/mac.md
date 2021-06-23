@@ -32,3 +32,7 @@
 - command + T 切换TERMINAL
 - command + K 展开收起当前代码块
 - command + J 多行合一行
+
+
+## 一些好用的命令
+- find . -type d -name "node_modules" | xargs rm -rf 删除所有当前文件夹下的node_modules
