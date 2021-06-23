@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="icon" href="https://img-blog.csdnimg.cn/20200930090031197.png#pic_center" />
+    <title>仿网易云音乐</title>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script>
+      !(function(e, t) {
+        var n = t.documentElement,
+          d = e.devicePixelRatio || 1; // 设备DPR
+        function i() {
+          var e = n.clientWidth / 3.75; // iPhone 6 布局视口375
+          n.style.fontSize = e + "px";
+        }
+        if (
+          ((function e() {
+            t.body
+              ? (t.body.style.fontSize = "16px")
+              : t.addEventListener("DOMContentLoaded", e);
+          })(),
+          i(),
+          e.addEventListener("resize", i),
+          e.addEventListener("pageshow", function(e) {
+            e.persisted && i();
+          }),
+          d >= 2)
+        ) {
+          var o = t.createElement("body"),
+            a = t.createElement("div");
+          (a.style.border = ".5px solid transparent"),
+            o.appendChild(a),
+            n.appendChild(o),
+            1 === a.offsetHeight && n.classList.add("hairlines"),
+            n.removeChild(o);
+        }
+      })(window, document);
+    </script>
+  </body>
+</html>

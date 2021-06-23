@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta <meta charset="utf-8" />
+    <meta
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0;"
+      name="viewport"
+    />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta id="stopUsePullRefresh" value="true" />
+    <meta id="WV.Meta.DisableRefresh" value="true" />
+    <meta id="WV.Meta.StopBounces" value="true" />
+    <title>Rock Chart</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/element-ui.css" />
+    <link
+      rel="stylesheet"
+      href="js/jquery-mCustomScrollbar/css/jquery.mCustomScrollbar.min.css"
+    />
+    <link rel="stylesheet" href="lib/jquery-emoji/css/jquery.emoji.css" />
+    <link
+      rel="stylesheet"
+      href="lib/jquery-mCustomScrollbar/css/jquery.mCustomScrollbar.min.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <!-- 聊天页 -->
+      <div class="container">
+        <h4 class="header">
+          <div class="title_left">{{title}}</div>
+          <div class="title_right">
+            <el-popover
+              v-if="userInfoform.username"
+              placement="top-start"
+              title=""
+              width="300"
+              trigger="hover"
+              :disabled="unReadList.length==0"
+            >
+              <span slot>
+                <!-- 未读消息列表 -->
+                <ul class="chart_list">
+                  <li
+                    class="chart_list_item"
+                    v-bind:class="{ active_chart_list_item: user.id===active_user.id}"
+                    v-for="user in unReadList"
+                    @click="changeChartObj(user.toWhoId === 'METTING' ? user.toWho: user)"
+                  >
+                    <img
+                      :src="user.toWhoId === 'METTING' ? user.toWho.avatar: user.avatar"
+                      class="avatar"
+                    />
+                    <span class="name unread_name">{{user.username}}</span>
+                    <span class="unread_message">
+                      <span v-if="user.message.length>1000">图片</span>
+                      <span v-else>{{user.message}}</span>
+                    </span>
+                    <span class="last_time">{{user.data_time}}</span>
+                  </li>
+                </ul>
+              </span>
+              <span slot="reference" class="badge">
+                <el-badge
+                  :hidden="!allNoReadCount"
+                  :value="allNoReadCount"
+                  class="item_el_badge"
+                >
+                  <span
+                    class="title_msg badge_title_msg"
+                    :class="{ turnT : !allNoReadCount }"
+                    >消息</span
+                  >
+                </el-badge>
+              </span>
+            </el-popover>
+
+            <span
+              v-if="!userInfoform.username"
+              class="title_islogin"
+              @click="loginFormVisible=true"
+              >登陆</span
+            >
+            <el-dropdown trigger="click" v-else>
+              <span class="el-dropdown-link">
+                <img
+                  :src="userInfoform.avatar || 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2929367867,3674362923&fm=26&gp=0.jpg'"
+                  class="title_avatar"
+                />
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <span @click="loginOut">退出</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </h4>
+        <div class="index-box">
+          <div class="indexBox">
+            <div class="left_menu" v-bind:class="{ pack_up_menu: isPackup}">
+              <div class="menu_title">
+                <img
+                  v-if="!isPackup"
+                  :src="userInfoform.avatar || 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2929367867,3674362923&fm=26&gp=0.jpg'"
+                  class="avatar"
+                />
+                <span v-if="!isPackup" class="title_msg_name"
+                  >{{userInfoform.username || '未登陆'}}</span
+                >
+                <img
+                  @click="isPackup = !isPackup"
+                  class="menu_icon"
+                  width="36px"
+                  height="36px"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAQAAABLCVATAAAABGdBTUEAALGPC/xhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN RQfkBw0FEgPmfRR7AAABKklEQVRIx+2WMUsDQRCFv9k7SLCKjYK2iqCgIAFLbYKFdSpBiOZ+xImd QvAv3KmFWNiqhdgKglYmaZKzSBPtrSQBc2Nxim0Wtkhxr9u38DFvl90ZUdzIB7iYGy0DSLf+ntln qzpjAenVeqKcL4xaTAHIQNbrHYgDjazK+fa2DKSLGQa0mC4B6JptLl3xIXiIG5QRVJvTdwDFxrDE 7PgcTdIrcXXYxhEnB+WgyQL5ANGOKadilGb9BuC+0N8f/60Z1SS4FiXa4PnP9DYPHiE+1iPLYFVn 0UTdRXOjybv+HJSDXMgHTHyStWxeS4fVEVzOD08tWrZqm9CHeFvDX6vy+cQtDEJ2rcqp8GJA3/jK 1jLwEgBpWeYa0hXlf9AqdPY+sh3LQSup9Z19Iz/TvGe2Syx6JgAAACV0RVh0ZGF0ZTpjcmVhdGUA MjAyMC0wNy0xMlQyMToxODowMyswODowMFxZs/cAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDct MTJUMjE6MTg6MDMrMDg6MDAtBAtLAAAAIHRFWHRzb2Z0d2FyZQBodHRwczovL2ltYWdlbWFnaWNr Lm9yZ7zPHZ0AAAAYdEVYdFRodW1iOjpEb2N1bWVudDo6UGFnZXMAMaf/uy8AAAAXdEVYdFRodW1i OjpJbWFnZTo6SGVpZ2h0ADM2L5k87QAAABZ0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAAzNtc2/GAA AAAZdEVYdFRodW1iOjpNaW1ldHlwZQBpbWFnZS9wbmc/slZOAAAAF3RFWHRUaHVtYjo6TVRpbWUA MTU5NDU1OTg4M2pkp90AAAARdEVYdFRodW1iOjpTaXplADY4NEJC81CLlwAAAEZ0RVh0VGh1bWI6 OlVSSQBmaWxlOi8vL2FwcC90bXAvaW1hZ2VsYy9pbWd2aWV3Ml85XzE1OTI5MjE4NDU1MzQwNTcz XzE1X1swXURAiiIAAAAASUVORK5CYII="
+                />
+              </div>
+              <!-- 聊天用户列表消息 -->
+              <ul class="chart_list">
+                <li
+                  v-if="!isPackup"
+                  class="chart_list_item"
+                  v-bind:class="{ active_chart_list_item: user.id===active_user.id}"
+                  v-for="user in chartList"
+                  @click="changeChartObj(user)"
+                >
+                  <img :src="user.avatar" class="avatar" />
+                  <el-badge
+                    :hidden="!user.count"
+                    :value="user.count"
+                    class="item"
+                  >
+                    <span class="name">{{user.username}}</span>
+                  </el-badge>
+                  <span class="last_time">{{user.data_time}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="right_content">
+              <header class="right_header">
+                <span class="title_msg name right_name"
+                  >{{active_user.username}}</span
+                >
+                <span class="is_input" v-if="isInputUser.username"
+                  >对方正在输入....</span
+                >
+              </header>
+              <div class="right_chart_container" ref="right_chart_container">
+                <!-- 聊天区域列表消息 -->
+                <ul class="message_list_area" ref="message_list_area">
+                  <li
+                    class="message_list_item"
+                    v-for="message in filterMessageList"
+                  >
+                    <header class="header_data_time">
+                      {{message.data_time}}
+                    </header>
+                    <!-- 当前用户发出的在右边 message.id === userInfoform.id 其他的消息在左边-->
+                    <div
+                      class="msg_area_container"
+                      v-bind:class="{ msg_area_row_reverse: message.id === userInfoform.id }"
+                    >
+                      <img :src="message.avatar" class="avatar msg_avatar" />
+                      <div class="message_area">
+                        <img
+                          v-if="message.message.length>10000"
+                          :src="message.message"
+                          style="width: 150px; height: 200px"
+                        />
+                        <span v-else v-html="message.message"></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- 向下查看最新消息 -->
+              <div
+                v-if="isShowToBottom"
+                @click="backNewMsg()"
+                class="backmsg_bottom"
+              >
+                <img
+                  class="backmsg_bottom_icon"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAATlBMVEUAAAAzmeo0mekzmeoz mOkxmO0zmeozmuszmuszmOkzmeszmeozmuozmOk0mes0meoymeo0meszmus0muozmeo0muwzmOk0 mOgzmer///9Z8XUPAAAAGHRSTlMAqplVmiqgftSmpXifcplsk2eNYoddgVlrj/8cAAAAAWJLR0QZ 7G61iAAAAAd0SU1FB+QHFgMMCVF8bpYAAABfSURBVBjTXc5XEoAgDEXRFyOKFbvuf6VCMgwlf+cO EIB6qMnFVBb+uDijTiXalzazMaF00YzeShnUo98yaRHPFC4tUoJX0jedFGCjuH+XclD64enLlRm4 7VMYeCun+QEitgJTe9NuewAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wNy0yMlQwMzoxMjowNysw MDowMKgoBaAAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDctMjJUMDM6MTI6MDcrMDA6MDDZdb0c AAAAAElFTkSuQmCC"
+                />
+                <span>回到最新消息</span>
+              </div>
+              <footer class="right_chart_footer">
+                <div class="utils box-ft">
+                  <!-- 工具栏 -->
+                  <div class="toolbar">
+                    <a href="javascript:;" title="表情" class="face"></a>
+                    <a href="javascript:;" title="截屏" class="screen-cut"> </a>
+                    <a href="javascript:;" title="图片" class="file">
+                      <label for="file"></label>
+                      <input
+                        type="file"
+                        id="file"
+                        @change="sendImage"
+                        style="display: none"
+                      />
+                    </a>
+                  </div>
+                </div>
+                <div
+                  ref="input_content"
+                  class="input_content"
+                  id="content"
+                  cols="30"
+                  rows="10"
+                  @keydown="onKeyDown"
+                  contenteditable
+                ></div>
+                <footer class="show_text">
+                  按下Enter发送内容 Enter+control换行
+                </footer>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="lib/jquery-emoji/js/jquery.emoji.min.js"></script>
+    <script src="lib/jquery-mCustomScrollbar/script/jquery.mCustomScrollbar.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/element-ui.js"></script>
+    <script src="js/index.js" type="text/javascript"></script>
+    <script>
+      //初始化jQuery-emoji插件
+      $(".face").on("click", function () {
+        $("#content").emoji({
+          //触发表情的按钮
+          button: ".face",
+          showTab: false,
+          animation: "slide",
+          position: "topRight",
+          icons: [
+            {
+              name: "QQ表情",
+              path: "../lib/jquery-emoji/img/qq/",
+              maxNum: 91,
+              excludeNums: [41, 45, 54],
+              file: ".gif",
+            },
+          ],
+        });
+      });
+    </script>
+  </body>
+</html>

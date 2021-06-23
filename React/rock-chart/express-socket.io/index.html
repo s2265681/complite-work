@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta <meta charset="utf-8" />
+    <meta
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0;"
+      name="viewport"
+    />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta id="stopUsePullRefresh" value="true" />
+    <meta id="WV.Meta.DisableRefresh" value="true" />
+    <meta id="WV.Meta.StopBounces" value="true" />
+    <title>Title</title>
+  </head>
+  <style>
+    #btn,
+    #info {
+      display: none;
+    }
+  </style>
+  <body>
+    <h4>简易聊天室</h4>
+    <div>
+      当前用户列表
+      <ul id="userList"></ul>
+    </div>
+    <br />
+    <span>账号：</span>
+    <input type="text" id="account" />
+    <button onclick="login()">登陆</button>
+    <button onclick="loginOut()">退出登陆</button>
+    <br />
+    <input type="text" id="info" />
+    <button id="btn" onclick="send()">发送</button>
+    <div id="text"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      let account = document.querySelector("#account");
+      let info = document.querySelector("#info");
+      let text = document.querySelector("#text");
+      let btn = document.querySelector("#btn");
+      let userList = document.querySelector("#userList");
+      //   let socket = io("http://localhost:3000");
+      //   var socket = io('ws://30.203.66.120:3000');
+      var socket = io();
+      let SUCCESS = "#4d834d",
+        ERROR = "#f00",
+        OTHER = "orange";
+
+      let people = {
+        username: "",
+        message: "",
+      };
+
+      // 1、 登陆成功，通知服务端，广播消息
+      function login() {
+        let accountName = account.value;
+        if (!accountName) return message("请输入账号！", 0);
+        if (people.username) return message("您已登陆！", 0);
+        socket.emit("login", accountName, socket.id);
+        people.username = accountName;
+      }
+
+      socket.on("loginSuccess", (users) => {
+        message(people.username + "登陆成功！", 1);
+        info.style.display = "inline-block";
+        btn.style.display = "inline-block";
+      });
+
+      socket.on("updateUserList", (users) => {
+        // 更新用户列表
+        let liTxt = "";
+        users.map((item) => {
+        //   let noSelf = item.username !== people.username;
+          let txt =
+            item.username === people.username
+              ? item.username + "(本人)"
+              : item.username;
+            liTxt += `<li style='color:blue;'>${txt} : <input style='width:500px;' placeholder='对${txt}说话吧,点enter发送消息哦～' sockedId='${item.sockedId}' onkeydown='clickEnter(event)'/></li>`;
+          
+        });
+        userList.innerHTML = liTxt;
+      });
+
+      // 2、发送消息，广播消息
+      function send() {
+        if (!info.value) message("请输入消息", 0);
+        people.message = info.value;
+        info.value = "";
+        socket.emit("message", people);
+      }
+
+      // 3、退出操作
+      function loginOut() {
+        socket.emit("loginOut");
+        info.style.display = "none";
+        btn.style.display = "none";
+        account.value = "";
+        people = {};
+      }
+
+      socket.on("loginOut", (username) => {
+        if (username) {
+          message(username + "退出了群聊！", 0);
+          return;
+        }
+        message("您未登陆！", 0);
+      });
+
+      // 处理加入通知
+      socket.on("notify", (username) => {
+        message(`${username}加入进来了!`, 1);
+      });
+
+      // 接收处理消息
+      socket.on("recevied", (username, msg) => {
+        let date = new Date().toLocaleString();
+        message(`${username}: ${msg}---------${date}`, 3);
+      });
+
+      // 统一处理消息
+      function message(message, status) {
+        let color = { 1: SUCCESS, 0: ERROR, 3: OTHER };
+        text.innerHTML += `<span style='color:${color[status]};'>${message}</span><br/>`;
+      }
+
+      // 4、点击enter发送消息给单个的人
+      function clickEnter(e) {
+        let myId = socket.id;
+        let userId = event.path[0].getAttribute("sockedId");
+        let msg = event.path[0].value;
+        var evt = window.event || e;
+        if (evt.keyCode == 13) {
+          event.path[0].value = "";
+          socket.emit("say to someone", myId, userId, msg);
+        }
+      }
+
+      // 5、接收消息 展示出来
+      socket.on("my message", (username, msg) => {
+        let date = new Date().toLocaleString();
+        message(`${username}: ${msg}---------${date}`, 3);
+      });
+    </script>
+  </body>
+</html>

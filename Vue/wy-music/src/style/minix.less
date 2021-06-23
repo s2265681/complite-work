@@ -1,0 +1,143 @@
+// minix
+// flex
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+// 水平居中
+.spcenter {
+  -webkit-box-pack: center;
+  -ms-box-pack: center;
+}
+
+// 垂直居中
+.cscenter {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+// flex 1
+.flex-1 {
+  flex: 1;
+  -webkit-flex: 1;
+}
+
+// 一行文本超出宽度变省略号
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/**
+ * 多行省略（容器可以不设置高度）
+ *  webpack编译时，autoprefixer会将-webkit-box-orient属性省略，必须采用黑科技克服
+ *
+ * @lineNum 行数
+ */
+.text-lines(@lineNum) {
+  display: -webkit-box;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lineNum;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// input
+.input {
+  width: 100%;
+  height: 0.3rem;
+  line-height: 0.18rem;
+  background: rgba(0, 0, 0, 0);
+  font-size: 0.14rem;
+  color: #333;
+  border:none;
+  &::-webkit-input-placeholder {
+    font-size: 0.14rem;
+    color: #c9c9c9;
+  }
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+// u-svg
+.u-svg {
+  display: inline-block;
+  vertical-align: middle;
+  background-position: 0 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+// 1像素问题
+.scale-1px-top {
+  /* border-bottom: 1px solid rgb(229, 229, 229); */
+  /* box-shadow: inset 0px -1px 1px -1px #c8c7cc; */
+  border:none;
+  position:relative;
+}
+.scale-1px-top:before{
+  content: '';
+  position: absolute;
+  display:block;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 1px;
+  border-top: 1px solid #E7E7E7;
+  -webkit-transform: scale(0.5,0.5);
+  transform: scale(0.5,0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+
+.scale-1px-bottom {
+  /* border-bottom: 1px solid rgb(229, 229, 229); */
+  /* box-shadow: inset 0px -1px 1px -1px #c8c7cc; */
+  border:none;
+  position:relative;
+}
+.scale-1px-bottom:before{
+  content: '';
+  position: absolute;
+  display:block;
+  bottom: -1px;
+  left: 0;
+  width: 200%;
+  height: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transform: scale(0.5,0.5);
+  transform: scale(0.5,0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+
+.borderRadius-1px {
+  /* border-bottom: 1px solid rgb(229, 229, 229); */
+  /* 圆角(伪类和本体类都需要加border-radius) */
+  border-radius:.32rem;
+  border:none;
+  position:relative;
+}
+.borderRadius-1px:after{
+  /* 圆角(伪类和本体类都需要加border-radius) */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 200%;
+  height: 200%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  border-radius:.32rem;
+}
