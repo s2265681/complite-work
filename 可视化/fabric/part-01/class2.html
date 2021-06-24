@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c" className="canvas" width="375" height="650"></canvas>
+  </body>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.4.6/fabric.min.js"></script>
+  <script>
+    var canvas = new fabric.Canvas("c");
+    
+    // 创建一个45度的矩形
+    function creatRect() {
+      var rect = new fabric.Rect({
+        left: 100,
+        top: 100,
+        fill: "red",
+        width: 20,
+        height: 20,
+        angle: 45,
+      });
+      return rect;
+    }
+
+    let rect = creatRect();
+    canvas.add(rect);
+    // 移动
+    function move(x, y) {
+      rect.set({ left: x, top: y });
+      canvas.renderAll();
+    }
+
+    canvas.selection = true; // 禁止所有选中
+    rect.set('selectable', true); // 只是禁止这个矩形选中
+
+    move(200, 300);
+
+    // 获取信息
+    console.log(canvas.getObjects())
+    // 移除rect
+    // canvas.remove(rect)
+    // 获取第几个元素
+    console.log(canvas.item(0))
+  </script>
+</html>

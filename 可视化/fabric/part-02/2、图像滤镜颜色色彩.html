@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c" className="canvas" width="375" height="650"></canvas>
+  </body>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.4.6/fabric.min.js"></script>
+  <script>
+    var canvas = new fabric.Canvas("c");
+    // 图像滤镜
+
+    // let img = new Image()
+    // img.setAttribute('src','../1.jpeg')
+    // img.onload=function(){
+    //    let image =  new fabric.Image(img)
+    //    canvas.add(image)
+    // }
+    // fabric.Image.fromURL("../2.jpg", function (oImg) {
+    //   oImg.filters.push(
+    //     new fabric.Image.filters.Grayscale(),
+    //     new fabric.Image.filters.Sepia()
+    //   );
+    //   oImg.applyFilters();
+    //   canvas.add(oImg);
+    // });
+
+    // 颜色叠加
+
+    // var redish = new fabric.Color("#f55");
+    // var greenish = new fabric.Color("#5f5");
+    // let rect = new fabric.Rect({
+    //   width: 100,
+    //   height: 100,
+    //   left: 100,
+    //   fill: redish.overlayWith(greenish).toRgb(),
+    // });
+    // canvas.add(rect);
+
+    // 渐变
+
+    var circle = new fabric.Circle({
+      left: 100,
+      top: 100,
+      radius: 50,
+    });
+
+    circle.setGradient("fill", {
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: circle.height,
+      colorStops: {
+        0: "#000",
+        1: "#fff",
+      },
+    });
+    canvas.add(circle);
+  </script>
+</html>
