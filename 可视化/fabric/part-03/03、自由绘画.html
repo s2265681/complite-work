@@ -11,11 +11,69 @@
       className="canvas"
       width="375"
       height="650"
-      style="border: 1px solid #000000"
     ></canvas>
   </body>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.2.0/fabric.min.js"></script>
   <script>
-    var canvas = new fabric.Canvas("c");
+    // 自由动画
+    // var canvas = new fabric.Canvas("c",{
+    //     isDrawingMode: true
+    // });
+    // console.log(JSON.stringify(canvas))
+    // canvas.on('mouse:up',function(options){
+    //     console.log(canvas.toDatalessJSON(),'ss')
+    //     canvas.set({
+    //         'isDrawingMode':false
+    //     })
+    // })
+
+    // 锁定元素 改变边框和角
+    // var canvas = new fabric.Canvas("c");
+    // let circle = new fabric.Circle({
+    //   left: 100,
+    //   top: 100,
+    //   radius: 50,
+    //   fill: "red",
+    // });
+    // canvas.add(circle);
+    // circle.set({
+    //   lockMovementX: true,
+    //   lockMovementY: true,
+    //   lockRotation: true,
+    //   lockScalingY: true,
+    //   lockScalingX: true,
+    //   transparentCorners: false,
+    //   cornerColor: "blue",
+    //   cornerStrokeColor: "red",
+    //   borderColor: "red",
+    //   cornerSize: 12,
+    //   padding: 10,
+    //   cornerStyle: "circle",
+    //   borderDashArray: [3, 3],
+    //   hasControls: false
+    // });
+    // circle.hasBorders = false;
+    // // circle.hasControls = false
+
+    // canvas.add(
+    //   new fabric.Circle({ radius: 30, fill: "#f55", top: 100, left: 100 })
+    // );
+
+    // canvas.selectionColor = "rgba(0,255,0,0.3)";
+    // canvas.selectionBorderColor = "red";
+    // canvas.selectionLineWidth = 5;
+    // canvas.selectionDashArray= [5,10]
+    // canvas.perPixelTargetFind = true
+
+    // 画布的背景和叠加
+    var canvas = new fabric.Canvas("c",)
+    canvas.add(
+      new fabric.Circle({ radius: 30, fill: "#f55", top: 100, left: 100 })
+    );
+    canvas.backgroundColor = "rgba(0,0,255,0.3)";
+    canvas.setOverlayImage('../1.jpg', canvas.renderAll.bind(canvas));
+    canvas.setBackgroundImage('../2.jpg', canvas.renderAll.bind(canvas));
+    canvas.renderAll();
+
   </script>
 </html>

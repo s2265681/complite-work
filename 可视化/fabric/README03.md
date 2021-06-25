@@ -103,6 +103,105 @@ fabric.loadSVGFromString("...", function (objects, options) {
 });
 ```
 
+# 自由绘画 isDrawingMode
 
-# 自由绘画
+```js
+// 自由动画
+var canvas = new fabric.Canvas("c", {
+  isDrawingMode: true,
+});
+console.log(JSON.stringify(canvas));
+canvas.on("mouse:up", function (options) {
+  console.log(canvas.toDatalessJSON(), "ss");
+  canvas.set({
+    isDrawingMode: false,
+  });
+});
+```
 
+# 锁定对象、改变边框和角
+
+- lockMovementX
+- lockMovementY
+- lockRotation
+- lockScalingX
+- lockScalingY
+
+```js
+var canvas = new fabric.Canvas("c");
+let circle = new fabric.Circle({
+  left: 100,
+  top: 100,
+  radius: 50,
+  fill: "red",
+});
+canvas.add(circle);
+circle.set({
+  lockMovementX: true,
+  lockMovementY: true,
+  lockRotation: true,
+  lockScalingY: true,
+  lockScalingX: true,
+  transparentCorners: false,
+  cornerColor: "blue",
+  cornerStrokeColor: "red",
+  borderColor: "red",
+  cornerSize: 12,
+  padding: 10,
+  cornerStyle: "circle",
+  borderDashArray: [3, 3],
+  selection: false, // 禁用选择
+  //   hasControls: false
+});
+circle.hasBorders = false;
+// circle.hasControls = false
+
+canvas.add(
+  new fabric.Circle({ radius: 30, fill: "#f55", top: 100, left: 100 })
+);
+// 设置选中态
+canvas.selectionColor = "rgba(0,255,0,0.3)";
+canvas.selectionBorderColor = "red";
+canvas.selectionLineWidth = 5;
+canvas.selectionDashArray = [5, 10];
+```
+
+# 可点击区域操作
+
+- perPixelTargetFind 是不是点击区域操作
+
+# 旋转控件
+
+- hasRotatingPoint 是不是有旋转点
+- rotatePointOffset 设置选中距离图像的 offset 值
+- uniScaleTransform 控制变形比例
+
+# Node 中应用
+
+```js
+var fabric = require("fabric").fabric,
+  http = require("http"),
+  url = require("url"),
+  PORT = 8124;
+
+var server = http.createServer(function (request, response) {
+  var params = url.parse(request.url, true);
+  var canvas = fabric.createCanvasForNode(200, 200);
+
+  response.writeHead(200, { "Content-Type": "image/png" });
+
+  canvas.loadFromJSON(params.query.data, function () {
+    canvas.renderAll();
+
+    var stream = canvas.createPNGStream();
+    stream.on("data", function (chunk) {
+      response.write(chunk);
+    });
+    stream.on("end", function () {
+      response.end();
+    });
+  });
+});
+
+server.listen(PORT);
+```
