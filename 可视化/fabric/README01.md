@@ -1,7 +1,7 @@
-[地址](https://ame.cool/pages/46c337/#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9Afabric)
-[快速开始](https://segmentfault.com/a/1190000038688093)
+[中文教程](https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN/blob/master/README.md)
 [fabric Demo](http://fabricjs.com/demos/)
-[中文文档](https://github.com/Rookie-Birds)
+[菜鸟canvas文档](https://www.runoob.com/html/html5-canvas.html)
+[菜鸟参考手册](https://www.runoob.com/tags/ref-canvas.html)
 
 > Fabric.js is a powerful and simpleJavascript HTML5 canvas library
 

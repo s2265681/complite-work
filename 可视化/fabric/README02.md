@@ -127,6 +127,8 @@ var text = new fabric.Text("hello world", {
   textAlign: "right",
   lineHeight: 3,
   textBackgroundColor: "rgb(0,200,0)",
+  originX: "center",
+  originY: "center",
 });
 canvas.add(text);
 ```
@@ -146,6 +148,7 @@ canvas.on('mouse:down', function(options) {...}
 
 事件
 [地址](http://fabricjs.com/events)
+
 - after:render
 - object:modified
 - object:selected

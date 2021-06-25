@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style></style>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="375"
+      height="650"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js"></script>
+  <script>
+    var canvas = new fabric.Canvas("c");
+    canvas.add(
+      new fabric.Rect({
+        left: 50,
+        top: 50,
+        height: 20,
+        width: 20,
+        fill: "green",
+        backgroundColor:'orange',
+        stroke: '#f00',// 边框颜色
+        strokeWidth:2,
+        hasBorder:true,
+        borderColor:'red',
+        rx:10,
+        cornerStrokeColor:'yellow',
+      })
+    );
+    console.log(JSON.stringify(canvas));
+  </script>
+</html>
