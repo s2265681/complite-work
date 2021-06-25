@@ -49,3 +49,6 @@ canvas.on("mouse:up", function (opt) {
 
 # 空间变换 viewportTransform
 
+newP = fabric.util.transformPoint(P, canvas.viewportTransform);
+
+newP = fabric.util.transformPoint(P, object.calcTransformMatrix());
