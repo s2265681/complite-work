@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="675"
+      height="650"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var context,width,height,i,dir=true;
+    function draw(id){
+        var canvas = document.getElementById(id);
+        context = canvas.getContext("2d");
+        // 动画的思想就是通过setInterval() 方法设置动画擦出和重绘的时间，
+        // 技巧是 在比较复杂的动画中，用户可以清楚、绘制动画前保存绘制状态， 需要时在恢复，这样动画设计过程变成
+        // 擦除 => 保存状态 => 重绘 => 恢复状态
+        width = canvas.width;
+        height = canvas.height;
+        i = 0;
+        setInterval(rotate,100)
+    }
+
+    function rotate(){
+        context.clearRect(0,0,width,height)
+        context.fillStyle = "red"
+        i = dir ? i+20 : i-20
+        if(i>=width-20){
+            dir = false
+        }else if(i<=0){
+            dir = true
+        }
+        context.fillRect(i,0,50,50)
+    }
+
+    draw('c')
+
+  
+  </script>
+</html>

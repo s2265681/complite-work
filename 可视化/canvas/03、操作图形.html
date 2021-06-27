@@ -15,6 +15,47 @@
     ></canvas>
   </body>
   <script>
-    var canvas = new fabric.Canvas("c");
+    var canvas = document.getElementById("c"); 
+    var context = canvas.getContext("2d");
+    // 移动
+    context.translate(60,0)
+    // 保存save恢复restore使用例子
+    // 开始绘制矩形
+    context.fillStyle = "#ff00ff"
+    context.strokeStyle = "blue"
+    context.fillRect(20,20,100,100)
+    context.strokeRect(20,20,100,100)
+    context.fill()
+    context.stroke();
+    // 保存当前canvas状态
+    context.save()
+    context.translate(60,0)
+    // 旋转
+    context.rotate(20*Math.PI/180)
+    // x放大2倍，y放大3倍
+    context.scale(2,2)
+    // 绘制另一个矩形
+    context.fillStyle = "#ff0000"
+    context.strokeStyle = "green"
+    context.fillRect(140,20,100,100)
+    context.strokeRect(140,20,100,100)
+    context.fill()
+    context.stroke();
+    // 恢复第一个矩形的状态
+    context.restore()
+    // 绘制两个矩形
+    context.fillRect(20,140,50,50)
+    context.strokeRect(80,140,50,50)
+
+    context.save()
+
+    setTimeout(()=>{
+        // 清空画布
+        context.clearRect(0,0,80,80)
+      
+    },1000)
+
+
+
   </script>
 </html>
