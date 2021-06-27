@@ -17,6 +17,7 @@ export default class Layout extends Component {
             <li className="nav-link"><Link to="/">首页</Link></li>
             <li className="nav-link"><Link to="/user">用户管理</Link></li>
             <li className="nav-link"><Link to="/profile">个人中心</Link></li>
+            <li className="nav-link"><Link to="/user/AsyncList">异步的用户列表</Link></li>
           </ul>
         </div>
       </nav>

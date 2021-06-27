@@ -276,3 +276,74 @@ UMI的功能
 
 通过webpack运行项目，读取配置好的routes配置，通过继承react-router 动态渲染routes， 将对象的值结构到route中动态加载渲染。 
 
+
+
+## 9. umi 进阶 按需加载
+
+.umirc.js
+
+```js
+    // 按需加载
+    dynamicImport: {
+      loading: '@/Loading'
+    },
+```
+
+Loading.js
+
+```js
+import React from 'react';
+import './index.css'
+export default () => {
+  return <div className="loading">加载中...haha </div>;
+};
+```
+
+
+
+
+
+## 10.约定式Mock数据
+
+mock/api.js
+
+```js
+export default {
+    // 支持值为 Object 和 Array
+    'GET /api/users': [{id: 1, name: "张三"},{id: 2, name: "李四" }] ,
+    // GET 可忽略
+    '/api/users/1': {id: 1, name: "张三"},
+  
+    // 支持自定义函数，API 参考 express@4
+    'POST /api/users/add': (req, res) => {
+      // 添加跨域请求头
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.end('ok');
+    },
+  }
+```
+
+
+
+
+
+## 11. SSR 服务端渲染和预渲染
+
+服务端渲染和预渲染的好处都是在服务端进行渲染html，优点是可以减少白屏时间，更好的进行SEO，不同点是服务端渲染是客户端每次访问时生成最新代码最新数据，预渲染是每次构建时生成最新的代码加载到html中去，对于实时性强的服务端渲染更好，对于官网类的倾向使用预渲染技术，中后台管理系统类的谨慎使用服务端渲染技术
+
+通过 `exportStatic` 结合 `ssr` 开启预渲染
+
+```js
+export default {
+  ssr: {},
+  exportStatic: {
++   extraRoutePaths: async () => {
++     // const result = await request('https://your-api/news/list');
++     return Promise.resolve(['/news/1', 'news/2']);
++   }
+  }
+}
+```
+
+
+

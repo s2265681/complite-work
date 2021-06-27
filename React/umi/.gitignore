@@ -11,6 +11,9 @@
 # production
 /build
 
+# tmp
+/tmp
+
 # misc
 .DS_Store
 .env.local
@@ -21,4 +24,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.umi
+
+report.*.json
+
+src/.umi/*
+src/.umi-production/*
+dist/
