@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c1"
+      className="canvas"
+      width="600"
+      height="600"
+      style="border: 1px solid #000000"
+    >
+      您的浏览器不支持canvas，请更换浏览器打开
+    </canvas>
+  </body>
+  <script>
+    // 获取canvas元素
+    var canvas = document.getElementById("c1");
+    if (!canvas.getContext) console.log("浏览器不支持canvas");
+    var context = canvas.getContext("2d");
+
+    // 创建图像
+    // var image = new Image();
+    // image.src = "./9.jpg";
+    // image.onload = function () {
+    //   // 创建图案
+    //   let pattern = context.createPattern(image, "no-repeat");
+    //   context.fillStyle = pattern;
+    //   context.fillRect(0, 0, 600, 600);
+    // };
+
+    // 设置阴影
+    context.shadowColor = "rgba(0,0,0,0.3)";
+    context.shadowBlur = 2;
+    context.shadowOffsetX = 3;
+    context.shadowOffsetY = 3;
+
+    // 设置矩形
+    context.fillStyle = "rgba(200,200,0,0.4)";
+    context.fillRect(20, 20, 200, 60);
+    context.fill();
+    // 绘制文本
+    context.font = "45px 黑体";
+    context.fillStyle = "#fff";
+    context.fillText("我是文字", 30, 64);
+  </script>
+</html>

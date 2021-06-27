@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c1"
+      className="canvas"
+      width="600"
+      height="600"
+      style="border: 1px solid #000000"
+    >
+      您的浏览器不支持canvas，请更换浏览器打开
+    </canvas>
+
+    <canvas
+      id="c2"
+      className="canvas"
+      width="600"
+      height="600"
+      style="border: 1px solid #000000"
+    >
+      您的浏览器不支持canvas，请更换浏览器打开
+    </canvas>
+  </body>
+  <script>
+    // 获取canvas元素
+    var canvas = document.getElementById("c1");
+    // 判断是否支持canvas
+    if (!canvas.getContext) console.log("浏览器不支持canvas");
+    // 获取canvas上下文
+    var context = canvas.getContext("2d");
+    // 绘制一个矩形 坐标为20，20 宽100 高100的矩形
+    context.fillStyle = "#FF0000";
+    context.fillRect(20, 20, 100, 100);
+
+    // 绘制一条红色的对角线直线
+    context.moveTo(0, 0);
+    context.lineTo(600, 600);
+    context.lineTo(100, 500);
+    context.lineTo(0, 0);
+    context.strokeStyle = "#f00";
+    context.stroke();
+
+    // 绘制圆形
+    var canvas2 = document.getElementById("c2");
+    var context2 = canvas2.getContext("2d");
+    context2.fillStyle = "#FF00FF";
+    context2.beginPath();
+    context2.arc(100, 200, 50, 0, 2 * Math.PI, true);
+    context2.closePath();
+    // context2.fill() // 实心圆
+    context2.stroke(); // 空心圆
+
+    // 绘制彩虹
+    const color = ["#f00", "#ff0", "#0ff"];
+    for (let i = 0; i < 3; i++) {
+      context2.beginPath();
+      context2.arc(300, 400, i ? 50 / i : 80, 0, 1 * Math.PI, true);
+      context2.fillStyle = color[i];
+      context2.closePath();
+      context2.fill(); // 空心圆
+    }
+
+    // 绘制弧线
+    context2.fillStyle = "orange";
+    context2.beginPath();
+    context2.moveTo(20, 20);
+    context2.lineTo(100, 20);
+    context2.arcTo(150, 20, 150, 70, 50);
+    context2.lineTo(150, 120);
+    context2.stroke();
+    context.closePath();
+
+    // 设置线性渐变
+    // let cL = context2.createLinearGradient(0,0,100,200)
+    // 设置圆径向渐变
+    let cL = context2.createRadialGradient(100, 100, 10, 100, 100, 200);
+    cL.addColorStop(0, "#0ff");
+    cL.addColorStop(1 / 3, "#f00");
+    cL.addColorStop(2 / 3, "#ff0");
+    cL.addColorStop(1, "#f0f");
+    context2.fillStyle = cL;
+    context2.strokeStyle = cL;
+    context2.fillRect(10, 10, 200, 200);
+  </script>
+</html>
