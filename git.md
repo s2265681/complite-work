@@ -1,7 +1,7 @@
 
 
 [参考git提交规范](https://www.jianshu.com/p/201bd81e7dc9?utm_source=oschina-app)
-
+[规范验证](https://github.com/conventional-changelog/commitlint/#what-is-commitlint)
 
 ## 安装 commitizen
 
@@ -24,7 +24,10 @@ validate-commit-msg 用于检查项目的 Commit message 是否符合Angular规�
 运行一下命令创建git hooks
 > npx  husky install 
 > npx husky add .husky/pre-commit "npm run test"
+> npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"' 
 
+增加提交规则 
+> cnpm i commitlint -D  
 
 
 
@@ -38,4 +41,31 @@ validate-commit-msg 用于检查项目的 Commit message 是否符合Angular规�
 $ npm install -g conventional-changelog-cli
 $ cd my-project
 $ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
+```
+
+
+
+package.json
+```js
+{
+  "name": "reduxsty",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {},
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0",
+    "commitmsg": "validate-commit-msg",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^12.1.4",
+    "commitlint": "^12.1.4",
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
 ```
