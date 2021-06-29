@@ -18,6 +18,14 @@
 
 ## 校验提交
 validate-commit-msg 用于检查项目的 Commit message 是否符合Angular规范。
+> npm install --save-dev validate-commit-msg
+> npm install -D husky
+
+运行一下命令创建git hooks
+> npx  husky install 
+> npx husky add .husky/pre-commit "npm run test"
+
+
 
 
 ## 生成 Change log
