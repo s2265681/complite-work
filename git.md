@@ -3,7 +3,7 @@
 [参考git提交规范](https://www.jianshu.com/p/201bd81e7dc9?utm_source=oschina-app)
 [规范验证](https://github.com/conventional-changelog/commitlint/#what-is-commitlint)
 
-## 安装 commitizen
+## 安装 commitizen 
 
 > npm install -g commitizen
 
