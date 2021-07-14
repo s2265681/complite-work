@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珠峰在线Web高级课</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <style>
+        .box {
+            width: 300px;
+            margin: 1300px auto;
+        }
+
+        .box img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <img src="images/1.jpg" alt="">
+    </div>
+
+    <script>
+        let observer = new IntersectionObserver(changes => {
+            // changes包含所有监听对象的信息
+            // target当前监听的对象
+            // isIntersecting 是否出现在视口中
+            // boundingClientRect 
+            // ...
+            console.log(1);
+            let item = changes[0];
+            if (item.isIntersecting) {
+                // 进入到视口
+                // ...
+                observer.unobserve(item.target);
+            }
+        });
+        observer.observe(box);
+    </script>
+</body>
+
+</html>
