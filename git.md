@@ -43,6 +43,15 @@ $ cd my-project
 $ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
 ```
 
+## git 
+git reset --sort HEAD 回退到某一次之前的代码，后面的代码都会拉下来对比
+git reset --hard HEAD 回退到某一次之前的提交，后面的代码都丢掉
+git revert -n commitId  反悔某一次提交到最前方
+git stash  将本地暂存区的保存起来
+git stash list 查看缓存的内容
+git pop 将暂存的释放出来
+
+
 
 
 package.json

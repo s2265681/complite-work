@@ -33,7 +33,6 @@
 <!-- - command + K 展开收起当前代码块
 - command + J 多行合一行 -->
 - command + J 展开收起终端
-- command + B 展开收起左边栏
 - command + K  + command + J  展开所有代码 fold
 - command + K  + command + 0  收起所有代码 unfold
 
