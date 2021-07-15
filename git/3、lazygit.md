@@ -12,8 +12,14 @@
 a —— git add .
 space —— 取消暂存
 c —— git commit 
-A —— amend 提交到上次提交的里面
+A —— amend 提交到上次提交的里面  git commit --amend  --no-edit --allow-empty
 amend 一下啊
+q —— 关lazygit
+lazygit —— 打开
+d —— 删除该文件
+D -- 更多删除选择
+p -- pull
+P -- push
 
 
 
