@@ -9,6 +9,9 @@
 - a
 
 快捷键 
+
+Status
+
 a —— git add .
 space —— 取消暂存
 c —— git commit 
@@ -20,6 +23,15 @@ d —— 删除该文件
 D -- 更多删除选择
 p -- pull
 P -- push
+
+branches面板
+空格 _ 切换分之
+n _ 在哪个分支使用就是基于哪个
+s _ stash 
+g _ pop 出来
+d _ drop 掉satsh的东西
+M _ 合并分支 在当前接收的这个分支上  在要合并的分支上按M合并 
+
 
 
 
