@@ -84,7 +84,7 @@ package.json
 
 
 > git命令行提交到远端步骤
-git branch new-feature
+git branch -b new-feature
 git checkout new-featyre
 git add .
 git commit -m "new changes"
