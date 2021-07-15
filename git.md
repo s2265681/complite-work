@@ -53,7 +53,6 @@ git pop 将暂存的释放出来
 
 
 
-
 package.json
 ```js
 {
@@ -78,3 +77,21 @@ package.json
   }
 }
 ```
+
+
+## lazygit
+> https://www.bilibili.com/video/av413585263/
+
+
+> git命令行提交到远端步骤
+git branch new-feature
+git checkout new-featyre
+git add .
+git commit -m "new changes"
+git push --set-upstream origin new-feature
+
+
+> git 找出那次提交合到主分支
+git log -pretty=oneline (复制要提交的hash如f7e45bf)
+git checkout master 
+git cherry-pick (提交这个hash f7e45bf)
