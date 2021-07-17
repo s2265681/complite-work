@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./python/基础/day02"
+    ]
+}
