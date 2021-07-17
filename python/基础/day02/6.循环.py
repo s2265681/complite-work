@@ -25,3 +25,14 @@ for i in arr:
 else: 
     print("没有中断，执行For Over!")
         
+
+# break 语句 
+
+# continue 语句
+
+for item in range(10):
+    if(item==3):
+        continue
+    print(item)
+
+
