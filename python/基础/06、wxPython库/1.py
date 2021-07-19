@@ -1,4 +1,0 @@
-
-import wx
-
-print(wx)

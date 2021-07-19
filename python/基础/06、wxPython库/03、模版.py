@@ -1,5 +1,5 @@
 # coding=utf-8
-
+# python -u ~/Desktop/complite-work/python/基础/06、wxPython库/03、模版.py 
 # * 14 模版
 import wx
 
@@ -24,15 +24,3 @@ app = wx.App()  # ? 创建应用程序
 frm = MyFrame()  # ? 创建窗口对象 prams(父窗口，标题,大小,位置)
 frm.Show()  # ? 显示窗口  窗口默认隐藏 需要调用Show方法
 app.MainLoop()  # ? 让应用程序进入主事件循环
-
-
-# [
-# '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages', 
-# '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python', 
-# '/Library/Python/2.7/site-packages'
-# ]
-
-# /usr/local/Cellar/wxpython/4.1.1_2
-# /usr/local/Cellar/wxpython/4.1.1_2/lib/python3.9/site-packages
-
-# ln -s /usr/local/Cellar/wxpython/4.1.1_2/lib/python3.9/site-packages/wx/lib wx

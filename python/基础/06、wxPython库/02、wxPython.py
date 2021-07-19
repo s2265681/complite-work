@@ -1,4 +1,5 @@
 # coding=utf-8
+# python -u ~/Desktop/complite-work/python/基础/06、wxPython库/02、wxPython.py
 
 #* 13.2 安装wxPython
 #? pip是Python提供的包(库)管理工具
@@ -13,8 +14,9 @@
 
 # from wx.core import *
 # from wx.core import wx
+# import wx 
 import wx
-print(wx)
+# print(wx.wx)
 
 #? 创建应用程序对象
 app = wx.App()

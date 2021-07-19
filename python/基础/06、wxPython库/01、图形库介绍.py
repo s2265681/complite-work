@@ -6,3 +6,5 @@
 #todo PyQt是非Python官方提供的图形用户界面开发库，用于封装Qt 跨平台（不完善）
 #todo wxPython是非Python官方提供图形用户界面开发库，跨平台（推荐）
 
+
+#! VS Code run code 会显示无法导入模块， 执行python + path 即可

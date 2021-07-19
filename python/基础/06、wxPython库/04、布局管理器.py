@@ -1,5 +1,6 @@
 
 # coding=utf-8
+# python -u ~/Desktop/complite-work/python/基础/06、wxPython库/04、布局管理器.py
 
 #* 布局管理器 常用盒子布局管理器 wx.BoxSizer(wx.HORIZONTAL)
 
@@ -20,10 +21,10 @@
 #todo wx.FIXED_MINSIZE  调整子窗口为最小尺寸
 
 #? 重构事件处理实例
-
-
-from sys import flags
+# import sys
+# from sys import flags
 import wx
+
 class MyFrame(wx.Frame):
     def __init__(self):
         super(MyFrame, self).__init__(
