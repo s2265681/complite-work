@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div style="margin-bottom: 10px; display: flex; align-items: center">
+        <el-button @click="changeType('huabi')" type="primary">画笔</el-button>
+        <el-button @click="changeType('rect')" type="success">正方形</el-button>
+        <el-button
+          @click="changeType('arc')"
+          type="warning"
+          style="margin-right: 10px"
+          >圆形</el-button
+        >
+        <div>颜色：</div>
+        <el-color-picker v-model="color"></el-color-picker>
+        <el-button @click="clear">清空</el-button>
+        <el-button @click="saveImg">保存</el-button>
+      </div>
+      <canvas
+        id="canvas"
+        width="800"
+        height="400"
+        @mousedown="canvasDown"
+        @mousemove="canvasMove"
+        @mouseout="canvasUp"
+        @mouseup="canvasUp"
+        style="border: 1px solid #000000"
+      >
+      </canvas>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script type="module">
+    const app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          type: "huabi",
+          isDraw: false,
+          canvasDom: null,
+          ctx: null,
+          beginX: 0,
+          beginY: 0,
+          color: "#000",
+          imageData: null,
+        };
+      },
+      methods:{
+        changeType(e){
+          console.log(e,'e>>>>')
+          this.type = 
+        }
+      }
+    });
+  </script>
+</html>
