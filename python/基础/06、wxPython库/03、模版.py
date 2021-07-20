@@ -1,6 +1,6 @@
 # coding=utf-8
 # python -u ~/Desktop/complite-work/python/基础/06、wxPython库/03、模版.py 
-# * 14 模版
+# * 14 模版 + 事件绑定
 import wx
 
 class MyFrame(wx.Frame):
@@ -17,10 +17,8 @@ class MyFrame(wx.Frame):
         self.statictext.SetLabelText("Hello World")
 
         #* 布局管理器 常用盒子布局管理器 wx.BoxSizer(wx.HORIZONTAL)
-        
 
-
-app = wx.App()  # ? 创建应用程序
+app = wx.App()   # ? 创建应用程序
 frm = MyFrame()  # ? 创建窗口对象 prams(父窗口，标题,大小,位置)
-frm.Show()  # ? 显示窗口  窗口默认隐藏 需要调用Show方法
-app.MainLoop()  # ? 让应用程序进入主事件循环
+frm.Show()       # ? 显示窗口  窗口默认隐藏 需要调用Show方法
+app.MainLoop()   # ? 让应用程序进入主事件循环
