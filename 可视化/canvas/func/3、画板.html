@@ -10,11 +10,17 @@
       href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
     />
   </head>
+  <style>
+    #canvas {
+      border: 1px solid black;
+    }
+  </style>
   <body>
     <div id="app">
       <div style="margin-bottom: 10px; display: flex; align-items: center">
-        <el-button @click="changeType('huabi')" type="primary">画笔</el-button>
+        <el-button @click="changeType('pen')" type="primary">画笔</el-button>
         <el-button @click="changeType('rect')" type="success">正方形</el-button>
+        <el-button @click="changeType('line')" type="danger">直线</el-button>
         <el-button
           @click="changeType('arc')"
           type="warning"
@@ -34,11 +40,17 @@
         @mousemove="canvasMove"
         @mouseout="canvasUp"
         @mouseup="canvasUp"
-        style="border: 1px solid #000000"
       >
       </canvas>
     </div>
   </body>
+  <!-- 
+     问题： 
+     1、 画形状的时候，由大到小时会出现错误，造成形状覆盖不能显示应有的图形， 解决方法： save之前的，每次画时候清楚画布在画
+     2、鼠标拖拽画正方形和圆形
+     3、画完一个保存画布，下次再画的时候叠加  getImageData、 putImageData
+     4、保存图片 
+  -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script type="module">
@@ -46,7 +58,7 @@
       el: "#app",
       data() {
         return {
-          type: "huabi",
+          type: "pen",
           isDraw: false,
           canvasDom: null,
           ctx: null,
@@ -56,12 +68,87 @@
           imageData: null,
         };
       },
-      methods:{
-        changeType(e){
-          console.log(e,'e>>>>')
-          this.type = 
-        }
-      }
+      mounted() {
+        this.canvasDom = document.getElementById("canvas");
+        this.ctx = this.canvasDom.getContext("2d");
+      },
+      methods: {
+        changeType(e) {
+          this.type = e;
+        },
+        clear() {
+          this.imageData = null;
+          this.ctx.clearRect(0, 0, 800, 400);
+        },
+        saveImg() {
+          console.log("保存快照，下载");
+          let url = this.canvasDom.toDataURL();
+          let a = document.createElement("a");
+          a.download = "sunshine";
+          a.href = url;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        },
+        canvasDown(e) {
+          this.beginX = e.pageX - canvas.offsetLeft;
+          this.beginY = e.pageY - canvas.offsetTop;
+          this.isDraw = true;
+        },
+        canvasMove(e) {
+          if (!this.isDraw) return;
+          // 清除画板，再使用上一次的快照
+          // console.log(this.type,'this.type...');
+
+          if(this.type!=='pen'){
+            this.ctx.clearRect(0, 0, 800, 400);
+            this.imageData &&
+              this.ctx.putImageData(this.imageData, 0, 0, 0, 0, 800, 400);
+          }
+        
+
+          const x = e.pageX - canvas.offsetLeft;  // e.layerX
+          const y = e.pageY - canvas.offsetTop;   // e.layerY
+
+          this.ctx.beginPath();
+          this[`${this.type}Fun`](this.ctx, x, y);
+          this.ctx.closePath();
+        },
+        canvasUp(e) {
+          this.isDraw = false;
+          this.imageData = this.ctx.getImageData(0, 0, 800, 400); // 存一下
+        },
+        rectFun(ctx, x, y) {
+          ctx.fillStyle = this.color;
+          ctx.fillRect(x, y, this.beginX - x, this.beginY - y);
+          ctx.fill();
+        },
+        penFun(ctx, x, y) {
+          ctx.arc(x, y, 2, 0, 2 * Math.PI);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          // 自由画笔 用圆代替  太快会产生间断问题
+
+          // 通过移动将x存到数组中， 每次moveTo改变成上一位置， 然后lineTo到最后位置
+          // 参考https://www.sohu.com/a/157046838_99952121
+        },
+        lineFun(ctx, x, y) {
+          ctx.moveTo(this.beginX, this.beginY);
+          ctx.lineTo(x, y);
+          ctx.strokeStyle = this.color;
+          ctx.stroke();
+        },
+        arcFun(ctx, x, y) {
+          ctx.fillStyle = this.color;
+          Math.pow;
+          let r = Math.sqrt(
+            Math.pow(x - this.beginX, 2) + Math.pow(y - this.beginY, 2)
+          );
+          ctx.arc(this.beginX, this.beginY, r, 0, 2 * Math.PI, true);
+          ctx.strokeStyle = this.color;
+          ctx.fill();
+        },
+      },
     });
   </script>
 </html>
