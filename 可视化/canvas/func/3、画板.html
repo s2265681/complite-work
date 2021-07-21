@@ -124,15 +124,6 @@
           ctx.fill();
         },
         penFun(ctx, x, y) {
-          ctx.arc(x, y, 2, 0, 2 * Math.PI);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-          // 自由画笔 用圆代替  太快会产生间断问题
-
-          // 通过移动将x存到数组中， 每次moveTo改变成上一位置， 然后lineTo到最后位置
-          // 参考https://www.sohu.com/a/157046838_99952121
-        },
-        lineFun(ctx, x, y) {
           ctx.moveTo(this.beginX, this.beginY);
           ctx.lineTo(x, y);
           ctx.strokeStyle = this.color;
