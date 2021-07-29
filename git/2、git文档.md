@@ -147,6 +147,14 @@ name"
 	git cherry-pick (提交这个hash f7e45bf)
 
 
+- ** git bisect 快速定位bug地点
+git bisect start
+git bisect bad
+git bisect good commit
+input git bisect good or git bisect bad  进行定位查找
+
+https://mp.weixin.qq.com/s/NxiXpTrh9uBA4__lVncw2Q
+
 <br/>
 
 链接： [github地址](https://github.com/s2265681/git/tree/master)
