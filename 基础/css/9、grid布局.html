@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grid 布局</title>
+  </head>
+  <!-- 阮一峰 http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html -->
+  <style>
+    /* 容器属性 
+     * display: grid | inline-grid
+     * grid-template-columns  定义每一列的列宽  10 | 0px | 30% | repeat(3,10px 20px 30%) | repeat(auto-fill,100px) | fr 比例
+     * grid-template-rows 属性定义每一行的行高
+     * grid-row-gap 属性设置行与行的间隔，行间距， grid-column-gap 设置列间距
+     * grid-gap 复合属性
+     * grid-auto-flow: column; 先行后列还是先列后行
+     * 单元格内的对齐方式
+     * justify-items 水平居中
+     * align-items 垂直居中
+     * place-item 两者的复合写法
+     * grid container 盒子内的对齐方式
+     * justify-content： space-between | space-evenly | space-around
+     * align-content： 
+    */
+    .box {
+        width: 300px;
+      display: inline-grid; /* inline-grid */
+      /* grid-template-columns: 100px 100px 100px; */
+      /* grid-template-columns: repeat(auto-fill,120px); */
+      grid-template-columns: 100px 1fr 2fr;
+      grid-template-rows: 100px 100px 100px;
+      background-color: #f00;
+      /* grid-column-gap: 20px;
+      grid-row-gap: 20px; */
+      gap: 10px;
+    }
+
+    .box div {
+        background-color: #ff0;
+    }
+  
+  </style>
+  <body>
+    <div class="box">   
+      <div>
+        <p>item1</p>
+      </div>
+      <div>
+        <p>item2</p>
+      </div>
+      <div>
+        <p>item3</p>
+      </div>
+    </div>
+  </body>
+</html>

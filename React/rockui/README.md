@@ -52,7 +52,7 @@ const App = () => (
 And import style manually:
 
 ```jsx
-import "rockui/dist/rockui.css";
+import "rockui/dist/index.css";
 ```
 
 ### TypeScript
