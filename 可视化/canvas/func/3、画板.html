@@ -100,11 +100,11 @@
           // 清除画板，再使用上一次的快照
           // console.log(this.type,'this.type...');
 
-          if(this.type!=='pen'){
+          // if(this.type!=='pen'){
             this.ctx.clearRect(0, 0, 800, 400);
             this.imageData &&
               this.ctx.putImageData(this.imageData, 0, 0, 0, 0, 800, 400);
-          }
+          // }
         
 
           const x = e.pageX - canvas.offsetLeft;  // e.layerX
@@ -123,7 +123,7 @@
           ctx.fillRect(x, y, this.beginX - x, this.beginY - y);
           ctx.fill();
         },
-        penFun(ctx, x, y) {
+        lineFun(ctx, x, y) {
           ctx.moveTo(this.beginX, this.beginY);
           ctx.lineTo(x, y);
           ctx.strokeStyle = this.color;
