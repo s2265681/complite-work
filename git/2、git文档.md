@@ -151,9 +151,6 @@ name"
 git bisect start
 git bisect bad
 git bisect good commit
-
-skakksd
-
 https://mp.weixin.qq.com/s/NxiXpTrh9uBA4__lVncw2Q
 
 
