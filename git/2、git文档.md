@@ -151,7 +151,8 @@ name"
 git bisect start
 git bisect bad
 git bisect good commit
-input git bisect good or git bisect bad  进行定位查找
+
+skakksd
 
 https://mp.weixin.qq.com/s/NxiXpTrh9uBA4__lVncw2Q
 
