@@ -153,10 +153,6 @@ git bisect bad
 git bisect good commit
 input git bisect good or git bisect bad  进行定位查找
 
->>>>>>>
-
-
-dddddddd
 <br/>
 
 链接： [github地址](https://github.com/s2265681/git/tree/master)
