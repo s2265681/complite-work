@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+  </body>
+  <script>
+    // var canvasEl = document.getElementById("c");
+    // var ctx = canvasEl.getContext("2d");
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(100, 100, 20, 20);
+
+    const drawLine = (x1, y1, x2, y2) => 
+     { 
+     const { ctx } = getCanvas(); 
+     ctx.lineWidth = 2; 
+     ctx.lineCap = 'round'; 
+     ctx.lineJoin = 'round'; 
+     ctx.fillStyle = 'red'; 
+     ctx.strokeStyle = 'red'; 
+     ctx.moveTo(x1, y1); // lineTo(x, y) 绘制一条从当前位置到指定x以及y位置的直线 
+     ctx.lineTo(x2, y2); // 通过线条来绘制图形轮廓 
+     ctx.stroke(); 
+     ctx.closePath(); 
+     };
+  </script>
+</html>
