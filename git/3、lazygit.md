@@ -9,7 +9,8 @@
 - a
 
 快捷键 
-
+ sasdadca 
+ 
 Status
 
 a —— git add .
