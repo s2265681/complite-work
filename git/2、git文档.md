@@ -153,10 +153,17 @@ git bisect bad
 git bisect good commit
 input git bisect good or git bisect bad  进行定位查找
 
->>>>>>>
+https://mp.weixin.qq.com/s/NxiXpTrh9uBA4__lVncw2Q
 
 
-dddddddd
+- **git rebase 和git merge都是用来合并分支的**
+git rebase -i commitId | branch
+git merge branch
+两者的区别 当前分支如果没有提交过，合并没有区别
+但是当前分支和另一分支都有提交，git merge 会生成一个第三个合并节点在此基础上解决冲突， 然后提交，会多生成一个节点，影响log的美观，并且不直观，因为有两个父节点
+git rebase 会将两个分支的提交节点按时间顺序排到当前的分支上，并在这个分支上解冲突
+
+
 <br/>
 
 链接： [github地址](https://github.com/s2265681/git/tree/master)
