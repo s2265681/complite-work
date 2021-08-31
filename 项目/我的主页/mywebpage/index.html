@@ -90,6 +90,17 @@
               />
             </a>
           </div>
+          <div class="wxlogin" @click="wxlogin" v-if="!isLogin">
+            <a
+              href="https://open.weixin.qq.com/connect/qrconnect?appid=wxb6a3d3490ab4c2cd&redirect_uri=https://zi.pongj.com/oauth/wechat/login&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect"
+            >
+              <img
+                src="https://sf6-scmcdn2-tos.pstatp.com/xitu_juejin_web/img/wechat.e0ff124.svg"
+                class="githubImg"
+                title="微信登录"
+              />
+            </a>
+          </div>
           <div class="login" v-if="!isLogin">
             {{$t('login')}}
           </div>
@@ -737,6 +748,10 @@
             message: "注销成功",
             type: "success"
           });
+        },
+        // 微信 登陆
+        wxlogin(){
+           console.log('微信登陆')
         },
         // github 登录
         githublogin() {
