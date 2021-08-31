@@ -9,7 +9,7 @@
     fabric.warn('fabric.Intersection is already defined');
     return;
   }
-
+  intersectsWithObject
   /**
    * Intersection class
    * @class fabric.Intersection
