@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="webgl" width="500" height="500"></canvas>
+  </body>
+  <script>
+    const gl = document.getElementById("webgl").getContext("webgl");
+
+    const vertexShaderSource = `
+        attribute vec4 a_position;
+        // 添加矩阵代码
+        uniform mat4 u_mat;
+        // 变量
+        varying vec4 v_color;
+        void main() {
+            gl_Position = u_mat * a_position;
+            v_color =  gl_Position * 0.5 + 0.5;
+        }
+    `;
+    const fragmentShaderSource = `
+        precision lowp float;
+        varying vec4 v_color;
+        void main(){
+            // gl_FragColor = vec4(1.0,0.0,0.0,1.0);
+            gl_FragColor = v_color;
+        }`;
+
+    // 创建着色器
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER); // 顶点着色器
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER); // 片元着色器
+    // 绑定数据源
+    gl.shaderSource(vertexShader, vertexShaderSource);
+    gl.shaderSource(fragmentShader, fragmentShaderSource);
+
+    // 编译着色器
+    gl.compileShader(vertexShader);
+    gl.compileShader(fragmentShader);
+
+    // 创建着色器程序
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+
+    // 连接 并使用着色器
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    // 检测是不是创建程序成功...
+    const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+    console.log(success, "success");
+
+    //首先创建一个顶点缓冲区对象
+    const buffer = gl.createBuffer();
+
+    // 接下来需要为WebGL绑定这个buffer
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+    // 新建一个数组 然后并把数据存入到缓冲区中。
+    const data = new Float32Array([0.0, 0.0, -0.3, -0.3, 0.3, -0.3]);
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+
+    // 从缓冲中读取数据
+    // 从刚才创建的GLSL着色程序中找到这个属性值所在的位置
+    const aposlocation = gl.getAttribLocation(program, "a_position");
+
+    // 启用对应属性
+    gl.enableVertexAttribArray(aposlocation);
+
+    // 从缓冲中读取数据绑定给被激活的「aposlocation」的位置
+    gl.vertexAttribPointer(aposlocation, 2, gl.FLOAT, false, 0, 0);
+
+    // 渲染
+    // 清楚canvas
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // 绘制三角形
+    gl.drawArrays(gl.TRIANGLES, 0, 3); // 类型、从第几个顶点开始、绘制多少个点
+
+    // 然后和属性一样，我们需要找到 uniform 对应的位置
+    const matlocation = gl.getUniformLocation(program, "u_mat");
+
+    // 实现一个动画
+    let Tx = 0.1; //x坐标的位置
+    let Ty = 0.1; //y坐标的位置
+    let Tz = 1.0; //z坐标的位置
+    let Tw = 1.0; //差值
+    let isOver = true;
+    let step = 0.08;
+    function run() {
+      if (Tx >= 3) {
+        isOver = false;
+      }
+      if (Tx <= 0) {
+        isOver = true;
+      }
+      if (isOver) {
+        Tx += step;
+        Ty += step;
+      } else {
+        Tx -= step;
+        Ty -= step;
+      }
+      const mat = new Float32Array([
+        Tx,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        Ty,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        Tz,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+      ]);
+      gl.uniformMatrix4fv(matlocation, false, mat);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+      // 使用此方法实现一个动画
+      requestAnimationFrame(run);
+    }
+    run();
+  </script>
+</html>
