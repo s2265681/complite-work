@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./carousel.css" />
   </head>
   <body>
     <div class="wraper">
@@ -33,10 +34,12 @@
       </div>
     </div>
   </body>
+  <script src="./carousel.js"></script>
   <script>
     let hour, minute, second; //时 分 秒
     hour = minute = second = 0; //初始化
     let timer;
+    let result = {};
 
     const startAnswerBtn = document.querySelector(".start_answer_btn");
     const nextAnswerBtn = document.querySelector(".next_answer_btn");
@@ -62,9 +65,20 @@
       },
     ];
 
-    let result = {};
     // 轮播图
-    // Carousel
+    let dataSou = [
+      {
+        src: "https://teamind-static-oss.oss-cn-hangzhou.aliyuncs.com/meeting/intro-1.png",
+      },
+      {
+        src: "https://teamind-static-oss.oss-cn-hangzhou.aliyuncs.com/meeting/intro-2.png",
+      },
+      {
+        src: "https://teamind-static-oss.oss-cn-hangzhou.aliyuncs.com/meeting/intro-3.png",
+      },
+    ];
+    let carousel = new Carousel(dataSou, 2000);
+    carousel.start();
 
     // 计时开始
     function startCountTimer() {
@@ -84,7 +98,6 @@
 
     // 计时结束
     function endCountTimer() {
-      console.log(timer,'timer')
       clearInterval(timer);
       timer = null;
       // hour = minute = second = 0;
@@ -92,6 +105,7 @@
 
     // 开始答题
     startAnswerBtn.addEventListener("click", function () {
+      console.log("开始答题");
       if (!timer) startCountTimer();
       startAnswerBtn.style.display = "none";
       showAnswerWrapper.style.display = "block";
@@ -106,8 +120,7 @@
         answerOptionUl.innerHTML = "";
         nextAnswerBtn.innerHTML = "提交答案";
         alert(JSON.stringify(result));
-        console.log(result, "result");
-        endCountTimer()
+        endCountTimer();
         return;
       }
       initAnswer(++currentIndex);
@@ -117,7 +130,6 @@
     // 初始化题目
     function initAnswer(currentIndex = 0) {
       let currentAnswerItem = answerSource[currentIndex];
-      console.log(currentAnswerItem, "currentAnswerItem..");
       answerTitle.innerHTML = currentAnswerItem.title || "";
       let options = "";
       currentAnswerItem.option.map((item, index) => {
