@@ -68,7 +68,6 @@
 
     // 计时开始
     function startCountTimer() {
-      const startTime = new Date();
       timer = setInterval(() => {
         second++;
         if (second >= 60) {
@@ -85,9 +84,10 @@
 
     // 计时结束
     function endCountTimer() {
-      timer = null;
+      console.log(timer,'timer')
       clearInterval(timer);
-      hour = minute = second = 0;
+      timer = null;
+      // hour = minute = second = 0;
     }
 
     // 开始答题
@@ -107,6 +107,7 @@
         nextAnswerBtn.innerHTML = "提交答案";
         alert(JSON.stringify(result));
         console.log(result, "result");
+        endCountTimer()
         return;
       }
       initAnswer(++currentIndex);
