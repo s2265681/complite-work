@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="wraper">
+      <!-- 轮播图 -->
+      <div class="carousel_wrapper">轮播图</div>
+      <!-- 进度条 -->
+      <div class="progress_bar">
+        <div class="progress_bar_dot">0%</div>
+      </div>
+      <!-- 计时器 -->
+      <div class="countTimer">0时0分0秒</div>
+      <!-- 答题区 -->
+      <div class="answer_wrapper">
+        <button class="start_answer_btn">开始答题</button>
+        <div class="show_answer_wrapper">
+          <h3 class="answer_title"></h3>
+          <ul class="answer_option_ul">
+            <!-- <li>1、几乎所有时候</li>
+            <li>2、大多数时候</li>
+            <li>3、有时</li>
+            <li>4、根本没有</li> -->
+          </ul>
+          <button class="next_answer_btn">下一题</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let hour, minute, second; //时 分 秒
+    hour = minute = second = 0; //初始化
+    let timer;
+
+    const startAnswerBtn = document.querySelector(".start_answer_btn");
+    const nextAnswerBtn = document.querySelector(".next_answer_btn");
+    const countTimer = document.querySelector(".countTimer");
+    const answerTitle = document.querySelector(".answer_title");
+    const answerOptionUl = document.querySelector(".answer_option_ul");
+    const showAnswerWrapper = document.querySelector(".show_answer_wrapper");
+    const progressBarDot = document.querySelector(".progress_bar_dot");
+
+    let currentIndex = 0;
+    let answerSource = [
+      {
+        title: "我感到紧张(或痛苦)",
+        option: ["1、几乎所有时候", "2、大多数时候", "3、有时", "4、根本没有"],
+      },
+      {
+        title: "我感到积极",
+        option: ["1、几乎所有时候", "2、大多数时候", "3、有时", "4、根本没有"],
+      },
+      {
+        title: "我感到开心",
+        option: ["1、几乎所有时候", "2、大多数时候", "3、有时", "4、根本没有"],
+      },
+    ];
+
+    let result = {};
+    // 轮播图
+    // Carousel
+
+    // 计时开始
+    function startCountTimer() {
+      const startTime = new Date();
+      timer = setInterval(() => {
+        second++;
+        if (second >= 60) {
+          second = 0;
+          minute + 1;
+        }
+        if (minute >= 60) {
+          minute = 0;
+          hour + 1;
+        }
+        countTimer.innerHTML = `${hour}时${minute}分${second}秒`;
+      }, 1000);
+    }
+
+    // 计时结束
+    function endCountTimer() {
+      timer = null;
+      clearInterval(timer);
+      hour = minute = second = 0;
+    }
+
+    // 开始答题
+    startAnswerBtn.addEventListener("click", function () {
+      if (!timer) startCountTimer();
+      startAnswerBtn.style.display = "none";
+      showAnswerWrapper.style.display = "block";
+      initAnswer();
+      celcProgressBarDot();
+    });
+
+    // 下一题
+    nextAnswerBtn.addEventListener("click", function () {
+      if (answerSource.length - 1 <= currentIndex) {
+        answerTitle.innerHTML = "没有题目了！";
+        answerOptionUl.innerHTML = "";
+        nextAnswerBtn.innerHTML = "提交答案";
+        alert(JSON.stringify(result));
+        console.log(result, "result");
+        return;
+      }
+      initAnswer(++currentIndex);
+      celcProgressBarDot();
+    });
+
+    // 初始化题目
+    function initAnswer(currentIndex = 0) {
+      let currentAnswerItem = answerSource[currentIndex];
+      console.log(currentAnswerItem, "currentAnswerItem..");
+      answerTitle.innerHTML = currentAnswerItem.title || "";
+      let options = "";
+      currentAnswerItem.option.map((item, index) => {
+        options += `<li onclick='chooseAnwser(${currentIndex},${index})'>${item}</li>`;
+      });
+      answerOptionUl.innerHTML = options;
+    }
+
+    // 计算进度条
+    function celcProgressBarDot() {
+      let present = (((currentIndex + 1) / answerSource.length) * 100).toFixed(
+        2
+      );
+      progressBarDot.style.width = present + "%";
+      progressBarDot.innerHTML = present + "%";
+    }
+
+    // 每个选择的题目
+    function chooseAnwser(currentIndex, index) {
+      result[currentIndex] = index;
+      alert(
+        `您第${currentIndex + 1}题，选择了第${index + 1}个， 题目是${
+          answerSource[currentIndex]["option"][index]
+        }`
+      );
+      nextAnswerBtn.click();
+    }
+
+    // 提交结果
+  </script>
+</html>
