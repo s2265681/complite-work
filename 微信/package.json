@@ -1,0 +1,16 @@
+{
+  "name": "wechat",
+  "version": "1.0.0",
+  "description": "wechat",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.12.1",
+    "koa-router": "^9.0.1",
+    "koa-send": "^5.0.0"
+  }
+}
