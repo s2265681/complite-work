@@ -1,92 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>惠心检</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link rel="stylesheet" href="../css/history.css" />
+  </head>
 
-<head>
-  <title>惠心检</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta charset="utf-8" />
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <link rel="stylesheet" href="../css/history.css" />
-</head>
+  <body>
+    <div id="headerBox">
+      <a href="javascript:history.go(-1);"> < 返回</a>
+      <span class="header-title">历史记录</span>
+    </div>
 
-<body>
-  <div id="headerBox"><a href="javascript:history.go(-1);">
-      < 返回</a> <span class="header-title">历史记录</span></div>
-
-  <div id="historyRecords">
-    <!-- <div class="history-tip">
-            <div class="history-pic"><img src="../image/heart.gif"></div>
-            <div class="history-content">
-                <span class="tipName">失眠严重程度指数量表</span>
-                <span class="tipTime">2021-09-03 13:42:09</span>
-                <span class="tipNum">量表代号：lsi</span>
-            </div>
-        </div> -->
-  </div>
-</body>
-<script src="../js/public/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script>
-  let openId = localStorage.getItem('openId');
-  let reportResultlData = {
-    wechatAppid: "wxa8fa366d958272c0",
-    examTemplateId: 1,
-    wechatOpenid: openId,
-    page: 1,
-    rows: 20
-  };
-  $.ajax({
-    url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_list_page ",
-    method: "POST",
-    contentType: "application/x-www-form-urlencoded",
-    data: reportResultlData,
-    success: function (data) {
-      console.log(data,"历史数据")
-      let a = document.getElementById("historyRecords")
-      function add0(m) { return m < 10 ? '0' + m : m }
-      if (data.data.rows.length) {
-        for (let i = 0; i < data.data.rows.length; i++) {
-          //时间转换
-          let time = new Date(data.data.rows[i].createTime);
-          let year = time.getFullYear();
-          let month = time.getMonth() + 1;
-          let day = time.getDate();
-          let hour = time.getHours();
-          let min = time.getMinutes();
-          let sec = time.getSeconds();
-          let dataTime = year + '-' + add0(month) + '-' + add0(day) + ' ' + add0(hour) + ':' + add0(min) + ':' + add0(sec);
-
-          let b = document.createElement("div")
-          b.className = "history-tip"
-          let c = document.createElement("div")
-          c.className = "history-pic"
-          let d = document.createElement("img")
-          d.src = "../image/heart.gif"
-          c.appendChild(d)
-          let e = document.createElement("div")
-          e.className = "history-content"
-          let f = document.createElement("span")
-          f.className = "tipName"
-          f.innerHTML = "失眠严重程度指数量表"
-          let g = document.createElement("span")
-          g.className = "tipTime"
-          g.innerHTML = dataTime
-          let h = document.createElement("span")
-          h.className = "tipNum"
-          h.innerHTML = "量表代号：lsi"
-          e.appendChild(f)
-          e.appendChild(g)
-          e.appendChild(h)
-          b.appendChild(c)
-          b.appendChild(e)
-          a.appendChild(b)
+    <div id="historyRecords"></div>
+  </body>
+  <script
+    src="../js/public/jquery-1.11.3.min.js"
+    type="text/javascript"
+  ></script>
+  <script>
+    let openId = localStorage.getItem("openId");
+    let reportResultlData = {
+      wechatAppid: "wxa8fa366d958272c0",
+      examTemplateId: 1,
+      wechatOpenid: openId,
+      page: 1,
+      rows: 20,
+    };
+    $.ajax({
+      url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_list_page ",
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded",
+      data: reportResultlData,
+      success: function (data) {
+        let dataSource = data.data.rows || [];
+        console.log(dataSource, "历史数据");
+        let historyRecords = document.getElementById("historyRecords");
+        let historyStr = "";
+        for (let i = 0; i < dataSource.length - 1; i++) {
+          historyStr += `
+            <a href='/html/detailreport.html?id=${dataSource[i].id}'>
+              <div class="history-tip">
+                <div class="history-pic"><img src="../image/heart.gif"></div>
+                <div class="history-content">
+                    <span class="tipName">失眠严重程度指数量表</span>
+                      <span class="tipTime">${new Date(dataSource[i].createTime)
+                        .toLocaleDateString()
+                        .split("/")
+                        .join("-")}
+                      </span>
+                    <span class="tipNum">量表代号：lsi</span>
+                </div>
+             </div> 
+            </a>
+          `;
         }
-      }
-    },
-    error: function (result) {
-      alert(result.message)
-    }
-  })
-</script>
-
+        $(historyRecords).html(historyStr);
+      },
+      error: function (result) {
+        alert(result.message);
+      },
+    });
+  </script>
 </html>

@@ -186,6 +186,7 @@ submitBtn.addEventListener("click", function () {
     wechatOpenid: openId,
     wechatUserAnswerDetailList
   };
+  var questionId = 0
   console.log(parseParam(submitData), "parseParam(submitData)...");
   $.ajax({
     url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_create",
@@ -193,7 +194,8 @@ submitBtn.addEventListener("click", function () {
     contentType: "application/x-www-form-urlencoded",
     data: parseParam(submitData),
     success: function (data) {
-      window.localStorage.setItem("questionId1", JSON.stringify(data.data));
+      questionId = data.data || 0
+      // window.localStorage.setItem("questionId1", JSON.stringify(data.data));
       $(".answerSubmitwrapper").css("display", "block");
     },
     error: function (result) {
@@ -206,7 +208,7 @@ submitBtn.addEventListener("click", function () {
 function submitAnswer() {
   $(".answerSubmitwrapper").css("display", "none");
   setTimeout(() => {
-    window.location.href = "./detailreport.html";
+    window.location.href = "./detailreport.html?questionId="+questionId;
   }, 1000);
 }
 

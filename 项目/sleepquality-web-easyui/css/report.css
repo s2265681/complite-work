@@ -24,7 +24,7 @@
   font-size: 14px;
 }
 
-.nextTo {
+.nextInfo {
   position: relative;
   top: -30px;
   margin-left: 80%;
@@ -82,7 +82,7 @@
 .report-form>div {
   width: 45%;
   float: left;
-  margin-top: 6px;
+  margin-top: 1px;
 }
 
 .report-form span {

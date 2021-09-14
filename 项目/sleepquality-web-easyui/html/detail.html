@@ -15,7 +15,7 @@
   <body>
     <div id="headerBox">
       <a href="javascript:history.go(-1);"> < 返回</a>
-      <span class="header-title">答题详情</span>
+      <!-- <span class="header-title">答题详情</span> -->
     </div>
     <div class="answer-detail">
       <!-- 插入内容 -->
@@ -27,12 +27,19 @@
   ></script>
   <script>
     const answerDetail = document.querySelector(".answer-detail");
-    let id = localStorage.getItem('questionId1');
+    function getQuestId() {
+      let url = window.location.href;
+      let obj = {};
+      url.replace(/([^#?&#]+)=([^&#?#]+)/g, (...[, b, c]) => {
+        obj[b] = c;
+      });
+      return obj["id"] || "";
+    }
     var datailData = {
       wechatAppid: "wxa8fa366d958272c0",
       examTemplateId: 1,
-      id: id, //答题ID
-      wechatOpenid: localStorage.getItem('openId'),
+      id: getQuestId(), //答题ID
+      wechatOpenid: localStorage.getItem("openId"),
     };
     $.ajax({
       url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_situation",
@@ -44,7 +51,7 @@
         var detailArrStr = "";
         let dataSource = data.data || [];
         let ansGroupStr = "";
-        for (var i = 0; i <= dataSource.length; i++) {
+        for (var i = 0; i <= dataSource.length - 1; i++) {
           let content = "";
           dataSource[i]?.examOptionList.map((value) => {
             content += `
