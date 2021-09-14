@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>惠心检</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/detail.css" />
+  </head>
+
+  <body>
+    <div id="headerBox">
+      <a href="javascript:history.go(-1);"> < 返回</a>
+      <span class="header-title">答题详情</span>
+    </div>
+    <div class="answer-detail">
+      <!-- 插入内容 -->
+    </div>
+  </body>
+  <script
+    src="../js/public/jquery-1.11.3.min.js"
+    type="text/javascript"
+  ></script>
+  <script>
+    const answerDetail = document.querySelector(".answer-detail");
+    let id = localStorage.getItem('questionId1');
+    var datailData = {
+      wechatAppid: "wxa8fa366d958272c0",
+      examTemplateId: 1,
+      id: id, //答题ID
+      wechatOpenid: localStorage.getItem('openId'),
+    };
+    $.ajax({
+      url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_situation",
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded",
+      data: datailData,
+      success: function (data = {}) {
+        var detailArr = [];
+        var detailArrStr = "";
+        let dataSource = data.data || [];
+        let ansGroupStr = "";
+        for (var i = 0; i <= dataSource.length; i++) {
+          let content = "";
+          dataSource[i]?.examOptionList.map((value) => {
+            content += `
+                   <div class='tip'>
+                         <input class='radio_option' disabled  type='radio' ${
+                           value.choice ? "checked" : ""
+                         }/>
+                         ${
+                           value.examOptionOrder + "." + value.examOptionContent
+                         }
+                    </div>
+               `;
+          });
+          ansGroupStr += `
+                <div id="topic">
+                  <div class="topic-sign"/>
+                      ${i + 1}. ${dataSource[i]?.examTitle}
+                </div>
+                <div id="ans-group">
+                     ${content}
+               </div>
+          `;
+        }
+        console.log(ansGroupStr, "ansGroupStr");
+        $(answerDetail).html(ansGroupStr);
+      },
+      error: function (result) {
+        alert(result.message);
+      },
+    });
+  </script>
+</html>

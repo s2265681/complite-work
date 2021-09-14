@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>惠心检</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="../css/test.css" />
+</head>
+
+<body>
+    <div id="headerBox"><a class="testBack">
+            < 返回</a> <span class="header-title">失眠严重程度指数量表测试</span></div>
+
+    <!-- 答题弹框 -->
+    <div class="testWrapper">
+        <div id="testCover">
+            <div class="testCover-title introduce">量表介绍</div>
+            <div class="testCover-text introduce-text">
+                &emsp;&emsp;该量表是一个用于筛查失眠的简便工具，包括7个条目，用于评估受试者睡眠障碍的性质和症状。问题涉及受试者对睡眠质量的主观评价，包括症状的严重程度，受试者对其睡眠模式的满意度，失眠程度对日常功能的影响，受试者意识到失眠对自己的影响，以及因睡眠障碍所带来的沮丧水平。
+            </div>
+            <div class="testCover-title instruction">指导语</div>
+            <div class="testCover-text instruction-text">
+                &emsp;&emsp;该量表是一个用于筛查失眠的简便工具，包括7个条目，用于评估受试者睡眠障碍的性质和症状。
+            </div>
+            <button class="testCoverBt" onclick="openTestModal()">开始答题</button>
+        </div>
+    </div>
+    <!-- 返回弹框 -->
+    <div class="backWrapper" style="display: none;">
+        <div class="backtip">
+            <span class="backtip-title">温馨提示</span>
+            <span class="backtip-text">将要离开此页面，是否离开。</span>
+            <div class="backBt">
+                <a href="./index.html"><button class="backtip-leave">离开</button></a>
+                <button class="backtip-continue">继续答题</button>
+            </div>
+
+        </div>
+    </div>
+    <!-- 轮播 -->
+    <div id="testBanner">
+        <div id="slider">
+            <!-- start slideshow -->
+            <div id="slideshow">
+                <div class="slider-item"><img src="../image/banner1.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner2.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner3.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner4.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner5.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner6.png" width="100%" height="150" border="0" /></div>
+                <div class="slider-item"><img src="../image/banner7.png" width="100%" height="150" border="0" />
+                </div>
+                <div class="slider-item"><img src="../image/banner8.png" width="100%" height="150" border="0" />
+                </div>
+                <div class="slider-item"><img src="../image/banner9.png" width="100%" height="150" border="0" />
+                </div>
+                <div class="slider-item"><img src="../image/banner10.png" width="100%" height="150" border="0" />
+                </div>
+            </div>
+            <!-- end #slideshow -->
+            <div class="controls-center">
+                <div id="slider_controls">
+                    <ul id="slider_nav">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+    <!-- 进度条 -->
+    <div class="progress_bar">
+        <div class="progress_bar_dot">0%</div>
+        <div class="progress_bar_num"><span class="bar_num">0</span>/7</div>
+    </div>
+    <!-- 设置 -->
+    <div id="testSetup">
+        <div class="time">
+            <div id="timer"></div>
+            <div id="warring"></div>
+        </div>
+        <!-- <div class="countTimer">0时0分0秒</div> -->
+        <div class="font" onclick="alertBoxFn();stopBubble()">
+            <img src="../image/set.jpg" clss="font-icon">
+            <div id="alertBox" onclick="stopBubble()"></div>
+            <div class="fontBt" style="display: none;">
+                <span class="fontBt-expand">A+</span>
+                <span class="fontBt-narrow">A-</span>
+            </div>
+            <div class="fontTab">
+                字体大小已切换
+            </div>
+            <div class="fontMaxTab">
+                已经是最大字体了
+            </div>
+            <div class="fontMinTab">
+                已经是最小字体了
+            </div>
+        </div>
+        <div class="musicAudio">
+            <!-- 音乐及图标-->
+            <section class="u-audio">
+                <audio src="../image/bg.mp3" autoplay="autoplay" id="music" preload loop="loop"></audio>
+                <div id="page1">
+                    <img id="rallback" src="../image/start.jpg" style="display: block;"></img>
+                    <img id="stopmusic" src="../image/stop.jpg" style="display: none" onclick=""></img>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- 测试题 -->
+    <div class="answer_wrapper">
+        <div class="show_answer_wrapper">
+            <span class="verticalLine"></span>
+            <div class="answer_title">1、描述你当前（或最近 2 周）入睡困难的严重程度</div>
+            <ul class="answer_option_ul">
+                <li>1、无</li>
+                <li>2、轻度</li>
+                <li>3、中度</li>
+                <li>4、重度</li>
+                <li>5、极重度</li>
+            </ul>
+        </div>
+        <div class="answer_btns">
+            <button class="answer_btn last_answer_btn" style="display: none;">上一题</button>
+            <button class="answer_btn next_answer_btn">下一题</button>
+            <button class="answer_btn submit_answer_btn" style="display: none;">提交</button>
+        </div>
+    </div>
+    <!-- 测试题弹框 -->
+    <div class="answerSubmitwrapper" style="display: none;">
+        <div class="answerSubmitTab">
+            <span class="asTitle">温馨提示</span>
+            <span class="astext">测评已完成，已为您生成报告。</span>
+            <button class="asBtn" onclick="submitAnswer()">确定</button>
+        </div>
+    </div>
+    <div class="nextAnswerTab">当前题目未完成</div>
+</body>
+<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../js/public/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/public/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../js/public/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="../js/public/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="../js/public/pageSwitch.min.js"></script>
+<script type="text/javascript" src="../js/test.js"></script>
+
+<!-- 音乐 -->
+<script type="text/javascript">
+    window.onload = function () {
+        /*右上角音乐及图标*/
+        var flag = 1; //开启音乐
+        var music = document.getElementById('music');
+        var rallback = document.getElementById('rallback');
+        var stopmusic = document.getElementById('stopmusic');
+
+        $(".u-audio").live("click", function () {
+            if (flag == 1) {
+                music.pause(); /*音乐关闭*/
+                flag = 0;
+                rallback.style.webkitAnimationPlayState = "paused"; //旋转动画暂停
+                rallback.style.display = "none"
+                stopmusic.style.display = "block"
+            } else {
+                music.play(); /*音乐开启*/
+                flag = 1;
+                rallback.style.webkitAnimationPlayState = "running"; //旋转动画暂停
+                rallback.style.display = "block"
+                stopmusic.style.display = "none"
+            }
+        })
+    }
+</script>
+
+
+</html>

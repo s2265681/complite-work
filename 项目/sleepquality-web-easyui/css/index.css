@@ -1,0 +1,170 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.bgimg {
+  width: 100%;
+  height: 100%;
+}
+
+#navbutton {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+}
+
+#navbutton a {
+  text-decoration: none;
+}
+
+#navbutton button {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #fff;
+  width: 100px;
+  height: 30px;
+  margin-top: 5px;
+  border: #74c3fe solid 1px;
+  border-radius: 5px;
+  background-color: #0361b8;
+  opacity: 0.8;
+}
+
+#testbutton {
+  position: absolute;
+  left: 20%;
+  bottom: 20%;
+}
+
+#testbutton .testbt {
+  font-size: 12px;
+  color: #fff;
+  width: 200px;
+  height: 30px;
+  border: #74c3fe solid 1px;
+  border-radius: 10px;
+  background-color: #0361b8;
+  opacity: 0.8;
+  animation: scaleDrew 2.5s ease-in-out infinite;
+}
+
+@keyframes scaleDrew {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 弹出框1 */
+.testingTabwrapper,
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+}
+
+#testTab {
+  position: absolute;
+  left: 15%;
+  bottom: 30%;
+  width: 70%;
+  height: 200px;
+  border-radius: 15px;
+  background-color: #fff;
+  background-image: url("../image/bg.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.testTab-title {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  /* background-color: #008cff; */
+  font-size: 15px;
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px; */
+}
+
+.testTab-text {
+  display: block;
+  padding: 10px;
+  font-size: 12px;
+}
+
+/* 弹出框2 */
+#testingTab {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 80%;
+  height: 180px;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.testingTab-tip {
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 18px;
+}
+
+.testingTab-content {
+  display: block;
+  font-size: 12px;
+  width: 80%;
+  color: #aaa;
+  margin-left: 10%;
+}
+
+.testingTabBt {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.testingTabBt a {
+  text-decoration: none;
+}
+
+.testingTabBt button {
+  display: block;
+  width: 50%;
+  height: 60px;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+
+.cancel {
+  border-bottom-left-radius: 20px;
+}
+
+.supplement {
+  border-bottom-right-radius: 20px;
+  color: #008cff;
+}

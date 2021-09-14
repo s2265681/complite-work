@@ -1,0 +1,143 @@
+<!-- 测试题的报告 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>惠心检</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="utf-8" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <link rel="stylesheet" href="../css/report.css" />
+</head>
+
+<body>
+  <div id="headerBox"><a href="javascript:history.go(-2);" class="lastTo">
+      < 返回</a> <span class="header-title">失眠严重程度指数量表</span><a href="../html/detail.html" class="nextTo">答题情况</a></div>
+  <span class="report-title">失眠严重程度指数量表报告</span>
+  <div id="container">
+    <div class="personInfo report">
+      <div class="report-header">
+        个人信息
+      </div>
+      <div class="report-content">
+        <div class="report-form">
+          <div class="formbox1">
+            <div class="form-tip">姓名</div>
+            <span class="formName"></span>
+          </div>
+          <div class="formbox2">
+            <div class="form-tip">性别</div>
+            <span class="sex"></span>
+          </div>
+          <div class="formbox3">
+            <div class="form-tip">年龄</div>
+            <span class="age"></span>
+          </div>
+          <div class="formbox4">
+            <div class="form-tip">学历</div>
+            <span class="education"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resultAnalysis report">
+      <div class="report-header">
+        结果分析
+      </div>
+      <div class="report-content examResultDesc"></div>
+    </div>
+    <div class="implementation report" style="display:none">
+      <div class="report-header">
+        改善方案
+      </div>
+      <div class="report-content">
+        <div class="implementation-left">
+          <span class="implementation-title">1.药物治疗</span>
+          <span
+            class="implementation-text">&emsp;&emsp;在自我调养困难的情况下，可借助药物的手段，在医生的指导下合理用药。如果担心西药会有成瘾性，中成药会是一个不错的选择。相对来说，中成药的成分更加天然，比如已经上市20余年的乌灵胶囊，就是来自药食同源的乌灵参，运用现代生物发酵技术制成的国家一类新药，具有补肾健脑、养心安神的功效，对于改善睡眠质量、缓解焦虑抑郁状态有较好的效果，且安全性好，可长期服用。</span><br /><br />
+          <span class="implementation-title">2.数字疗愈</span>
+          <span
+            class="implementation-text">&emsp;&emsp;数字疗愈是目前心理疗愈应用中有效的方法之一，数字音频能对人体心理节律和人类情绪起到重要的调节作用，是对人体机能进行干预的有效途径。点击右边按钮去体验。</span>
+
+        </div>
+        <div class="implementation-right"></div>
+      </div>
+    </div>
+    <div class="popularScienceArticles report">
+      <div class="report-header">
+        科普文章
+      </div>
+      <div class="report-content">
+        <a href="#" class="link1">[链接]全身不适，原来是失眠惹的祸</a><br />
+        <a href="#">[链接]认识社交焦虑症</a><br />
+        <a href="#">[链接]春眠问题知道知多少</a>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../js/public/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script>
+  let openId = localStorage.getItem('openId');
+  let id = localStorage.getItem('questionId1');
+  console.log(openId, "ppp");
+  console.log(id, "ppp");
+  var reportResultlData = {
+    wechatAppid: "wxa8fa366d958272c0",
+    examTemplateId: 1,
+    id: id,
+    wechatOpenid: openId
+  };
+  $.ajax({
+    url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_detail",
+    method: "POST",
+    contentType: "application/x-www-form-urlencoded",
+    data: reportResultlData,
+    success: function (data) {
+      var answerScore = data.data.answerScore;//得分
+      var name = data.data.wechatNickname;//姓名
+      var sex = data.data.wechatSex//性别
+      var age = data.data.age//年龄
+      var education = data.data.wechatEducation//学历
+      var examResultDesc = data.data.examResult.examResultDesc//结果分析
+      console.log(name,"pppppp");
+      if (answerScore >= 8) {
+        $(".implementation").css("display", "block")
+      }
+      // 姓名
+      if (name == undefined || name == "") {
+        $(".formName").html("");
+      } else {
+        $(".formName").html(name);
+      }
+      // 性别
+      if (sex == undefined || sex == "") {
+        $(".sex").html("");
+      } else {
+        if (sex == "1") {
+          $(".sex").html("男");
+        } else {
+          $(".sex").html("女");
+        }
+      }
+      // 年龄
+      if (age == undefined || age == "") {
+        $(".name").html("");
+      } else {
+        $(".age").html(age);
+      }
+      //学历
+      if (education == undefined || education == "") {
+        $(".name").html("");
+      } else {
+        $(".education").html(education);
+      }
+      $(".examResultDesc").html(examResultDesc);
+    },
+    error: function (result) {
+      alert(result.message)
+    }
+  })
+</script>
+
+</html>

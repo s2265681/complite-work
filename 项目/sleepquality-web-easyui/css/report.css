@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 头部 */
+#headerBox {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+}
+
+#headerBox>a {
+  text-decoration: none;
+  color: #008cff;
+  position: relative;
+  left: 10px;
+}
+
+.header-title {
+  position: relative;
+  left: 23%;
+  font-size: 14px;
+}
+
+.nextTo {
+  position: relative;
+  top: -30px;
+  margin-left: 80%;
+}
+
+/* 内容 */
+.report-title {
+  position: absolute;
+  top: 40px;
+  left: 20%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#container {
+  margin-left: 10px;
+}
+
+.report {
+  width: 95%;
+  height: 150px;
+}
+
+.report-header {
+  width: 25%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #008cff;
+  color: #fff;
+  font-size: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.report-content {
+  width: 100%;
+  height: 120px;
+  border-top: #008cff solid 2px;
+}
+
+/* 个人信息 */
+.personInfo {
+  margin-top: 15%;
+}
+
+.report-form {
+  margin-top: 15px;
+  width: 100%;
+  height: 80px;
+  border: #ccc solid 1px;
+  font-size: 12px;
+}
+
+.report-form>div {
+  width: 45%;
+  float: left;
+  margin-top: 6px;
+}
+
+.report-form span {
+  position: relative;
+  left: 50%;
+  top: -25px;
+}
+
+.form-tip {
+  width: 28%;
+  height: 10px;
+  text-align: center;
+  line-height: 10px;
+  background-color: #ccc;
+  padding: 10px;
+}
+
+.formbox1,
+.formbox3 {
+  margin-left: 5px;
+}
+
+.formbox3,
+.formbox4 {
+  position: relative;
+}
+
+/* 结果分析 */
+.resultAnalysis {
+  font-size: 12px;
+  height: 150px;
+}
+
+.examResultDesc {
+  font-size: 12px;
+  padding: 5px;
+  text-indent: 2em;
+}
+
+/* 改善方案 */
+.implementation {
+  font-size: 12px;
+  height: 350px;
+}
+
+.implementation-title {
+  display: block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 科普文章 */
+.report-content>a {
+  display: block;
+  width: 100%;
+  height: 10px;
+  line-height: 10px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: #000;
+}
+
+.link1 {
+  margin-top: 10px;
+}

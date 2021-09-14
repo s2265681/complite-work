@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#headerBox {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  background-color: #ddd;
+}
+
+#headerBox>a {
+  text-decoration: none;
+  color: #008cff;
+  position: relative;
+  left: 10px;
+}
+
+.header-title {
+  position: relative;
+  left: 32%;
+  font-size: 14px;
+}
+
+
+#historyRecords {
+  margin-top: 50px;
+}
+
+.history-tip {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: 60px;
+  border-bottom: #eee solid 1px;
+}
+
+.history-pic {
+  width: 20%;
+  height: 50px;
+}
+
+.history-content {
+  width: 80%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 20%;
+  font-size: 12px;
+}
+
+
+img {
+  display: block;
+  width: 80%;
+  height: 80%;
+  position: relative;
+  left: 10px;
+}
+
+.history-text {
+  position: relative;
+  left: 60px;
+  margin-top: -40px;
+  font-size: 15px;
+}
+
+.tipName {
+  display: block;
+  width: 37%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tipTime {
+  display: block;
+  width: 40%;
+  position: relative;
+  left: 40%;
+  top: -15px;
+  color: #aaa;
+}
+
+.tipNum {
+  display: block;
+  position: relative;
+}

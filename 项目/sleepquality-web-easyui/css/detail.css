@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#headerBox {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    background-color: #ddd;
+}
+
+#headerBox>a {
+    display: block;
+    text-decoration: none;
+    color: #008cff;
+    position: relative;
+    left: 10px;
+}
+
+.header-title {
+    position: relative;
+    top: -30px;
+    left: 40%;
+    font-size: 14px;
+}
+
+.answer-detail {
+    margin-top: 20px;
+    margin-left: 5%;
+    width: 90%;
+    height: 100%;
+    font-size: 12px;
+}
+
+.topic-sign {
+    width: 3px;
+    height: 15px;
+    background-color: #008cff;
+    float: left;
+    margin-right: 5px;
+}
+
+#topic {
+    margin-bottom: 10px;
+}
+
+#ans-group {
+    width: 100%;
+    height: 150px;
+}
+
+.tip {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+}
+
+.radio_option {
+    width: 15px;
+    height: 15px;
+    appearance: none;
+    position: relative;
+    margin-right: 5px;
+}
+
+.radio_option:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    border: 1px solid #7d7d7d;
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.radio_option:checked:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    border: 1px solid #008cff;
+    background: #008cff;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.radio_option:checked:after {
+    content: '';
+    width: 8px;
+    height: 4px;
+    border: 2px solid white;
+    border-top: transparent;
+    border-right: transparent;
+    text-align: center;
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    transform: rotate(-45deg);
+}
