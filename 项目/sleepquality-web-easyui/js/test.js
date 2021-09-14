@@ -46,6 +46,7 @@ let answerSource = [
 
 let result = {};
 let isDone = false;
+let questionId = 0
 // 开始答题
 startAnswerBtn.addEventListener("click", function () {
   if (!timer) startCountTimer();
@@ -186,7 +187,6 @@ submitBtn.addEventListener("click", function () {
     wechatOpenid: openId,
     wechatUserAnswerDetailList
   };
-  var questionId = 0
   console.log(parseParam(submitData), "parseParam(submitData)...");
   $.ajax({
     url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_answer_create",
@@ -208,7 +208,7 @@ submitBtn.addEventListener("click", function () {
 function submitAnswer() {
   $(".answerSubmitwrapper").css("display", "none");
   setTimeout(() => {
-    window.location.href = "./detailreport.html?questionId="+questionId;
+    window.location.href = "./detailreport.html?id="+questionId;
   }, 1000);
 }
 
