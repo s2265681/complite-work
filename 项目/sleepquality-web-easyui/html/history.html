@@ -41,9 +41,8 @@
       success: function (data) {
         let dataSource = data.data.rows || [];
         console.log(dataSource, "历史数据");
-        let historyRecords = document.getElementById("historyRecords");
         let historyStr = "";
-        for (let i = 0; i < dataSource.length - 1; i++) {
+        for (let i = 0; i < dataSource.length; i++) {
           historyStr += `
             <a href='./detailreport.html?id=${dataSource[i].id}'>
               <div class="history-tip">
@@ -61,7 +60,7 @@
             </a>
           `;
         }
-        $(historyRecords).html(historyStr);
+        $('#historyRecords').html(historyStr);
       },
       error: function (result) {
         alert(result.message);

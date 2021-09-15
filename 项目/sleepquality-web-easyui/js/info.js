@@ -2,22 +2,23 @@ const appId = "wxa8fa366d958272c0";
 let birthday = "";
 let openId = localStorage.getItem('openId');
 let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-let userInfoData = JSON.parse(localStorage.getItem('userInfoData'))
-let wechatNickname = userInfoData.nickname;
-let wechatCountry = userInfoData.country;
-let wechatProvince = userInfoData.province;
-let wechatCity = userInfoData.city;
-// console.log(openId, "openId");
-// console.log(userInfo, "userInfo");
-// console.log(userInfoData,"用户信息");
+let wechatNickname = userInfo?.nickname;
+let wechatCountry = userInfo?.country;
+let wechatProvince = userInfo?.province;
+let wechatCity = userInfo?.city;
+
 if (userInfo) {
-  $('#kinerDatePickerInput3').kinerDatePickerVal(userInfo.wechatBirthday);
+  console.log(userInfo.wechatBirthday,'userInfo.wechatBirthday')
+  // $('#kinerDatePickerInput3').kinerDatePickerVal(userInfo.wechatBirthday);
+  $("#birthdayBtn").html(userInfo.wechatBirthday)
+  console.log(userInfo.wechatBirthday)
   if (userInfo.wechatSex == "1") {
     $(":radio[name='type'][value='" + 1 + "']").prop("checked", "checked");
   } else {
     $(":radio[name='type'][value='" + 2 + "']").prop("checked", "checked");
   }
 }
+
 // 出生日期
 $("#birthdayBtn").kinerDatePicker({
   clickMaskHide: true,
@@ -73,12 +74,34 @@ function submitPersonInfo() {
       if (data.code === 200) {
         $(".messageTip").css("display", "block");
         $(".messageTip").delay(1000).hide(0);
+        userQuery(openId)
         setTimeout(() => {
           window.location.href = "./index.html";
         }, 1000);
       } else {
         alert(data.message);
       }
+    },
+    error: function (result) {
+      alert(result.message);
+    },
+  });
+}
+
+
+function userQuery(openId) {
+  if (!openId) throw Error("openId 不能为空");
+  var userData = {
+    wechatOpenid: openId,
+    wechatAppid: "wxa8fa366d958272c0",
+  };
+  $.ajax({
+    url: "https://testapp.zlkcxdnf.cn/zlkcxd-app-web/app/proxy/http/channel/wechat_user_query",
+    method: "POST",
+    contentType: "application/x-www-form-urlencoded",
+    data: userData,
+    success: function (data) {
+        window.localStorage.setItem("userInfo", JSON.stringify(data.data));
     },
     error: function (result) {
       alert(result.message);
