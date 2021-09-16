@@ -20,7 +20,7 @@
 
 .header-title {
   position: relative;
-  left: 23%;
+  left: 20%;
   font-size: 14px;
 }
 
@@ -98,6 +98,11 @@
   line-height: 10px;
   background-color: #ccc;
   padding: 10px;
+}
+
+.formbox1 .form-tip,
+.formbox2 .form-tip{
+  margin-top: 5px;
 }
 
 .formbox1,

@@ -14,7 +14,7 @@
 
   <body>
     <div id="headerBox">
-      <a href="javascript:history.go(-1);"> < 返回</a>
+      <a href="./index.html"> < 返回</a>
       <span class="header-title">历史记录</span>
     </div>
 
@@ -39,17 +39,18 @@
       contentType: "application/x-www-form-urlencoded",
       data: reportResultlData,
       success: function (data) {
-        let dataSource = data.data.rows || [];
+        let dataSource = data.data?.rows || [];
         console.log(dataSource, "历史数据");
         let historyStr = "";
         for (let i = 0; i < dataSource.length; i++) {
           historyStr += `
-            <a href='./detailreport.html?id=${dataSource[i].id}'>
+            <a href='./detailreport.html?id=${dataSource[i].id}&pageType=history'>
               <div class="history-tip">
                 <div class="history-pic"><img src="../image/heart.gif"></div>
                 <div class="history-content">
                     <span class="tipName">失眠严重程度指数量表</span>
-                      <span class="tipTime">${new Date(dataSource[i].createTime)
+                      <span class="tipTime">${
+                        new Date(dataSource[i].createTime)
                         .toLocaleDateString()
                         .split("/")
                         .join("-")}

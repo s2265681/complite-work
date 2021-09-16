@@ -35,7 +35,7 @@ body {
 
 #testbutton {
   position: absolute;
-  left: 20%;
+  left: 22%;
   bottom: 20%;
 }
 
@@ -84,7 +84,7 @@ body {
 #testTab {
   position: absolute;
   left: 15%;
-  bottom: 30%;
+  bottom: 35%;
   width: 70%;
   height: 200px;
   border-radius: 15px;
@@ -100,12 +100,7 @@ body {
   line-height: 40px;
   text-align: center;
   color: #fff;
-  /* background-color: #008cff; */
   font-size: 15px;
-  /* border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px; */
 }
 
 .testTab-text {

@@ -11,6 +11,7 @@ let userInfoData = '';
 // 关于测试弹出框
 let wrapper = document.querySelector(".wrapper");
 
+
 const supplement = document.querySelector(".supplement");
 // let box = document.querySelector("#testTab");
 function openModal() {
@@ -77,8 +78,8 @@ window.onload = function () {
         userQuery(info.openid);
         userInfoData = info;
         openId = info.openid;
-        console.log(openId,"openId");
-        console.log(userInfoData,"用户信息");
+        console.log(openId, "openId");
+        console.log(userInfoData, "用户信息");
       } else {
         throw Error("暂无用户信息");
       }
@@ -101,17 +102,22 @@ function userQuery(openId) {
     success: function (data) {
       if (!data.data) {
         //没有用户信息数据
-        var testingTabwrapper = document.querySelector(".testingTabwrapper");
+        $(".testbt").click(function () {
+          console.log('1111')
+          var testingTabwrapper = document.querySelector(".testingTabwrapper");
+          testingTabwrapper.style.visibility = "visible";
+        })
         $(".cancel").click(function () {
           testingTabwrapper.style.visibility = "hidden";
         });
-        testingTabwrapper.style.visibility = "visible";
       } else {
         //有用户信息数据跳转到测试题页面
-        window.location.href = "./test.html";
-        window.localStorage.setItem("userInfo", JSON.stringify(data.data));
-        window.localStorage.setItem("openId", openId);
-        window.localStorage.setItem("userInfoData", JSON.stringify(userInfoData));//用户信息
+        $(".testbt").click(function (){
+          window.location.href = "./test.html";
+          window.localStorage.setItem("userInfo", JSON.stringify(data.data));
+          window.localStorage.setItem("openId", openId);
+          window.localStorage.setItem("userInfoData", JSON.stringify(userInfoData));//用户信息 
+        })
       }
     },
     error: function (result) {
@@ -124,3 +130,5 @@ function userQuery(openId) {
 supplement.addEventListener('click', function () {
   window.location.href = "./info.html?userInfoData=" + JSON.stringify(userInfoData);
 })
+
+

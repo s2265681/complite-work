@@ -15,7 +15,7 @@
 
   <body>
     <div id="headerBox">
-      <a href="./index.html" class="lastTo"> < 返回</a>
+      <a href="javascript:;" class="lastTo"> < 返回</a>
       <span class="header-title">失眠严重程度指数量表</span
       ><a href="#" class="nextInfo">答题情况</a>
     </div>
@@ -79,6 +79,8 @@
     type="text/javascript"
   ></script>
   <script>
+    let lastTo = document.querySelector(".lastTo");
+
     const nextInfo = document.querySelector(".nextInfo");
     // 获取id
     function getQuestId() {
@@ -135,6 +137,25 @@
       error: function (result) {
         alert(result.message);
       },
+    });
+
+    // 获取 pageType
+    function getPageType() {
+      let url = window.location.href;
+      let obj = {};
+      url.replace(/([^#?&#]+)=([^&#?#]+)/g, (...[, b, c]) => {
+        obj[b] = c;
+      });
+      return obj["pageType"] || "";
+    }
+
+    // 返回 历史记录 返回上一页， 否则返回首页
+    lastTo.addEventListener("click", function (e) {
+      if (getPageType() === "history") {
+        window.location.href = "./history.html";
+      } else {
+        window.location.href = "./index.html";
+      }
     });
   </script>
 </html>
