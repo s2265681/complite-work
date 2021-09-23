@@ -1,0 +1,8 @@
+9:06:43 PM : refresh apiAccessToken:{"access_token":"49_76rF0Wzw5aI73eILNL40hUrBmyxgu85mej-mU-VPdZk41JSTqJPzQcDNDQcM9BVZzpVr6TpzKsVLawW5OvpM5lvEs9Fk3pePYCqlQRiEODRIMPYEvtxm7Weh_yz9otuiik_RsaBb1TDuatWcQCGcAJAUGK","expires_in":7200}
+9:06:43 PM : refresh ticket:{"errcode":0,"errmsg":"ok","ticket":"HoagFKDcsGMVCIY2vOjf9gFU-ViYopfwsANVLqc30qjXI032wTcu3XFPDejzxfL2I4-bcpNLDwprIiBJxJigWw","expires_in":7200}
+9:06:50 PM : getApiAccessToken cached:{"accessToken":"49_76rF0Wzw5aI73eILNL40hUrBmyxgu85mej-mU-VPdZk41JSTqJPzQcDNDQcM9BVZzpVr6TpzKsVLawW5OvpM5lvEs9Fk3pePYCqlQRiEODRIMPYEvtxm7Weh_yz9otuiik_RsaBb1TDuatWcQCGcAJAUGK","expiresAt":1632323203756}
+9:06:50 PM : get cached ticket: HoagFKDcsGMVCIY2vOjf9gFU-ViYopfwsANVLqc30qjXI032wTcu3XFPDejzxfL2I4-bcpNLDwprIiBJxJigWw
+9:07:22 PM : getApiAccessToken cached:{"accessToken":"49_76rF0Wzw5aI73eILNL40hUrBmyxgu85mej-mU-VPdZk41JSTqJPzQcDNDQcM9BVZzpVr6TpzKsVLawW5OvpM5lvEs9Fk3pePYCqlQRiEODRIMPYEvtxm7Weh_yz9otuiik_RsaBb1TDuatWcQCGcAJAUGK","expiresAt":1632323203756}
+9:07:22 PM : get cached ticket: HoagFKDcsGMVCIY2vOjf9gFU-ViYopfwsANVLqc30qjXI032wTcu3XFPDejzxfL2I4-bcpNLDwprIiBJxJigWw
+9:10:00 PM : getApiAccessToken cached:{"accessToken":"49_76rF0Wzw5aI73eILNL40hUrBmyxgu85mej-mU-VPdZk41JSTqJPzQcDNDQcM9BVZzpVr6TpzKsVLawW5OvpM5lvEs9Fk3pePYCqlQRiEODRIMPYEvtxm7Weh_yz9otuiik_RsaBb1TDuatWcQCGcAJAUGK","expiresAt":1632323203756}
+9:10:00 PM : get cached ticket: HoagFKDcsGMVCIY2vOjf9gFU-ViYopfwsANVLqc30qjXI032wTcu3XFPDejzxfL2I4-bcpNLDwprIiBJxJigWw

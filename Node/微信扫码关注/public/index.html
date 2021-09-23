@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  </head>
+  <style>
+    .wx_code{
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+  <body>
+    <button id="getCode">关注公众号</button>
+    <div>
+      扫码关注公众号
+      <img class="wx_code" src="" alt="" />
+    </div>
+  </body>
+
+  <script>
+    const wxCode = document.querySelector(".wx_code");
+    document.querySelector("#getCode").onclick = function () {
+      $.ajax({
+        type: "get",
+        url: "/wechat/get_user_code",
+        success: function (data) {
+          wxCode.src = data.url
+        },
+        dataType: "json",
+      });
+    };
+  </script>
+</html>
