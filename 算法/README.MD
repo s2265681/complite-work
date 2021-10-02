@@ -50,3 +50,13 @@ const instance = (A, B) => {
 instance([], Array);
 console.log("11");
 ```
+
+```js
+var foo = {},
+  F = function () {};
+Object.prototype.a = "value a";
+Object.prototype.b = "value b";
+
+console.log(foo.a, F.b, F.a); // value a value b value a
+console.log(foo.a === F.a); // true
+```
