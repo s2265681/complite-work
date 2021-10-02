@@ -9,32 +9,27 @@
  * @param {string} s
  * @return {boolean}
  */
+let type = {
+  "(": ")",
+  "[": "]",
+  "{": "}",
+};
 var isValid = function (s) {
-  let type = {
-    "(": ")",
-    "[": "]",
-    "{": "}",
-  };
-  let array = [];
-  let lastV
+  if (s.length % 2 === 1) return false;
+  let stack = [];
   for (let i = 0; i < s.length; i++) {
-    let curV = s[i];
-    if(curV === lastV){
-        array.pop()
-        lastV = type[array.slice(-1)]
-    }else{
-        array.push(curV)
-        lastV = type[curV]
-    }
+    let cur = s[i];
+    if (type[cur]) stack.push(type[cur]);
+    if (!type[cur] && stack.pop() !== cur) return false;
   }
-  return !array.length;
+  return !stack.length;
 };
 // @lc code=end
 // let s = "()"; // => true
 // let s = "()[]{}" // => true
 // let s = "(]" // => false
-// let s = "([)]" // => false
+// let s = "([)]"; // => false
 // let s = "{[]}" // => true
 // let s = "]"; // => false
-// let s = "([{}])"
+let s = "([{}])";
 console.log(isValid(s));
