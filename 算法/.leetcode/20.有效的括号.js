@@ -9,18 +9,33 @@
  * @param {string} s
  * @return {boolean}
  */
-let type = {
-  "(": ")",
-  "[": "]",
-  "{": "}",
-};
+// let type = {
+//   "(": ")",
+//   "[": "]",
+//   "{": "}",
+// };
+// var isValid = function (s) {
+//   if (s.length % 2 === 1) return false;
+//   let stack = [];
+//   for (let i = 0; i < s.length; i++) {
+//     let cur = s[i];
+//     if (type[cur]) stack.push(type[cur]);
+//     if (!type[cur] && stack.pop() !== cur) return false;
+//   }
+//   return !stack.length;
+// };
+
 var isValid = function (s) {
+  let map = new Map();
+  map.set("(", ")");
+  map.set("{", "}");
+  map.set("[", "]");
   if (s.length % 2 === 1) return false;
   let stack = [];
   for (let i = 0; i < s.length; i++) {
     let cur = s[i];
-    if (type[cur]) stack.push(type[cur]);
-    if (!type[cur] && stack.pop() !== cur) return false;
+    if (map.has(cur)) stack.push(map.get(cur));
+    if (!map.has(cur) && stack.pop() !== cur) return false;
   }
   return !stack.length;
 };
