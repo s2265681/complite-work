@@ -84,5 +84,23 @@ const inorder = (root) => {
 ## LeetCode 【104】 二叉树的最大深度
 
 ```js
-
+// 时间复杂度 O(n)
+// 空间复杂度 O(logN) - O(n)
+var maxDepth = function (root) {
+  // 深度递归二叉树， 记录最大深度
+  if (!root) return 0;
+  let res = 0;
+  const dfs = (n, l) => {
+    if (!n) return;
+    console.log(n.val, l);
+    // 只需要当前节点是叶子姐节电，再更新
+    if (!n.left && !n.right) {
+      res = Math.max(res, l);
+    }
+    dfs(n.left, l + 1);
+    dfs(n.right, l + 1);
+  };
+  dfs(root, 1);
+  return res;
+};
 ```
