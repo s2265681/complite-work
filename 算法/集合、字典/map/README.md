@@ -97,6 +97,8 @@ var lengthOfLongestSubstring = function (s) {
   // 解法1 双指针维护滑动窗口
   // 思路是 1、维护窗口， 遇到重复字符移动左指针到重复字符下标后面
   // 保存每次的大小， 进行对比
+  // 时间复杂度O(n)
+  // 空间复杂度O(m) m 是不重复的个数
   let l = 0;
   let res = 0;
   let map = new Map();
@@ -109,4 +111,10 @@ var lengthOfLongestSubstring = function (s) {
   }
   return res;
 };
+```
+
+- 【76】 最小覆盖子串
+
+```js
+
 ```
