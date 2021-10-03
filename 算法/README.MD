@@ -32,6 +32,8 @@ O(n^2) => 存储 N 的二次方的变量， 如矩阵
 
 - 链表 原型链
 
+- 树结构 DOM CSS
+
 ```js
 // 实战 简述原理 实现一个instance函数
 // 思路：遍历A的原型链，如果找到B.prototype返回true，否则为false
