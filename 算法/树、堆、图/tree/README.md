@@ -104,3 +104,9 @@ var maxDepth = function (root) {
   return res;
 };
 ```
+
+## LeetCode [111] 二叉树的最小深度
+
+```js
+
+```
