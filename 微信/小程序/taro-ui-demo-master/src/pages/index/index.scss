@@ -1,0 +1,154 @@
+@import "../../assets/css/theme.scss";
+
+.page {
+  position: relative;
+  background-color: #FDFDFD;
+
+  view,
+  div {
+    box-sizing: border-box;
+  }
+}
+
+.page-index {
+  padding: 60px 0 30px;
+
+  .logo {
+    margin: 0 auto;
+    margin-top: 60px;
+    font-size: 0;
+    text-align: center;
+
+    .img {
+      width: 264px;
+      height: 180px;
+    }
+  }
+
+  .page-title {
+    margin-top: 24px;
+    color: #474747;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .module-list {
+    display: flex;
+    margin: 72px 40px 50px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &__item {
+      position: relative;
+      margin-bottom: 30px;
+      padding: 40px;
+      width: 320px;
+      background: #fff;
+      box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        display: block;
+        width: 30px;
+        height: 8px;
+        border-radius: 4px;
+        background: $color-brand-light;
+        box-shadow: 2px 2px 4px 0 rgba($color: $color-brand-light, $alpha: 0.5);
+      }
+
+      &-title {
+        margin-top: 70px;
+        color: #484848;
+        font-size: 38px;
+        font-weight: bold;
+        line-height: 1.2;
+      }
+
+      &-content {
+        margin-top: 12px;
+        color: #A09EAE;
+        font-size: 24px;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.page-body {
+  padding: 40px;
+}
+
+.component-group {
+  font-size: 32px;
+}
+
+.group-item {
+  padding: 0 30px;
+  margin: 20px 0;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.group-info {
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s;
+
+  &-title {
+    opacity: 0.5;
+  }
+}
+
+.group-list {
+  font-size: 28px;
+
+  .list-component {
+    padding: 20px 0;
+    position: relative;
+    align-items: center;
+
+    &::before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 1px;
+      border-top: 1px solid #d8d8d8;
+      color: #d8d8d8;
+    }
+
+    &:first-child::before {
+      display: none;
+    }
+
+    &-info {
+      width: 100%;
+    }
+
+    &-arrow {
+      display: inline-block;
+      height: 18px;
+      width: 18px;
+      border-width: 2px 2px 0 0;
+      border-color: #888;
+      border-style: solid;
+      transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0) translate(-50%);
+      position: absolute;
+      top: 50%;
+      right: 0;
+    }
+  }
+}

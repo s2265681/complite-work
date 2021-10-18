@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+</head>
+<style>
+  div{
+      width: 500px;
+      height:5000px;
+      background: #ff0;
+  }
+  img{
+      width:100px;
+      height:200px;
+  }
+</style>
+<body>
+    <div>
+        1212
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        <img data-src="http://b-ssl.duitang.com/uploads/blog/201512/29/20151229201204_Hkixu.jpeg" src="http://img0.imgtn.bdimg.com/it/u=642774083,3635608315&fm=26&gp=0.jpg"/><br/>
+        
+    </div>
+    <script>
+
+    // 节流 执行中稳定的时间内执行，执行中多少秒后执行
+    // 防抖 是执行完多长时间执行，执行完后多少秒执行
+    const thtottle = (func,wait=12000)=>{
+        // 无论你调用多少次，函数都是100毫秒执行一次
+        let lastTime = 0
+        return (...args)=>{
+            let now = new Date().getTime();
+            if (now-lastTime>wait){
+                // 时间差大于100
+                func.apply(this,args)
+                lastTime = now
+            }
+        }
+    }
+
+    let i = 0 ;
+    window.addEventListener('scroll',
+    thtottle(()=>{
+        // 进行图片懒加载
+        i+=1
+        // console.log(i)
+         // 监听scroll事件
+    // window.addEventListener('scroll',lazyload,false)
+    lazyload()
+
+    },200)
+    )
+
+    // 图片懒加载
+    // 获取所有图片标签
+    const imgs = document.getElementsByTagName('img')
+    // 获取可视区域的高度
+    const viewHeight = window.innerHeight ||document.documentElement.clientHeight
+    // num 用与同级当前显示到了那一张图片，避免每次都从第一长图片开始检查是否露出
+    let num = 0
+    function lazyload(){
+        for(let i =num;i<imgs.length;i++){
+            // 用可视区域高度减去元素顶部巨鹿可视去也顶部的高度
+            let distance = viewHeight - imgs[i].getBoundingClientRect().top
+            // 如果可视去也高度大于等于元素顶部距离可视区域顶部的高度，说明元素露出
+            if(distance>=0){
+                console.log('写入图片')
+                // 给元素写入真实的src，展示图片
+                imgs[i].src=imgs[i].getAttribute('data-src')
+                // 前i张图片已经加载完毕，下次从i+1张开始检查是否露出
+                num = i + 1
+            }
+        }
+    }
+    
+    // // 监听scroll事件
+    // window.addEventListener('scroll',lazyload,false)
+
+    </script>
+
+</body>
+
+</html>

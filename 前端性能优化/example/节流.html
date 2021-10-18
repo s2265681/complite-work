@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>节流</title>
+</head>
+<style>
+  div{
+      width: 500px;
+      height:5000px;
+      background: #ff0;
+  }
+</style>
+<body>
+    <div>
+        1212
+    </div>
+    <script>
+ 
+
+    // 节流
+    const thtottle = (func,wait=100)=>{
+        // 无论你调用多少次，函数都是100毫秒执行一次
+        let lastTime = 0
+        return (...args)=>{
+            let now = new Date().getTime();
+            if (now-lastTime>wait){
+                // 时间差大于100
+                func.apply(this,args)
+                lastTime = now
+            }
+        }
+    }
+
+
+    let i = 0 ;
+    window.addEventListener('scroll',
+    thtottle(()=>{
+        // 进行图片懒加载
+        i+=1
+        console.log(i)
+    },200)
+    // function(){
+    //     console.log('scroll' , i)
+    //     i+=1;
+    // }
+    )
+
+
+
+    </script>
+</body>
+
+</html>

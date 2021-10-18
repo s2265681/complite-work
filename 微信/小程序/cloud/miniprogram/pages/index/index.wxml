@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+
+<view class="info" wx:for="{{books}}">
+
+{{item.title}}
+
+</view>
+
+
+</view>

@@ -1,0 +1,7 @@
+.book-cover{
+  height:200px;
+  width:100%;
+}
+.info{
+  height: 300px;
+}

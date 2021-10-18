@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <view wx:for="{{books}}" wx:key="index" class="info">
+        <image class="book-cover" src="{{item.image}}"></image>
+        <view>{{item.title}}</view>
+  </view>
+   首页
+</view>

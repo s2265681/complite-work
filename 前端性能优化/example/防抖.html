@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>防抖</title>
+</head>
+<style>
+      div{
+      width: 500px;
+      height:5000px;
+      background: #ff0;
+  }
+</style>
+
+<body>
+    <div>
+        <input oninput="test(this.value)" id="myInput"/>
+    </div>
+    <script>
+   // 校验用户输入的用户名是不是重复，用户输入完，向后端发起请求
+   // 如果用户每次输入 都发出请求，冗余请求过多
+   // 如果用户停止输入自负350毫秒后，再发出请求
+   const debounce = (func,wait=350)=>{
+       let timer=0;
+       return (...args)=>{
+           if(timer){
+            //    console.log('//11')
+               clearTimeout(timer)
+           }
+           timer = setTimeout(()=>{
+               func.apply(this,args)
+           },wait)
+       }
+   }
+
+    // 监听事件滑动防抖
+   let i = 0 ;
+    window.addEventListener('scroll',
+    debounce(()=>{
+        i+=1
+        console.log(i)
+    },350)
+    )
+
+    // 监听input输入防抖
+    document.getElementById("myInput").addEventListener("input",
+    debounce((e)=>{
+        console.log(e.target.value,'11')
+    },350)
+    );
+    
+
+
+
+  
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

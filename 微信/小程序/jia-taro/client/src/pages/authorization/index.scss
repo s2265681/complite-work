@@ -1,0 +1,22 @@
+.page {
+    &-text {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    &-text:first-child {
+        margin-top: 300px;
+    }
+
+    &-button {
+        width: 80%;
+        height: 100px;
+        margin: 0 10%;
+        margin-top: 300px;
+        background: #41464b;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 100px;
+        border-radius: 50px;
+    }
+}
