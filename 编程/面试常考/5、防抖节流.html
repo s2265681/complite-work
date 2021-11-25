@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>防抖节流</h1>
+  </body>
+  <script src="./4、防抖.js"></script>
+  <script src="./5、节流.js"></script>
+  <script>
+    !(function () {
+      function handleResize(e) {
+        console.log(e, "eeee");
+      }
+    //   window.addEventListener("resize", debounce(handleResize,1000));
+      window.addEventListener("resize", throttle(handleResize,1000));
+    })();
+  </script>
+</html>

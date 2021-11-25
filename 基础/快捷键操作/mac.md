@@ -40,3 +40,4 @@
 
 ## 一些好用的命令
 - find . -type d -name "node_modules" | xargs rm -rf 删除所有当前文件夹下的node_modules
+- 代码执行 control + option + N  停止  control + option + M
