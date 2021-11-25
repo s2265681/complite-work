@@ -1,9 +1,9 @@
 ## 浏览器页面操作
-
 - command + W 关闭当前页
 - command + shift + T 恢复关掉的当前页
 - control + tab 切换当前页签
 - option + command + I 打开浏览器工具
+
 
 ## 编辑器快捷操作
 
@@ -14,6 +14,7 @@
 - command + shift + N 打开一个新的编辑器
 - command + B 侧边栏打卡收起
 - comand + shift + [ or ] 切换左右tab
+- 按住 option 可多选光标
 
 2、代码编辑
 
