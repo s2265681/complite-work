@@ -14,18 +14,20 @@ const obj = {
 };
 
 function loopGetLevel(obj) {
-  //    let level = 1
-  //    function cycle(obj){
-  //       Object.keys(obj).forEach(item=>{
-  //          let value = obj[item]
-  //          if(Object.prototype.toString.call(value) === '[object Object]'){
-  //              level++
-  //              cycle(value)
-  //          }
-  //       })
-  //    }
-  //    cycle(obj)
-  //    return level
+  let res = 1;
+  function computedLevel(obj, level = 0) {
+    if (typeof obj === "object") {
+      for (var key in obj) {
+        if (typeof obj[key] === "object") {
+          computedLevel(obj[key], level + 1);
+        } else {
+          res = level + 1 > res ? level + 1 : res;
+        }
+      }
+    }
+  }
+  computedLevel(obj);
+  return res;
 }
 
 console.log(loopGetLevel(obj)); // 4
