@@ -81,7 +81,7 @@ name"
  >
  >6.  远端分支回滚版本也可使用 revert  
  >    git revert -n 版本号  
-   （会生成一个新版本号，但是和要回滚的版本号的内容是一样的）
+      git revert 意思是重做，不会影响后面提交的节点 （会对比修改新的节点内容）
  >
 
 - **合并请求**
@@ -170,4 +170,5 @@ git commit -c ORIG_HEAD
 参考: [我在工作中是如何使用 git ](https://juejin.cn/post/6974184935804534815)
 [git提交规范](https://www.jianshu.com/p/201bd81e7dc9?utm_source=oschina-app)
 
+111
 
