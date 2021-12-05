@@ -1,0 +1,41 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-05 18:40:24
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" style="border: 1px solid #000000"></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("canvas");
+    canvas.width = 1024;
+    canvas.height = 768;
+
+    var ctx = canvas.getContext("2d");
+    ctx.moveTo(100, 100);
+    ctx.lineTo(700, 700);
+    ctx.lineTo(100, 700);
+    ctx.lineTo(100, 100);
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "red";
+    ctx.stroke(); // 笔画
+    ctx.fillStyle = "rgb(2,100,30)";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(200, 100);
+    ctx.lineTo(700, 600);
+    ctx.closePath();
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+  </script>
+</html>

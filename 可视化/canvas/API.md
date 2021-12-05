@@ -1,3 +1,8 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-07-28 15:47:51
+-->
 
 
 # API
@@ -5,12 +10,15 @@
 
 ## 方法
 - getContext()   获取canvas上下文  
-- moveTo(x,y)、lineTo(x,y)  画直线
+- moveTo(x,y)  lineTo(x,y)  lineTo(x,y) 画直线
+- lineWidth 线条宽度
+- strokeStyle 线条颜色
 - stroke()  绘制边框
 - fill()   填充
 - fillRect(x,x,width,height)     填充矩形 Number
 - strokeRect(x,x,width,height)     矩形边框 Number
-- beginPath()   开始一条路径
+- beginPath()   开始一条新路径
+- closePath()   结束
 - arc(x,y,r,sAngle,eAngle,counterclockwise)   创建曲线 counterclockwise Boolean顺逆时针 圆的话 0，0 到2*Math.PI
 - arcTo(x1,y1,x2,y2,r)  画弧
 - closePath()   闭合路径
