@@ -23,15 +23,27 @@ window.onload = function () {
 
   curShowTimeSeconds = getCurShowTimeSeconds();
 
-  setInterval(()=>{
+  setInterval(() => {
     render(context);
-    update()
-  },50)
+    update();
+  }, 1000);
 };
 
 // 更新当前curShowTimeSeconds
-function update(){
-    
+function update() {
+  var nextShowTimeSeconds = getCurShowTimeSeconds();
+
+  var nextHours = parseInt(nextShowTimeSeconds / 3600);
+  var nextMinutes = parseInt((nextShowTimeSeconds - nextHours * 3600) / 60);
+  var nextSeconds = nextShowTimeSeconds % 60;
+
+  var curHours = parseInt(curShowTimeSeconds / 3600);
+  var curMinutes = parseInt((curShowTimeSeconds - curHours * 3600) / 60);
+  var curSeconds = curShowTimeSeconds % 60;
+
+  if (nextSeconds !== curSeconds) {
+    curShowTimeSeconds = nextSeconds;
+  }
 }
 
 // 计算当前倒计时的差值的秒数
@@ -44,7 +56,7 @@ function getCurShowTimeSeconds() {
 
 // 渲染时分秒
 function render(ctx) {
-  ctx.clearReact(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
   var hours = parseInt(curShowTimeSeconds / 3600);
   var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);
