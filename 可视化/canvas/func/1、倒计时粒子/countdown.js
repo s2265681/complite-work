@@ -10,7 +10,7 @@ var RADIUS = 8;
 var MARGIN_LEFT = 30;
 var MARGIN_TOP = 60;
 
-var endTime = new Date(2021, 11, 06, 18, 47, 52);
+var endTime = new Date(2021, 11, 07, 18, 47, 52);
 var curShowTimeSeconds = 0;
 
 var balls = [];
@@ -49,7 +49,7 @@ window.onload = function () {
   }, 50);
 };
 
-// 更新当前curShowTimeSeconds
+// 更新当前curShowTimeSeconds 和 小球渲染
 function update() {
   var nextShowTimeSeconds = getCurShowTimeSeconds();
 
@@ -115,6 +115,7 @@ function getCurShowTimeSeconds() {
   return ret >= 0 ? ret : 0;
 }
 
+// 更新小球的位置关系
 function updateBalls() {
   for (var i = 0; i < balls.length; i++) {
     balls[i].x += balls[i].vx;
@@ -122,9 +123,31 @@ function updateBalls() {
     balls[i].vy += balls[i].g;
     if (balls[i].y >= WINDOW_HEIGHT - RADIUS) {
       balls[i].y = WINDOW_HEIGHT - RADIUS;
-      balls[i].vy = -balls[i].vy * 0.35;
+      balls[i].vy = -balls[i].vy * 0.45;
     }
+    // 右侧墙壁的碰撞
+    // if (balls[i].x >= WINDOW_WIDTH - RADIUS) {
+    //   balls[i].x = WINDOW_WIDTH - RADIUS;
+    //   balls[i].vx = -balls[i].vx
+    // }
+    // 左侧碰撞后
+    // if (balls[i].x <= 0 + RADIUS / 2) {
+    //   balls[i].x = 0 + RADIUS / 2
+    //   balls[i].vx = -balls[i].vx
+    // }
   }
+  // 优化小球在画面内  右边缘大于0
+  // 数组优化， 通过适合条件的索引， 将符合条件的数组重新排列， 不符合的通告数组的pop删除。此算法通过On解决了问题
+  var cnt = 0;
+  for (var i = 0; i < balls.length; i++) {
+    if (balls[i].x + RADIUS > 0 && balls[i].x - RADIUS < WINDOW_WIDTH)
+      balls[cnt++] = balls[i];
+  }
+  // console.log(balls, "balls...11");
+  while (balls.length > Math.min(300, cnt)) {
+    balls.pop();
+  }
+  // console.log(balls.length, "balls..22.");
 }
 
 // 添加小球
@@ -149,12 +172,9 @@ function addBalls(x, y, num) {
 // 渲染时分秒
 function render(ctx) {
   ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
   var hours = parseInt(curShowTimeSeconds / 3600);
   var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);
   var seconds = curShowTimeSeconds % 60;
-
-  console.log(hours, minutes, seconds);
 
   renderDigit(MARGIN_LEFT, MARGIN_TOP, parseInt(hours / 10), ctx);
   renderDigit(
@@ -193,6 +213,8 @@ function render(ctx) {
   );
   // 绘制小球
   renderBall(ctx);
+
+  // console.log(balls.length)
 }
 
 // 渲染小球
