@@ -13,6 +13,10 @@ var MARGIN_TOP = 60;
 var endTime = new Date(2021, 11, 06, 18, 47, 52);
 var curShowTimeSeconds = 0;
 
+var balls = []
+// var ball = { x: 500, y:100, r: 20, vy: -4, vx: -4, g: 2 }
+var colors = ['#f00','#ff0','#fff','#0ff','#00f','#f0f','#0f0','#000','blue','orange']
+
 // 初始化
 window.onload = function () {
   const canvas = document.getElementById("canvas");
@@ -26,24 +30,39 @@ window.onload = function () {
   setInterval(() => {
     render(context);
     update();
-  }, 1000);
+  
+    // ball.x += ball.vx;
+    // ball.y += ball.vy;
+    // ball.vy += ball.g;
+    // renderBall(context);
+  }, 50);
 };
 
 // 更新当前curShowTimeSeconds
 function update() {
   var nextShowTimeSeconds = getCurShowTimeSeconds();
 
-  var nextHours = parseInt(nextShowTimeSeconds / 3600);
-  var nextMinutes = parseInt((nextShowTimeSeconds - nextHours * 3600) / 60);
+  // var nextHours = parseInt(nextShowTimeSeconds / 3600);
+  // var nextMinutes = parseInt((nextShowTimeSeconds - nextHours * 3600) / 60);
   var nextSeconds = nextShowTimeSeconds % 60;
 
-  var curHours = parseInt(curShowTimeSeconds / 3600);
-  var curMinutes = parseInt((curShowTimeSeconds - curHours * 3600) / 60);
+  // var curHours = parseInt(curShowTimeSeconds / 3600);
+  // var curMinutes = parseInt((curShowTimeSeconds - curHours * 3600) / 60);
   var curSeconds = curShowTimeSeconds % 60;
 
   if (nextSeconds !== curSeconds) {
-    curShowTimeSeconds = nextSeconds;
+    curShowTimeSeconds = nextShowTimeSeconds;
   }
+}
+
+// 渲染小球
+function renderBall(ctx) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.fillStyle = ball.color;
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
+  ctx.closePath();
+  ctx.fill()
 }
 
 // 计算当前倒计时的差值的秒数

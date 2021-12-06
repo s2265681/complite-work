@@ -1,0 +1,72 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-06 11:30:45
+-->
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-05 19:57:49
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" style="display:block;margin:50px auto;border:1px solid #000">
+        当前浏览器不支持Canvas，请更换浏览器后再试试
+    </canvas>
+  </body>
+  <script>
+var WINDOW_WIDTH = 1024;
+var WINDOW_HEIGHT = 768;
+var ball = {
+  x: 512,
+  y: 100,
+  r: 20,
+  g: 2,
+  vx: -4,
+  vy: -12,
+  color: "#005588",
+};
+// 初始化
+window.onload = function () {
+  const canvas = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
+
+  canvas.width = WINDOW_WIDTH;
+  canvas.height = WINDOW_HEIGHT;
+
+  setInterval(() => {
+    renderBall(context);
+    update();
+  }, 50);
+};
+
+// 更新当前curShowTimeSeconds
+function update() {
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+    ball.vy += ball.g;
+
+    if(ball.y >= WINDOW_HEIGHT - ball.r ){
+        ball.y  =  WINDOW_HEIGHT - ball.r
+        ball.vy = -ball.vy * 0.5
+    }
+}
+
+// 渲染小球
+function renderBall(ctx) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.fillStyle = ball.color;
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
+  ctx.closePath();
+  ctx.fill();
+}
+</script>
+

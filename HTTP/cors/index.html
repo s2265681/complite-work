@@ -15,10 +15,16 @@
     跨域请求mock111
   </body>
   <script type="text/javascript">
-    var xhr = new XMLHttpRequest();
-    console.log(xhr,'xhr...')
-    xhr.open("GET", "http://127.0.0.1:8888",true);
-    xhr.send(null);
+    // var xhr = new XMLHttpRequest();
+    // console.log(xhr,'xhr...')
+    // xhr.open("GET", "http://127.0.0.1:8888",true);
+    // xhr.send(null);
+    fetch('http://127.0.0.1:8888/',{
+      method:'POST',
+      headers: {
+        'X-Test-Cors':'123'
+      }
+    })
   </script>
   <!-- <script src="http://127.0.0.1:8888"></script> -->
   <!-- <script type="text/javascript">
