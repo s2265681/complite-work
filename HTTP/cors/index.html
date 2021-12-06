@@ -1,0 +1,56 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-06 08:35:31
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    跨域请求mock111
+  </body>
+  <script type="text/javascript">
+    var xhr = new XMLHttpRequest();
+    console.log(xhr,'xhr...')
+    xhr.open("GET", "http://127.0.0.1:8888",true);
+    xhr.send(null);
+  </script>
+  <!-- <script src="http://127.0.0.1:8888"></script> -->
+  <!-- <script type="text/javascript">
+    var xmlhttp;
+    function loadXMLDoc(url) {
+      xmlhttp = null;
+      if (window.XMLHttpRequest) {
+        // code for all new browsers
+        xmlhttp = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        // code for IE5 and IE6
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (xmlhttp != null) {
+        xmlhttp.onreadystatechange = state_Change;
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(null);
+      } else {
+        alert("Your browser does not support XMLHTTP.");
+      }
+    }
+
+    function state_Change() {
+      if (xmlhttp.readyState == 4) {
+        // 4 = "loaded"
+        if (xmlhttp.status == 200) {
+          // 200 = OK
+          // ...our code here...
+        } else {
+          alert("Problem retrieving XML data");
+        }
+      }
+    }
+  </script> -->
+</html>
