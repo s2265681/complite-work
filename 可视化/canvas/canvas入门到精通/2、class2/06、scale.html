@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="800"
+      height="800"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    // translate 等图形变换会叠加，影响后面， 1种是用后，反向恢复 2是通过save和restore恢复
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    context.scaleStyle = "#f00";
+    context.save();
+    context.scale(1, 1);
+    context.strokeRect(50, 50, 200, 200);
+    context.restore();
+
+    context.save();
+    context.scale(2, 2);
+    context.strokeRect(50, 50, 200, 200);
+    context.restore();
+
+    context.save();
+    context.scale(3,3);
+    context.strokeRect(50, 50, 200, 200);
+    context.restore();
+
+    // scale 会带来副作用， 不仅stroke会加入缩放， 位置也会缩放
+  </script>
+</html>
