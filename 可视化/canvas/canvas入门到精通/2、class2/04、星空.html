@@ -36,7 +36,7 @@
       context.fillRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < 200; i++) {
         let r = Math.random() * 10;
-        let R = r * 2;
+        let R = r / 2;
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         drawStar(context, r, R, x, y, r);
@@ -45,25 +45,33 @@
 
     // ctx r 小圆半径  大圆半径 偏移量 旋转角度
     function drawStar(ctx, r, R, x, y, rot = 0) {
-      starPath(ctx, r, R, x, y, rot);
+      ctx.save();
+
+      ctx.translate(x, y);
+      ctx.rotate(Math.random() * Math.PI);
+      ctx.scale(r / 10, r / 10);
+
+      starPath(ctx);
       ctx.strokeStyle = "#fb3";
       ctx.fillStyle = "#fd5";
-      ctx.strokeStyle = "#fd5";
+      ctx.lineWidth = 3;
       ctx.lineJoin = "round";
-      ctx.stroke();
+      // ctx.stroke();
       ctx.fill();
+
+      ctx.restore();
     }
 
-    function starPath(ctx, r, R, x, y, rot) {
+    function starPath(ctx, r, R, x, y) {
       ctx.beginPath();
       for (var i = 0; i < 5; i++) {
         ctx.lineTo(
-          Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,
-          -Math.sin(((18 + i * 72 - rot) / 180) * Math.PI) * R + y
+          Math.cos(((18 + i * 72) / 180) * Math.PI) * 20,
+          -Math.sin(((18 + i * 72) / 180) * Math.PI) * 20
         );
         ctx.lineTo(
-          Math.cos(((54 + i * 72 - rot) / 180) * Math.PI) * r + x,
-          -Math.sin(((54 + i * 72 - rot) / 180) * Math.PI) * r + y
+          Math.cos(((54 + i * 72) / 180) * Math.PI) * 20 * 0.5,
+          -Math.sin(((54 + i * 72) / 180) * Math.PI) * 20 * 0.5
         );
       }
       ctx.closePath();

@@ -13,12 +13,10 @@ canvas 是基于状态进行绘制的
 canvas 是基于状态进行绘制的
 context.beginPath() 进行全新的绘制
 
-
 - 绘制星空
 - 曲线
 - 阴影的使用
 - 剪影 探照灯的效果
-
 
 class 1:
 
@@ -30,13 +28,11 @@ class 2:
 - [x] Draw a Rectangle
 - [x] lineCap 线条的帽子 butt round square
 - [x] 画一个五角星
-- [x] 线条的连接 
-  - lineJoin   “miter”(default)  ”bevel“  ”round“
-  - miterLimit = 10 (在 miter 时如果很尖 超过最大值 设置为 round) 线条相交状态 
+- [x] 线条的连接
+  - lineJoin “miter”(default) ”bevel“ ”round“
+  - miterLimit = 10 (在 miter 时如果很尖 超过最大值 设置为 round) 线条相交状态
 - [x] 图形变幻 —— 画一片星空
-- [x] 图形变换  canvas 图形变换是叠加态 最好用save和restore随意更改状态，而不影响代码
-  - 位移  translate(x,y) 
-  - 旋转  rotate( deg )
-  - scale( sx, sy ) 
-
-
+- [x] 图形变换 canvas 图形变换是叠加态 最好用 save 和 restore 随意更改状态，而不影响代码
+  - 位移 translate(x,y)
+  - 旋转 rotate( deg )
+  - scale( sx, sy ) scale 操作具有副作用， 使用时一定要小心， 外边框也会被 scale 放大
