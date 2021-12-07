@@ -16,22 +16,31 @@ var curShowTimeSeconds = 0;
 var balls = [];
 // var ball = { x: 500, y:100, r: 20, vy: -4, vx: -4, g: 2 }
 const colors = [
-  "#f00",
-  "#ff0",
-  "#fff",
-  "#0ff",
-  "#00f",
-  "#f0f",
-  "#0f0",
-  "#000",
-  "blue",
-  "orange",
+  "#33B5E5",
+  "#0099CC",
+  "#AA66CC",
+  "#9933CC",
+  "#99CC00",
+  "#669900",
+  "#FFBB33",
+  "#FF8800",
+  "#FF4444",
+  "#CC0000",
 ];
+
+var time = 0;
 
 // 初始化
 window.onload = function () {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
+
+  WINDOW_WIDTH = document.body.clientWidth;
+  WINDOW_HEIGHT = document.body.clientHeight;
+
+  MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
+  RADIUS = Math.round((WINDOW_WIDTH * 4) / 5 / 108) - 1;
+  MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5);
 
   canvas.width = WINDOW_WIDTH;
   canvas.height = WINDOW_HEIGHT;
@@ -41,13 +50,24 @@ window.onload = function () {
   setInterval(() => {
     render(context);
     update();
-
     // ball.x += ball.vx;
     // ball.y += ball.vy;
     // ball.vy += ball.g;
     // renderBall(context);
   }, 50);
+  // requestAnimationFrame 替代 setInterval
+  // window.requestAnimationFrame(() => updateRender(context));
 };
+
+// function updateRender(context) {
+//   window.requestAnimationFrame(() => updateRender(context));
+//   time++;
+//   if (time >= 3.5) {
+//     render(context);
+//     update();
+//     time = 0;
+//   }
+// }
 
 // 更新当前curShowTimeSeconds 和 小球渲染
 function update() {
@@ -109,9 +129,18 @@ function update() {
 
 // 计算当前倒计时的差值的秒数
 function getCurShowTimeSeconds() {
+  // 倒计时
+  // var curTime = new Date();
+  // var ret = endTime.getTime() - curTime.getTime();
+  // ret = Math.round(ret / 1000);
+  // return ret >= 0 ? ret : 0;
+
+  // 时钟
   var curTime = new Date();
-  var ret = endTime.getTime() - curTime.getTime();
-  ret = Math.round(ret / 1000);
+  var ret =
+    curTime.getHours() * 3600 +
+    curTime.getMinutes() * 60 +
+    curTime.getSeconds();
   return ret >= 0 ? ret : 0;
 }
 
@@ -144,7 +173,7 @@ function updateBalls() {
       balls[cnt++] = balls[i];
   }
   // console.log(balls, "balls...11");
-  while (balls.length > Math.min(300, cnt)) {
+  while (balls.length > Math.min(500, cnt)) {
     balls.pop();
   }
   // console.log(balls.length, "balls..22.");
