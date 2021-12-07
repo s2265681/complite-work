@@ -1,0 +1,65 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-07 16:35:51
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="900"
+      height="650"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    // 画线
+    // context.beginPath()
+    // context.lineTo(100,100)
+    // context.lineTo(300,300)
+    // context.lineTo(300,200)
+    // context.lineWidth = 10
+    // context.strokeStyle = 'blue'
+    // context.stroke()
+
+    // context.beginPath()
+    // context.lineTo(20,120)
+    // context.lineTo(320,320)
+    // context.lineTo(320,220)
+    // context.lineWidth = 10
+    // context.strokeStyle = '#058'
+    // context.stroke()
+
+    // 画箭头 封闭
+    context.beginPath();
+    context.moveTo(100,350)
+    context.lineTo(500,350)
+    context.lineTo(500,200)
+    context.lineTo(700,400)
+    context.lineTo(500,600)
+    context.lineTo(500,450)
+    context.lineTo(100,450)
+    // context.lineTo(100,350)
+    context.closePath()  // 使用这个进行封闭 比计算的直线更合理，会磨平像素带来的差异 可以使用lineTo 和 lineCap配合 
+
+    context.lineWidth = 10
+    context.fillStyle="yellow"
+    // context.lineCap = 'square'
+    context.fill()
+    context.stroke()
+    // beginPath 和 moveTo 结合 就相当于 从lineTo开始
+    // beginPath 代表着结束当前绘制， 重新开始
+    // closePath 代表当前的路径结束，并且进行封闭
+    // 当需要描边的图案时， 需要先绘制 最后再描边
+  </script>
+</html>

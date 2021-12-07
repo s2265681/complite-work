@@ -1,0 +1,49 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-07 17:14:49
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="875"
+      height="650"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      var context = canvas.getContext("2d");
+
+      context.lineWidth = 10;
+      drawStar(context, 150, 300, 400, 400, 30);
+    };
+
+    // ctx r 小圆半径  大圆半径 偏移量 旋转角度
+    function drawStar(ctx, r, R, x, y, rot = 0) {
+        ctx.beginPath();
+      for (var i = 0; i < 5; i++) {
+        ctx.lineTo(
+          Math.cos(((18 + i * 72 - rot)/ 180) * Math.PI) * R + x,
+          -Math.sin(((18 + i * 72 - rot) / 180) * Math.PI) * R + y
+        );
+        ctx.lineTo(
+          Math.cos(((54 + i * 72 - rot) / 180) * Math.PI) * r + x,
+          -Math.sin(((54 + i * 72 - rot) / 180) * Math.PI) * r + y
+        );
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+  </script>
+</html>
