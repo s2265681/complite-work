@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="800"
+      height="800"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    // translate 等图形变换会叠加，影响后面， 1种是用后，反向恢复 2是通过save和restore恢复
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    context.fillStyle = '#f00'
+    context.save()
+    context.translate(100,100)
+    context.fillRect(0,0,100,100)
+    // context.translate(-100,-100)
+    context.restore()
+    context.fillStyle = '#ff0'
+    context.fillRect(200,200,200,200)
+  </script>
+</html>

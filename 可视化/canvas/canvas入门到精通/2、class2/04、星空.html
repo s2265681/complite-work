@@ -3,11 +3,6 @@
  * @Autor: rockshang
  * @Date: 2021-12-07 19:53:50
 -->
-<!--
- * @Version: 2.0
- * @Autor: rockshang
- * @Date: 2021-12-07 17:14:49
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,16 +12,16 @@
     <title>Document</title>
   </head>
   <style>
-      *{
-          margin: 0;
-          padding: 0;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+    }
   </style>
-  <body style="height:100vh">
+  <body style="height: 100vh">
     <canvas
       id="c"
       className="canvas"
-      style="border: 1px solid #000000;height: 100%;"
+      style="border: 1px solid #000000; height: 100%"
     ></canvas>
   </body>
   <script>
@@ -40,8 +35,8 @@
       context.fillStyle = "#000";
       context.fillRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < 200; i++) {
-        let r = Math.random() * 10 + 10;
-        let R = r * 0.5;
+        let r = Math.random() * 10;
+        let R = r * 2;
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         drawStar(context, r, R, x, y, r);
@@ -50,9 +45,17 @@
 
     // ctx r 小圆半径  大圆半径 偏移量 旋转角度
     function drawStar(ctx, r, R, x, y, rot = 0) {
+      starPath(ctx, r, R, x, y, rot);
+      ctx.strokeStyle = "#fb3";
+      ctx.fillStyle = "#fd5";
+      ctx.strokeStyle = "#fd5";
+      ctx.lineJoin = "round";
+      ctx.stroke();
+      ctx.fill();
+    }
+
+    function starPath(ctx, r, R, x, y, rot) {
       ctx.beginPath();
-      ctx.strokeStyle="yellow"
-      ctx.fillStyle="orange"
       for (var i = 0; i < 5; i++) {
         ctx.lineTo(
           Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,
@@ -64,8 +67,6 @@
         );
       }
       ctx.closePath();
-      ctx.stroke();
-      ctx.fill()
     }
   </script>
 </html>
