@@ -26,15 +26,17 @@
       var context = canvas.getContext("2d");
 
       context.lineWidth = 10;
-      drawStar(context, 150, 300, 400, 400, 30);
+      context.lineJoin = "miter"; // 'bevel'  'round'
+      context.miterLimit = 10;
+      drawStar(context, 30, 300, 400, 400, 30);
     };
 
     // ctx r 小圆半径  大圆半径 偏移量 旋转角度
     function drawStar(ctx, r, R, x, y, rot = 0) {
-        ctx.beginPath();
+      ctx.beginPath();
       for (var i = 0; i < 5; i++) {
         ctx.lineTo(
-          Math.cos(((18 + i * 72 - rot)/ 180) * Math.PI) * R + x,
+          Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,
           -Math.sin(((18 + i * 72 - rot) / 180) * Math.PI) * R + y
         );
         ctx.lineTo(

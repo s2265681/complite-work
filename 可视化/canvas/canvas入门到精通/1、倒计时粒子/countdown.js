@@ -35,8 +35,11 @@ window.onload = function () {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
+
+
   WINDOW_WIDTH = document.body.clientWidth;
   WINDOW_HEIGHT = document.body.clientHeight;
+
 
   MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
   RADIUS = Math.round((WINDOW_WIDTH * 4) / 5 / 108) - 1;
@@ -44,7 +47,6 @@ window.onload = function () {
 
   canvas.width = WINDOW_WIDTH;
   canvas.height = WINDOW_HEIGHT;
-
   curShowTimeSeconds = getCurShowTimeSeconds();
 
   setInterval(() => {

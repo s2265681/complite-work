@@ -1,3 +1,8 @@
+<!--
+ * @Version: 2.0
+ * @Autor: rockshang
+ * @Date: 2021-12-05 19:57:49
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,11 +10,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    *{
+      margin:0;
+      padding: 0;
+    }
+  </style>
   <body style="height: 100vh">
     <canvas id="canvas" style="height: 100%">
       当前浏览器不支持Canvas，请更换浏览器后再试试
     </canvas>
+
+    <canvas
+    id="c"
+    className="canvas"
+    style="border: 1px solid #000000; height: 100%"
+  ></canvas>
     <script src="./digit.js"></script>
     <script src="./countdown.js"></script>
+    <script src="./star.js"></script>
   </body>
 </html>
