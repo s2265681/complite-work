@@ -36,3 +36,16 @@ class 2:
   - 位移 translate(x,y)
   - 旋转 rotate( deg )
   - scale( sx, sy ) scale 操作具有副作用， 使用时一定要小心， 外边框也会被 scale 放大
+- [x] 变换矩阵 (07) transform(a,b,c,d,e,f) 所以设计了 setTransform(1,0,0,1,0,0)
+      // [ a c e ]
+      // [ b d f ]
+      // [ 0 0 1 ]
+
+  - a. 水平缩放(1)
+  - b. 水平倾斜(0)
+  - c. 垂直倾斜(0)
+  - d. 垂直缩放(1)
+  - e. 水平位移(0)
+  - f. 垂直位移(0)
+
+- [x] fillStyle 

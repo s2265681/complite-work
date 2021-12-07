@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      width="1200"
+      height="900"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    // 变换矩阵 2维是3*3 3维是4*4
+    // [ a  c  e ]
+    // [ b  d  f ]
+    // [ 0  0  1 ]
+    context.fillStyle = "red";
+    context.strokeStyle = "#058";
+    context.lineWidth = 5;
+
+    context.save();
+    context.transform(2, 0, 0, 1, 0, 0);
+    context.transform(1, 0, 0, 2, 0, 0);
+    context.transform(1, 0, 0, 1, 0, 0);
+    //  transform 是集联操作， 会依次叠加，然后进行变换， 容易变换找不到起点， 所以设计了setTransform 这个API 设置了这个的话  前面不生效
+    context.setTransform(1, 0, 0, 1, 100, 100);
+    //   - a. 水平缩放(1)
+    //   - b. 水平倾斜(0)
+    //   - c. 垂直倾斜(0)
+    //   - d. 垂直缩放(1)
+    //   - e. 水平位移(0)
+    //   - f. 垂直位移(0)
+    context.fillRect(50, 50, 300, 300);
+    context.strokeRect(50, 50, 300, 300);
+    context.restore();
+  </script>
+</html>
