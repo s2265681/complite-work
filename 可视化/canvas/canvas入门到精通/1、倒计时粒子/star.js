@@ -3,38 +3,48 @@
  * @Autor: rockshang
  * @Date: 2021-12-07 20:01:44
  */
-// window.onload = function () {
-var canvas = document.getElementById("c");
-canvas.width = document.body.clientWidth;
-canvas.height = document.body.clientHeight;
-var context = canvas.getContext("2d");
-context.fillStyle = "#000";
-context.fillRect(0, 0, canvas.width, canvas.height);
-for (let i = 0; i < 200; i++) {
-  let r = Math.random() * 10 + 10;
-  let R = r * 0.5;
-  let x = Math.random() * canvas.width;
-  let y = Math.random() * canvas.height;
-  drawStar(context, r, R, x, y, r);
-}
-// };
+function createStarCanvas() {
+  var canvas = document.createElement("canvas");
+  canvas.width = document.body.clientWidth;
+  canvas.height = document.body.clientHeight;
+  var context = canvas.getContext("2d");
+  // context.fillStyle = "#000";
+  var gradientSty = context.createLinearGradient(0, 0, 0, canvas.height);
+  gradientSty.addColorStop(1, "#035");
+  gradientSty.addColorStop(0, "#000");
 
-// ctx r 小圆半径  大圆半径 偏移量 旋转角度
-function drawStar(ctx, r, R, x, y, rot = 0) {
-  ctx.beginPath();
-  ctx.strokeStyle = "yellow";
-  ctx.fillStyle = "orange";
-  for (var i = 0; i < 5; i++) {
-    ctx.lineTo(
-      Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,
-      -Math.sin(((18 + i * 72 - rot) / 180) * Math.PI) * R + y
-    );
-    ctx.lineTo(
-      Math.cos(((54 + i * 72 - rot) / 180) * Math.PI) * r + x,
-      -Math.sin(((54 + i * 72 - rot) / 180) * Math.PI) * r + y
-    );
+
+  // context.fillStyle = "#000";
+  context.fillStyle = gradientSty
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < 200; i++) {
+    let r = Math.random() * 10 + 5;
+    let R = r * 0.5;
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height * 0.75;
+    drawStar(context, r, R, x, y, r);
   }
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fill();
+  // };
+
+  // ctx r 小圆半径  大圆半径 偏移量 旋转角度
+  function drawStar(ctx, r, R, x, y, rot = 0) {
+    ctx.beginPath();
+    ctx.strokeStyle = "yellow";
+    ctx.fillStyle = "orange";
+    for (var i = 0; i < 5; i++) {
+      ctx.lineTo(
+        Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,
+        -Math.sin(((18 + i * 72 - rot) / 180) * Math.PI) * R + y
+      );
+      ctx.lineTo(
+        Math.cos(((54 + i * 72 - rot) / 180) * Math.PI) * r + x,
+        -Math.sin(((54 + i * 72 - rot) / 180) * Math.PI) * r + y
+      );
+    }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+  }
+
+  return canvas;
 }

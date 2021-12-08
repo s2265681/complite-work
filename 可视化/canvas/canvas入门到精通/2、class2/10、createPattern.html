@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+      var context = canvas.getContext("2d");
+      // 加载图片为背景色
+      //   var backgroundImage = new Image()
+      //   backgroundImage.src = './bg.jpg'
+      //   backgroundImage.onload = function (){
+      //     var pattern = context.createPattern(backgroundImage, 'no-repeat')
+      //     context.fillStyle = pattern;
+      //     context.fillRect(0, 0, 800, 800);
+      //   }
+      // 加载另一个canvas为背景
+      var pattern = context.createPattern(createCanvas(), "repeat");
+      context.fillStyle = pattern;
+      context.fillRect(0, 0, 800, 800);
+    };
+
+    function createCanvas() {
+      let canvas = document.createElement("canvas");
+      canvas.width = 200
+      canvas.height = 200
+      let ctx = canvas.getContext("2d");
+      var gradientSty = ctx.createRadialGradient(100, 100, 0, 100, 100, 300);
+      gradientSty.addColorStop(0, "#f00");
+      gradientSty.addColorStop(0.5, "#ff0");
+      gradientSty.addColorStop(1, "#f0f");
+      ctx.fillStyle = gradientSty
+      ctx.fillRect(0, 0, 200, 200);
+      return canvas;
+    }
+  </script>
+</html>

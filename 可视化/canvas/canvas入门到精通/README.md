@@ -57,3 +57,9 @@ class 2:
   - var grd = context.createRadiaGradient(x0,y0,r0,x1,y1,r1);
   - grd.addColorStop(stop,color)
   - context.fillStyle = grd
+
+
+- [x] createPattern 创建图案
+  - var pattern = createPattern(img | canvas | video, repeat-style) 
+  - repeat-style: no-repeat |  repeat-x | repeat-y | repeat
+  - context.fillStyle = pattern

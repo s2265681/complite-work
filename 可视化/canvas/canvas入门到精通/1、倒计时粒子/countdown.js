@@ -14,6 +14,7 @@ var endTime = new Date(2021, 11, 07, 18, 47, 52);
 var curShowTimeSeconds = 0;
 
 var balls = [];
+var pattern = null
 // var ball = { x: 500, y:100, r: 20, vy: -4, vx: -4, g: 2 }
 const colors = [
   "#33B5E5",
@@ -48,6 +49,9 @@ window.onload = function () {
   canvas.width = WINDOW_WIDTH;
   canvas.height = WINDOW_HEIGHT;
   curShowTimeSeconds = getCurShowTimeSeconds();
+
+
+
 
   setInterval(() => {
     render(context);
@@ -203,6 +207,15 @@ function addBalls(x, y, num) {
 // 渲染时分秒
 function render(ctx) {
   ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  // 加背景色
+  if(pattern){
+    ctx.fillStyle = pattern
+  }else{
+    pattern = ctx.createPattern(createStarCanvas(),'repeat')
+  }
+  ctx.fillStyle = pattern
+  ctx.fillRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)  
+
   var hours = parseInt(curShowTimeSeconds / 3600);
   var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);
   var seconds = curShowTimeSeconds % 60;
@@ -261,7 +274,7 @@ function renderBall(ctx) {
 
 // 渲染数字小球
 function renderDigit(x, y, num, ctx) {
-  ctx.fillStyle = "rgb(0,102,153";
+  ctx.fillStyle = "rgba(255,255,255,0.9)";
   for (var i = 0; i < digit[num].length; i++) {
     for (var j = 0; j < digit[num][i].length; j++) {
       if (digit[num][i][j] === 1) {
