@@ -30,8 +30,8 @@ function createBackgroundCanvas() {
   // ctx r 小圆半径  大圆半径 偏移量 旋转角度
   function drawStar(ctx, r, R, x, y, rot = 0) {
     ctx.beginPath();
-    ctx.strokeStyle = "yellow";
-    ctx.fillStyle = "orange";
+    // ctx.strokeStyle = "yellow";
+    ctx.fillStyle = "rgba(255,200,0,0.7)";
     for (var i = 0; i < 5; i++) {
       ctx.lineTo(
         Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,

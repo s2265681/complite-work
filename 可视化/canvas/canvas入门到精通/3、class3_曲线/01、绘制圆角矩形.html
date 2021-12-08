@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 1200;
+      canvas.height = 800;
+
+      var context = canvas.getContext("2d");
+      context.lineWidth = 5;
+      context.strokeStyle = "#005588";
+
+      for (var i = 0; i < 10; i++) {
+        context.beginPath();
+        context.arc(50 + i * 100, 60, 40, 0, (2 * Math.PI * (i + 1)) / 10);
+        context.stroke();
+      }
+      for (var i = 0; i < 10; i++) {
+        context.beginPath();
+        context.arc(
+          50 + i * 100,
+          170,
+          40,
+          0,
+          (2 * Math.PI * (i + 1)) / 10,
+          true
+        );
+        context.stroke();
+      }
+      // 绘制一个圆角矩形 Rounded Corner Rectangle
+      drawRoundRect(context, 50, 240, 300, 100, 20);
+    };
+
+    function drawRoundRect(ctx, x, y, width, height, radius) {
+      ctx.save();
+      // 变形后， 只需要从0，0开始
+      ctx.translate(x, y);
+      pathRoundRect(ctx, width, height, radius);
+      ctx.strokeStyle = "black";
+      ctx.stroke();
+      // 恢复到变形前的状态
+      ctx.restore();
+    }
+
+    // 向右 向下树值变大
+    function pathRoundRect(ctx, width, height, radius) {
+      ctx.beginPath();
+      ctx.arc(width - radius, height - radius, radius, 0, Math.PI / 2); // 右下角 顺
+      ctx.lineTo(radius, height); // 直线到左下角
+      ctx.arc(radius, height - radius, radius, Math.PI / 2, Math.PI); // 左下角
+      ctx.lineTo(0, radius); // 向上
+      ctx.arc(radius, radius, radius, Math.PI, (Math.PI * 3) / 2); // 左上角
+      ctx.lineTo(width - radius, 0); // 向右
+      ctx.arc(width - radius, radius, radius, (Math.PI * 3) / 2, Math.PI * 2); // 右上角
+      ctx.closePath();
+    }
+  </script>
+</html>
