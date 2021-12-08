@@ -31,14 +31,18 @@
       canvas.height = document.body.clientHeight;
 
       var context = canvas.getContext("2d");
+      var gradientSty = context.createLinearGradient(0, 0, 0, canvas.height);
+      gradientSty.addColorStop(0.4, "#000");
+      gradientSty.addColorStop(1, "#035");
 
-      context.fillStyle = "#000";
+      // context.fillStyle = "#000";
+      context.fillStyle = gradientSty
       context.fillRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < 200; i++) {
         let r = Math.random() * 10;
         let R = r / 2;
         let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
+        let y = Math.random() * canvas.height * 0.75;
         drawStar(context, r, R, x, y, r);
       }
     };

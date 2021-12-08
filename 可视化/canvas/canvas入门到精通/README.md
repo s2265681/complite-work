@@ -48,4 +48,7 @@ class 2:
   - e. 水平位移(0)
   - f. 垂直位移(0)
 
-- [x] fillStyle 
+- [x] fillStyle  设置渐变色 (08)
+  - var grd = context.createLinearGradient(xstart,ystart,xend,yend);
+  - grd.addColorStop(stop,color)
+  - context.fillStyle = grd
