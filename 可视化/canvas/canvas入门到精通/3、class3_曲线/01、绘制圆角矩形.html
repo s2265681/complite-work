@@ -39,16 +39,48 @@
         );
         context.stroke();
       }
+
+      context.lineWidth = 1;
       // 绘制一个圆角矩形 Rounded Corner Rectangle
-      drawRoundRect(context, 50, 240, 300, 100, 20);
+      fillRoundRect(context, 50, 240, 300, 100, 20, "orange");
+      strockRoundRect(context, 50, 440, 300, 100, 20, "red");
     };
 
-    function drawRoundRect(ctx, x, y, width, height, radius) {
+    function fillRoundRect(
+      ctx,
+      x,
+      y,
+      width,
+      height,
+      radius,
+      /*optional*/ fillColor
+    ) {
+      if (2 * radius > width || 2 * radius > height) return;
       ctx.save();
       // 变形后， 只需要从0，0开始
       ctx.translate(x, y);
       pathRoundRect(ctx, width, height, radius);
-      ctx.strokeStyle = "black";
+      ctx.fillStyle = fillColor || "black";
+      ctx.fill();
+      // 恢复到变形前的状态
+      ctx.restore();
+    }
+
+    function strockRoundRect(
+      ctx,
+      x,
+      y,
+      width,
+      height,
+      radius,
+      /*optional*/ strokeColor
+    ) {
+      if (2 * radius > width || 2 * radius > height) return;
+      ctx.save();
+      // 变形后， 只需要从0，0开始
+      ctx.translate(x, y);
+      pathRoundRect(ctx, width, height, radius);
+      ctx.strokeStyle = strokeColor || "black";
       ctx.stroke();
       // 恢复到变形前的状态
       ctx.restore();
@@ -64,6 +96,7 @@
       ctx.arc(radius, radius, radius, Math.PI, (Math.PI * 3) / 2); // 左上角
       ctx.lineTo(width - radius, 0); // 向右
       ctx.arc(width - radius, radius, radius, (Math.PI * 3) / 2, Math.PI * 2); // 右上角
+      // 最后一条线不绘制 直接通过closePath 进行封闭
       ctx.closePath();
     }
   </script>
