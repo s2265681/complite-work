@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+
+      var context = canvas.getContext("2d");
+      // 渐变范围可以超过画布大小
+      // var gradientSty = context.createRadialGradient(400, 400, 0, 400, 400, 500);
+      var gradientSty = context.createRadialGradient(400, 400, 0, 400, 400, 500);
+      gradientSty.addColorStop(0, "#f00");
+      gradientSty.addColorStop(0.5, "#ff0");
+      gradientSty.addColorStop(1, "#f0f");
+      context.fillStyle = gradientSty;
+      context.fillRect(0, 0, 800, 800);
+    };
+  </script>
+</html>

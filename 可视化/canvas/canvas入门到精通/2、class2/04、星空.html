@@ -31,9 +31,11 @@
       canvas.height = document.body.clientHeight;
 
       var context = canvas.getContext("2d");
+      // var gradientSty = context.createRadialGradient( canvas.width/2, canvas.height,  0, canvas.width/2, canvas.height, 700);
       var gradientSty = context.createLinearGradient(0, 0, 0, canvas.height);
-      gradientSty.addColorStop(0.4, "#000");
       gradientSty.addColorStop(1, "#035");
+      gradientSty.addColorStop(0, "#000");
+
 
       // context.fillStyle = "#000";
       context.fillStyle = gradientSty
