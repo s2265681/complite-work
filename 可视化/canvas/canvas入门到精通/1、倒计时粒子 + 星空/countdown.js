@@ -214,7 +214,7 @@ function render(ctx) {
     pattern = ctx.createPattern(createBackgroundCanvas(),'repeat')
   }
   ctx.fillStyle = pattern
-  ctx.fillRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)  
+  ctx.fillRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)
 
   var hours = parseInt(curShowTimeSeconds / 3600);
   var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);

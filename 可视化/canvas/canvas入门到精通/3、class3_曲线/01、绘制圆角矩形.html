@@ -16,7 +16,7 @@
     window.onload = function () {
       var canvas = document.getElementById("c");
       canvas.width = 1200;
-      canvas.height = 800;
+      canvas.height = 1400;
 
       var context = canvas.getContext("2d");
       context.lineWidth = 5;
@@ -44,6 +44,19 @@
       // 绘制一个圆角矩形 Rounded Corner Rectangle
       fillRoundRect(context, 50, 240, 300, 100, 20, "orange");
       strockRoundRect(context, 50, 440, 300, 100, 20, "red");
+
+      fillRoundRect(context, 150, 650, 500, 500, 10, "#BBADA0");
+      for (let i = 0; i < 4; i++)
+        for (let j = 0; j < 4; j++)
+          fillRoundRect(
+            context,
+            170 + i * 120,
+            670 + j * 120,
+            100,
+            100,
+            6,
+            "#ccc0b3"
+          );
     };
 
     function fillRoundRect(

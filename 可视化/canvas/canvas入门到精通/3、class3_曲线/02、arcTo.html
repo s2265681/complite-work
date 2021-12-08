@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 1200;
+      canvas.height = 1400;
+
+      var ctx = canvas.getContext("2d");
+
+      ctx.moveTo(300,300)
+      ctx.arcTo(400,300,400,600,100)
+      ctx.strokeStyle='#f00'
+      ctx.stroke()
+
+      ctx.strokeStyle='gray'
+      ctx.moveTo(300,300)
+      ctx.lineTo(400,300)
+      ctx.lineTo(400,600)
+      ctx.stroke()
+
+    }
+  </script>
+</html>

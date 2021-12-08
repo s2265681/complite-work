@@ -14,15 +14,18 @@ function createBackgroundCanvas() {
   gradientSty.addColorStop(1, "#035");
   gradientSty.addColorStop(0, "#000");
 
-
   // context.fillStyle = "#000";
   context.fillStyle = gradientSty
   context.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 画月亮 调用月亮的函数
+  fillMoon(context, 2, canvas.width-200, 130, 60, -30);
+
   for (let i = 0; i < 200; i++) {
     let r = Math.random() * 10 + 5;
     let R = r * 0.5;
     let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height * 0.75;
+    let y = Math.random() * canvas.height * 0.85;
     drawStar(context, r, R, x, y, r);
   }
   // };
@@ -31,7 +34,7 @@ function createBackgroundCanvas() {
   function drawStar(ctx, r, R, x, y, rot = 0) {
     ctx.beginPath();
     // ctx.strokeStyle = "yellow";
-    ctx.fillStyle = "rgba(255,200,0,0.7)";
+    ctx.fillStyle = "rgba(255,200,0,0.6)";
     for (var i = 0; i < 5; i++) {
       ctx.lineTo(
         Math.cos(((18 + i * 72 - rot) / 180) * Math.PI) * R + x,

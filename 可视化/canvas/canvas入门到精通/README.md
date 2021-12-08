@@ -37,9 +37,9 @@ context.beginPath() 进行全新的绘制
   - 旋转 rotate( deg )
   - scale( sx, sy ) scale 操作具有副作用， 使用时一定要小心， 外边框也会被 scale 放大
 - [x] 变换矩阵 (07) transform(a,b,c,d,e,f) 所以设计了 setTransform(1,0,0,1,0,0)
-          [ a c e ]
-          [ b d f ]
-          [ 0 0 1 ]
+      [ a c e ]
+      [ b d f ]
+      [ 0 0 1 ]
 
   - a. 水平缩放(1)
   - b. 水平倾斜(0)
@@ -73,4 +73,8 @@ context.beginPath() 进行全新的绘制
   ## class 3 曲线绘制 Draw an Arc
 
   - Draw an Arc
-     - context.arc()
+    - context.arc(x,y,r,0, 2\*Math.PI,false) 默认顺时针
+    - context.arcTo(x1,y1,x2,y2,radius) 这个弧生成在起始点到 x1、y1 和 x2 ，y2 的切线上
+
+  - Draw a Moon
+  
