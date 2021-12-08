@@ -6,7 +6,7 @@
 
 canvas 是基于状态进行绘制的
 
-- Canvas 图形、动画、游戏开发从入门到精通
+# Canvas 图形、动画、游戏开发从入门到精通
 
 [Canvas 图形、动画、游戏开发从入门到精通](https://www.youtube.com/watch?v=D4h4puFp-6k&list=PL9nxfq1tlKKlmrUsdfVrTRt0lI1yQ9DEb&index=2)
 
@@ -18,11 +18,11 @@ context.beginPath() 进行全新的绘制
 - 阴影的使用
 - 剪影 探照灯的效果
 
-class 1:
+## class 1:
 
 - 绚丽的倒计时粒子效果
 
-class 2:
+## class 2:
 
 - [x] Draw one line
 - [x] Draw a Rectangle
@@ -37,9 +37,9 @@ class 2:
   - 旋转 rotate( deg )
   - scale( sx, sy ) scale 操作具有副作用， 使用时一定要小心， 外边框也会被 scale 放大
 - [x] 变换矩阵 (07) transform(a,b,c,d,e,f) 所以设计了 setTransform(1,0,0,1,0,0)
-      // [ a c e ]
-      // [ b d f ]
-      // [ 0 0 1 ]
+          [ a c e ]
+          [ b d f ]
+          [ 0 0 1 ]
 
   - a. 水平缩放(1)
   - b. 水平倾斜(0)
@@ -48,18 +48,29 @@ class 2:
   - e. 水平位移(0)
   - f. 垂直位移(0)
 
-- [x] 设置LinearGradient 线性渐变色
+- [x] 设置 LinearGradient 线性渐变色
+
   - var grd = context.createLinearGradient(xstart,ystart,xend,yend);
   - grd.addColorStop(stop,color)
   - context.fillStyle = grd
 
-- [x] 设置createRadiaGradient 径向渐变
+- [x] 设置 createRadiaGradient 径向渐变
+
   - var grd = context.createRadiaGradient(x0,y0,r0,x1,y1,r1);
   - grd.addColorStop(stop,color)
   - context.fillStyle = grd
 
-
 - [x] createPattern 创建图案
-  - var pattern = createPattern(img | canvas | video, repeat-style) 
-  - repeat-style: no-repeat |  repeat-x | repeat-y | repeat
+
+  - var pattern = createPattern(img | canvas | video, repeat-style)
+  - repeat-style: no-repeat | repeat-x | repeat-y | repeat
   - context.fillStyle = pattern
+
+- [x] 小结
+
+  - fillStyle = color | gradient | image | canvas | video
+
+  ## class 3 曲线绘制 Draw an Arc
+
+  - Draw an Arc
+     - context.arc()

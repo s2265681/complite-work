@@ -211,7 +211,7 @@ function render(ctx) {
   if(pattern){
     ctx.fillStyle = pattern
   }else{
-    pattern = ctx.createPattern(createStarCanvas(),'repeat')
+    pattern = ctx.createPattern(createBackgroundCanvas(),'repeat')
   }
   ctx.fillStyle = pattern
   ctx.fillRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)  
