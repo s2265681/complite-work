@@ -50,7 +50,10 @@
       ctx.beginPath();
       ctx.arc(0, 0, 1, 0.5 * Math.PI, 1.5 * Math.PI, true);
       ctx.moveTo(0, -1);
-      ctx.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d);
+      // 使用arcTo绘制曲线
+      // ctx.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d);
+      // 使用贝塞尔二次曲线绘制曲线
+      ctx.quadraticCurveTo(1.2, 0, 0, 1);
       ctx.closePath();
     }
 

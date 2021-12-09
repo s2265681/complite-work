@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 1200;
+      canvas.height = 800;
+
+      var ctx = canvas.getContext("2d");
+      drawLand(ctx);
+    };
+
+    function drawLand(ctx) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 600);
+      ctx.bezierCurveTo(540, 400, 660, 800, 1200, 600);
+      ctx.lineTo(1200,800);
+      ctx.lineTo(0,800);
+      ctx.closePath();
+      var landStyle = ctx.createLinearGradient(0,800,0,0)
+      landStyle.addColorStop(0.0,'#030');
+      landStyle.addColorStop(1.0,'#580');
+      ctx.fillStyle = landStyle
+      ctx.fill()
+      ctx.restore();
+    }
+  </script>
+</html>
