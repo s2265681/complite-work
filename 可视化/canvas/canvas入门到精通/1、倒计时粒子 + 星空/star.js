@@ -45,6 +45,11 @@ function createBackgroundCanvas() {
     landStyle.addColorStop(1.0, "#580");
     ctx.fillStyle = landStyle;
     ctx.fill();
+
+    ctx.font = 'bold 25px Arial'
+    ctx.fillStyle = 'rgba(255,255,255,0.7)'
+    ctx.fillText('月明星稀，乌鹊南飞', 100, canvas.height * 0.93)
+
     ctx.restore();
   }
 

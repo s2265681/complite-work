@@ -108,3 +108,6 @@ context.beginPath() 进行全新的绘制
   - context.textAlign = left | center | right
   - context.textBaseline = top | middle | bottom
   - context.measureText( string ).width  文本的度量
+
+
+## class5 阴影
