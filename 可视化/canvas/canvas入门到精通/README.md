@@ -75,18 +75,28 @@ context.beginPath() 进行全新的绘制
 
   - Draw an Arc
 
-    - context.arc(x,y,r,0, 2\*Math.PI,false) 默认顺时针
+    - context.arc(centerX,centerY,radius,startingAngle, endingAngle , anticlockwise = false) 默认顺时针
+
     - context.arcTo(x1,y1,x2,y2,radius) 这个弧生成在起始点到 x1、y1 和 x2 ，y2 的切线上
 
   - Draw a Moon
 
   - QuadraticCurveTo 贝塞尔二次曲线  
     [二次贝塞尔曲线网址](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html)
+
     - context.moveTo(x0,y0) 起始点
     - context.quadraticCurveTo(x1,y1,x2,y3); 控制点 结尾点
 
   - BezierCurveTo 贝塞尔三次曲线  
     [三次贝塞尔曲线网址](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html)
-    - context.moveTo(x0,y0) 起始点
-    - context.bezierCurveTo(x1,y1,x2,y2,x3,y3)  两个控制点 最后结束点  
 
+    - context.moveTo(x0,y0) 起始点
+    - context.bezierCurveTo(x1,y1,x2,y2,x3,y3) 两个控制点 最后结束点
+
+  - 曲线小结
+
+  ## class4 文字文本渲染
+
+  - context.font = "bold 40px Arial"
+  - context.fillText(string,x,y,[maxlen])  可选参数最大长度 像素
+  - context.strokeText(string,x,y,[maxlen])

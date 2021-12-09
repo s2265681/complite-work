@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+
+      var context = canvas.getContext("2d");
+      context.font = "bold 40px Arial";
+      context.fillStyle = "#058";
+      context.strokeStyle = "#058";
+      context.fillText("今天是个好日子", 200, 100, 100);
+      context.strokeText("今天是个好日子", 200, 200);
+
+      var linearGrad = context.createLinearGradient(0, 0, 800, 0);
+      linearGrad.addColorStop(0.0, "red");
+      linearGrad.addColorStop(0.25, "orange");
+      linearGrad.addColorStop(0.5, "yellow");
+      linearGrad.addColorStop(0.75, "green");
+      linearGrad.addColorStop(1, "purple");
+      context.fillStyle = linearGrad;
+      context.fillText("今天是个好日子", 200, 300);
+
+      var backgroundImage = new Image();
+      backgroundImage.src = "block.webp";
+      backgroundImage.onload = function () {
+        var pattern = context.createPattern(backgroundImage, "repeat");
+        context.fillStyle = pattern;
+        context.strokeStyle = pattern;
+        context.font = "bold 80px Arial";
+        context.fillText("今天是个好日子", 200, 500);
+        context.strokeText("今天是个好日子", 200, 700);
+      };
+    };
+  </script>
+</html>
