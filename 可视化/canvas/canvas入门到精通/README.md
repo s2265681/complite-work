@@ -97,6 +97,14 @@ context.beginPath() 进行全新的绘制
 
   ## class4 文字文本渲染
 
-  - context.font = "bold 40px Arial"
-  - context.fillText(string,x,y,[maxlen])  可选参数最大长度 像素
+  - context.font = "bold 40px Arial" 默认 20px sans-serif
+    - font-style: normal | italic (斜体) ｜ oblique(倾斜)
+    - font-variant: normal | small-caps (小型的大写字母)
+    - font-weight: lighter | normal(400) | bold(700) | bolder | 100-900
+    - font-size: 20px | 2em | 150% | small medium large...
+    - font-family: 设置多种字体逗号隔开 ｜ 支持@font-face | Web安全字体
+  - context.fillText(string,x,y,[maxlen]) 可选参数最大长度 像素
   - context.strokeText(string,x,y,[maxlen])
+  - context.textAlign = left | center | right
+  - context.textBaseline = top | middle | bottom
+  - context.measureText( string ).width  文本的度量

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+
+      var context = canvas.getContext("2d");
+      context.font = "bold 120px Arial";
+      context.fillStyle = "#058";
+      context.strokeStyle = "#058";
+
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillText("CANVAS", canvas.width / 2, canvas.height / 2);
+      // console.log(context.measureText('CANVAS').width)
+      // console.log(context.measureText('CANVAS'))
+      let canvasWidth = context.measureText('CANVAS').width
+      context.font = "bold 30px Arial";
+      context.fillText("CANVAS长度为:"+canvasWidth, canvas.width / 2, 500);
+      
+      // 辅助线
+      context.strokeStyle = "#888";
+      context.moveTo(0, canvas.height / 2);
+      context.lineTo(800, canvas.height / 2);
+      context.moveTo(canvas.width / 2, 0);
+      context.lineTo(canvas.width / 2, canvas.height);
+      context.stroke();
+    };
+  </script>
+</html>
