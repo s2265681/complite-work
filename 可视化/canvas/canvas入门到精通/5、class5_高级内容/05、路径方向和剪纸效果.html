@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var searchLight = {
+      x: 400,
+      y: 400,
+      radius: 150,
+      vx: Math.random() * 5 + 10,
+      vy: Math.random() * 5 + 10,
+    };
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+      var context = canvas.getContext("2d");
+
+      context.beginPath();
+      context.arc(400, 400, 200, 0, 2 * Math.PI,true);
+      context.arc(400, 400, 300, 0, 2 * Math.PI,false);
+      context.closePath();
+
+      context.fillStyle = "blue";
+      context.shadowColor = "gray";
+      context.shadowBlur = 10;
+      context.shadowOffsetX = 10;
+      context.shadowOffsetY = 10;
+      context.fill();
+    };
+  </script>
+</html>
