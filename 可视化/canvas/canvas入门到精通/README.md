@@ -121,3 +121,6 @@ context.beginPath() 进行全新的绘制
   - 透明度 globalAlpha ｜ globalCompositeOperation
     - globalAlpha = 0.4
     - globalCompositeOperation: source-over | destination-over |  lighter copy xor ...
+
+  - 剪辑区域
+    - context.clip()  将当前区域剪辑成下一绘制的绘制区域

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var searchLight = {
+      x: 400,
+      y: 400,
+      radius: 150,
+      vx: Math.random() * 5 + 10,
+      vy: Math.random() * 5 + 10,
+    };
+    window.onload = function () {
+      var canvas = document.getElementById("c");
+      canvas.width = 800;
+      canvas.height = 800;
+      var context = canvas.getContext("2d");
+
+      setInterval(() => {
+        draw(context);
+        update(canvas.width, canvas.height);
+      }, 40);
+    };
+
+    function draw(context) {
+      var canvas = context.canvas;
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      context.save();
+
+      context.beginPath();
+      context.fillStyle = "#000";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      context.beginPath();
+      context.arc(
+        searchLight.x,
+        searchLight.y,
+        searchLight.radius,
+        0,
+        Math.PI * 2
+      );
+      context.fillStyle = "#fff";
+      context.fill();
+      context.clip();
+
+      context.font = "bold 150px Arial";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillStyle = "#058";
+      context.fillText("CANVADS", canvas.width / 2, canvas.height / 2);
+      context.fillText("CANVADS", canvas.width / 2, canvas.height / 4);
+      context.fillText("CANVADS", canvas.width / 2, (canvas.height * 3) / 4);
+
+      context.restore();
+    }
+
+    function update(canvasWidth, canvasHeight) {
+      searchLight.x += searchLight.vx;
+      searchLight.y += searchLight.vy;
+      if (searchLight.x - searchLight.radius <= 0) {
+        searchLight.vx = -searchLight.vx;
+        searchLight.x = searchLight.radius;
+      }
+      if (searchLight.x + searchLight.radius >= canvasWidth) {
+        searchLight.vx = -searchLight.vx;
+        searchLight.x = canvasWidth - searchLight.radius;
+      }
+      if (searchLight.y - searchLight.radius <= 0) {
+        searchLight.vy = -searchLight.vy;
+        searchLight.y = searchLight.radius;
+      }
+      if (searchLight.y + searchLight.radius >= canvasHeight) {
+        searchLight.vy = -searchLight.vy;
+        searchLight.y = canvasHeight - searchLight.radius;
+      }
+    }
+  </script>
+</html>
