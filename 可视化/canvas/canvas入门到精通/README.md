@@ -143,5 +143,10 @@ context.beginPath() 进行全新的绘制
   - 调用 context.fillStart(...)
 
 - Canvas 与浏览器兼容
+
   - if (context.ellipse) { ... }
   - IE6、7、8 explorecanvas https://code.google.com/p/explorecanvas/ 安装扩展
+
+- Canvas 图形库
+  - 属于自己的 Canvas 图形库
+  - 第三方: canvasplus 、 Artisan JS、 RGraph
