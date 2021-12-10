@@ -46,10 +46,14 @@ function createBackgroundCanvas() {
     ctx.fillStyle = landStyle;
     ctx.fill();
 
+    context.save()
+    context.shadowColor='yellow'
+    // context.shadowOffsetX = 5;
+    // context.shadowOffsetY = 5;
+    context.shadowBlur = 5;
     ctx.font = 'bold 25px Arial'
-    ctx.fillStyle = 'rgba(255,255,255,0.7)'
+    ctx.fillStyle = 'rgba(255,255,255,0.8)'
     ctx.fillText('月明星稀，乌鹊南飞', 100, canvas.height * 0.93)
-
     ctx.restore();
   }
 

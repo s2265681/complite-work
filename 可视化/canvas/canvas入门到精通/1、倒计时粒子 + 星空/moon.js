@@ -1,4 +1,3 @@
-
 // 调用月亮的函数
 function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
   ctx.save();
@@ -7,6 +6,11 @@ function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
   ctx.scale(R, R);
   pathMoon(ctx, d);
   ctx.fillStyle = fillColor || "#fb5";
+  ctx.shadowColor = "yellow";
+  ctx.shadowBlur = 35;
+  // ctx.shadowOffsetX = 10;
+  // ctx.shadowOffsetY = 10;
+  ctx.fillStyle = "rgba(255,255,255,0.8)";
   ctx.fill();
   ctx.restore();
 }

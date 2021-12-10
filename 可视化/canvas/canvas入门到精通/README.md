@@ -110,4 +110,12 @@ context.beginPath() 进行全新的绘制
   - context.measureText( string ).width  文本的度量
 
 
-## class5 阴影
+## class5 
+
+  - 阴影
+    - context.shadowColor
+    - context.shadowOffsetX
+    - context.shadowOffsetY
+    - context.shadowBlur
+  
+  - 透明度 globalAlpha ｜ globalCompositeOperation
