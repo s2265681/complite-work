@@ -102,28 +102,41 @@ context.beginPath() 进行全新的绘制
     - font-variant: normal | small-caps (小型的大写字母)
     - font-weight: lighter | normal(400) | bold(700) | bolder | 100-900
     - font-size: 20px | 2em | 150% | small medium large...
-    - font-family: 设置多种字体逗号隔开 ｜ 支持@font-face | Web安全字体
+    - font-family: 设置多种字体逗号隔开 ｜ 支持@font-face | Web 安全字体
   - context.fillText(string,x,y,[maxlen]) 可选参数最大长度 像素
   - context.strokeText(string,x,y,[maxlen])
   - context.textAlign = left | center | right
   - context.textBaseline = top | middle | bottom
-  - context.measureText( string ).width  文本的度量
+  - context.measureText( string ).width 文本的度量
 
+## class5
 
-## class5 
+- 阴影
 
-  - 阴影
-    - context.shadowColor
-    - context.shadowOffsetX
-    - context.shadowOffsetY
-    - context.shadowBlur
-  
-  - 透明度 globalAlpha ｜ globalCompositeOperation
-    - globalAlpha = 0.4
-    - globalCompositeOperation: source-over | destination-over |  lighter copy xor ...
+  - context.shadowColor
+  - context.shadowOffsetX
+  - context.shadowOffsetY
+  - context.shadowBlur
 
-  - 剪辑区域
-    - context.clip()  将当前区域剪辑成下一绘制的绘制区域
+- 透明度 globalAlpha ｜ globalCompositeOperation 图形遮挡效果 11 种
 
-  - 路径方向和剪纸效果 非零环绕原则
-    - 判断内侧和外侧的公式， 剪纸的效果， 同方向会识别为同一元素
+  - globalAlpha = 0.4
+  - globalCompositeOperation: source-over | destination-over | lighter copy xor ...
+
+- 剪辑区域
+
+  - context.clip() 将当前区域剪辑成下一绘制的绘制区域 探照灯
+
+- 路径方向和剪纸效果 非零环绕原则 镂空剪纸效果 路径方向很重要
+
+  - 判断内侧和外侧的公式， 剪纸的效果， 同方向会识别为同一元素
+
+- isPointInPath 监测 canvas 点击事件 交互处理
+
+  - context.isPointInPath(x,y)
+
+- canvas 标准
+
+- 扩展 Canvas 的 context
+  - CanvasRenderingContext2D.prototype.fillStar = function(r,R,x,y,rot){...}
+  - 调用 context.fillStart(...)
