@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c" className="canvas" style="border: 1px solid #000000">
+      当前浏览器不支持Canvas，清更换浏览器后在试
+    </canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    window.onload = function () {
+      canvas.width = 800;
+      canvas.height = 800;
+      if (context.ellipse) {
+        context.beginPath();
+        context.ellipse(400, 400, 300, 200, 0, 0, Math.PI * 2);
+        context.stroke();
+      } else {
+        alert("no ellipse");
+      }
+    };
+  </script>
+</html>

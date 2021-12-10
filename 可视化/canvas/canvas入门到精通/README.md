@@ -138,5 +138,10 @@ context.beginPath() 进行全新的绘制
 - canvas 标准
 
 - 扩展 Canvas 的 context
+
   - CanvasRenderingContext2D.prototype.fillStar = function(r,R,x,y,rot){...}
   - 调用 context.fillStart(...)
+
+- Canvas 与浏览器兼容
+  - if (context.ellipse) { ... }
+  - IE6、7、8 explorecanvas https://code.google.com/p/explorecanvas/ 安装扩展
