@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    var balls = [];
+    window.onload = function () {
+      canvas.width = 800;
+      canvas.height = 800;
+      for (var i = 0; i < 10; i++) {
+        var aBall = {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 50 + 20,
+        };
+        balls[i] = aBall;
+      }
+      draw();
+      canvas.addEventListener("mousemove", detect);
+    };
+
+    function draw(x, y) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < balls.length; i++) {
+        context.beginPath();
+        context.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI * 2);
+        if (context.isPointInPath(x, y)) {
+          context.fillStyle = "#f00";
+        } else {
+          context.fillStyle = "#058";
+        }
+        context.fill();
+      }
+    }
+
+    function detect(event) {
+      let x = event.clientX - canvas.getBoundingClientRect().left;
+      let y = event.clientY - canvas.getBoundingClientRect().top;
+      draw(x, y);
+    }
+  </script>
+</html>
