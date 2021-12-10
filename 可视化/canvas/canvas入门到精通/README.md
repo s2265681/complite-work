@@ -119,3 +119,5 @@ context.beginPath() 进行全新的绘制
     - context.shadowBlur
   
   - 透明度 globalAlpha ｜ globalCompositeOperation
+    - globalAlpha = 0.4
+    - globalCompositeOperation: source-over | destination-over |  lighter copy xor ...

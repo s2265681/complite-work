@@ -18,6 +18,8 @@ function createBackgroundCanvas() {
   context.fillStyle = gradientSty;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
+  // ctx.globalCompositeOperation = 'copy'
+
   // 画月亮 调用月亮的函数
   fillMoon(context, 2, canvas.width - 200, 130, 60, -30);
   // 画草地
@@ -27,7 +29,7 @@ function createBackgroundCanvas() {
     ctx.save();
     // ctx.translate(0, canvas.height);
     ctx.beginPath();
-    ctx.moveTo(0, canvas.height*0.85);
+    ctx.moveTo(0, canvas.height * 0.85);
     // ctx.bezierCurveTo(540, 400, 660, 800, 1200, 600); // 以800 1200 画不标准得倒的
     ctx.bezierCurveTo(
       canvas.width * 0.3,
@@ -35,7 +37,7 @@ function createBackgroundCanvas() {
       canvas.width * 0.6,
       canvas.height * 0.85 * 1.3,
       canvas.width,
-      canvas.height*0.85
+      canvas.height * 0.85
     );
     ctx.lineTo(canvas.width, canvas.height);
     ctx.lineTo(0, canvas.height);
@@ -46,14 +48,14 @@ function createBackgroundCanvas() {
     ctx.fillStyle = landStyle;
     ctx.fill();
 
-    context.save()
-    context.shadowColor='yellow'
+    context.save();
+    context.shadowColor = "yellow";
     // context.shadowOffsetX = 5;
     // context.shadowOffsetY = 5;
     context.shadowBlur = 5;
-    ctx.font = 'bold 25px Arial'
-    ctx.fillStyle = 'rgba(255,255,255,0.8)'
-    ctx.fillText('月明星稀，乌鹊南飞', 100, canvas.height * 0.93)
+    ctx.font = "bold 25px Arial";
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    ctx.fillText("月明星稀，乌鹊南飞", 100, canvas.height * 0.93);
     ctx.restore();
   }
 
@@ -64,6 +66,7 @@ function createBackgroundCanvas() {
     let y = Math.random() * canvas.height * 0.8;
     drawStar(context, r, R, x, y, r);
   }
+
   // };
 
   // ctx r 小圆半径  大圆半径 偏移量 旋转角度
