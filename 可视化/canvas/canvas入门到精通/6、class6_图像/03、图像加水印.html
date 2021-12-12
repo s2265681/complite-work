@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: #000000">
+    <canvas id="c" style="border: 1px solid #f00"></canvas>
+    <canvas id="watermark-canvas" style="display: none;"></canvas>
+    <input
+      type="range"
+      style="display: block; margin: 20px auto; width: 800px"
+      id="scale-range"
+      min="0.5"
+      step="0.01"
+      value="1.0"
+      max="3.0"
+    />
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+
+    var watermarkCanvas = document.getElementById("watermark-canvas");
+    var watermarkContext = watermarkCanvas.getContext("2d");
+
+    var slider = document.getElementById("scale-range");
+    canvas.width = 1024;
+    canvas.height = 682;
+    var image = new Image();
+    window.onload = function () {
+      var scale = slider.value;
+      image.src = "demo.jpeg";
+      drawImageByScale(scale);
+      image.onload = function (e) {
+        slider.onmousemove = function () {
+          scale = slider.value;
+          drawImageByScale(scale);
+        };
+      };
+      // setup watermark canvas
+      watermarkCanvas.width = 600;
+      watermarkCanvas.height = 100;
+      watermarkContext.font = "bold 50px Arial";
+      watermarkContext.fillStyle = "rgba(255,255,255,0.5)";
+      watermarkContext.textBaseline = "middle";
+      watermarkContext.fillText("@rockshang", 20, 50);
+    };
+
+    function drawImageByScale(scale) {
+      var imageWidth = 1024 * scale;
+      var imageHeight = 682 * scale;
+      var dx = canvas.width / 2 - imageWidth / 2;
+      var dy = canvas.height / 2 - imageHeight / 2;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, dx, dy, imageWidth, imageHeight);
+      context.drawImage(
+        watermarkCanvas,
+        canvas.width - watermarkCanvas.width,
+        canvas.height - watermarkCanvas.height
+      );
+    }
+  </script>
+</html>
