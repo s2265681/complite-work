@@ -150,3 +150,11 @@ context.beginPath() 进行全新的绘制
 - Canvas 图形库
   - 属于自己的 Canvas 图形库
   - 第三方: canvasplus 、 Artisan JS、 RGraph
+
+## class 6 canvas 绘图
+
+- 图像 drawImage
+  - 图像
+  - context.drawImage(image, dx , dy)
+  - context.drawImage(image, dx, dy, dw, dh)
+  - context.drawImage(image, sx, sy, sw, sh, dx,dy,dw,dh ) 目标图片的坐标点 宽高到映射到画布上的宽高点

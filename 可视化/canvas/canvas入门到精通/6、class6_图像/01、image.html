@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    canvas.width = 800;
+    canvas.height = 800;
+    var image = new Image();
+    window.onload = function () {
+      image.src = "demo.jpeg";
+      image.onload = function (e) {
+          console.log(e)  // 1024  682
+        // context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          image,
+          0,
+          0,
+          1024,
+          800,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+      };
+    };
+  </script>
+</html>

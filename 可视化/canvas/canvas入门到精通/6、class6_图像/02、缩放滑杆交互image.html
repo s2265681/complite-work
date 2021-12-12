@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: #000000">
+    <canvas
+      id="c"
+      className="canvas"
+      style="border: 1px solid #000000"
+    ></canvas>
+    <input
+      type="range"
+      style="display: block; margin: 20px auto; width: 800px"
+      id="scale-range"
+      min="0.5"
+      step="0.01"
+      value="1.0"
+      max="3.0"
+    />
+    <!-- onchange="drawImageByScale(this.value)" -->
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+    var slider = document.getElementById("scale-range");
+    canvas.width = 1024;
+    canvas.height = 682;
+    var image = new Image();
+    window.onload = function () {
+      var scale = slider.value;
+      image.src = "demo.jpeg";
+      image.onload = function (e) {
+        // console.log(e); // 1024  682
+        // context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        slider.onmousemove = function () {
+          scale = slider.value;
+          drawImageByScale(scale);
+        };
+      };
+    };
+
+    function drawImageByScale(scale) {
+      var imageWidth = 1024 * scale;
+      var imageHeight = 682 * scale;
+      //   var sx = imageWidth / 2 - canvas.width / 2;
+      //   var sy = imageHeight / 2 - canvas.height / 2;
+      //   context.drawImage(
+      //     image,
+      //     sx,
+      //     sy,
+      //     canvas.width,
+      //     canvas.height,
+      //     0,
+      //     0,
+      //     canvas.width,
+      //     canvas.height
+      //   );
+      if (scale < 1) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      var dx = canvas.width / 2 - imageWidth / 2;
+      var dy = canvas.height / 2 - imageHeight / 2;
+      context.drawImage(image, dx, dy, imageWidth, imageHeight);
+    }
+  </script>
+</html>
