@@ -76,10 +76,10 @@
     }
 
     function drawMagnifier(point) {
-      if(!point?.x || !point?.y)return
+      if (!point?.x || !point?.y) return;
       var imageLG_cx = point.x * scale;
       var imageLG_cy = point.y * scale;
-      var mr = 100;
+      var mr = 100; // 半径
 
       var sx = imageLG_cx - mr;
       var sy = imageLG_cy - mr;
@@ -87,6 +87,14 @@
       var dx = point.x - mr;
       var dy = point.y - mr;
 
+      context.save();
+      context.lineWidth = 10.0;
+      context.strokeStyle = "#069";
+
+      context.beginPath();
+      context.arc(point.x, point.y, mr, 0, Math.PI * 2);
+      context.stroke();
+      context.clip();
       context.drawImage(
         offCanvas,
         sx,
@@ -98,6 +106,8 @@
         2 * mr,
         2 * mr
       );
+
+      context.restore();
     }
   </script>
 </html>
