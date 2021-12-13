@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c" style="border: 1px solid #000"></canvas>
+    <canvas id="off-canvas" style="display: none"></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById("c");
+    var context = canvas.getContext("2d");
+
+    var offCanvas = document.getElementById("off-canvas");
+    var offContext = offCanvas.getContext("2d");
+
+    canvas.width = 360;
+    canvas.height = 480;
+
+    var scale;
+    var isMouseDown = false;
+
+    var image = new Image();
+
+    window.onload = function () {
+      image.src = "dog.jpg"; // 1080  1440
+      image.onload = function (e) {
+        offCanvas.width = image.width;
+        offCanvas.height = image.height;
+        scale = offCanvas.width / canvas.width; // 3
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        offContext.drawImage(image, 0, 0);
+      };
+
+      canvas.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        var point = windowToCanvas(e);
+        console.log(point.x, point.y);
+        isMouseDown = true;
+        getCanvasMinigater(true, point);
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        e.preventDefault();
+        if (isMouseDown) {
+          var point = windowToCanvas(e);
+          console.log(point.x, point.y);
+          getCanvasMinigater(true, point);
+        }
+      });
+      canvas.addEventListener("mouseout", (e) => {
+        e.preventDefault();
+        isMouseDown = false;
+        getCanvasMinigater(false);
+      });
+      canvas.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        isMouseDown = false;
+        getCanvasMinigater(false);
+      });
+    };
+    function windowToCanvas(e) {
+      return {
+        x: e.clientX - canvas.getBoundingClientRect().left,
+        y: e.clientY - canvas.getBoundingClientRect().top,
+      };
+    }
+    function getCanvasMinigater(isShowMagnifier, point) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      if ((isShowMagnifier = true)) {
+        drawMagnifier(point);
+      }
+    }
+
+    function drawMagnifier(point) {
+      if(!point?.x || !point?.y)return
+      var imageLG_cx = point.x * scale;
+      var imageLG_cy = point.y * scale;
+      var mr = 100;
+
+      var sx = imageLG_cx - mr;
+      var sy = imageLG_cy - mr;
+
+      var dx = point.x - mr;
+      var dy = point.y - mr;
+
+      context.drawImage(
+        offCanvas,
+        sx,
+        sy,
+        2 * mr,
+        2 * mr,
+        dx,
+        dy,
+        2 * mr,
+        2 * mr
+      );
+    }
+  </script>
+</html>
