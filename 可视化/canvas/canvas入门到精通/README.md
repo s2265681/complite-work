@@ -154,7 +154,19 @@ context.beginPath() 进行全新的绘制
 ## class 6 canvas 绘图
 
 - 图像 drawImage
+
   - 图像
   - context.drawImage(image, dx , dy)
   - context.drawImage(image, dx, dy, dw, dh)
   - context.drawImage(image, sx, sy, sw, sh, dx,dy,dw,dh ) 目标图片的坐标点 宽高到映射到画布上的宽高点
+
+- 获取图像像素
+  - imageData = context.getImageData(x,y,w,h)
+    - width
+    - height
+    - data
+  - putImageData
+    - context.putImageData(imageData,dx,dy,dirtyX,dirtyY,dirtyW,dirtyH)
+  - 创建 imageData
+    - imageData = context.getImageData(x,y,w,h)
+    - imageData = context.createImageData(w,h)
