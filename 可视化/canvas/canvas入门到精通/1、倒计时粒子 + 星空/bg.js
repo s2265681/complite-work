@@ -4,7 +4,7 @@
  * @Date: 2021-12-07 20:01:44
  */
 // 通过createPattern作为背景使用 注意缓存起来 防止每次刷新
-function createBackgroundCanvas() {
+function createBackgroundCanvas(YIYAN) {
   var canvas = document.createElement("canvas");
   canvas.width = document.body.clientWidth;
   canvas.height = document.body.clientHeight;
@@ -52,10 +52,10 @@ function createBackgroundCanvas() {
     context.shadowColor = "yellow";
     // context.shadowOffsetX = 5;
     // context.shadowOffsetY = 5;
-    context.shadowBlur = 5;
+    context.shadowBlur = 3;
     ctx.font = "bold 25px Arial";
     ctx.fillStyle = "rgba(255,255,255,0.8)";
-    ctx.fillText("月明星稀，乌鹊南飞", 100, canvas.height * 0.93);
+    ctx.fillText(YIYAN, 40, canvas.height * 0.96);
     ctx.restore();
   }
 

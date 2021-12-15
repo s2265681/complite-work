@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>天气预报-hao360接口</title>
+    <!-- <link rel="stylesheet" href="css/weather.css"> -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- 
+        1.先定义一个方法，这个方法用来处理拿到数据后的业务逻辑
+        2.使用Jsonp的方法，通过<script>标签，像后端的数据接口，发出AJAX请求
+            //2.1在btn的click事件中，动态创建出Jsonp请求的<script src='xxx'>的标签
+     -->
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>天气预报-hao360接口</title>
+        <!-- <link rel="stylesheet" href="css/weather.css"> -->
+        <script src="js/jquery-3.3.1.js"></script>
+        <!-- 
+            1.先定义一个方法，这个方法用来处理拿到数据后的业务逻辑
+            2.使用Jsonp的方法，通过<script>标签，像后端的数据接口，发出AJAX请求
+                //2.1在btn的click事件中，动态创建出Jsonp请求的<script src='xxx'>的标签
+         -->
+        <script type="text/javascript">
+          //声明回调函数
+          function callback(data) {
+            //1.拆解data数据
+            $("#wtInfo").html(""); //清空已有的天气数据
+            var wt = data.weather;
+            //2.循环生成5个li标签，并且把数据渲染到li标签里
+            $.each(wt, function (i, e) {
+              var date = e.date;
+              var day = e.info.day;
+              var night = e.info.night;
+              //拼接字符串
+              var tag = "<li>";
+              tag += "<h2>" + date + "</h2>";
+              tag += '<div class="day">';
+              tag += "<h3>白天天气</h3>";
+              tag += "<p>天气：" + day[1] + "</p>";
+              tag += "<p>温度：" + day[2] + "</p>";
+              tag += "<p>风向：" + day[3] + "</p>";
+              tag += "<p>风速：" + day[4] + "</p>";
+              tag += "</div>";
+              tag += '<div class="night">';
+              tag += "<h3>夜间天气</h3>";
+              tag += "<p>天气：" + night[1] + "</p>";
+              tag += "<p>温度：" + night[2] + "</p>";
+              tag += "<p>风向：" + night[3] + "</p>";
+              tag += "<p>风速：" + night[4] + "</p>";
+              tag += "</div>";
+              //3.把生成的li标签插入到ul里
+              $("#wtInfo").append(tag);
+            });
+          }
+          $(function () {
+            //注册按钮btn点击事件
+            $("#btn").on("click", function () {
+              //1.获取选中的城市ID
+              var cityCode = $("#selCity option:selected").val();
+              //2.拼接出请求URL
+              var url =
+                "https://cdn.weather.hao.360.cn/sed_api_weather_info.php?code=" +
+                cityCode;
+              //3.动态的在页面合适位置创建一个<script>标签，让它使用jsonp的原理，发出对后端数据接口的请求
+              var tag = "<script src=" + url + ">";
+              $("body").append(tag);
+            });
+          });
+        </script>
+      </head>
+
+      <body>
+        <div class="wt_container">
+          <div class="city">
+            <select id="selCity">
+              <option value="101210101">杭州</option>
+              <option value="101090201">保定</option>
+              <option value="101310201">三亚</option>
+              <option value="101180101">郑州</option>
+              <option value="101250101">长沙</option>
+              <option value="101050101">哈尔滨</option>
+              <option value="101130101">乌鲁木齐</option>
+              <option value="101280101">广州</option>
+            </select>
+            <button id="btn">查看天气</button>
+          </div>
+          <div class="weather">
+            <ul id="wtInfo"></ul>
+          </div>
+        </div>
+      </body>
+    </html>
+  </head>
+</html>
