@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .box canvas {
+      width: 500px;
+      height: 500px;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <canvas id="left" style="border: 1px solid #000"></canvas>
+      <canvas id="right" style="border: 1px solid #000"></canvas>
+    </div>
+    <div style="text-align: center; cursor: pointer">
+      <span class="copyImage">copy</span> |
+      <span class="filterImage">filter</span> |
+    </div>
+  </body>
+  <script>
+    // http://localhost:5501/%E5%8F%AF%E8%A7%86%E5%8C%96/canvas/canvas%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/6%E3%80%81class6_%E5%9B%BE%E5%83%8F/05%E3%80%81filterImageData.html
+    var leftCanvas = document.getElementById("left");
+    var leftContext = leftCanvas.getContext("2d");
+    var rightCanvas = document.getElementById("right");
+    var rightContext = rightCanvas.getContext("2d");
+    var image = new Image();
+    const copyImage = document.querySelector(".copyImage");
+    const filterImage = document.querySelector(".filterImage");
+
+    window.onload = function () {
+      image.src = "demo.jpeg";
+      image.onload = function (e) {
+        leftContext.drawImage(image, 0, 0, leftCanvas.width, leftCanvas.height);
+      };
+    };
+
+    // getImageData、 putImageData
+    copyImage.addEventListener("click", function () {
+      let imageData = leftContext.getImageData(
+        0,
+        0,
+        leftCanvas.width,
+        leftCanvas.height
+      );
+      console.log(imageData, "imageData");
+      rightContext.putImageData(imageData, 0, 0);
+    });
+
+    // filterImage
+    filterImage.addEventListener("click", function () {
+      let imageData = leftContext.getImageData(
+        0,
+        0,
+        leftCanvas.width,
+        leftCanvas.height
+      );
+      console.log(imageData, "imageData");
+      let r, g, b;
+      for (var i = 0; i < imageData.data.length; i += 4) {
+        r = imageData.data[i];
+        g = imageData.data[i + 1];
+        b = imageData.data[i + 2];
+        // 反转颜色
+        //  imageData.data[i] = 255 - r
+        //  imageData.data[i+1] = 255 - g
+        //  imageData.data[i+2] = 255 - b
+        //  imageData.data[i+3] = 255
+        // 灰度
+        imageData.data[i] = r * 0.272 + g * 0.534 + b * 0.131;
+        imageData.data[i + 1] = r * 0.349 + g * 0.686 + b * 0.168;
+        imageData.data[i + 2] = r * 0.393 + g * 0.769 + b * 0.189;
+        imageData.data[i + 3] = 255;
+      }
+      rightContext.putImageData(imageData, 0, 0);
+    });
+  </script>
+</html>
