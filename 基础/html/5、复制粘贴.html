@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    test
+    <button id="btn1">点我复制</button>
+    <button id="btn2">点我粘贴</button>
+    <input />
+  </body>
+  <script>
+    var btn = document.getElementById("btn1");
+    var paste = document.getElementById("btn2");
+
+    btn.onclick = async function () {
+      // console.log("click");
+      // var dataTransfer = new DataTransfer()
+      // console.log(dataTransfer,'dataTransfer....1')
+      // dataTransfer.setData("teamind-copy", "鼠标复制的内容");
+      // console.log(dataTransfer,'dataTransfer....2')
+
+      // var data = [
+      //   new DataTransferItemList({
+      //     "text/plain": new Blob(["Text data"], { type: "text/plain" }),
+      //   }),
+      // ];
+      // navigator.dataTransfer.write()
+      // navigator.clipboard.write(dataTransfer).then(
+      //   async function () {
+      //     console.log("Copied to clipboard successfully!");
+      //     let clipboardData = await navigator.clipboard.read();
+      //     console.log(clipboardData, "clipboardData>>>>");
+      //   },
+      //   function () {
+      //     console.error("Unable to write to clipboard. :-");
+      //   }
+      // );
+      navigator.clipboard.writeText('鼠标复制的内容')
+      // let text = navigator.clipboard.read().then(res=>{
+      //   console.log(res,'res')
+      // })
+      // console.log(text,'text.....')
+    };
+
+    paste.onclick = function () {
+      // console.log(e.clipboardData,'paste')
+      navigator.clipboard.read().then(res=>{
+        console.log(res,'...')
+      })
+    };
+
+    function onCopy(e) {
+      console.log('copy')
+      // console.log(e.clipboardData, "键盘复制的内容");
+      e.clipboardData.setData("teamind-copy", "键盘复制的内容");
+      // navigator.clipboard.read().then((res) => {
+      //   console.log(res, "键盘复制的内容.....");
+      // });
+      // navigator.clipboard.writeText('复制的内容')
+      e.preventDefault();
+    }
+
+    // e.clipboardData.setData('teamind-clip-data', JSON.stringify(jsonArr))
+    function onPaste(e) {
+      console.log(e.clipboardData.items, "paste");
+    }
+
+    document.addEventListener("copy", onCopy);
+    document.addEventListener("paste", onPaste);
+    // btn.onclick = function (e) {
+    //   if (navigator.clipboard) {
+    //     navigator.clipboard.writeText("我是多文本，粘贴我 navigator.clipboard");
+    //   } else {
+    //     var textInput = document.createElement("input");
+    //     document.body.appendChild(textInput);
+    //     textInput.style.opacity = 1;
+    //     textInput.value = "我是多文本，粘贴我 execCommand";
+    //     textInput.select();
+    //     document.execCommand("copy");
+    //   }
+    //   setTimeout(() => {
+    //     textInput.remove();
+    //     // console.log("remove");
+    //   }, 1000);
+    // };
+  </script>
+</html>

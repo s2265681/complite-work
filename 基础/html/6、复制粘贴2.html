@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    test
+    <button id="btn1">点我复制</button>
+    <button id="btn2">点我粘贴</button>
+    <input />
+  </body>
+  <script>
+    var btn = document.getElementById("btn1");
+    var paste = document.getElementById("btn2");
+
+    btn.onclick = async function () {
+        const text = new Blob(['我是鼠标上的复制内容'], {type: 'text/plain'});
+            const item = new ClipboardItem({
+                'text/plain': text,
+                // 'image/png': image,
+                // 'teamind-copy': '我是自定义内容....'
+            });
+            await navigator.clipboard.write([item]);
+    };
+
+    paste.onclick = async function () {};
+
+    document.addEventListener("copy", function (e) {
+      e.clipboardData.setData("teamind-copy-data", "teamind-数据");
+      e.preventDefault();
+    });
+
+    document.addEventListener("paste", function (e) {
+      let teamindData = e.clipboardData.getData("teamind-copy-data");
+      console.log("粘贴内容:", teamindData);
+      e.preventDefault();
+    });
+  </script>
+</html>
