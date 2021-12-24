@@ -3,9 +3,6 @@
  * @Autor: rockshang
  * @Date: 2021-12-05 19:59:38
  */
-import createBackgroundCanvas from './bg.js'
-import digit from './digit.js'
-
 var WINDOW_WIDTH = 1024;
 var WINDOW_HEIGHT = 768;
 var RADIUS = 8;

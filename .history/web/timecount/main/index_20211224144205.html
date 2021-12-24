@@ -17,14 +17,21 @@
       当前浏览器不支持Canvas，请更换浏览器后再试试
     </canvas>
     <script src="js/jquery.min.js"></script>
+    <script>
+      window.YIYAN = "月明星稀，乌鹊南飞";
+    </script>
     <script type="module" src="index.js"></script>
-    <!-- 天气接口 -->
+    <script src="js/digit.js"></script>
+    <!-- <script src="js/countdown.js"></script> -->
+    <script src="js/bg.js"></script>
+    <script src="js/moon.js"></script>
+    <!-- 杭州天气 jsonp格式  callback接收 defer-->
     <script
       async
       type="text/javascript"
       src="https://cdn.weather.hao.360.cn/sed_api_weather_info.php?code=101210101"
     ></script>
-    <!-- 天气接受回调 -->
+    <!-- 天气的回调函数 -->
     <script>
       var weatherCallback;
       function callback(data) {

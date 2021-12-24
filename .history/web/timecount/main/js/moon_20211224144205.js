@@ -1,5 +1,5 @@
 // 调用月亮的函数
-export default function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
+function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate((rot * Math.PI) / 180);

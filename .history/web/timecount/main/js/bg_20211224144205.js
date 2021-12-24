@@ -3,9 +3,8 @@
  * @Autor: rockshang
  * @Date: 2021-12-07 20:01:44
  */
-import fillMoon from './moon.js'
 // 通过createPattern作为背景使用 注意缓存起来 防止每次刷新
-export default function createBackgroundCanvas(YIYAN) {
+function createBackgroundCanvas(YIYAN) {
   var canvas = document.createElement("canvas");
   canvas.width = document.body.clientWidth;
   canvas.height = document.body.clientHeight;
