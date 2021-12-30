@@ -9,13 +9,6 @@
     width: 800px;
 }
 
-.controler {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
 .colorList {
     list-style: none;
     margin-left: -40px;
@@ -30,5 +23,6 @@
 }
 
 .clearDraw {
+    float: right;
     cursor: pointer;
 }

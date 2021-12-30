@@ -30,55 +30,23 @@ window.onload = function () {
 
 canvas.onmousedown = function (e) {
   e.preventDefault();
-  const { clientX, clientY } = e;
-  drawStart({ clientX, clientY });
+  drawStart();
 };
 
 canvas.onmouseup = function (e) {
   e.preventDefault();
-  drawEnd();
+  drawEnd;
 };
 
 canvas.onmousemove = function (e) {
   e.preventDefault();
-  const { clientX, clientY } = e;
-  drawIng({ clientX, clientY });
+  drawIng();
 };
 
 canvas.onmouseout = function (e) {
   e.preventDefault();
   drawEnd();
 };
-
-// canvas.ontouchstart = function (e) {
-//   const { clientX, clientY } = e.touches[0];
-//   console.log(clientX, clientY);
-//   drawStart({ clientX, clientY });
-// };
-// canvas.ontouchmove = function (e) {
-//   const { clientX, clientY } = e.touches[0];
-//   console.log(clientX, clientY);
-
-//   drawLine({ clientX, clientY });
-// };
-// canvas.ontouchend = function (e) {
-//   drawEnd();
-// };
-
-canvas.addEventListener("touchstart", function (e) {
-  const { clientX, clientY } = e.touches[0];
-  drawStart({ clientX, clientY });
-});
-
-canvas.addEventListener("touchmove", function (e) {
-  const { clientX, clientY } = e.touches[0];
-  console.log(clientX, clientY);
-  drawLine({ clientX, clientY });
-});
-
-canvas.addEventListener("touchend", function (e) {
-  drawEnd();
-});
 
 // 绘制线
 function drawLine() {
@@ -110,17 +78,21 @@ function drawLine() {
 }
 
 // 开始绘画
-function drawStart(point) {
-  let { x, y } = windowToCanvas(point);
+function drawStart() {
+  let clientX = e.clientX;
+  let clientY = e.clientY;
+  let { x, y } = windowToCanvas({ clientX, clientY });
   lastPosition = { x, y };
   isMouseDown = true;
 }
 
 // 绘画中
-function drawIng(point) {
+function drawIng() {
   if (isMouseDown) {
     // draw
-    let { x, y } = windowToCanvas(point);
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    let { x, y } = windowToCanvas({ clientX, clientY });
     curPosition = { x, y };
     ctx.beginPath();
     ctx.strokeStyle = drawColor;

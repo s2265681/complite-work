@@ -36,7 +36,7 @@ canvas.onmousedown = function (e) {
 
 canvas.onmouseup = function (e) {
   e.preventDefault();
-  drawEnd();
+  drawEnd;
 };
 
 canvas.onmousemove = function (e) {
@@ -50,35 +50,19 @@ canvas.onmouseout = function (e) {
   drawEnd();
 };
 
-// canvas.ontouchstart = function (e) {
-//   const { clientX, clientY } = e.touches[0];
-//   console.log(clientX, clientY);
-//   drawStart({ clientX, clientY });
-// };
-// canvas.ontouchmove = function (e) {
-//   const { clientX, clientY } = e.touches[0];
-//   console.log(clientX, clientY);
-
-//   drawLine({ clientX, clientY });
-// };
-// canvas.ontouchend = function (e) {
-//   drawEnd();
-// };
-
-canvas.addEventListener("touchstart", function (e) {
+canvas.ontouchstart = function (e) {
+  e.preventDefault();
   const { clientX, clientY } = e.touches[0];
   drawStart({ clientX, clientY });
-});
-
-canvas.addEventListener("touchmove", function (e) {
-  const { clientX, clientY } = e.touches[0];
-  console.log(clientX, clientY);
+};
+canvas.ontouchmove = function (e) {
+  e.preventDefault();
   drawLine({ clientX, clientY });
-});
-
-canvas.addEventListener("touchend", function (e) {
+};
+canvas.ontouchend = function (e) {
+  e.preventDefault();
   drawEnd();
-});
+};
 
 // 绘制线
 function drawLine() {

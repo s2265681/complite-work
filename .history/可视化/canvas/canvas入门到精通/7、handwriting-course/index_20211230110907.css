@@ -1,19 +1,12 @@
 #canvas {
     /* margin: 0 auto;
     display: block; */
-    /* clear: both; */
+    float: clear;
 }
 
 .box {
     margin: 0 auto;
-    width: 800px;
-}
 
-.controler {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
 }
 
 .colorList {
@@ -26,9 +19,8 @@
     height: 50px;
     margin: 10px;
     float: left;
-    cursor: pointer;
 }
 
 .clearDraw {
-    cursor: pointer;
+    float: right;
 }

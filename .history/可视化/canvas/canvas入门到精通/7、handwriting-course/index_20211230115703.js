@@ -72,7 +72,6 @@ canvas.addEventListener("touchstart", function (e) {
 
 canvas.addEventListener("touchmove", function (e) {
   const { clientX, clientY } = e.touches[0];
-  console.log(clientX, clientY);
   drawLine({ clientX, clientY });
 });
 

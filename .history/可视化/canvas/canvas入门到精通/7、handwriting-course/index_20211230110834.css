@@ -1,0 +1,21 @@
+/* #canvas {
+    margin: 0 auto;
+    display: block;
+} */
+
+.box {
+    margin: 0 auto;
+
+}
+
+.colorList {
+    list-style: none;
+    margin-left: -40px;
+}
+
+.colorList li {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    float: left;
+}
