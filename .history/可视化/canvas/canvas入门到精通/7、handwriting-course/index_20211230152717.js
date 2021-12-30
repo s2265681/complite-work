@@ -7,9 +7,6 @@ const ctx = canvas.getContext("2d");
 const clearDraw = document.querySelector(".clearDraw");
 const colorList = document.querySelector(".colorList");
 
-const controler = document.querySelector(".controler");
-controler.style.width = clientWidth;
-
 var drawColor = "#000";
 
 canvas.width = clientWidth;
@@ -41,14 +38,16 @@ function drawStart(point) {
 // 绘画中
 function drawIng(point) {
   if (isMouseDown) {
+    console.log("draw");
     // draw
     let { x, y } = windowToCanvas(point);
     curPosition = { x, y };
     ctx.beginPath();
     ctx.strokeStyle = drawColor;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 30;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
+    console.log(lastPosition, curPosition, "////");
     ctx.moveTo(lastPosition.x, lastPosition.y);
     ctx.lineTo(curPosition.x, curPosition.y);
     ctx.stroke();

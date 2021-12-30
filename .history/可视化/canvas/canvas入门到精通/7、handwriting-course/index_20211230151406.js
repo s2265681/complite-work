@@ -1,4 +1,4 @@
-var clientWidth = Math.min(document.body.clientWidth, 800);
+var clientWidth = 800;
 var clientHeight = clientWidth;
 
 const canvas = document.getElementById("canvas");
@@ -6,9 +6,6 @@ const ctx = canvas.getContext("2d");
 
 const clearDraw = document.querySelector(".clearDraw");
 const colorList = document.querySelector(".colorList");
-
-const controler = document.querySelector(".controler");
-controler.style.width = clientWidth;
 
 var drawColor = "#000";
 
@@ -30,36 +27,6 @@ var curPosition = {
 window.onload = function () {
   drawLine();
 };
-
-// 开始绘画
-function drawStart(point) {
-  let { x, y } = windowToCanvas(point);
-  lastPosition = { x, y };
-  isMouseDown = true;
-}
-
-// 绘画中
-function drawIng(point) {
-  if (isMouseDown) {
-    // draw
-    let { x, y } = windowToCanvas(point);
-    curPosition = { x, y };
-    ctx.beginPath();
-    ctx.strokeStyle = drawColor;
-    ctx.lineWidth = 10;
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-    ctx.moveTo(lastPosition.x, lastPosition.y);
-    ctx.lineTo(curPosition.x, curPosition.y);
-    ctx.stroke();
-    lastPosition = curPosition;
-  }
-}
-
-// 绘画后
-function drawEnd() {
-  isMouseDown = false;
-}
 
 canvas.onmousedown = function (e) {
   e.preventDefault();
@@ -83,19 +50,35 @@ canvas.onmouseout = function (e) {
   drawEnd();
 };
 
-canvas.ontouchstart = function (e) {
+// canvas.ontouchstart = function (e) {
+//   const { clientX, clientY } = e.touches[0];
+//   console.log(clientX, clientY);
+//   drawStart({ clientX, clientY });
+// };
+// canvas.ontouchmove = function (e) {
+//   const { clientX, clientY } = e.touches[0];
+//   console.log(clientX, clientY);
+
+//   drawLine({ clientX, clientY });
+// };
+// canvas.ontouchend = function (e) {
+//   drawEnd();
+// };
+
+canvas.addEventListener("touchstart", function (e) {
   const { clientX, clientY } = e.touches[0];
   drawStart({ clientX, clientY });
-};
+});
 
-canvas.ontouchmove = function (e) {
+canvas.addEventListener("touchmove", function (e) {
   const { clientX, clientY } = e.touches[0];
-  drawIng({ clientX, clientY });
-};
+  console.log(clientX, clientY);
+  drawLine({ clientX, clientY });
+});
 
-canvas.ontouchend = function (e) {
+canvas.addEventListener("touchend", function (e) {
   drawEnd();
-};
+});
 
 // 绘制线
 function drawLine() {
@@ -125,6 +108,39 @@ function drawLine() {
   ctx.closePath();
   ctx.restore();
 }
+
+// 开始绘画
+function drawStart(point) {
+  let { x, y } = windowToCanvas(point);
+  lastPosition = { x, y };
+  isMouseDown = true;
+}
+
+// 绘画中
+function drawIng(point) {
+  if (isMouseDown) {
+    console.log("draw");
+    // draw
+    let { x, y } = windowToCanvas(point);
+    curPosition = { x, y };
+    ctx.beginPath();
+    ctx.strokeStyle = drawColor;
+    ctx.lineWidth = 30;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    console.log(lastPosition, curPosition, "////");
+    ctx.moveTo(lastPosition.x, lastPosition.y);
+    ctx.lineTo(curPosition.x, curPosition.y);
+    ctx.stroke();
+    lastPosition = curPosition;
+  }
+}
+
+// 绘画后
+function drawEnd() {
+  isMouseDown = false;
+}
+
 // windowToCanvas
 function windowToCanvas(point) {
   var { left, top } = canvas.getBoundingClientRect();

@@ -1,16 +1,9 @@
-#canvas {
-    /* margin: 0 auto;
-    display: block; */
-    /* clear: both; */
+.box {
+    /* display: flex;
+    flex-direction: column; */
+    /* width: 100%; */
+    /* justify-content: center; */
 }
-
-@media screen and (min-width: 500px) {
-    .box {
-        margin: 0 auto;
-        width: 800px;
-    }
-}
-
 
 .controler {
     display: flex;
