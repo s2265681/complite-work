@@ -55,8 +55,7 @@ function drawIng(point) {
     var s = calcDistance(curPosition, lastPosition);
     var t = curTimestamp - LastTimestamp;
     var lineWidth = calclineWidth(t, s);
-    console.log(LastLineWidth, "LastLineWidth>>>>");
-    console.log(lineWidth, "lineWidth>>>>");
+    console.log(lineWidth, "lineWidth");
     ctx.lineWidth = lineWidth;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -65,25 +64,17 @@ function drawIng(point) {
     ctx.stroke();
     lastPosition = curPosition;
     LastTimestamp = curTimestamp;
-    LastLineWidth = lineWidth;
+    resultLineWidth = lineWidth;
   }
 }
 
 // 计算笔画的粗细
-var maxLineWidth = 30;
-var minLineWidth = 1;
-var maxStorekeV = 10;
-var minStrokeV = 0.1;
 function calclineWidth(t, s) {
   var v = s / t;
   var resultLineWidth;
-  if (v <= minStrokeV) resultLineWidth = maxLineWidth;
-  else if (v >= maxStorekeV) resultLineWidth = minLineWidth;
-  else
-    resultLineWidth =
-      maxLineWidth -
-      ((v - minStrokeV) / (maxStorekeV - minStrokeV)) *
-        (maxLineWidth - minLineWidth);
+  if (v <= 0.1) resultLineWidth = 30;
+  else if (v >= 10) resultLineWidth = 1;
+  else resultLineWidth = 30 - ((v - 0.1) / (10 - 0.1)) * (30 - 1);
   if (LastLineWidth == -1) return resultLineWidth;
   return (resultLineWidth * 2) / 3 + (resultLineWidth * 1) / 3;
 }

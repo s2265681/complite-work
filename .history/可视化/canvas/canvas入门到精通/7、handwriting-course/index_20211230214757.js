@@ -28,7 +28,6 @@ var curPosition = {
 };
 
 var LastTimestamp = 0;
-var LastLineWidth = -1;
 
 window.onload = function () {
   drawLine();
@@ -53,10 +52,9 @@ function drawIng(point) {
     // 宽度 通过亮点的距离/时间 来决定
     var curTimestamp = new Date().getTime();
     var s = calcDistance(curPosition, lastPosition);
+    console.log(curTimestamp, LastTimestamp, "lll");
     var t = curTimestamp - LastTimestamp;
     var lineWidth = calclineWidth(t, s);
-    console.log(LastLineWidth, "LastLineWidth>>>>");
-    console.log(lineWidth, "lineWidth>>>>");
     ctx.lineWidth = lineWidth;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -65,27 +63,18 @@ function drawIng(point) {
     ctx.stroke();
     lastPosition = curPosition;
     LastTimestamp = curTimestamp;
-    LastLineWidth = lineWidth;
   }
 }
 
 // 计算笔画的粗细
-var maxLineWidth = 30;
-var minLineWidth = 1;
-var maxStorekeV = 10;
-var minStrokeV = 0.1;
 function calclineWidth(t, s) {
   var v = s / t;
+  console.log(v, "v");
   var resultLineWidth;
-  if (v <= minStrokeV) resultLineWidth = maxLineWidth;
-  else if (v >= maxStorekeV) resultLineWidth = minLineWidth;
-  else
-    resultLineWidth =
-      maxLineWidth -
-      ((v - minStrokeV) / (maxStorekeV - minStrokeV)) *
-        (maxLineWidth - minLineWidth);
-  if (LastLineWidth == -1) return resultLineWidth;
-  return (resultLineWidth * 2) / 3 + (resultLineWidth * 1) / 3;
+  if (v <= 0.1) resultLineWidth = 30;
+  else if (v >= 10) resultLineWidth = 1;
+  else resultLineWidth = 30 - (v - 0.1);
+  return 5;
 }
 
 // 判断亮点距离

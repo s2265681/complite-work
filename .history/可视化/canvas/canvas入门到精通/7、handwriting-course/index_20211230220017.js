@@ -77,8 +77,8 @@ var minStrokeV = 0.1;
 function calclineWidth(t, s) {
   var v = s / t;
   var resultLineWidth;
-  if (v <= minStrokeV) resultLineWidth = maxLineWidth;
-  else if (v >= maxStorekeV) resultLineWidth = minLineWidth;
+  if (v <= 0.1) resultLineWidth = maxLineWidth;
+  else if (v >= 10) resultLineWidth = minLineWidth;
   else
     resultLineWidth =
       maxLineWidth -

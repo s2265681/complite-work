@@ -70,20 +70,12 @@ function drawIng(point) {
 }
 
 // 计算笔画的粗细
-var maxLineWidth = 30;
-var minLineWidth = 1;
-var maxStorekeV = 10;
-var minStrokeV = 0.1;
 function calclineWidth(t, s) {
   var v = s / t;
   var resultLineWidth;
-  if (v <= minStrokeV) resultLineWidth = maxLineWidth;
-  else if (v >= maxStorekeV) resultLineWidth = minLineWidth;
-  else
-    resultLineWidth =
-      maxLineWidth -
-      ((v - minStrokeV) / (maxStorekeV - minStrokeV)) *
-        (maxLineWidth - minLineWidth);
+  if (v <= 0.1) resultLineWidth = 30;
+  else if (v >= 10) resultLineWidth = 1;
+  else resultLineWidth = 30 - ((v - 0.1) / (10 - 0.1)) * (30 - 1);
   if (LastLineWidth == -1) return resultLineWidth;
   return (resultLineWidth * 2) / 3 + (resultLineWidth * 1) / 3;
 }
