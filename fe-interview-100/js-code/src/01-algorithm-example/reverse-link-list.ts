@@ -19,7 +19,7 @@ export function reverseLinkList(listNode: ILinkListNode): ILinkListNode {
     let nextNode: ILinkListNode | undefined = listNode
 
     // 以 nextNode 为主，遍历链表
-    while(nextNode) {
+    while (nextNode) {
         // 第一个元素，删掉 next ，防止循环引用
         if (curNode && !prevNode) {
             delete curNode.next
