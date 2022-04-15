@@ -33,5 +33,23 @@ function getTag() {
   return sorted.map((i) => i[0]);
 }
 
+// 方法三 如果 document.querySelectorAll("*"); 不能用
+function getTag() {
+  let html = document.querySelector("html");
+  // let elements = document.querySelectorAll("*");
+  let counts = {};
+  function scan(parent) {
+    let tag = parent.tagName;
+    counts[tag] = (counts[tagName] || 0) + 1;
+    for (let el of parent.children) {
+      scan(el);
+    }
+  }
+  scan(html);
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const top3 = sorted.slice(0, 3);
+  return top3.map((i) => i[0]);
+}
+
 getPageTagsList();
 getTag();
