@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <script src="https://rawgit.com/fabricjs/fabric.js/master/dist/fabric.js"></script> -->
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <body>
+    <canvas id="fabric-canvas"></canvas>
+  </body>
+  <script src="/Users/shangjiawei/MyGithub/complite-work/可视化/fabric/fabric4.2 source code.js/dist/fabric.min.js"></script>
+  <script>
+    (function () {
+      const fabricCanvas = document.querySelector("#fabric-canvas");
+      fabricCanvas.width = window.innerWidth;
+      fabricCanvas.height = window.innerHeight;
+      var canvas = new fabric.Canvas("fabric-canvas", {
+        perPixelTargetFind: false,
+        targetFindTolerance: 10,
+        preserveObjectStacking: true,
+        selection: true,
+        defaultCursor: "default",
+        backgroundColor: "#f3f3f3",
+        uniScaleKey: null,
+        hudArr: [],
+        marshallingControl: {},
+      });
+      var rect = new fabric.Rect({
+        left: 300,
+        top: 300,
+        fill: "#f0f",
+        width: 60,
+        height: 60,
+      });
+      canvas.add(rect);
+      canvas.on("mouse:down", function (e) {
+        const { x, y } = e.absolutePointer;
+      });
+      window.canvas = canvas;
+
+      window.addEventListener("click", function (e) {
+        let matrix = canvas.viewportTransform; //[0.5, 0, 0, 0.5, 0, 0]; //canvas.viewportTransform;
+        pos = fabric.util.transformPoint(
+          { x: e.clientX, y: e.clientY },
+          matrix
+        );
+      });
+
+      // window.addEventListener(
+      //   "wheel",
+      //   (e) => {
+      //     e.preventDefault();
+      //     // e.delay
+      //     console.log(e, "eee");
+
+      //     canvas.relativePan(new fabric.Point(e.clientX, e.clientY));
+
+      //     // canvas.zoomToPoint({ x, y }, zoom)
+      //   },
+      //   {
+      //     passive: false,
+      //   }
+      // );
+
+      let deltaYList = [];
+      canvas.on("mouse:wheel", function ({ e }) {
+        e.preventDefault();
+        // e.delay
+        const now = Date.now();
+
+        const prevList = deltaYList.filter(
+          (item) => Date.now() - item.time < 200
+        );
+        const isWinSwipVertical =
+          (prevList.some((item) => Math.abs(item.value) < 90) ||
+            Math.abs(e.deltaY) < 90) &&
+          !isMac();
+        const mouseEventType =
+          (parseInt(e.deltaY) === e.deltaY && isMac()) ||
+          parseInt(e.deltaY) === 0 ||
+          isWinSwipVertical
+            ? "touchpad"
+            : "mouse";
+
+        console.log(mouseEventType, "mouseEventType");
+        let condition = !e.ctrlKey && mouseEventType === "touchpad";
+
+        console.log(condition, "condition");
+        parseInt(e.deltaY) !== 0 &&
+          deltaYList.push({ time: now, value: e.deltaY });
+        deltaYList = deltaYList.filter((item) => Date.now() - item.time < 200);
+
+        if (condition) {
+          // 移动
+          canvas.relativePan(new fabric.Point(-e.deltaX, -e.deltaY));
+        } else {
+          // 缩放
+          let zoom = canvas.getZoom();
+          const isPinch = parseInt(e.deltaY) !== e.deltaY;
+          const pinchMinDelta = isPinch ? 0 : 0;
+          const pinchBasic = isPinch ? 5 : 1;
+          let delta = e.deltaY;
+          const prefix = delta > 0 ? 1 : -1;
+          const finalDelta =
+            prefix * Math.min(Math.max(pinchMinDelta, Math.abs(delta)), 100);
+          zoom *= 0.999 ** (1.5 * pinchBasic * finalDelta);
+          e.preventDefault();
+          e.stopPropagation();
+          canvas.zoomToPoint({ x: e.offsetX, y: e.offsetY }, zoom);
+        }
+      });
+
+      function isMac() {
+        return navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+      }
+    })();
+  </script>
+</html>
