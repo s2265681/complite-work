@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"></script>
+  <script>
+    let date = new Date();
+    // moment().diff(Moment | String | Number | Date | Array);
+    Window.moment = moment;
+
+    // time 与 当前时间的 差
+    // 1 分钟以内 -> 刚刚
+    // 1 小时内 ->  N 分钟前
+    // 24 小时内 -> N 小时前
+    // 大于 24小时 && 昨天0点后 昨天 HH:MM
+    // 昨天 0点前 MM-DD HH:MM
+    const handleLastTimeTransform = (lastTime) => {
+      let text = "";
+      moment.locale("zh-CN");
+      let rst = moment(lastTime).fromNow();
+      console.log(rst, "rst");
+      switch (rst) {
+        case "几秒前" || "几秒内":
+          text = "刚刚";
+          break;
+        case "1 天前":
+          text = "昨天 " + moment(lastTime).format("HH:MM");
+          break;
+        default:
+          if (rst.includes("天前")) {
+            text = moment(lastTime).format("MM-DD HH:MM");
+          } else {
+            // N 分钟前 / N小时前
+            text = rst;
+          }
+          break;
+      }
+    };
+    handleLastTimeTransform(
+      new Date("Sat Apr 29 2021 10:36:41 GMT+0800 (中国标准时间)")
+      //   new Date("Sun May 01 2022 09:40:51 GMT+0800 (中国标准时间)")
+    );
+  </script>
+</html>
