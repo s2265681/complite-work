@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>web work 开启新的线程， 保证定时器不受，主流程的影响</div>
+  </body>
+  <script>
+    function create(f) {
+      var blob = new Blob(["(" + f + ")()"]);
+      var url = window.URL.createObjectURL(blob);
+      var worker = new Worker(url);
+      return worker;
+    }
+    const createWorker = (callback, time) => {
+      const fnStr = `
+        function(e){
+            setInterval(function(){
+                this.postMessage(null)
+            }, ${time})
+        }
+    `;
+      var pollingWorker = create(fnStr);
+      pollingWorker.onmessage = callback;
+      return pollingWorker;
+    };
+
+    const stopWorker = (vm) => {
+      try {
+        vm && vm.terminate();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    let aa;
+    window.onload = function () {
+      let worker = createWorker(() => {
+        console.log("web worker", new Date().getSeconds());
+      }, 1000);
+
+      aa = setInterval(() => {
+        console.log("interval", new Date().getSeconds());
+      }, 1000);
+
+      setTimeout(() => {
+        console.log(worker, aa, "worker");
+        stopWorker(worker);
+        clearInterval(aa);
+      }, 20000);
+
+      let i = 0;
+      let flag = false;
+      //   while (flag) {
+      //     i += 10;
+      //     i = i * 2;
+      //     setTimeout(() => {
+      //       flag = false;
+      //     }, 3000);
+      //     console.log(i);
+      //   }
+    };
+  </script>
+</html>

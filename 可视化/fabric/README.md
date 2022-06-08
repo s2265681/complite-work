@@ -19,3 +19,7 @@ lowerCanvas: src/static_canvas.class.js  真正绘制元素对象的画布
 upperCanvas: src/canvas.class.js   上层画布，只处理分组选择， 事件绑定
 
 新增一些rebase的东西
+
+
+学习fabric.js 基本实现
+https://mp.weixin.qq.com/s/UQ7vGUKRbeweAPb6L3reWw
