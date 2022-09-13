@@ -1,4 +1,4 @@
 
 
 
-[HOT100](https://leetcode-cn.com/problem-list/2cktkvj/)
+[HOT100](https://leetcode.cn/problem-list/2cktkvj/)
