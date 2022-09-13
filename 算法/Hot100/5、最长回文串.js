@@ -1,5 +1,5 @@
 /**
- * 给你一个字符串 s，找到 s 中最长的回文子串。 中等
+ * 给你一个字符串 s，找到 s 中最长的回文子串。 中等难度
  * 输入：s = "babad"
  * 输出："bab"
  * 解释："aba" 同样是符合题意的答案。
@@ -24,9 +24,9 @@ var longestPalindrome = function (s) {
     return s.substr(l + 1, r - l - 1);
   };
   for (let i = 0; i < s.length; i++) {
-    // 寻找长度为奇数的回文字符串(以当前元素向两边扩散)
+    // 寻找长度为奇数的回文字符串(以当前元素向两边扩散) 如 aba
     const s1 = palindrome(s, i, i);
-    // 寻找长度为偶数的回文字符串(以s[i],s[i+1])向两边扩散
+    // 寻找长度为偶数的回文字符串(以s[i],s[i+1])向两边扩散 abba
     const s2 = palindrome(s, i, i + 1);
     res = res.length > s1.length ? res : s1;
     res = res.length > s2.length ? res : s2;

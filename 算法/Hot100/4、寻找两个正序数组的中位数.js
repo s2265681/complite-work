@@ -3,7 +3,7 @@
  * @param {number[]} nums2
  * @return {number}
  */
-// 思路： 应该通过二分 对两个数组分别二分， 找到规律 然后降低算法复杂度
+// 思路： 应该通过二分 对两个数组分别二分， 找到规律 然后降低算法复杂度  困难难度
 var findMedianSortedArrays = function (nums1, nums2) {
   let c = [...nums1, ...nums2].sort((a, b) => a - b);
   if (c.length % 2) {
