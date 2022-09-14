@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/blogzl-indexjs@18.0.0/dist/jquery.min.js"></script>
+    <style>
+      /*  控制docx文档显示的主体内容的位置，左右panddinf等 */
+      .docx-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        width: 80%;
+        float: left;
+        margin: 0 auto;
+        padding: 25px;
+      }
+      .docx-body img {
+        max-width: 100%;
+      }
+      @media (max-width: 1000px) {
+        .docx-body {
+          padding: 15px;
+          width: 100% !important;
+        }
+        #anchorLinkMenu {
+          writing-mode: vertical-rl;
+          top: -5px !important;
+          right: -2px !important;
+          padding: 5px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <html>
+      <head></head>
+      <body>
+        <section>
+          <style>
+            body {
+              padding-left: 20px !important;
+              padding-right: 20px !important;
+            }
+          </style>
+
+          <style>
+            h1 {
+              font-size: 32px;
+            }
+
+            h2 {
+              font-size: 24px;
+            }
+
+            h3 {
+              font-size: 18.72px;
+            }
+
+            h4 {
+              font-size: 16px;
+            }
+
+            h5 {
+              font-size: 13.28px;
+            }
+
+            h6 {
+              font-size: 12px;
+            }
+          </style>
+          <article class="docx-body">
+            <p>测试文档</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
+              porttitor congue massa. Fusce posuere, magna sed pulvinar
+              ultricies, purus lectus malesuada libero, sit amet commodo magna
+              eros quis urna.
+            </p>
+            <p>Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.</p>
+            <p>
+              Pellentesque habitant morbi tristique senectus et netus et
+              malesuada fames ac turpis egestas. Proin pharetra nonummy pede.
+              Mauris et orci.
+            </p>
+            <p>Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.</p>
+            <p>
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAABUNJREFUWEfFl2tMU2cYx//vqVyUW+3KVYGBDOvksrUMtwIHBeamoNCRuQ+L2T7MMme2KAG6zWSrLpuuOG9jOMlCMNF9cHOHiJsaMy4t3ia4RKcYFZ3CWhGXqmBnC+27tNpKb3Dgiyfph77v/3me33M557yH4Clf5CnHx6QAqju4xSD0VQIiBxBNgGh7AhQYgP1HbceoQPB7bW6Zjm9ivACqdZwSFEoCyPg4pkA3CBpq8xQNE+nHBajRctkUqOcb2DOYHYRaUbVlkaLdH4hfgGrdLyWEkpaJMuCzb7NikT8InwA1ndxa2LCNj3O+mgBKEr7ML+vz1HsB1Gi5MgAcX8dOXXKEGNfu3fFrZm9HyL1prHrZMtNYkRuAev/+QFNMwEkA0skARM8IQ6WsEIf+6oLO2D+OKflBw5at8gug6myuojZaO5ngdq18RhRKZXJU7dBAIE0d15wRCAo35yxvdYpcFVCf+i3cZDFfADB7sgCrk7NgM1uwSdsC0ZzECczJQQ1bVuoFoNI2v0ZBj/izDgkIhDw2GcduXnKTPC+Mxjvpr6Du+13omx8LaVQ8LhkHYBqx+AURgMzfxJZdtAtcFajRcl8B+MSX1UvRiciNSkSMUITd5zrdhq1UlAT5/ExUaDZA+nohKjJyYbj7L3S3b6B74KZvCGrboMkvV3sCHLe3c6zFs+EiFCVI8NzMKBiNRtTt3InrsSGInJfikEUETYdKVoSTJ05gv/Eahm8NQo4IvKd8NGfn7+jR3ncZ/cN3PUFOaFhFjifAVQBznMoVc2WQRcU7/h462IIfD7dgunQuxBKXBDkRcViekY0vtn+DYdmjdX3XeYz+eQVrVq1Cbl4eRqyj6Oi/6tm6Xg2rcGThaoFKyw1RINS+GCSYho3yEhj0enxbV4ce2zBSiwu8ylmRJENCTCxW79oC0QsSt/0e7igygmdibWUlxGIxNp46jAcjZoeGAMNfs4owvwDUOATN8pW4fWcQR66cx4XR+17B5wgjoUzPwc8HDuD0MwAjEHhp0gMisFTyIkRCIdZyTQgSC/0D1Gg5VwusI6MI012ASqVCcHAwzur/RpuhF7dNQ64gpZEpkEvS8FndNpgzk9yCzwoVYvHsVEgi49Bz8SJ2bt+B8JVLxmq8W1Cj5dyG8Hr7KQy2/4EPlO/jzbdWYOg/E9r0vTiu74WAYaDOXoJbBgM2HP3JbS6Kk9LAzn40pE2Njdh7kEPsogWIk6aNBfAxhB0H1CDM52NVVssILv/aisSHDNZ89CEkEonjNhQHBKN8Xhaa9u1FT4JjbBxXQmAo1iwocmRdV1+P/unA3JICEIZxqxCFbX0tW26/7Z8MYXVncx6xUa1XIwHcvfEPDG2nEfZgBEEFMnxavAIpsxKg+m4rkJHsMhnsuQpzazfuhwRgVuHLiIiP83ZHYBm1kZStj9+Mbi+jai3XNd7hwx4gPUuKddICdJ05g8ZrZxEW5ziVuUE4nxO+kgFFgyZfUeHccwfQcUpCsdun4ePFxZFJKJRkon5PI24ki8aT+txjCLI25ym6fQLYFyeqwtvREmSkSrBu11YEpj0pPy8Sj+zdZsDpoKqNW8gI0ObP4QDXCutDM8QlLALDQnjFdYgoDmvyFUs9DXweySaC4B/1iVLDKnzG8nsoXd/RHG8hlJvqidgZmoKeq2XfyPQHPe6xXN3SMsMUProNBMqpZO058b588Pow+VjHyWw2KMHgXVAETgBjBsUehkHD2GmfUgU8jSo7muMFxLqSgCn2+WlGyD4LtXLb2XID34rxqgBfZ1PRPXWA/wH90M4w4UtIGgAAAABJRU5ErkJggg=="
+              />
+            </p>
+          </article>
+        </section>
+      </body>
+    </html>
+  </body>
+</html>

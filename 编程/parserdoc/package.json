@@ -1,0 +1,12 @@
+{
+  "name": "parserdoc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "docx2html": "^1.3.2",
+    "express": "^4.18.1",
+    "mammoth": "^1.5.1",
+    "zl-docx2html": "^1.1.26"
+  }
+}
