@@ -8,19 +8,74 @@
   </head>
   <body>
     <textarea cols="行数" id="i" rows="列数">内容</textarea>
+
+    <div id="a">
+      aa
+      <div id="b">
+        bb
+        <div id="c">
+          cc
+          <div id="d">dddd</div>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
     let i = document.querySelector("#i");
-    i.addEventListener('keydown', function(e) {
-        // if (e.key === 'Tab' || e.keyCode === 9) {
-        //   if (e.preventDefault) {
-        //     e.preventDefault()
-        //   } else {
-        //     e.returnValue = false       
-        //     window.event.keyCode = 0
-        //     window.event.returnValue= false
-        //   }
-        // }
-      })
+    i.addEventListener("keydown", function (e) {
+      // if (e.key === 'Tab' || e.keyCode === 9) {
+      //   if (e.preventDefault) {
+      //     e.preventDefault()
+      //   } else {
+      //     e.returnValue = false
+      //     window.event.keyCode = 0
+      //     window.event.returnValue= false
+      //   }
+      // }
+    });
+
+    var name = "Word";
+    !(function () {
+      if (typeof name === "undefined") {
+      } else {
+        console.log(name);
+      }
+    })();
+
+    const a = document.getElementById("a");
+    const b = document.getElementById("b");
+    const c = document.getElementById("c");
+    const d = document.getElementById("d");
+
+    a.addEventListener(
+      "click",
+      function () {
+        alert("a");
+      },
+      true
+    );
+    b.addEventListener(
+      "click",
+      function () {
+        alert("b");
+      },
+      false
+    );
+    c.addEventListener(
+      "click",
+      function () {
+        alert("c");
+      },
+      true
+    );
+    d.addEventListener(
+      "click",
+      function () {
+        alert("d");
+      },
+      false
+    );
+
+    // 点击 最里层的 d 结果是 a 、 c 、 d 、 b
   </script>
 </html>
