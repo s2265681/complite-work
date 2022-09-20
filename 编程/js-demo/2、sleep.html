@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>羊了个羊</title>
+  </head>
+  <style>
+    .wrapper {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+    }
+    .box {
+      width: 50%;
+      height: 70%;
+      background-color: #f0f;
+      list-style-type: none;
+    }
+    .box .block {
+      margin-left: -40px;
+    }
+    .temp {
+      width: 55%;
+      height: 15%;
+      background-color: bisque;
+    }
+
+    .shadow {
+      background: rgba(200, 200, 200) !important;
+    }
+
+    .block {
+      width: 50px;
+      height: 100px;
+      background-color: aqua;
+      line-height: 50px;
+      text-align: center;
+      display: inline-block;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <ul class="box">
+        <!-- <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li> -->
+      </ul>
+      <div class="temp"></div>
+    </div>
+  </body>
+  <script>
+    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let arr3 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const box = document.querySelector(".box");
+    const temp = document.querySelector(".temp");
+
+    let tempArr = [];
+    console.log(box);
+
+    function start(arr, key) {
+      let liDom = "";
+      for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        if (index === arr.length - 1) {
+          liDom += `<li class='block' onclick='blockClick(${index},${key})'>${
+            index + 1
+          }</li>`;
+        } else {
+          liDom += `<li class='block shadow'>${index + 1}</li>`;
+        }
+      }
+      //   let domWrapper = document.createElement("div");
+      //   domWrapper.innerHTML = ''
+      //   domWrapper.innerHTML = liDom;
+      //   domWrapper.append(liDom)
+      //   box.append(domWrapper);
+    }
+
+    function blockClick(ind, key) {
+      switch (key) {
+        case 1:
+          arr1 = arr1.filter((item, index) => index !== ind);
+          start(arr1, 1);
+          break;
+        case 2:
+          arr2 = arr2.filter((item, index) => index !== ind);
+          start(arr2, 2);
+          break;
+        default:
+          arr3 = arr3.filter((item, index) => index !== ind);
+          start(arr3, 3);
+          break;
+      }
+      renderTemp(ind);
+    }
+
+    function renderTemp(ind) {
+      if (tempArr.filter((item) => item === ind).length === 2) {
+        tempArr = tempArr.filter((item) => item !== ind);
+      } else {
+        tempArr.push(ind);
+      }
+      let tempDom = "";
+      for (let index = 0; index < tempArr.length; index++) {
+        const element = tempArr[index];
+        tempDom += `<div class='block'>${element + 1}</div>`;
+      }
+      temp.innerHTML = tempDom;
+    }
+
+    start(arr1, 1);
+    start(arr2, 2);
+    start(arr3, 3);
+  </script>
+</html>
