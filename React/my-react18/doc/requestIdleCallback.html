@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>requestIdleCallback</title>
+  </head>
+  <body>
+    <script>
+      function sleep(duration) {
+        for (var t = Date.now(); Date.now() - t <= duration; ) {}
+      }
+      const works = [
+        () => {
+          console.log("第1个任务开始");
+          sleep(50);
+          console.log("结束第1个任务执行");
+        },
+        () => {
+          console.log("第2个任务开始");
+          sleep(20);
+          console.log("结束第2个任务执行");
+        },
+        () => {
+          console.log("第3个任务开始");
+          sleep(20);
+          console.log("结束第3个任务执行");
+        },
+      ];
+
+      requestIdleCallback(workLoop);
+
+      function workLoop(deadLine) {
+        // 因为一帧是16.6ms，浏览器执行完成高优任务之后，如果还有时间，会执行workLoop，timeRemaining是本帧剩余时间
+        console.log("本帧的剩余时间是", deadLine.timeRemaining());
+        // 没有剩余时间了，就会跳出循环
+        while (deadLine.timeRemaining() > 1 && works.length > 0) {
+          perforUnitWork();
+        }
+        // 如果还有剩余任务，
+        if (works.length > 0) {
+          console.log(
+            "还剩下",
+            deadLine.timeRemaining() +
+              "ms， 时间切片时间不够， 等下次空闲再调用"
+          );
+          requestIdleCallback(workLoop);
+        }
+      }
+
+      function perforUnitWork() {
+        // 获取数组中的第一个任务
+        let work = works.shift();
+        work();
+      }
+    </script>
+  </body>
+</html>
