@@ -7,6 +7,9 @@ import App from "./App";
 // import Two from "./pages/Two";
 // import Three from "./pages/Three";
 import { Suspense, lazy } from "react";
+import { Provider } from "react-redux";
+import store from "./store/store";
+
 const One = React.lazy(() => import("./pages/One"));
 const Two = React.lazy(() => import("./pages/Two"));
 const Three = React.lazy(() => import("./pages/Three"));
@@ -21,9 +24,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </div>
       <Suspense fallback={<p>Loading...</p>}>
         <Routes>
-          <Route path="/one" element={<One />} />
-          <Route path="/two" element={<Two />} />
-          <Route path="/three" element={<Three />} />
+          <Provider store={store}>
+            <Route path="/one" element={<One />} />
+            <Route path="/two" element={<Two />} />
+            <Route path="/three" element={<Three />} />
+          </Provider>
         </Routes>
       </Suspense>
     </Router>
