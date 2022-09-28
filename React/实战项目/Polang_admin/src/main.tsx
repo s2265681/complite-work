@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+// import App from "./App";
+import Sider from "./Sider";
 // import One from "./pages/One";
 // import Two from "./pages/Two";
 // import Three from "./pages/Three";
@@ -16,21 +17,17 @@ const Three = React.lazy(() => import("./pages/Three"));
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Router>
-      <div id="slider">
-        <h1>Hello world</h1>
-        <Link to={`/one`}>one</Link> |<Link to={`/two`}>two</Link> |
-        <Link to={`/three`}>three</Link>
-      </div>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Routes>
-          <Provider store={store}>
+    <Provider store={store}>
+      <Router>
+        <Sider />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Routes>
             <Route path="/one" element={<One />} />
             <Route path="/two" element={<Two />} />
             <Route path="/three" element={<Three />} />
-          </Provider>
-        </Routes>
-      </Suspense>
-    </Router>
+          </Routes>
+        </Suspense>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );

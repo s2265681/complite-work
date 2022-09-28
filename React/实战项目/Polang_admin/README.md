@@ -27,6 +27,8 @@
 # 配置redux 
 ![redux hooks](https://react-redux.js.org/tutorials/typescript-quick-start)
 
-
-
+ 1. 创建slice 
+ 2. export actions
+ 3. export store
+ 4. useSelector、 useDispatch
 # 
