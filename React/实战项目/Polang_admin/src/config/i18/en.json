@@ -1,0 +1,14 @@
+{
+  "language": "English",
+  "header": {
+    "conquest": "Conquest and Conquest",
+    "Hello World": "Hello World"
+  },
+  "content": {
+    "Increment": "Increment",
+    "Decrement": "Decrement",
+    "One": "One",
+    "Two": "Two",
+    "Three": "Three"
+  }
+}

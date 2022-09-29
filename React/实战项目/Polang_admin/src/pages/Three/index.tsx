@@ -1,9 +1,10 @@
-
+import { Trans } from "react-i18next";
 
 export default function Three() {
-    return (
-      <>
-      Three
-      </>
-    );
-  }
+  console.log("Three");
+  return (
+    <>
+      <Trans>content.Three</Trans>
+    </>
+  );
+}

@@ -1,0 +1,14 @@
+{
+  "language": "中文",
+  "header": {
+    "conquest": "征服",
+    "Hello World": "你好"
+  },
+  "content": {
+    "Increment": "增加",
+    "Decrement": "减少",
+    "One": "第一部分",
+    "Two": "第二部分",
+    "Three": "第三部分"
+  }
+}

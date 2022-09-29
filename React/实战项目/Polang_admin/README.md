@@ -31,4 +31,20 @@
  2. export actions
  3. export store
  4. useSelector、 useDispatch
-# 
+
+
+# 配置国际化 
+
+安装 i18next react-i18next
+
+```js
+i18n.use(initReactI18next).init({
+  resources,
+  lng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+```
+> 更改 全局 语言  i18n.changeLanguage(e.target.value);
+> 注意需要全局组件更新， 需要强制刷新，顶层祖先页面
