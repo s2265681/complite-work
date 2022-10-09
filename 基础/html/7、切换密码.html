@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <style>
+    a {
+      background-color: #ff0;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <form action="">
+      切换密码: <input type="text" id="password" name="firstname" /><br />
+    </form>
+    <a onclick="changePsw()">切换密码</a>
+    <p>
+      <b>注意：</b>
+      表单本身是不可见的。并且注意一个文本字段的默认宽度是20个字符。
+    </p>
+    <script>
+      const input = document.getElementById("password");
+      let defaultMode = "open"; // 'close'
+      function changePsw() {
+        if (input.getAttribute("type") === "text") {
+          input.setAttribute("type", "password");
+        } else {
+          input.setAttribute("type", "text");
+        }
+      }
+    </script>
+  </body>
+</html>
