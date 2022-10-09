@@ -3,7 +3,8 @@
 - command + shift + T 恢复关掉的当前页
 - control + tab 切换当前页签
 - option + command + I 打开浏览器工具
-
+- Command+Option+U：显示源代码
+- Command + control + F 应用全屏退出全屏
 
 ## 编辑器快捷操作
 
