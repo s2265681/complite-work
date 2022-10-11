@@ -1,16 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        let arr = []
+      class EventEmitter {
+        constructor() {
+          this.arr = [];
+        }
+        // on 收集方法 key 方法名 value 方法 fn
+        on(name, fn) {
+          this.arr[name] ? this.arr[name].push(fn) : (this.arr[name] = [fn]);
+        }
+        // 有当前方法 去掉方法，没有去掉当前key
+        off(name, fn) {
+          if (this.arr[name]) {
+            if (fn) {
+              this.arr[name] = this.arr[name].filter((o) => o !== fn);
+            } else {
+              delete this.arr[name];
+            }
+          }
+        }
+        // 当前只有一个方法
+        once(name, fn) {
+          this.arr[name] = fn;
+        }
+        // 执行
+        emit(name, params) {
+          // 当前执行的方法名 中有多个方法， 依次执行
+          if (Array.isArray(this.arr[name])) {
+            this.arr[name].forEach((fn) => {
+              fn(params);
+            });
+          } else if (this.arr[name]) {
+            // 当前函数名， 只有一个方法，执行完删除
+            this.arr[name](params);
+            this.off(name);
+          }
+        }
+      }
 
-        
+      let emitter = new EventEmitter();
+      const f1 = () => console.log("f1");
+      const f2 = () => console.log("f2");
+      emitter.on("f1", f1);
+      emitter.on("f1", f2);
+      console.log(emitter);
+      emitter.emit("f1");
+      emitter.emit("f1");
+
+      const o1 = () => console.log("o1");
+      emitter.once("o1", o1);
+      emitter.emit("o1");
+      emitter.emit("o1");
+      emitter.emit("o1");
     </script>
-</body>
+  </body>
 </html>
