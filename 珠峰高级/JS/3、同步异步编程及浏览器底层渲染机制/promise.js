@@ -14,3 +14,5 @@
 //   })
 // Promise { 'OK' }
 // 成功执行的 OK
+
+let aaa = "sss";
