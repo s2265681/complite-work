@@ -10,5 +10,10 @@
     "One": "第一部分",
     "Two": "第二部分",
     "Three": "第三部分"
-  }
+  },
+  "myKey": "我的key",
+  "hello beautiful": "你好，美丽世界",
+  "userMessagesUnread": "你好 <1>{{name}}</1>, 你有 {{count}} 未读消息.  <5>去读消息吧</5>.",
+  "gotolink": "点击<1>链接</1>啊",
+  "myKey": "你好 美丽 世界"
 }
