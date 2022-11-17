@@ -49,3 +49,4 @@
 
 - find . -type d -name "node_modules" | xargs rm -rf 删除所有当前文件夹下的 node_modules
 - 代码执行 control + option + N 停止 control + option + M
+- command + L command + O 打开 live-server

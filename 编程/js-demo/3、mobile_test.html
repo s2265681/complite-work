@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8583FF" />
+
+    <title>Document</title>
+  </head>
+  <style>
+    .text {
+      /* white-space: pre-wrap; */
+    }
+    body {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background-color: #ff0;
+      padding: 30px 30px;
+      box-sizing: border-box;
+    }
+
+    .button {
+      /* position: absolute;
+      bottom: 30px;
+      width: 100px;
+      height: 50px;
+      background-color: #f00; */
+
+      display: flex;
+      flex-direction: row;
+      height: 3.75rem;
+      position: fixed;
+      bottom: 0;
+      bottom: calc(env(safe-area-inset-bottom));
+      left: 0px;
+      right: 0px;
+      background-color: #f00;
+      align-items: center;
+    }
+  </style>
+  <body>
+    <div class="text">11111</div>
+    <div class="button" onclick="clickFn()">底部</div>
+  </body>
+  <script>
+    const text = document.querySelector(".text");
+    console.log(text);
+    text.innerHTML = "hello" + "\n" + "world+123";
+
+    const hiddenProperty =
+      "hidden" in document
+        ? "hidden"
+        : "webkitHidden" in document
+        ? "webkitHidden"
+        : "mozHidden" in document
+        ? "mozHidden"
+        : null;
+    const visibilityChangeEvent = hiddenProperty?.replace(
+      /hidden/i,
+      "visibilitychange"
+    );
+
+    function onVisibilityChange() {
+      if (/visible/i.test(document.visibilityState)) {
+        // setTimeout(() => {
+        let count = Number(localStorage.getItem("count"));
+        alert(count);
+        localStorage.setItem("count", count + 1);
+        // }, 0);
+      } else {
+        alert("hidden");
+      }
+    }
+    document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+
+    alert(navigator.language);
+
+    function clickFn() {
+      // let head = document.getElementsByTagName("head");
+      // let meta = document.createElement("meta");
+      // meta.content = "#f00";
+      // meta.name = "theme-color";
+      // head[0].appendChild(meta);
+      // alert(head);
+      // console.log(head, "head");
+      // <meta name="theme-color" content="#8583FF" />
+
+      let color = document.querySelectorAll("meta[name='theme-color']")[0]
+        .content;
+      if (color === "#8583FF") {
+        document.querySelectorAll("meta[name='theme-color']")[0].content =
+          "#0f0";
+      } else {
+        document.querySelectorAll("meta[name='theme-color']")[0].content =
+          "#8583FF";
+      }
+    }
+  </script>
+</html>

@@ -11,7 +11,7 @@
     "Two": "Two",
     "Three": "Three"
   },
-  "userMessagesUnread": "Hello <1>{{name}}</1>, you have {{count}} unread message. <5>Go to message</5>.",
+  "Hello name, you have  unread message.Go to message": "Hello <1>{{name}}</1>, you have {{count}} unread message. <5>Go to message</5>.",
   "gotolink": "click<1>www.baidu.com</1>dddd",
   "myKey": "hello beautiful world"
 }

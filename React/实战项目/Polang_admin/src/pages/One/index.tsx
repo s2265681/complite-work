@@ -35,7 +35,7 @@ export default function One() {
       <Trans i18nKey="userMessagesUnread" count={count}>
         Hello
         <a href="baidu">
-          <strong>{{ name }}</strong>
+          <strong>{{ t(name) }}</strong>
         </a>
         , you have
         {{ count }} unread message. <Link to="/msgs">Go to messages</Link>.
