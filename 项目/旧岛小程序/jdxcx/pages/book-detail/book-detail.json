@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "rock_tag":"/components/tag/index",
-    "rock_like": "/components/like/index",
-    "rock_mask": "/components/mask/index",
-    "rock-img-btn": "/components/image-button/index"
-  }
-}
