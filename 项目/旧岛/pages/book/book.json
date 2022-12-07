@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "book_rock": "/components/book/index",
-    "search_rock": "/components/search/index"
-  }
-}
