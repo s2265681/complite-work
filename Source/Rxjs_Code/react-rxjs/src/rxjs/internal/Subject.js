@@ -1,6 +1,9 @@
 import { Observable } from "./Observable";
+// 多播 即使观察者 又是可观察者
+// const source = new Subject()
+// source.next()
 export class Subject extends Observable {
-  observers = []
+  observers = [];
   _subscribe(subscriber) {
     this.observers.push(subscriber);
   }

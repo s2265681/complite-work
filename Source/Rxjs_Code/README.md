@@ -46,3 +46,7 @@
 - RxJS 的 fromEvent 函数允许将浏览器事件转换为 Observable，它接受两个参数
   - 第一个参数是事件目标，例如 DOM 元素或 window 对象
   - 第二个参数是事件名称，例如 click 或 scroll
+
+## 1.7 map、filter
+
+## 2.0
