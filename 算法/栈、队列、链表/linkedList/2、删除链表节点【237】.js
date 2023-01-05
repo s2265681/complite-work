@@ -10,9 +10,31 @@
  * 输出：[4,1,9]
  * 解释：指定链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -> 1 -> 9
  */
-var deleteNode = function (node) {};
 
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
+const a = {
+  val: 4,
+};
+
+const b = {
+  val: 5,
+};
+
+const c = {
+  val: 1,
+};
+
+const d = {
+  val: 9,
+};
+
+a.next = b;
+b.next = c;
+c.next = d;
+console.log(a);
+
+var deleteNode = function (node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
+};
+deleteNode(b);
+console.log(a); //=> 4、 1、 9
