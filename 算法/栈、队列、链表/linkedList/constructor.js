@@ -17,51 +17,49 @@
 //   },
 // };
 
-
-function LikeNode(value){
-    this.value = value;
-    this.next = null
+function LikeNode(value) {
+  this.value = value;
+  this.next = null;
 }
 
-function LikeList(){
-    this.head = null
+function LikeList() {
+  this.head = null;
 }
 
-LikeList.prototype.add=function(value){
-    let node = new LikeNode(value)
-    if(!this.head){
-        this.head = node
-    }else{
-        let curr = this.head;
-        while(curr.next){
-            curr = curr.next
-        }
-        curr.next = node
+LikeList.prototype.add = function (value) {
+  let node = new LikeNode(value);
+  if (!this.head) {
+    this.head = node;
+  } else {
+    let curr = this.head;
+    while (curr.next) {
+      curr = curr.next;
     }
-}
+    curr.next = node;
+  }
+};
 
-let ll = new LikeList()
+let ll = new LikeList();
 
-ll.add(1)
-ll.add(2)
-ll.add(3)
-ll.add(4)
-ll.add(5)
+ll.add(1);
+ll.add(2);
+ll.add(3);
+ll.add(4);
+ll.add(5);
 
 console.log(ll);
-console.log(ll.head.value)
-console.log(ll.head.next.value)
+console.log(ll.head.value);
+console.log(ll.head.next.value);
 
 // 反转链表
-var reverseList = function(head){
-    console.log(head)
-    let p1 = head.next
-    let p2 = head.next.next
-    while(p1){
-        console.log(curr.next.value)
-        curr = curr.next
-    }
-    
-}
+var reverseList = function (head) {
+  console.log(head);
+  let p1 = head.next;
+  let p2 = head.next.next;
+  while (p1) {
+    console.log(p2.next.value);
+    p1 = p2.next;
+  }
+};
 
-console.log(ll.head);
+console.log(reverseList(ll.head));
