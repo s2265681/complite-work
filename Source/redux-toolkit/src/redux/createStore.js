@@ -2,6 +2,10 @@ export function createStore(reducer, preloadedState, enhancer) {
   if (typeof reducer !== "function") {
     throw new Error(`Expected the root reducer to be a function. Instead`);
   }
+  if (typeof enhancer === "function") {
+    return enhancer(createStore)(reducer, preloadedState);
+  }
+
   let currentReducer = reducer;
   let currentState = preloadedState;
   let currentListeners = [];

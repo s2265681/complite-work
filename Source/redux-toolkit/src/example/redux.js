@@ -1,5 +1,5 @@
-// import { createStore } from "redux";
-import { createStore } from "../redux/index";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+// import { createStore, combineReducers } from "../redux/index";
 /**
  * 这是一个 reducer 函数：接受当前 state 值和描述“发生了什么”的 action 对象，它返回一个新的 state 值。
  * reducer 函数签名是 : (state, action) => newState
@@ -24,10 +24,32 @@ function counterReducer(state = initialState, action) {
   }
 }
 
+function todos(state = [], action) {
+  switch (action.type) {
+    case "ADD_TODO":
+      return state.concat([action.text]);
+    default:
+      return state;
+  }
+}
+
+const rootReducers = combineReducers({
+  counterReducer,
+  todos,
+});
+
+console.log(rootReducers, "rootReducers");
+
+// function combineReducer(state = {}, action) {
+//   let nextState = {};
+//   nextState["counterReducer"] = counterReducer(state["counterReducer"], action);
+//   nextState["todos"] = todos(state["todos"], action);
+//   return nextState;
+// }
+
 // 创建一个包含应用程序 state 的 Redux store。
 // 它的 API 有 { subscribe, dispatch, getState }.
-let store = createStore(counterReducer);
-console.log(store, "store");
+let store = createStore(rootReducers);
 // 你可以使用 subscribe() 来更新 UI 以响应 state 的更改。
 // 通常你会使用视图绑定库（例如 React Redux）而不是直接使用 subscribe()。
 // 可能还有其他用例对 subscribe 也有帮助。
@@ -46,5 +68,4 @@ store.dispatch({ type: "change/color", payload: "yellow" });
 
 // // {value: 1}
 
-// console.log(store.getState(), "llll");
-//
+console.log(store.getState(), "llll");

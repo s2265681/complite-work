@@ -1,4 +1,5 @@
-import "./example/redux";
+// import "./example/redux";
+import "./example/logger";
 
 function App() {
   return (
