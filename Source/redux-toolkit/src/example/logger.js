@@ -31,7 +31,6 @@ function logger2({ getState }) {
   };
 }
 
-debugger;
 const enhancer = applyMiddleware(logger, logger2);
 let store = createStore(todoReducer, ["Use Redux"], enhancer);
 store.dispatch({

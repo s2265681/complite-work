@@ -1,5 +1,8 @@
 // import "./example/redux";
-import "./example/logger";
+// import "./example/logger";
+// import "./example/reduxThunk";
+// import "./example/reduxPromise";
+import "./example/reduxAction";
 
 function App() {
   return (

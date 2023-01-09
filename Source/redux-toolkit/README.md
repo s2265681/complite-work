@@ -71,3 +71,12 @@ export function createStore(reducer, preloadedState, enhancer) {
 > 函数签名 ({ getState, dispatch }) => next => action
 
 > middleware 是一个 洋葱模型的 函数执行， 函数嵌套， 传入另一个函数执行， next 执行为下一个执行， 然后嵌套 执行
+
+# Redux-Action
+
+> 生成一个符合 FSA 格式的 函数工具库， 大大简化 action 和 reducer 的写法
+
+- [redux-action](https://github.com/redux-utilities/redux-actions)
+- [redux-action-doc](https://redux-actions.js.org/)
+
+# Redux-thunk 、 Redux-Promise

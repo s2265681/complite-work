@@ -2,6 +2,12 @@ export function createStore(reducer, preloadedState, enhancer) {
   if (typeof reducer !== "function") {
     throw new Error(`Expected the root reducer to be a function. Instead`);
   }
+
+  if (typeof preloadedState === "function" && typeof enhancer === "undefined") {
+    enhancer = preloadedState;
+    preloadedState = undefined;
+  }
+
   if (typeof enhancer === "function") {
     return enhancer(createStore)(reducer, preloadedState);
   }

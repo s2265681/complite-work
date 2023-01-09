@@ -13,25 +13,25 @@ function compose(...funcs) {
 }
 
 //  洋葱圈模型
-let a =
-  (next) =>
-  (...args) => {
-    console.log("a1 start", next);
-    next(...args);
-    console.log("a1 end");
-  };
+// let a =
+//   (next) =>
+//   (...args) => {
+//     console.log("a1 start", next);
+//     next(...args);
+//     console.log("a1 end");
+//   };
 
-let b =
-  (next) =>
-  (...args) => {
-    console.log("a2 start", next);
-    next(...args);
-    console.log("a2 end");
-  };
+// let b =
+//   (next) =>
+//   (...args) => {
+//     console.log("a2 start", next);
+//     next(...args);
+//     console.log("a2 end");
+//   };
 
-const c1 = compose(a, b);
-console.log(c1);
-const c2 = c1(console.log);
-console.log(c2);
-c2("----");
+// const c1 = compose(a, b);
+// console.log(c1);
+// const c2 = c1(console.log);
+// console.log(c2);
+// c2("----");
 export default compose;
