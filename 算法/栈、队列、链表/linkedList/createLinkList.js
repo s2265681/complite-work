@@ -1,4 +1,4 @@
-function LinkNode(val) {
+function ListNode(val) {
   this.val = val;
   this.next = null;
 }
@@ -8,7 +8,7 @@ function LinkList() {
 }
 
 LinkList.prototype.add = function (value) {
-  let node = new LinkNode(value);
+  let node = new ListNode(value);
   if (!this.head) {
     this.head = node;
   } else {
@@ -27,5 +27,5 @@ LinkList.prototype.add = function (value) {
 
 module.exports = {
   LinkList,
-  LinkNode,
+  ListNode,
 };
