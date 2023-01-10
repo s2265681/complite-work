@@ -1,5 +1,6 @@
 import { createStore } from "./createStore";
 import combineReducers from "./combineReducers";
 import applyMiddleware from "./applyMiddleware";
+import bindActionCreators from "./bindActionCreators";
 
-export { combineReducers, createStore, applyMiddleware };
+export { combineReducers, createStore, applyMiddleware, bindActionCreators };

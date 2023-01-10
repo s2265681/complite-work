@@ -5,6 +5,7 @@
 - [npm](https://www.npmjs.com/package/@reduxjs/toolkit)
 - [Redux 中文文档](https://cn.redux.js.org/redux-toolkit/overview/)
 - [Redux Api 文档](https://redux.js.org/api)
+- [redux-actions](https://redux-actions.js.org/)
 
 # 概念
 
@@ -74,9 +75,47 @@ export function createStore(reducer, preloadedState, enhancer) {
 
 # Redux-Action
 
-> 生成一个符合 FSA 格式的 函数工具库， 大大简化 action 和 reducer 的写法
+> 生成一个符合 FSA(Flux Standard Action 通用标准动作) 格式的 函数工具库， 大大简化 action 和 reducer 的写法
 
 - [redux-action](https://github.com/redux-utilities/redux-actions)
 - [redux-action-doc](https://redux-actions.js.org/)
 
 # Redux-thunk 、 Redux-Promise
+
+# 实现 bindActionCreators
+
+> bindActionCreators 是操作 dispatch 中的 action 的方法， 把传入的函数或者对象， 与 dispatch 进行绑定 ()=> dispatch(actionCreator.apply(this, arguments));
+
+> 将 action 对象与 dispatch 进行绑定， 使用时候避免忘记 dispatch，也不用在传递 dispatch
+
+- 传入的 actionCreators 是函数，返回一个绑定 dispatch 的函数
+- 传入的 actionCreators 是对象，返回一个对象， key 为对象的 key，value 是与 dispatch 绑定的函数
+
+```js
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(this, arguments));
+  };
+}
+
+// 传入的 actionCreators 是函数，返回一个绑定dispatch 的函数
+// 传入的 actionCreators 是对象，返回一个对象， key为对象的key，value 是与dispatch 绑定的函数
+export default function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === "function") {
+    return bindActionCreator(actionCreators, dispatch);
+  }
+  if (typeof actionCreators !== "object" || actionCreators === null) {
+    throw new Error(
+      'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?'
+    );
+  }
+  var boundActionCreators = {};
+  for (var key in actionCreators) {
+    var actionCreator = actionCreators[key];
+    if (typeof actionCreator === "function") {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  }
+  return boundActionCreators;
+}
+```
