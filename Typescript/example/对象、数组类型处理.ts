@@ -75,3 +75,22 @@ const tname2: TName2 = {
   firstName: "",
   lastName: "",
 };
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+let person: Person = { name: "tao", age: 18 };
+
+//两者一样
+type p1 = typeof person;
+type p2 = Person;
+
+// 接口
+interface Person {
+  name: string;
+  age: number;
+}
+type K1 = keyof Person; // "name" | "age"
+type K2 = keyof Person[]; // "length" | "toString" | "pop" | "push" | "concat" | "join"
