@@ -1,6 +1,6 @@
-function ListNode(val) {
+function ListNode(val, head) {
   this.val = val;
-  this.next = null;
+  this.next = head || null;
 }
 
 function LinkList() {
