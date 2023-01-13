@@ -6,6 +6,9 @@
 - option + command + I 打开浏览器工具
 - Command+Option+U：显示源代码
 - Command + control + F 应用全屏退出全屏
+- Command + tab 切换下一个应用 （Command + shift + tab 切换上一个应用）
+- Control + tab 切换下一个 应用 tab （浏览器 或者 编辑器） （ Control + shift + tab 切换上一个 应用 tab ）
+- Command + n 切换到浏览器第 n 个 tab
 
 ## 编辑器快捷操作
 
