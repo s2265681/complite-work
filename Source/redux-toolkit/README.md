@@ -119,3 +119,10 @@ export default function bindActionCreators(actionCreators, dispatch) {
   return boundActionCreators;
 }
 ```
+
+# 实现 react-redux
+
+- [文档](https://www.redux.org.cn/docs/react-redux/)
+
+> API 有两个 通过 Provider 把 store 的方法注入 组件的 props 上， 通过内部维护状态的更新， 更新组件状态，
+> 通过 connect 这个 高阶函数， 传入参数控制， 注入 state 的取值， 和 action 的注入， 完成组件内部，便捷的使用状态和操作方便的操作 dispatch

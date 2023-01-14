@@ -3,14 +3,19 @@
 // import "./example/reduxThunk";
 // import "./example/reduxPromise";
 // import "./example/reduxAction";
-import BindAction from "./example/bindAction";
+// import BindAction from "./example/bindAction";
+import NotUseReactRedux from "./pages/NotUseReactRedux";
+import PageUsereactRedux from "./pages/PageUsereactRedux";
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">header</header>
       <div>
-        BindAction:
-        <BindAction />
+        {/* BindAction: */}
+        {/* <BindAction /> */}
+        {/* <NotUseReactRedux /> */}
+        <PageUsereactRedux />
       </div>
     </div>
   );
