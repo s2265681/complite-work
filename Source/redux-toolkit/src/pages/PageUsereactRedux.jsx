@@ -15,19 +15,19 @@ const PageUsereactRedux = (props) => {
         <ComponentA />
         <button
           onClick={() => {
-            props.dispatch({
-              type: "counter/incremented",
-            });
-            // props.incremented();
+            // props.dispatch({
+            //   type: "counter/incremented",
+            // });
+            props.incremented();
           }}
         >
           +1
         </button>
         <button
           onClick={() => {
-            props.dispatch({
-              type: "counter/decremented",
-            });
+            // props.dispatch({
+            //   type: "counter/decremented",
+            // });
             // props.decremented();
           }}
         >
@@ -38,8 +38,8 @@ const PageUsereactRedux = (props) => {
         组件 B<br />
         <ComponentB />
         count:
-        {/* {props.value} */}
-        {props.counterReducer.value}
+        {props.value}
+        {/* {props.counterReducer.value} */}
       </div>
     </div>
   );

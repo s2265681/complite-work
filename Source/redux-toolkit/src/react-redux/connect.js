@@ -18,6 +18,8 @@ const connect = (mapStateToProps, mapDispatchToProps) => {
               subscribe={subscribe}
               ComponentFn={ComponentFn}
               props={props}
+              mapStateToProps={mapStateToProps}
+              mapDispatchToProps={mapDispatchToProps}
             ></WrapperComponent>
           )}
         </ReactReduxContext.Consumer>
@@ -26,18 +28,25 @@ const connect = (mapStateToProps, mapDispatchToProps) => {
   };
 };
 
-const WrapperComponent = ({ store, subscribe, ComponentFn, props }) => {
-  // subscribe(() => {
-  //   console.log("1111", store.getState());
-  // });
-
-  const [state, setState] = useState(store.getState());
-
+const WrapperComponent = ({
+  store,
+  subscribe,
+  ComponentFn,
+  props,
+  mapStateToProps,
+  mapDispatchToProps,
+}) => {
+  const initstate = mapStateToProps(store.getState()) || {};
+  const [state, setState] = useState(initstate);
   console.log(store, subscribe, "store, subscribe");
+
+  const initDispatch = mapDispatchToProps(store.dispatch);
+  console.log(initDispatch, "initDispatch...");
+
   useEffect(() => {
     console.log("useEffect");
     subscribe(() => {
-      setState(store.getState());
+      setState(mapStateToProps(store.getState()));
     });
   }, []);
 
@@ -46,6 +55,7 @@ const WrapperComponent = ({ store, subscribe, ComponentFn, props }) => {
     ...props,
     ...state,
     dispatch: store.dispatch,
+    ...initDispatch,
   });
 };
 export default connect;

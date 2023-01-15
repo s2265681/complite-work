@@ -126,3 +126,7 @@ export default function bindActionCreators(actionCreators, dispatch) {
 
 > API 有两个 通过 Provider 把 store 的方法注入 组件的 props 上， 通过内部维护状态的更新， 更新组件状态，
 > 通过 connect 这个 高阶函数， 传入参数控制， 注入 state 的取值， 和 action 的注入， 完成组件内部，便捷的使用状态和操作方便的操作 dispatch
+
+实现 mapStateToProps, mapDispatchToProps
+
+> 传入两个函数， 一个用来选取当前的状态， 一个用来将 dispatch 的 action 放入 props 中
