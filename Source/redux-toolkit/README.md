@@ -130,3 +130,7 @@ export default function bindActionCreators(actionCreators, dispatch) {
 实现 mapStateToProps, mapDispatchToProps
 
 > 传入两个函数， 一个用来选取当前的状态， 一个用来将 dispatch 的 action 放入 props 中
+
+> 优化 react-redux
+
+- 只更新当前组件的 selector-state 的变化， 对子 组件的 props 进行处理， 默认不更新， 如果子组件的 props 与当前的状态发生了变化，那么更新子组件， 通过 useMemo 进行处理

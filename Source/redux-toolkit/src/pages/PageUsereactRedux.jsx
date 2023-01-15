@@ -12,7 +12,7 @@ const PageUsereactRedux = (props) => {
       我是页面 <br />
       <div>
         组件 <br />
-        <ComponentA />
+        <ComponentA value={props.value} />
         <button
           onClick={() => {
             // props.dispatch({
@@ -28,7 +28,7 @@ const PageUsereactRedux = (props) => {
             // props.dispatch({
             //   type: "counter/decremented",
             // });
-            // props.decremented();
+            props.decremented();
           }}
         >
           -1
@@ -46,7 +46,6 @@ const PageUsereactRedux = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state, ownProps);
   return state.counterReducer;
 };
 

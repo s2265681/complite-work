@@ -1,61 +1,71 @@
-//connect(mapStateToProps, mapDispatchToProps)(Component)
 import { ReactReduxContext } from "./Context";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useContext, useMemo } from "react";
+import { useWhyDidYouUpdate } from "ahooks";
 
 const connect = (mapStateToProps, mapDispatchToProps) => {
-  console.log(
-    "mapStateToProps, mapDispatchToProps",
-    mapStateToProps,
-    mapDispatchToProps
-  );
   return function (ComponentFn) {
     return (props) => {
       return (
-        <ReactReduxContext.Consumer>
-          {({ store, subscribe }) => (
-            <WrapperComponent
-              store={store}
-              subscribe={subscribe}
-              ComponentFn={ComponentFn}
-              props={props}
-              mapStateToProps={mapStateToProps}
-              mapDispatchToProps={mapDispatchToProps}
-            ></WrapperComponent>
-          )}
-        </ReactReduxContext.Consumer>
+        <WrapperComponent
+          ComponentFn={ComponentFn}
+          props={props}
+          mapStateToProps={mapStateToProps}
+          mapDispatchToProps={mapDispatchToProps}
+        ></WrapperComponent>
       );
     };
   };
 };
-
 const WrapperComponent = ({
-  store,
-  subscribe,
   ComponentFn,
   props,
   mapStateToProps,
   mapDispatchToProps,
 }) => {
-  const initstate = mapStateToProps(store.getState()) || {};
-  const [state, setState] = useState(initstate);
-  console.log(store, subscribe, "store, subscribe");
-
-  const initDispatch = mapDispatchToProps(store.dispatch);
-  console.log(initDispatch, "initDispatch...");
+  const { store, subscribe } = useContext(ReactReduxContext);
+  const selectorStateRef = useRef(null);
+  selectorStateRef.current = mapStateToProps(store.getState()) || {};
+  const [state, setState] = useState(selectorStateRef.current);
+  const initDispatch = mapDispatchToProps
+    ? mapDispatchToProps(store.dispatch)
+    : {};
 
   useEffect(() => {
-    console.log("useEffect");
     subscribe(() => {
-      setState(mapStateToProps(store.getState()));
+      selectorStateRef.current = mapStateToProps(store.getState()) || {};
+      setState(selectorStateRef.current);
     });
   }, []);
 
-  //消费Context的数据
-  return ComponentFn({
-    ...props,
-    ...state,
-    dispatch: store.dispatch,
-    ...initDispatch,
-  });
+  const propsChange = useMemo(() => {
+    let keys = Object.keys(props);
+    let result = null;
+    keys.map((el) => {
+      if (selectorStateRef.current?.[el] !== props[el]) {
+        result = { ...props };
+      }
+      return [];
+    });
+    return result;
+  }, [props]);
+
+  // 只有当最后一个更新了 才更新
+  const renderedWrappedComponent = useMemo(() => {
+    console.log("render", ComponentFn.name);
+    return (
+      // @ts-ignore
+      ComponentFn({
+        ...props,
+        ...state,
+        dispatch: store.dispatch,
+        ...initDispatch,
+      })
+    );
+  }, [state, propsChange]);
+
+  console.log(useWhyDidYouUpdate(">>>", state, propsChange));
+
+  return renderedWrappedComponent;
 };
+
 export default connect;

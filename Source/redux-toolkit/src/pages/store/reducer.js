@@ -12,10 +12,16 @@ export function counterReducer(state = initialState, action) {
   }
 }
 
-export function todos(state = [], action) {
+export function todos(
+  state = {
+    key: [],
+    id: 33,
+  },
+  action
+) {
   switch (action.type) {
     case "ADD_TODO":
-      return state.concat([action.text]);
+      return { ...state, key: [...state.key, ...action.payload] };
     default:
       return state;
   }
