@@ -24,6 +24,23 @@ import compose from "./compose";
 //   };
 // }
 
+// 应用单个中间件的增强dispatch的方法
+// function handleEnhancer(middleware) {
+//   return (createStore) => {
+//     return function (reducer, preloadedState) {
+//       const store = createStore(reducer, preloadedState);
+//       const addMiddlewareDispatch = middleware(store)(store.dispatch);
+//       let dispatch = (action) => {
+//         addMiddlewareDispatch(action);
+//       };
+//       return {
+//         ...store,
+//         dispatch,
+//       };
+//     };
+//   };
+// }
+
 export default function applyMiddleware(...middlewares) {
   return (createStore) =>
     (...args) => {

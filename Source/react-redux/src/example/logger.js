@@ -1,5 +1,5 @@
 // import { applyMiddleware } from "redux";
-import { createStore, applyMiddleware } from "../redux/index";
+import { createStore, applyMiddleware } from "../package/redux/index";
 
 function todoReducer(state = [], action) {
   switch (action.type) {
@@ -32,7 +32,28 @@ function logger2({ getState }) {
 }
 
 const enhancer = applyMiddleware(logger, logger2);
-let store = createStore(todoReducer, ["Use Redux"], enhancer);
+
+// 应用单个中间件的增强dispatch的方法
+function handleEnhancer(middleware) {
+  return (createStore) => {
+    return function (reducer, preloadedState) {
+      const store = createStore(reducer, preloadedState);
+      const addMiddlewareDispatch = middleware(store);
+      let dispatch = (action) => {
+        addMiddlewareDispatch(store.dispatch)(action);
+      };
+      return {
+        ...store,
+        dispatch,
+      };
+    };
+  };
+}
+
+// console.log(handleEnhancer(logger2), "logger2...");
+let store = createStore(todoReducer, ["Use Redux"], handleEnhancer(logger2));
+// let store = createStore(todoReducer, ["Use Redux"], enhancer);
+
 store.dispatch({
   type: "ADD_TODO",
   text: "Understand the middleware",

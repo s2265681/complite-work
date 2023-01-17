@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ComponentA from "./component/A";
-import ComponentB from "./component/B";
+// import ComponentA from "./component/A";
+// import ComponentB from "./component/B";
 import store from "./store/index";
 
 const NotUseReactRedux = () => {
@@ -16,7 +16,7 @@ const NotUseReactRedux = () => {
       我是页面 <br />
       <div>
         组件 <br />
-        <ComponentA />
+        {/* <ComponentA /> */}
         <button
           onClick={() => {
             store.dispatch({
@@ -38,7 +38,7 @@ const NotUseReactRedux = () => {
       </div>
       <div>
         组件 B<br />
-        <ComponentB />
+        {/* <ComponentB /> */}
         count: {count}
       </div>
     </div>

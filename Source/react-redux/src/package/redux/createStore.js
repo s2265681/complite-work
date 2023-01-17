@@ -8,7 +8,7 @@ export function createStore(reducer, preloadedState, enhancer) {
     preloadedState = undefined;
   }
 
-  if (typeof enhancer === "function") {
+  if (typeof enhancer !== "undefined") {
     return enhancer(createStore)(reducer, preloadedState);
   }
 
@@ -30,11 +30,11 @@ export function createStore(reducer, preloadedState, enhancer) {
   function dispatch(action) {
     currentState = currentReducer(currentState, action);
     // 执行订阅
-    currentListeners.map((el) => el());
+    currentListeners.map((el) => el(getState()));
     return action;
   }
   // 默认随便发送一次 dispatch， 初始化一下state
-  dispatch("@____dddd");
+  dispatch({ type: "@@redux/INITc.q.d.f.1.j" });
 
   return {
     subscribe,

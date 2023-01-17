@@ -1,4 +1,4 @@
-import { connect } from "../../react-redux";
+import { connect } from "../../package/react-redux";
 // import { connect } from "react-redux";
 
 const ComponentA = (props) => {

@@ -1,9 +1,12 @@
 import ComponentA from "./component/A";
 import ComponentB from "./component/B";
 // import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { incremented, decremented } from "./store/action";
-import { connect } from "../react-redux";
+// import { bindActionCreators } from "../package/redux";
+import { connect } from "../package/react-redux";
+import { bindActionCreators } from "redux";
+// import { connect } from "react-redux";
 
 const PageUsereactRedux = (props) => {
   console.log(props, "props11");
