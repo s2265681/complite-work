@@ -1,11 +1,11 @@
 // import "./example/redux";
-import "./example/logger";
+// import "./example/logger";
 // import "./example/reduxThunk";
 // import "./example/reduxPromise";
 // import "./example/reduxAction";
 // import BindAction from "./example/bindAction";
 // import NotUseReactRedux from "./pages/NotUseReactRedux";
-// import PageUsereactRedux from "./pages/PageUsereactRedux";
+import PageUsereactRedux from "./pages/PageUsereactRedux";
 function App() {
   return (
     <div className="App">
@@ -14,7 +14,7 @@ function App() {
         {/* BindAction: */}
         {/* <BindAction /> */}
         {/* <NotUseReactRedux /> */}
-        {/* <PageUsereactRedux /> */}
+        <PageUsereactRedux />
       </div>
     </div>
   );
