@@ -5,23 +5,23 @@ import { decrement, increment } from "./counterSlice";
 
 export function Counter(props) {
   console.log(props, "props");
-  // const count = useSelector((state) => state.counter.value);
-  // const dispatch = useDispatch();
-  // console.log(count, "count");
-
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  console.log(count, "count");
+  console.log(dispatch, "dispatch");
   return (
     <div>
       <div>
         <button
           aria-label="Increment value"
-          // onClick={() => dispatch(increment())}
+          onClick={() => dispatch(increment())}
         >
           Increment
         </button>
-        {/* <span>{count}</span> */}
+        <span>{count}</span>
         <button
           aria-label="Decrement value"
-          // onClick={() => dispatch(decrement())}
+          onClick={() => dispatch(decrement())}
         >
           Decrement
         </button>
