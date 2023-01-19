@@ -30,9 +30,14 @@ function createSelectorHook(context) {
 
 export function createDispatchHook(context) {
   const useReduxContext = context || ReactReduxContext;
-  return function useDispatch() {
+  return function useDispatch(action) {
     const { store } = useContext(useReduxContext);
-    return store.dispatch;
+
+    return function (action) {
+      console.log(action, "action.");
+
+      store.dispatch(action);
+    };
   };
 }
 
