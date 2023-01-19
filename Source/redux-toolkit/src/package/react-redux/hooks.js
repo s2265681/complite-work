@@ -1,30 +1,41 @@
+// https://github.com/baozouai/redux-source-analysis/blob/main/src/packages/use-sync-external-store/src/useSyncExternalStoreClient.ts#L20
 import { ReactReduxContext } from "./Context";
-import { useState, useEffect, useRef, useContext, useMemo } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  useSyncExternalStore,
+  useDebugValue,
+} from "react";
 
-function useSelector(selector) {
-  // 增加一个发布订阅
-  const { store } = useContext(ReactReduxContext);
-  const state = store.getState();
-  const [_state, _setState] = useState("");
-  useEffect(
-    function () {
-      store.subscribe(() => {
-        console.log(store.getState(), "store.getState()....");
-        _setState(selector(store.getState()));
-      });
-    },
-    [store]
-  );
-  console.log(_state, selector(store.getState()), "_state...");
-  return selector(store.getState());
-}
-
-function useDispatch() {
-  const { store } = useContext(ReactReduxContext);
-  const { _state, setState } = useState("");
-  return (action) => {
-    store.dispatch(action);
+function createSelectorHook(context) {
+  const useReduxContext = context || ReactReduxContext;
+  return function useSelector(selector) {
+    const { store } = useContext(useReduxContext);
+    // const [_, setState] = useState();
+    // useEffect(() => {
+    //   store.subscribe(() => {
+    //     setState(Math.random());
+    //   });
+    // }, [store]);
+    // const selectedState = selector(store.getState());
+    //   forceUpdate({ inst });
+    const selectedState = useSyncExternalStore(store.subscribe, () =>
+      selector(store.getState())
+    );
+    useDebugValue(selectedState);
+    return selectedState;
   };
 }
 
+export function createDispatchHook(context) {
+  const useReduxContext = context || ReactReduxContext;
+  return function useDispatch() {
+    const { store } = useContext(useReduxContext);
+    return store.dispatch;
+  };
+}
+
+const useSelector = createSelectorHook();
+const useDispatch = createDispatchHook();
 export { useSelector, useDispatch };

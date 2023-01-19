@@ -25,4 +25,8 @@ API
 - 实现 configureStore ， 主要做了什么， 什么原理
 - 实现 createSlice， 主要做了什么，原理
 - 实现 react-redux useSelector, useDispatch, 新版是如何
+
+- useSyncExternalStore 内部使用 useLayoutEffect 通过监听 forceUpdate({inst})
+  [redux 源码分析](https://github.com/baozouai/redux-source-analysis/blob/main/src/packages/use-sync-external-store/src/useSyncExternalStoreClient.ts#L20)
+
 - 实现 redux-devtool 是怎么工作的
