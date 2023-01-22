@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { useSelector, useDispatch } from "../../package/react-redux";
-import { decrement, increment } from "./counterSlice";
+import { decrement, increment, fetchHitokoto } from "./counterSlice";
 
 export function Counter(props) {
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchHitokoto());
+  }, []);
+
   return (
     <div>
       <div>
+        <h2> 一言： {counter.padding ? "loading..." : counter.hitokoto}</h2>
         <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
