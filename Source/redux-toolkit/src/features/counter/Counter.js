@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "../../package/react-redux";
 import { decrement, increment } from "./counterSlice";
 
 export function Counter(props) {
-  const count = useSelector((state) => state.value);
+  const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
-  console.log(count, "count...");
   return (
     <div>
       <div>
@@ -16,7 +15,7 @@ export function Counter(props) {
         >
           Increment
         </button>
-        <span>{count}</span>
+        <span>{counter.value}</span>
         <button
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}

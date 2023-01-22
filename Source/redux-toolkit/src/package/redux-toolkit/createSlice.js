@@ -1,29 +1,59 @@
-import { useContext } from "react";
+import { createAction } from "redux-actions";
+import createReducer from "./createReducer";
+function createSlice(options) {
+  const { name } = options;
+  const initialState = options.initialState;
+  const reducers = options.reducers || {};
+  const reducerNames = Object.keys(reducers);
 
-import { ReactReduxContext } from "../react-redux/Context";
+  const actionCreators = {};
+  const sliceCaseReducersByName = {};
+  const sliceCaseReducersByType = {};
 
-function createSlice(sliceConfig) {
-  const { name, reducers, initialState } = sliceConfig;
-  console.log("createSlice", name, reducers, initialState);
+  reducerNames.forEach((reducerName) => {
+    const type = `${name}/${reducerName}`;
+    // maybe with prepare esplipe
+    const caseReducer = reducers[reducerName];
+    actionCreators[reducerName] = createAction(type);
+    sliceCaseReducersByName[reducerName] = caseReducer;
+    sliceCaseReducersByType[type] = caseReducer;
+  });
 
-  const actionH = (store) => {
-    console.log(store, "store...");
-    return {
-      ...reducers,
-    };
-  };
+  function buildReducer() {
+    const [
+      extraReducers = {},
+      actionMatchers = [],
+      defaultCaseReducer = undefined,
+    ] = [options.extraReducers];
 
-  console.log(actionH, "actionH...");
+    const finalCaseReducers = { ...extraReducers, ...sliceCaseReducersByType };
+    return createReducer(initialState, (builder) => {
+      for (let key in finalCaseReducers) {
+        builder.addCase(key, finalCaseReducers[key]);
+      }
+      for (let m of actionMatchers) {
+        builder.addMatcher(m.matcher, m.reducer);
+      }
+      if (defaultCaseReducer) {
+        builder.addDefaultCase(defaultCaseReducer);
+      }
+    });
+  }
 
-  sliceConfig.actionH = actionH;
-
-  sliceConfig.actions = {
-    ...reducers,
-  };
-
+  let _reducer;
   return {
-    reducer: sliceConfig,
-    actions: sliceConfig.actions,
+    name,
+    reducer(state, action) {
+      if (!_reducer) _reducer = buildReducer();
+      console.log(_reducer, "_reducer...", state, action);
+      return _reducer(state, action);
+    },
+    actions: actionCreators,
+    caseReducers: sliceCaseReducersByName,
+    getInitialState() {
+      if (!_reducer) _reducer = buildReducer();
+      return _reducer.getInitialState();
+    },
   };
 }
 
