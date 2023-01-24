@@ -6,6 +6,7 @@ import { decrement, increment, fetchHitokoto } from "./counterSlice";
 export function Counter(props) {
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
+  console.log(counter.pending, "counter.pending");
 
   useEffect(() => {
     dispatch(fetchHitokoto());
@@ -14,7 +15,7 @@ export function Counter(props) {
   return (
     <div>
       <div>
-        <h2> 一言： {counter.padding ? "loading..." : counter.hitokoto}</h2>
+        <h2> 一言： {counter.pending ? "loading..." : counter.hitokoto}</h2>
         <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}

@@ -1,6 +1,7 @@
 import { createAction } from "redux-actions";
 import createReducer from "./createReducer";
 import createNextState, { isDraft, isDraftable } from "immer";
+import { executeReducerBuilderCallback } from "./mapBuilders";
 
 function createSlice(options) {
   const { name } = options;
@@ -26,7 +27,10 @@ function createSlice(options) {
       extraReducers = {},
       actionMatchers = [],
       defaultCaseReducer = undefined,
-    ] = [options.extraReducers];
+    ] =
+      typeof options.extraReducers === "function"
+        ? executeReducerBuilderCallback(options.extraReducers)
+        : [options.extraReducers];
 
     const finalCaseReducers = { ...extraReducers, ...sliceCaseReducersByType };
     return createReducer(initialState, (builder) => {
@@ -52,7 +56,6 @@ function createSlice(options) {
     for (let key in finalCaseReducers) {
       actionsMap[key] = finalCaseReducers[key];
     }
-    console.log(actionsMap, "actionsMap...");
     return function reducer(state = getInitialState(), action) {
       reducer.getInitialState = getInitialState;
       let caseReducers = [actionsMap[action.type]];
@@ -73,7 +76,6 @@ function createSlice(options) {
     reducer(state, action) {
       // if (!_reducer) _reducer = buildReducer();
       if (!_reducer) _reducer = simpleReducer();
-      console.log(_reducer, "_reducer...", state, action);
       return _reducer(state, action);
     },
     actions: actionCreators,

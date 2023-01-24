@@ -34,8 +34,6 @@ export function createDispatchHook(context) {
     const { store } = useContext(useReduxContext);
 
     return function (action) {
-      console.log(action, "action.");
-
       store.dispatch(action);
     };
   };

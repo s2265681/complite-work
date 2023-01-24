@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { createSlice } from "../../package/redux-toolkit";
+import { createSlice, createAsyncThunk } from "../../package/redux-toolkit";
+// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchHitokoto = createAsyncThunk(
   "counter/fetchHitokoto",
@@ -15,7 +15,7 @@ export const counterSlice = createSlice({
   initialState: {
     value: 0,
     hitokoto: "",
-    padding: false,
+    pending: false,
   },
   reducers: {
     increment: (state) => {
@@ -28,19 +28,36 @@ export const counterSlice = createSlice({
       state.value += action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchHitokoto.pending, (state, action) => {
-      state.padding = true;
-    });
-    builder.addCase(fetchHitokoto.fulfilled, (state, action) => {
+
+  // object or function 收集 reducer
+  extraReducers: {
+    "counter/fetchHitokoto/pending": (state, action) => {
+      state.pending = true;
+    },
+    "counter/fetchHitokoto/fulfilled": (state, action) => {
       state.hitokoto = action.payload.hitokoto;
-      state.padding = false;
-    });
-    builder.addCase(fetchHitokoto.rejected, (state, action) => {
+      state.pending = false;
+    },
+    "counter/fetchHitokoto/rejected": (state, action) => {
       state.hitokoto = "error";
-      state.padding = false;
-    });
+      state.pending = false;
+    },
   },
+  // 集成了 redux-thunk 中间件
+  // extraReducers: (builder) => {
+  //   // 将 actions 进行收集
+  //   builder.addCase(fetchHitokoto.pending, (state, action) => {
+  //     state.pending = true;
+  //   });
+  //   builder.addCase(fetchHitokoto.fulfilled, (state, action) => {
+  //     state.hitokoto = action.payload.hitokoto;
+  //     state.pending = false;
+  //   });
+  //   builder.addCase(fetchHitokoto.rejected, (state, action) => {
+  //     state.hitokoto = "error";
+  //     state.pending = false;
+  //   });
+  // },
 });
 
 // Action creators are generated for each case reducer function

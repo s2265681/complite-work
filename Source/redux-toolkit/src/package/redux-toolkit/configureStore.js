@@ -45,7 +45,6 @@ function configureStore(options) {
 
   let finalMiddleware = middleware;
 
-  console.log(finalMiddleware, "finalMiddleware..");
   // finalMiddleware 如果是函数.. 省略
   const middlewareEnhancer = applyMiddleware(...finalMiddleware);
 
@@ -69,7 +68,6 @@ function configureStore(options) {
 
   const composedEnhancer = finalCompose(...storeEnhancers);
 
-  console.log(rootReducer, preloadedState, "rootReducer");
   let store = createStore(rootReducer, preloadedState, composedEnhancer);
 
   return store;
