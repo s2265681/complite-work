@@ -30,3 +30,7 @@ API
   [redux 源码分析](https://github.com/baozouai/redux-source-analysis/blob/main/src/packages/use-sync-external-store/src/useSyncExternalStoreClient.ts#L20)
 
 - 实现 redux-devtool 是怎么工作的
+
+- 实现 createAsyncThunk
+  > 异步中间件 原理 是 判断 action 是函数，则使用中间件，返回函数的执行结果，也就是说 dispatch(fn) => dispatch(fn())
+  > 通过 slice 收集 reducer， 通过 createAsyncThunk 内部 dispatch pedding 然后同步等待 最终的结果 再次 dispatch
