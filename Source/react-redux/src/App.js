@@ -6,11 +6,13 @@
 // import BindAction from "./example/bindAction";
 // import NotUseReactRedux from "./pages/NotUseReactRedux";
 import PageUsereactRedux from "./pages/PageUsereactRedux";
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">header</header>
       <div>
+        HAHA
         {/* BindAction: */}
         {/* <BindAction /> */}
         {/* <NotUseReactRedux /> */}

@@ -6,10 +6,20 @@ import { incremented, decremented } from "./store/action";
 // import { bindActionCreators } from "../package/redux";
 import { connect } from "../package/react-redux";
 import { bindActionCreators } from "redux";
+import { useEffect } from "react";
 // import { connect } from "react-redux";
 
 const PageUsereactRedux = (props) => {
-  console.log(props, "props11");
+  // console.log(props, "props11");
+
+  useEffect(() => {
+    console.log("...");
+    props.dispatch({
+      type: "USER_FETCH_REQUESTED",
+      payload: { userId: "111" },
+    });
+  }, [props]);
+
   return (
     <div>
       我是页面 <br />
