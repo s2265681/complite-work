@@ -39,11 +39,13 @@ const WrapperComponent = ({
     });
   }, []);
 
+  // 这里简化有些问题
   const propsChange = useMemo(() => {
     let keys = Object.keys(props);
     let result = null;
     keys.map((el) => {
       if (selectorStateRef.current?.[el] !== props[el]) {
+        // selectorStateRef.current[el] = props[el];
         result = { ...props };
       }
       return [];
@@ -53,7 +55,7 @@ const WrapperComponent = ({
 
   // 只有当最后一个更新了 才更新
   const renderedWrappedComponent = useMemo(() => {
-    console.log("render", ComponentFn.name);
+    console.log(ComponentFn.name, props, state);
     return (
       // @ts-ignore
       ComponentFn({
@@ -63,9 +65,10 @@ const WrapperComponent = ({
         ...initDispatch,
       })
     );
-  }, [state, propsChange]);
+    // }, [state, propsChange]);
+  }, [ComponentFn, props, state, store.dispatch, initDispatch]);
 
-  console.log(useWhyDidYouUpdate(">>>", state, propsChange));
+  // console.log(useWhyDidYouUpdate(">>>", state, propsChange));
 
   return renderedWrappedComponent;
 };

@@ -1,25 +1,12 @@
 import ComponentA from "./component/A";
 import ComponentB from "./component/B";
-// import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
 import { incremented, decremented } from "./store/action";
-// import { bindActionCreators } from "../package/redux";
-import { connect } from "../package/react-redux";
 import { bindActionCreators } from "redux";
-import { useEffect } from "react";
-// import { connect } from "react-redux";
+import PageHitokoto from "./PageHitokoto";
+import { connect } from "../use";
 
 const PageUsereactRedux = (props) => {
-  // console.log(props, "props11");
-
-  useEffect(() => {
-    console.log("...");
-    props.dispatch({
-      type: "USER_FETCH_REQUESTED",
-      payload: { userId: "111" },
-    });
-  }, [props]);
-
+  console.log("render PageUsereactRedux", props);
   return (
     <div>
       我是页面 <br />
@@ -28,9 +15,6 @@ const PageUsereactRedux = (props) => {
         <ComponentA value={props.value} />
         <button
           onClick={() => {
-            // props.dispatch({
-            //   type: "counter/incremented",
-            // });
             props.incremented();
           }}
         >
@@ -38,9 +22,6 @@ const PageUsereactRedux = (props) => {
         </button>
         <button
           onClick={() => {
-            // props.dispatch({
-            //   type: "counter/decremented",
-            // });
             props.decremented();
           }}
         >
@@ -52,7 +33,9 @@ const PageUsereactRedux = (props) => {
         <ComponentB />
         count:
         {props.value}
-        {/* {props.counterReducer.value} */}
+      </div>
+      <div className="user">
+        <PageHitokoto />
       </div>
     </div>
   );
@@ -63,9 +46,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ incremented, decremented }, dispatch);
+  return bindActionCreators({ incremented, decremented, dispatch }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUsereactRedux);
-
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])

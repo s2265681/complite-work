@@ -1,12 +1,10 @@
-import { connect } from "../../package/react-redux";
-// import { connect } from "react-redux";
+import { connect } from "../../use";
 
 const ComponentA = (props) => {
-  console.log(props, "A props");
-
+  console.log("render ComponentA", props);
   return (
     <div>
-      我是A组件
+      <h1>ComponentA 组件</h1>
       <button
         onClick={() => {
           props.dispatch({
@@ -20,8 +18,8 @@ const ComponentA = (props) => {
       <h2>这是父组件 传入的 props value: {props.value}</h2>
       <h3>测试 store 中拿的数据更新 {props.counterReducer.value}</h3>
       <ul>
-        {props.todos.key.map((el) => (
-          <li>{el}</li>
+        {props.todos.key.map((el, index) => (
+          <li key={index}>{el}</li>
         ))}
       </ul>
     </div>

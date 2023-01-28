@@ -1,13 +1,10 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-
+import { call, put, takeEvery, takeLatest } from "../../use";
 // worker Saga : 将在 USER_FETCH_REQUESTED action 被 dispatch 时调用
 function* fetchUser(action) {
   try {
-    const user = yield call(
-      () => fetch("https://v1.hitokoto.cn/"),
-      action.payload.userId
+    const user = yield call(() =>
+      fetch("https://v1.hitokoto.cn/").then((response) => response.json())
     );
-    console.log(user.json(), "user...");
     yield put({ type: "USER_FETCH_SUCCEEDED", user: user });
   } catch (e) {
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
@@ -19,7 +16,6 @@ function* fetchUser(action) {
    允许并发（译注：即同时处理多个相同的 action）
  */
 function* mySaga() {
-  debugger;
   yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
 }
 
@@ -33,5 +29,20 @@ function* mySaga() {
 //  function* mySaga() {
 //    yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
 //  }
-console.log("sss");
+export function userReducer(
+  state = {
+    user: {},
+  },
+  action
+) {
+  switch (action.type) {
+    case "USER_FETCH_SUCCEEDED":
+      return { ...state, user: action.user };
+    case "USER_FETCH_FAILED":
+      return { ...state, user: { message: "error" } };
+    default:
+      return state;
+  }
+}
+
 export default mySaga;
