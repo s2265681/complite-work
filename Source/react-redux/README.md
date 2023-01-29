@@ -7,6 +7,8 @@
 - [Redux Api 文档](https://redux.js.org/api)
 - [redux-actions](https://redux-actions.js.org/)
 
+- [redux、react-redux、redux-sage 原理文章](https://juejin.cn/post/6844904126426398734)
+
 # 概念
 
 - Redux Toolkit 是 Redux 官方推荐，高效的 Redux 开发工具集，简化 Redux 开发，
@@ -156,5 +158,7 @@ const store = createStore(rootReducer, enhancer);
 ```js
  npm install --save redux-saga
 ```
+
+[原理参考](https://blog.csdn.net/luo_qianyu/article/details/112794443)
 
 # redux-persist

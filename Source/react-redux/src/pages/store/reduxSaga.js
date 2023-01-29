@@ -1,10 +1,11 @@
-import { call, put, takeEvery, takeLatest } from "../../use";
+import { call, put, takeEvery } from "../../use";
 // worker Saga : 将在 USER_FETCH_REQUESTED action 被 dispatch 时调用
 function* fetchUser(action) {
   try {
     const user = yield call(() =>
       fetch("https://v1.hitokoto.cn/").then((response) => response.json())
     );
+    // const user = { a: "11" };
     yield put({ type: "USER_FETCH_SUCCEEDED", user: user });
   } catch (e) {
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
