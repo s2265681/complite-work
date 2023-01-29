@@ -1,0 +1,12 @@
+{
+  "name": "js-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "10.复杂json参数转url参数.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
