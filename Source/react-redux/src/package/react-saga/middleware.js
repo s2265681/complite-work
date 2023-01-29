@@ -12,7 +12,6 @@ export default function sagaMiddlewareFactory() {
     _store = store;
     return (next) => (action) => {
       next(action);
-      console.log(action);
       channel.put(action);
     };
   }

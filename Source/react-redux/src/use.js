@@ -22,7 +22,7 @@ import {
 // import createSagaMiddleware from "redux-saga";
 // import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import createSagaMiddleware from "./package/react-saga";
-import { call, put, takeEvery } from "./package/react-saga/effects";
+import { call, put, takeEvery, all } from "./package/react-saga/effects";
 
 export {
   connect,
@@ -34,5 +34,6 @@ export {
   createSagaMiddleware,
   call,
   put,
+  all,
   takeEvery,
 };

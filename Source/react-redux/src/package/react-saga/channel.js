@@ -6,6 +6,7 @@
 function channel() {
   let _task = null;
   function take(task) {
+    console.log("task", task);
     _task = task;
   }
   function put(action) {
