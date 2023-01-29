@@ -1,8 +1,6 @@
 export default function createSagaMiddleware() {
   function sagaMiddleware({ dispatch, getState }) {
     //   console.log( dispatch, getState );
-    console.log('执行');
-    debugger
     function createChannel() {
       let observer = {};
       function subscribe(actionType, listener) {
@@ -41,8 +39,8 @@ export default function createSagaMiddleware() {
     sagaMiddleware.run = run;
     return function (next) {
       return function (action) {
-        publish(action)
-        next(action);
+        publish(action);
+        return next(action);
       };
     };
   }
