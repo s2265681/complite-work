@@ -11,12 +11,13 @@ function f1(n, m, d, f) {
 // console.log(fn(1, 2)(3)(4));
 
 function mycurry(func) {
-  let argslen = func.length;
+  let length = func.length;
   return function curried(...args) {
-    if (args.length < argslen) {
+    if (args.length < length) {
       return (...others) => curried(...args, ...others);
     } else {
-      return func.apply(this, args);
+      return func.call(this, ...args);
+      //   return func.apply(this, args);
     }
   };
 }
