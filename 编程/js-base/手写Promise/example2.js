@@ -16,41 +16,11 @@
 // 3. 解决了异步嵌套的问题
 // 4. 解决了错误处理的问题
 const MyPromise = require("./promise");
-const promise2 = new Promise((resolve, reject) => {
-  // reject("reject");
-  // setTimeout(() => {
-  resolve("success");
-  // }, 2000);
-}).then(
-  (res) => {
-    // throw new Error("error");
-    console.log(res, "res");
-    return 123;
-  },
-  () => {
-    return "abc";
-  }
-);
+const promise2 = new MyPromise((resolve, reject) => {
+  resolve();
+  console.log("11");
+}).then(() => {
+  return promise2;
+});
 
-console.log(promise2, "promise2");
-
-promise2.then(
-  (res) => {
-    console.log("成功的回调", res);
-  },
-  (err) => {
-    console.log("失败的回调", err);
-  }
-);
-
-// promise.then(
-//   (res) => {
-//     console.log("成功的回调", res);
-//   },
-//   (err) => {
-//     console.log("失败的回调");
-//   }
-// );
-// Promise实现链式调用
-// 1. then方法中必须返回一个新的Promise
-//
+// [TypeError: Chaining cycle detected for promise #<Promise>]
