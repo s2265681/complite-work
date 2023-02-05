@@ -65,5 +65,11 @@ MyPromise.prototype.then = function (onFulfilled, onRejected) {
   });
   return promise2;
 };
-
 module.exports = MyPromise;
+
+// 1、实现一个Promise，执行一次，状态只更改一次
+// 2、实现异步，更改状态
+// 3、实现then多次调用回调 发布订阅模式
+// 4、实现链式调用, 实现带异步的链式调用
+// 5、通过微任务改造
+// 6、防止实现循环引用 example2
