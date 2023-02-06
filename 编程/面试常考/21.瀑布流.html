@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      height: 200px;
+      overflow: auto;
+    }
+    .container li {
+      height: 50px;
+      width: 200px;
+      background-color: #f00;
+    }
+  </style>
+  <body>
+    <ul class="container">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+    </ul>
+  </body>
+  <script>
+    // 实现瀑布流，最重要的是，找到下拉的时机
+    let container = document.querySelector(".container");
+    // 盒子的滚动高度 scrollHeight = 盒子的可视高度 + 盒子的滚动高度
+    container.addEventListener("scroll", () => {
+      if (
+        container.scrollHeight ===
+        container.clientHeight + container.scrollTop
+      ) {
+        console.log("触发下拉加载更多");
+      }
+    });
+  </script>
+</html>
