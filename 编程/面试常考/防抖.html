@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" oninput="changeInput()" />
+  </body>
+
+  <script>
+    function logger(a) {
+      console.log(a, "123");
+    }
+
+    function changeInput(e) {
+      // logger();
+      debounceLogger("2222");
+    }
+
+    debounceLogger = debounce(logger, 1000);
+
+    function debounce(fn, delay) {
+      let timer = null;
+      let _this = this;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn.apply(_this, args);
+          clearTimeout(timer);
+          timer = null;
+        }, delay);
+      };
+    }
+  </script>
+</html>

@@ -9,6 +9,7 @@ function debounce(fn, delay = 500) {
     let args = arguments;
     timer = setTimeout(() => {
       fn.apply(_this, args);
+      timer = null;
     }, delay);
   };
 }
