@@ -22,7 +22,7 @@
 
     debounceLogger = debounce(logger, 1000);
 
-    function debounce(fn, delay) {
+    function debounce(fn, delay = 500) {
       let timer = null;
       let _this = this;
       return function (...args) {
