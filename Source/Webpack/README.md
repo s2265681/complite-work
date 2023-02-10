@@ -6,6 +6,8 @@
 
 > 实现 Webpack 原理
 
+- Webpack 本质上是一个函数，它接受一个配置信息作为参数，执行后返回一个 `compiler` 对象，调用 compiler 对象中的 run 方法，就会执行启动编译。 `run` 方法接受一个回调，可以用来查看编译过程中的错误信息或编译信息。
+
 > 编译打包
 
 ## 2、 目标
@@ -19,5 +21,8 @@
 
 ## 3、 基本使用
 
-> npm init
-> yarn add webpack
+```js
+npm init
+yarn add webpack
+node ./debugger.js // 执行打包命令
+```
