@@ -27,7 +27,7 @@ yarn add webpack
 node ./debugger.js // 执行打包命令
 ```
 
-## 3、具体实现
+## 4、具体实现
 
 - （1）搭建结构，读取配置
 - （2）用配置参数对象初始化 `Compiler` 对象
@@ -39,3 +39,13 @@ node ./debugger.js // 执行打包命令
 - （8）等所有模块都编译完成后，根据模块之间的依赖关系，组装代码块 `Chunk`
 - （9）把各个代码块 `chunk` 转换成一个一个文件加入到输出列表
 - （10）确定好输出内容之后，根据配置的输出路径和文件名，将文件内容写到文件系统
+
+## 5、架构设计
+
+- 打包开始前的准备工作
+- 打包过程中 （编译阶段 -- watch mode）
+- 打包结束后 （包含打包成功和打包失败）
+
+compiler 是一个大管家
+compilation 是专门负责伙食的厨师， 专门负责编译相关工作，
+![compiler](https://mmbiz.qpic.cn/mmbiz/3JxC1BeqGrn276R1LfrGx97DRyEOIc0W1dY5O08jcwibtibIvyFalsAiahsPV267G5pEBLqHWCqiarzGzj0pzsibuSA/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1)
