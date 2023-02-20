@@ -7,5 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/generator": "^7.20.14",
+    "@babel/parser": "^7.20.15",
+    "@babel/traverse": "^7.20.13",
+    "@babel/types": "^7.20.7"
+  }
 }

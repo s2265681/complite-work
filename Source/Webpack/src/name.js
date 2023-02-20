@@ -1,1 +1,1 @@
-module.exports = "不要秃头啊";
+module.exports = "name: 不要秃头啊";

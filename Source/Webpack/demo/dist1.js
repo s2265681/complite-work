@@ -1,6 +1,6 @@
 var __webpack_modules__ = {
   "./src/age.js": (module) => {
-    module.exports = "不要秃头啊";
+    module.exports = "不要秃头啊1";
   },
 
   "./src/name.js": (module) => {
