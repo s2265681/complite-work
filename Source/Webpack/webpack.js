@@ -67,7 +67,7 @@ const webpack = (webpackOptions) => {
   //第二步：用配置参数对象初始化 `Compiler` 对象
   const compiler = new Compiler(webpackOptions);
   // 第三步: 挂载配置中的插件
-  if (Array.isArray(webpackOptions.plugins)) {
+  if (Array.isArray(webpackOpbtions.plugins)) {
     webpackOptions.plugins.forEach((plugin) => {
       plugin.apply(compiler);
     });
@@ -75,15 +75,12 @@ const webpack = (webpackOptions) => {
   return compiler;
 };
 
-module.exports = {
-  webpack,
-};
-
 //将\替换成/
 function toUnixPath(filePath) {
   return filePath.replace(/\\/g, "/");
 }
 const baseDir = toUnixPath(process.cwd()); //获取工作目录，在哪里执行命令就获取哪里的目录，这里获取的也是跟操作系统有关系，要替换成/
+
 class Compilation {
   constructor(webpackOptions) {
     this.options = webpackOptions;
@@ -252,3 +249,7 @@ function getSource(chunk) {
     })();
      `;
 }
+
+module.exports = {
+  webpack,
+};

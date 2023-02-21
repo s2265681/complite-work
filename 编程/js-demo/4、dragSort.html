@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .container {
+        width: 400px;
+        margin: 0 auto;
+        background: pink;
+        padding: 20px;
+      }
+
+      .list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .list-item {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        background: #fff;
+        line-height: 100px;
+        text-align: center;
+        list-style: none;
+        user-select: none;
+      }
+
+      .active {
+        background: skyblue;
+      }
+
+      .clone-item {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        background: #fff;
+        line-height: 100px;
+        text-align: center;
+        list-style: none;
+        user-select: none;
+        pointer-events: none;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <ul class="list">
+        <li class="list-item">111</li>
+        <li class="list-item">222</li>
+        <li class="list-item">333</li>
+        <li class="list-item">444</li>
+        <li class="list-item">555</li>
+        <li class="list-item">666</li>
+        <li class="list-item">777</li>
+        <li class="list-item">888</li>
+        <li class="list-item">999</li>
+      </ul>
+    </div>
+  </body>
+
+  <script>
+    class Draggable {
+      containerElement = null;
+      rectList = [];
+      isPointerDown = false;
+      drag = { element: null, index: 0, firstIndex: 0 };
+      clone = { element: null, x: 0, y: 0 };
+      diff = { x: 0, y: 0 };
+      referenceElement = null;
+      lastPointerMove = { x: 0, y: 0 };
+
+      constructor(options) {
+        this.containerElement = options.element;
+        this.init();
+      }
+      init() {
+        this.bindEventListener();
+        this.getRectList();
+      }
+
+      getRectList() {
+        this.rectList.length = 0;
+        for (const item of this.containerElement.children) {
+          this.rectList.push(item.getBoundingClientRect());
+        }
+      }
+
+      onPointerDown(e) {
+        if (e.pointerType === "mouse" && e.button !== 0) {
+          return;
+        }
+        if (e.target === this.containerElement) {
+          return;
+        }
+        this.isPointerDown = true;
+
+        this.containerElement.setPointerCapture(e.pointerId);
+
+        this.drag.element = e.target;
+        this.drag.element.classList.add("active");
+        this.clone.element = this.drag.element.cloneNode(true);
+        document.body.appendChild(this.clone.element);
+        this.clone.element.className = "clone-item";
+
+        // 记录点击的第几个元素
+        const index = [].indexOf.call(
+          this.containerElement.children,
+          this.drag.element
+        );
+        this.drag.index = index;
+        this.drag.firstIndex = index;
+
+        this.clone.x = this.rectList[index].left;
+        this.clone.y = this.rectList[index].top;
+
+        this.clone.element.style.transition = "none";
+        this.clone.element.className = "clone-item";
+        this.clone.element.style.transform =
+          "translate3d(" + this.clone.x + "px, " + this.clone.y + "px, 0)";
+
+        this.lastPointerMove.x = e.clientX;
+        this.lastPointerMove.y = e.clientY;
+
+        for (const item of this.containerElement.children) {
+          item.style.transition = "transform 500ms";
+        }
+      }
+      onPointerMove(e) {
+        if (this.isPointerDown) {
+          this.diff.x = e.clientX - this.lastPointerMove.x;
+          this.diff.y = e.clientY - this.lastPointerMove.y;
+
+          this.lastPointerMove.x = e.clientX;
+          this.lastPointerMove.y = e.clientY;
+
+          // 左上角为起点， += 偏移位置
+          this.clone.x += this.diff.x;
+          this.clone.y += this.diff.y;
+
+          this.clone.element.style.transform =
+            "translate3d(" + this.clone.x + "px, " + this.clone.y + "px, 0)";
+
+          // 主要移动逻辑
+          for (let i = 0; i < this.rectList.length; i++) {
+            if (
+              i !== this.drag.index &&
+              e.clientX > this.rectList[i].left &&
+              e.clientX < this.rectList[i].right &&
+              e.clientY > this.rectList[i].top &&
+              e.clientY < this.rectList[i].bottom
+            ) {
+              console.log("move:", this.drag.index, i);
+              // 拖拽元素
+              if (this.drag.index < i) {
+                for (let j = this.drag.index; j < i; j++) {
+                  if (j < this.drag.firstIndex) {
+                    this.containerElement.children[j].style.transform =
+                      "translate3d(0px, 0px, 0)";
+                  } else {
+                    const x = this.rectList[j].left - this.rectList[j + 1].left;
+                    const y = this.rectList[j].top - this.rectList[j + 1].top;
+                    this.containerElement.children[j + 1].style.transform =
+                      "translate3d(" + x + "px, " + y + "px, 0)";
+                  }
+                }
+                this.referenceElement = this.containerElement.children[i + 1];
+              } else if (this.drag.index > i) {
+                for (let j = i; j < this.drag.index; j++) {
+                  if (this.drag.firstIndex <= j) {
+                    this.containerElement.children[j + 1].style.transform =
+                      "translate3d(0px, 0px, 0)";
+                  } else {
+                    const x = this.rectList[j + 1].left - this.rectList[j].left;
+                    const y = this.rectList[j + 1].top - this.rectList[j].top;
+                    this.containerElement.children[j].style.transform =
+                      "translate3d(" + x + "px, " + y + "px, 0)";
+                  }
+                }
+                this.referenceElement = this.containerElement.children[i];
+              }
+              // 移动自己
+              const x =
+                this.rectList[i].left -
+                this.rectList[this.drag.firstIndex].left;
+              const y =
+                this.rectList[i].top - this.rectList[this.drag.firstIndex].top;
+              this.drag.element.style.transform =
+                "translate3d(" + x + "px, " + y + "px, 0)";
+              this.drag.index = i;
+              break;
+            }
+          }
+        }
+      }
+      onPointerUp(e) {
+        // this.drag.element.classList.remove("active");
+        // this.clone.element.remove();
+        if (this.isPointerDown) {
+          this.isPointerDown = false;
+
+          this.drag.element.classList.remove("active");
+          this.clone.element.remove();
+
+          for (const item of this.containerElement.children) {
+            item.style.transition = "none";
+            item.style.transform = "translate3d(0px, 0px, 0px)";
+          }
+
+          if (this.referenceElement !== null) {
+            // 插入到目标元素的前面
+            this.containerElement.insertBefore(
+              this.drag.element,
+              this.referenceElement
+            );
+          }
+        }
+      }
+      bindEventListener() {
+        this.containerElement.addEventListener(
+          "pointerdown",
+          this.onPointerDown.bind(this)
+        );
+        this.containerElement.addEventListener(
+          "pointermove",
+          this.onPointerMove.bind(this)
+        );
+        this.containerElement.addEventListener(
+          "pointerup",
+          this.onPointerUp.bind(this)
+        );
+      }
+    }
+
+    new Draggable({
+      element: document.querySelector(".list"),
+    });
+  </script>
+</html>

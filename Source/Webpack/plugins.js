@@ -1,5 +1,6 @@
 class WebpackRunPlugin {
   apply(compiler) {
+    // 注册钩子
     compiler.hooks.run.tap("WebpackRunPlugin", () => {
       console.log("开始编译");
     });
