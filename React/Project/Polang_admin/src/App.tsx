@@ -9,6 +9,8 @@ import store from "./store/store";
 import "./config/i18";
 import { useTranslation } from "react-i18next";
 
+declare let __KALO_MACID: any;
+
 const One = React.lazy(() => import("./pages/One"));
 const Two = React.lazy(() => import("./pages/Two"));
 const Three = React.lazy(() => import("./pages/Three"));
@@ -16,9 +18,11 @@ const Three = React.lazy(() => import("./pages/Three"));
 export default function App() {
   // const update = useUpdate();
   const { t, i18n } = useTranslation();
+  console.log(__KALO_MACID, "__KALO_MACID");
   return (
     <>
       <Provider store={store}>
+        机器码：{__KALO_MACID}
         <Router>
           <Sider />
           <Suspense fallback={<p>Loading...</p>}>

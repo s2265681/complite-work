@@ -1,0 +1,9 @@
+{
+  "name": "machine",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "node-machine-id": "^1.1.12"
+  }
+}
