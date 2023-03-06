@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .circle {
+      fill: none;
+      stroke: #7c83fd;
+      stroke-width: 8;
+      stroke-dasharray: 314;
+      stroke-dashoffset: 314;
+      animation: circle 3s linear forwards;
+      stroke-linecap: round;
+    }
+    /* @keyframes circle {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    } */
+  </style>
+  <body>
+    <!-- https://juejin.cn/post/6998078886080675871 -->
+    <!-- SVG 学习 https://juejin.cn/creator/content/column/edit/6995107760819929101  -->
+    <svg>
+      <circle
+        cx="80"
+        cy="80"
+        r="50"
+        fill="none"
+        stroke-width="8"
+        stroke="#f00"
+        class="circle2"
+      ></circle>
+      <circle
+        cx="80"
+        cy="80"
+        r="50"
+        fill="none"
+        stroke-width="8"
+        stroke="#7C83FD"
+        class="circle"
+      ></circle>
+    </svg>
+  </body>
+  <script>
+    let value = 314;
+    setInterval(() => {
+      var circle = document.querySelector(".circle");
+      circle.style.strokeDashoffset = value -= 1;
+    }, 100);
+  </script>
+</html>
