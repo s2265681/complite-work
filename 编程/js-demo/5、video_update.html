@@ -33,11 +33,12 @@
      * @return void
      */
     async function downloadFile(fileUrl, fileName) {
-      let blob = await getBlob(fileUrl);
-      saveFile(blob, fileName);
+      let xhr = await getBlob(fileUrl);
+      saveFile(xhr.response, xhr.responseURL.split("/").pop());
     }
     function getBlob(fileUrl) {
       return new Promise((resolve) => {
+        debugger;
         const xhr = new XMLHttpRequest();
         xhr.open("GET", fileUrl, true);
         //监听进度事件
@@ -56,7 +57,7 @@
         xhr.responseType = "blob";
         xhr.onload = () => {
           if (xhr.status === 200) {
-            resolve(xhr.response);
+            resolve(xhr);
           }
         };
         xhr.send();
