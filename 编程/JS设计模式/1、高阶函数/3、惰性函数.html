@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="div1">点我绑定事件</div>
+
+    <script>
+      // 惰性加载， 重写函数， 只有第一次执行的时候，进入分支判断， 后续就不会再进行重复判断了
+      // 一般用于浏览器API的嗅探，兼容性的判断
+      var addEvent = function (elem, type, handler) {
+        console.log("分支执行");
+        if (window.addEventListener) {
+          addEvent = function (elem, type, handler) {
+            elem.addEventListener(type, handler, false);
+          };
+        } else if (window.attachEvent) {
+          addEvent = function (elem, type, handler) {
+            elem.attachEvent("on" + type, handler);
+          };
+        }
+        addEvent(elem, type, handler);
+      };
+
+      var div1 = document.querySelector(".div1");
+      addEvent(div1, "click", function () {
+        console.log("1");
+      });
+
+      addEvent(div1, "click", function () {
+        console.log("2");
+      });
+    </script>
+  </body>
+</html>

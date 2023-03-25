@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    分时函数 ——
+    节流函数是限制函数频繁调用的解决方案，某些函数确实用户主动调用，一些客观原因，会造成严重影响页面性能
+    比如，发批量创建DOM插入，短时间内插入大量DOM节点，浏览器会卡顿甚至假死
+    问题解决方案就是 使用 timeChunk 函数
+    <script>
+      console.time("LLL");
+      var arr = [];
+      for (let index = 1; index < 1000; index++) {
+        arr.push(index);
+      }
+      //   var renderFridList = function (data) {
+      //     for (let index = 0; index < data.length; index++) {
+      //       var div = document.createElement("div");
+      //       div.innerHTML = index;
+      //       document.body.appendChild(div);
+      //     }
+      //   };
+      // renderFridList(arr);
+      console.timeEnd("LLL"); // LLL: 53.008056640625 ms
+      // 使用 timeChunk 函数包装
+
+      var renderFridList = function (n) {
+        var div = document.createElement("div");
+        div.innerHTML = n;
+        document.body.appendChild(div);
+      };
+
+      var thunkRenderFridList = timeChunk(arr, renderFridList, 8);
+
+      function timeChunk(arr, fn, count) {
+        var _arr = arr,
+          obj,
+          t;
+        var len = arr.length;
+
+        var start = function () {
+          for (
+            let index = 0;
+            index < Math.min(count || 1, arr.length);
+            index++
+          ) {
+            var obj = arr.shift();
+            fn(obj);
+          }
+        };
+        return function () {
+          t = setInterval(() => {
+            if (_arr.length === 0) {
+              // 如果全部节点执行后
+              clearInterval(t);
+            }
+            start();
+          }, 200); // 执行的时间间隔，也可以参数的形式传入
+        };
+      }
+
+      thunkRenderFridList();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script>
+    window.onresize = throttle(function () {
+      console.log("resize...");
+    }, 1000);
+
+    function throttle(fn, wait = 500) {
+      var _self = fn, // 保存需要被延迟执行的函数引用
+        timer = null, // 定时器
+        firstTime = true; // 是否是第一次调用
+      return function () {
+        var args = arguments,
+          _me = this;
+        if (firstTime) {
+          // 如果第一次调用，不需要延迟执行
+          _self.apply(_me, args);
+          return (firstTime = false);
+        }
+        if (timer) {
+          // 定时器存在，说明前一次延迟执行还没有完成
+          return false;
+        }
+        timer = setTimeout(() => {
+          // 延迟一段时间执行
+          clearTimeout(timer);
+          timer = null;
+          _self.apply(_me, args);
+        }, wait);
+      };
+    }
+  </script>
+</html>
