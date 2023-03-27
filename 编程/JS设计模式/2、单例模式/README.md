@@ -153,3 +153,7 @@ document.getElementById("loginHidenBtn").onclick = function () {
   loginLayer.style.display = "none";
 };
 ```
+
+### 小结
+
+> 单例模式，用到了闭包和高阶函数，特别是惰性单例模式，在合适的时间才创建对象，并且只创建一次，创建对象和管理单例的职责分布在两个不同的方法中，组合使用威力巨大。
