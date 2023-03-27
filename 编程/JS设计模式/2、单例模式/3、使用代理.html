@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    使用单例模式创建DIV
+  </body>
+  <script>
+    var CreateDiv = function (html) {
+      this.html = html;
+      this.init();
+    };
+    CreateDiv.prototype.init = function () {
+      var div = document.createElement("div");
+      div.innerHTML = this.html;
+      document.body.appendChild(div);
+    };
+    // 引入代理类
+    var ProxySingletonCreateDiv = (function () {
+      var instance;
+      return function (html) {
+        // instance 没有赋值 永远是undefined，可以在这里控制单例模式的状况， 产生一次还是多次
+        if (!instance) {
+          // instance = new CreateDiv(html);
+          return new CreateDiv(html);
+        }
+        return instance;
+      };
+    })();
+
+    var a = new ProxySingletonCreateDiv("sven1");
+    var b = new ProxySingletonCreateDiv("sven2");
+    console.log(a === b); // false
+  </script>
+</html>
