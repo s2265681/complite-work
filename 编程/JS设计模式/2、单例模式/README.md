@@ -122,3 +122,34 @@ document.getElementById("loginHidenBtn").onclick = function () {
   loginLayer.style.display = "none";
 };
 ```
+
+- 通用的惰性单例模式
+
+```js
+var getSingle = function (fn) {
+  var result;
+  return function () {
+    return result || (result = fn.apply(this, arguments));
+  };
+};
+
+var createLoginLayer = function () {
+  var div = document.createElement("div");
+  div.innerHTML = "我是登录弹窗";
+  div.style.display = "none";
+  document.body.appendChild(div);
+  return div;
+};
+
+var createSingleLoginLayer = getSingle(createLoginLayer);
+
+var loginLayer;
+document.getElementById("loginBtn").onclick = function () {
+  loginLayer = createSingleLoginLayer();
+  loginLayer.style.display = "block";
+};
+
+document.getElementById("loginHidenBtn").onclick = function () {
+  loginLayer.style.display = "none";
+};
+```

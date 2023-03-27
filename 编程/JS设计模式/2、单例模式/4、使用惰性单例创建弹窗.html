@@ -14,23 +14,41 @@
 
   <script>
     // 创建弹窗
-    var createLoginLayer = (() => {
-      var div;
+    // var createLoginLayer = (() => {
+    //   var div;
+    //   return function () {
+    //     if (!div) {
+    //       console.log("once..");
+    //       div = document.createElement("div");
+    //       div.innerHTML = "我是登录弹窗";
+    //       div.style.display = "none";
+    //       document.body.appendChild(div);
+    //     }
+    //     return div;
+    //   };
+    // })();
+
+    // 改造成通用的单例
+    var getSingle = function (fn) {
+      var result;
       return function () {
-        if (!div) {
-          console.log("once..");
-          div = document.createElement("div");
-          div.innerHTML = "我是登录弹窗";
-          div.style.display = "none";
-          document.body.appendChild(div);
-        }
-        return div;
+        return result || (result = fn.apply(this, arguments));
       };
-    })();
+    };
+
+    var createLoginLayer = function () {
+      var div = document.createElement("div");
+      div.innerHTML = "我是登录弹窗";
+      div.style.display = "none";
+      document.body.appendChild(div);
+      return div;
+    };
+
+    var createSingleLoginLayer = getSingle(createLoginLayer);
 
     var loginLayer;
     document.getElementById("loginBtn").onclick = function () {
-      loginLayer = createLoginLayer();
+      loginLayer = createSingleLoginLayer();
       loginLayer.style.display = "block";
     };
 
