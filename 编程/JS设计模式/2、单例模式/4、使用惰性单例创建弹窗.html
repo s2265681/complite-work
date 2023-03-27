@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>弹窗--惰性单例</title>
+  </head>
+  <body>
+    <div id="loginBtn">点击创建</div>
+    <br />
+    <div id="loginHidenBtn">点击隐藏</div>
+  </body>
+
+  <script>
+    // 创建弹窗
+    var createLoginLayer = (() => {
+      var div;
+      return function () {
+        if (!div) {
+          console.log("once..");
+          div = document.createElement("div");
+          div.innerHTML = "我是登录弹窗";
+          div.style.display = "none";
+          document.body.appendChild(div);
+        }
+        return div;
+      };
+    })();
+
+    var loginLayer;
+    document.getElementById("loginBtn").onclick = function () {
+      loginLayer = createLoginLayer();
+      loginLayer.style.display = "block";
+    };
+
+    document.getElementById("loginHidenBtn").onclick = function () {
+      loginLayer.style.display = "none";
+    };
+  </script>
+</html>

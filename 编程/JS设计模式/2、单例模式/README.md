@@ -93,3 +93,32 @@ var ProxySingletonCreateDiv = (function () {
 var a = new ProxySingletonCreateDiv("sven1");
 var b = new ProxySingletonCreateDiv("sven2");
 ```
+
+- 惰性单例 —— 使用时创建
+
+```js
+// 创建弹窗的例子
+var createLoginLayer = (() => {
+  var div;
+  return function () {
+    if (!div) {
+      console.log("once..");
+      div = document.createElement("div");
+      div.innerHTML = "我是登录弹窗";
+      div.style.display = "none";
+      document.body.appendChild(div);
+    }
+    return div;
+  };
+})();
+
+var loginLayer;
+document.getElementById("loginBtn").onclick = function () {
+  loginLayer = createLoginLayer();
+  loginLayer.style.display = "block";
+};
+
+document.getElementById("loginHidenBtn").onclick = function () {
+  loginLayer.style.display = "none";
+};
+```
