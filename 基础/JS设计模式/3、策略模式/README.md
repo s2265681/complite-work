@@ -8,11 +8,7 @@
 
 > 使用策略模式重构代码，目的就是将算法的使用与算法的实现分离开来。
 
-### 1. 含义
-
-> 单例模式的定义是：保证一个类仅有一个实例，并提供一个访问它的全局访问点
-
-### 2. 例子
+### 3. 例子
 
 ```js
 var strategies = {
@@ -35,268 +31,77 @@ console.log(calculateBonus("S", 2000)); // 8000
 - 缓动动画
 
 ```js
-var CreateDiv = (function () {
-  var instance;
-  var CreateDiv = function (html) {
-    if (instance) {
-      return instance;
+var tween = {
+  // 缓动算法
+  linear: function (t, b, c, d) {
+    return (c * t) / d + b;
+  },
+  easeIn: function (t, b, c, d) {
+    return c * (t /= d) * t + b;
+  },
+  strongEaseIn: function (t, b, c, d) {
+    return c * (t /= d) * t * t * t * t + b;
+  },
+  strongEaseOut: function (t, b, c, d) {
+    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+  },
+  sineaseIn: function (t, b, c, d) {
+    return c * (t /= d) * t * t + b;
+  },
+  sineaseOut: function (t, b, c, d) {
+    return c * ((t = t / d - 1) * t * t + 1) + b;
+  },
+};
+
+var Animate = function (dom) {
+  this.dom = dom;
+  this.startTime = 0;
+  this.startPos = 0;
+  this.endPos = 0;
+  this.propertyName = null;
+  this.easing = null;
+  this.duration = null;
+};
+
+Animate.prototype.start = function (propertyName, endPos, duration, easing) {
+  this.startTime = +new Date();
+  this.startPos = this.dom.getBoundingClientRect()[propertyName];
+  this.propertyName = propertyName;
+  this.endPos = endPos;
+  this.duration = duration;
+  this.easing = easing;
+
+  var self = this;
+  var timeId = setInterval(function () {
+    if (self.step() === false) {
+      clearInterval(timeId);
     }
-    this.html = html;
-    this.init();
-    return (instance = this);
-  };
-  CreateDiv.prototype.init = function () {
-    var div = document.createElement("div");
-    div.innerHTML = this.html;
-    document.body.appendChild(div);
-  };
-  return CreateDiv;
-})();
-var a = new CreateDiv("sven1");
-var b = new CreateDiv("sven2");
-console.log(a === b); // true
+  }, 19);
+};
+
+Animate.prototype.step = function () {
+  var t = +new Date();
+  if (t >= this.startTime + this.duration) {
+    this.update(this.endPos);
+    return false;
+  }
+  var pos = tween[this.easing](
+    t - this.startTime,
+    this.startPos,
+    this.endPos - this.startPos,
+    this.duration
+  );
+  this.update(pos);
+};
+
+Animate.prototype.update = function (pos) {
+  this.dom.style[this.propertyName] = pos + "px";
+};
+
+const block = document.querySelector(".block");
+const blockDom = new Animate(block);
+// 改变的属性，终点，持续时间，缓动算法
+blockDom.start("left", 300, 2000, "strongEaseOut");
 ```
 
-上述代码，不足的点，在于没有办法产生多个实例
-
-- 用代理模式实现单例模式
-
-```js
-var CreateDiv = function (html) {
-  this.html = html;
-  this.init();
-};
-CreateDiv.prototype.init = function () {
-  var div = document.createElement("div");
-  div.innerHTML = this.html;
-  document.body.appendChild(div);
-};
-// 引入代理类
-var ProxySingletonCreateDiv = (function () {
-  var instance;
-  return function (html) {
-    if (!instance) {
-      return new CreateDiv(html);
-    }
-    return instance;
-  };
-})();
-
-var a = new ProxySingletonCreateDiv("sven1");
-var b = new ProxySingletonCreateDiv("sven2");
-```
-
-- 惰性单例 —— 使用时创建
-
-```js
-// 创建弹窗的例子
-var createLoginLayer = (() => {
-  var div;
-  return function () {
-    if (!div) {
-      console.log("once..");
-      div = document.createElement("div");
-      div.innerHTML = "我是登录弹窗";
-      div.style.display = "none";
-      document.body.appendChild(div);
-    }
-    return div;
-  };
-})();
-
-var loginLayer;
-document.getElementById("loginBtn").onclick = function () {
-  loginLayer = createLoginLayer();
-  loginLayer.style.display = "block";
-};
-
-document.getElementById("loginHidenBtn").onclick = function () {
-  loginLayer.style.display = "none";
-};
-```
-
-- 通用的惰性单例模式
-
-```js
-var getSingle = function (fn) {
-  var result;
-  return function () {
-    return result || (result = fn.apply(this, arguments));
-  };
-};
-
-var createLoginLayer = function () {
-  var div = document.createElement("div");
-  div.innerHTML = "我是登录弹窗";
-  div.style.display = "none";
-  document.body.appendChild(div);
-  return div;
-};
-
-var createSingleLoginLayer = getSingle(createLoginLayer);
-
-var loginLayer;
-document.getElementById("loginBtn").onclick = function () {
-  loginLayer = createSingleLoginLayer();
-  loginLayer.style.display = "block";
-};
-
-document.getElementById("loginHidenBtn").onclick = function () {
-  loginLayer.style.display = "none";
-};
-```
-
-### 小结
-
-> 单例模式，用到了闭包和高阶函数，特别是惰性单例模式，在合适的时间才创建对象，并且只创建一次，创建对象和管理单例的职责分布在两个不同的方法中，组合使用威力巨大。
-> 式，有一些对象往往只需要一个，比如线程池，全局缓存，浏览器中的 window 对象等。 如登录浮窗、toast 提示。
-
-### 3. 简单实现原理
-
-> 实现策略模式并不复杂，无非使用一个变量标志当前是否为某个类创建了对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象
-
-- 不透明的策略模式
-
-```js
-var Singleton = function (name) {
-  this.name = name;
-};
-
-Singleton.prototype.getName = function () {
-  console.log(this.name);
-};
-
-Singleton.getInstance = (function () {
-  var instance = null;
-  return function (name) {
-    if (!instance) {
-      instance = new Singleton(name);
-    }
-    return instance;
-  };
-})();
-
-var a = Singleton.getInstance("sven1");
-var b = Singleton.getInstance("sven2");
-console.log(a === b); // true
-```
-
-由于上面代码，不知道该是策略模式，所以不是透明的策略模式，下面改造成 new Singleton 的透明策略模式
-
-- 透明的策略模式
-
-```js
-var CreateDiv = (function () {
-  var instance;
-  var CreateDiv = function (html) {
-    if (instance) {
-      return instance;
-    }
-    this.html = html;
-    this.init();
-    return (instance = this);
-  };
-  CreateDiv.prototype.init = function () {
-    var div = document.createElement("div");
-    div.innerHTML = this.html;
-    document.body.appendChild(div);
-  };
-  return CreateDiv;
-})();
-var a = new CreateDiv("sven1");
-var b = new CreateDiv("sven2");
-console.log(a === b); // true
-```
-
-上述代码，不足的点，在于没有办法产生多个实例
-
-- 用代理模式实现策略模式
-
-```js
-var CreateDiv = function (html) {
-  this.html = html;
-  this.init();
-};
-CreateDiv.prototype.init = function () {
-  var div = document.createElement("div");
-  div.innerHTML = this.html;
-  document.body.appendChild(div);
-};
-// 引入代理类
-var ProxySingletonCreateDiv = (function () {
-  var instance;
-  return function (html) {
-    if (!instance) {
-      return new CreateDiv(html);
-    }
-    return instance;
-  };
-})();
-
-var a = new ProxySingletonCreateDiv("sven1");
-var b = new ProxySingletonCreateDiv("sven2");
-```
-
-- 惰性单例 —— 使用时创建
-
-```js
-// 创建弹窗的例子
-var createLoginLayer = (() => {
-  var div;
-  return function () {
-    if (!div) {
-      console.log("once..");
-      div = document.createElement("div");
-      div.innerHTML = "我是登录弹窗";
-      div.style.display = "none";
-      document.body.appendChild(div);
-    }
-    return div;
-  };
-})();
-
-var loginLayer;
-document.getElementById("loginBtn").onclick = function () {
-  loginLayer = createLoginLayer();
-  loginLayer.style.display = "block";
-};
-
-document.getElementById("loginHidenBtn").onclick = function () {
-  loginLayer.style.display = "none";
-};
-```
-
-- 通用的惰性策略模式
-
-```js
-var getSingle = function (fn) {
-  var result;
-  return function () {
-    return result || (result = fn.apply(this, arguments));
-  };
-};
-
-var createLoginLayer = function () {
-  var div = document.createElement("div");
-  div.innerHTML = "我是登录弹窗";
-  div.style.display = "none";
-  document.body.appendChild(div);
-  return div;
-};
-
-var createSingleLoginLayer = getSingle(createLoginLayer);
-
-var loginLayer;
-document.getElementById("loginBtn").onclick = function () {
-  loginLayer = createSingleLoginLayer();
-  loginLayer.style.display = "block";
-};
-
-document.getElementById("loginHidenBtn").onclick = function () {
-  loginLayer.style.display = "none";
-};
-```
-
-### 小结
-
-> 策略模式，用到了闭包和高阶函数，特别是惰性策略模式，在合适的时间才创建对象，并且只创建一次，创建对象和管理单例的职责分布在两个不同的方法中，组合使用威力巨大。
+### 4. 小结
