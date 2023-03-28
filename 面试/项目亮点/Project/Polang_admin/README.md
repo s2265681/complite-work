@@ -50,5 +50,6 @@ i18n.use(initReactI18next).init({
 
 # openAI
 
+> https://mp.weixin.qq.com/s/Y6HM_uRgXBpFIUNqP3zqWw
 > https://openai.com/
 > key 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
