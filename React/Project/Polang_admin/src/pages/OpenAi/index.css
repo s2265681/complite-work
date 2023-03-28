@@ -1,0 +1,30 @@
+/* 输入框的样式 */
+.text-input {
+    height: 50px; /* 高度为 50 像素 */
+    width: 100%; /* 宽度为父元素的宽度 */
+    margin-bottom: 20px; /* 下边距为 20 像素 */
+    border: 2px solid lightgrey; /* 边框为 2 像素的浅灰色 */
+    padding: 10px; /* 内边距为 10 像素 */
+    font-size: 14px; /* 字体大小为 14 像素 */
+    border-radius: 5px; /* 圆角半径为 5 像素 */
+  }
+  
+  /* 结果图片的样式 */
+  .result-image {
+    margin-top: 20px; /* 上边距为 20 像素 */
+    border: 2px solid lightgray; /* 边框为 2 像素的浅灰色 */
+    padding: 10px; /* 内边距为 10 像素 */
+    width: 100%; /* 宽度为父元素的宽度 */
+  }
+  
+  /* 卡片的样式 */
+  .card {
+    padding: 2em; /* 上下左右内边距为 2 个 em */
+    display: flex; /* 设置弹性盒子 */
+    flex-direction: column; /* 垂直排列子元素 */
+  }
+  
+  /* 底部文字的样式 */
+  .footer {
+    color: #888; /* 文字颜色为浅灰色 */
+  }

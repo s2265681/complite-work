@@ -20,6 +20,10 @@ export default function Sider({ update }: any) {
         <Link to={`/three`}>
           <Trans>content.Three</Trans>
         </Link>
+        |
+        <Link to={`/openAi`}>
+          <Trans>OpenAI</Trans>
+        </Link>
         <div className="play_container">
           <div className="header">
             <div>

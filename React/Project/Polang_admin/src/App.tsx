@@ -8,12 +8,12 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import "./config/i18";
 import { useTranslation } from "react-i18next";
-
 declare let __KALO_MACID: any;
 
 const One = React.lazy(() => import("./pages/One"));
 const Two = React.lazy(() => import("./pages/Two"));
 const Three = React.lazy(() => import("./pages/Three"));
+const OpenAi = React.lazy(() => import("./pages/OpenAi"));
 
 export default function App() {
   // const update = useUpdate();
@@ -30,6 +30,7 @@ export default function App() {
               <Route path="/one" element={<One />} />
               <Route path="/two" element={<Two />} />
               <Route path="/three" element={<Three />} />
+              <Route path="/openAi" element={<OpenAi />} />
             </Routes>
           </Suspense>
         </Router>
