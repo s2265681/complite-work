@@ -4,11 +4,16 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+  
+
+
+
     {
-      "type": "pwa-node",
+      "type": "Launch Chrome",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/算法/栈、队列、链表/linkedList/1、反转链表【206】.js"
-    }
+      "type": "pwa-chrome",
+      "url":"http://localhost:3000",
+      "webRoot": "${workspaceFolder}/编程/debugger/test-react-debug/src/index.js"
+    },
   ]
 }
