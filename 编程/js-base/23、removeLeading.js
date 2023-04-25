@@ -17,4 +17,8 @@ const removeLeadingZero = (num) => {
   return strNum;
 };
 
-console.log(removeLeadingZero(0.3));
+console.log(removeLeadingZero("0.3"));
+
+const num = 23;
+
+console.log(num.toExponential());
