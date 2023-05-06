@@ -2,6 +2,9 @@ const Koa = require("koa");
 const fs = require("fs");
 const path = require("path");
 const app = new Koa();
+const compilerSfc = require("@vue/compiler-sfc");
+const compilerDom = require("@vue/compiler-dom");
+
 app.use(async (ctx) => {
   const { url, query } = ctx.request;
   if (url === "/") {
@@ -37,6 +40,36 @@ app.use(async (ctx) => {
     const ret = fs.readFileSync(p, "utf-8");
     ctx.type = "application/javascript";
     ctx.body = rewriteImport(ret);
+  } else if (url.includes(".vue")) {
+    // 最后导出的是 {render:render(ctx,catch){xxx}, setup:(){xxx}}
+    // 支持 SFC 组件 单文件组件
+    // *.vue => template 模板 => render 函数
+    const p = path.resolve(__dirname, url.split("?")[0].slice(1));
+    const { descriptor } = compilerSfc.parse(fs.readFileSync(p, "utf-8"));
+    if (!query.type) {
+      // 第一步 vue 文件  => template 模板 、script ( compiler-sfc ) 检查.vue 中是不是有模版
+      // descriptor.script => js + template 生成 render 部分
+      ctx.type = "application/javascript";
+      // 借用vue自导的compile框架 解析但文件组件，其实相当于vue-loader做的事情
+      ctx.body = `
+      ${rewriteImport(
+        descriptor.script.content.replace(
+          "export default ",
+          "const __script = "
+        )
+      )}
+      import { render as __render } from "${url}?type=template"
+      __script.render = __render
+      export default __script
+      `;
+    } else {
+      // 第二步 template 模版 => render 函数 ( compiler-dom )
+      const template = descriptor.template;
+      const render = compilerDom.compile(template.content, { mode: "module" });
+      console.log(render, "render..");
+      ctx.type = "application/javascript";
+      ctx.body = rewriteImport(render.code);
+    }
   }
 
   // 支持 第三方 库 无法去 node_modules 中去找 欺骗浏览器不要报错，
