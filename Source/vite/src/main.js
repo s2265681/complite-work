@@ -1,9 +1,8 @@
 // import { str } from "./moduleA.js";
 // console.log("vite..." + str);
-import { ref } from "vue";
-
 import { createApp, h } from "vue";
 import App from "./App.vue";
+import "./index.css";
 
 // const App = {
 //   render() {
