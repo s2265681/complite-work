@@ -1,0 +1,20 @@
+<body>
+  <div id="app"></div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.37/vue.global.js"></script>
+
+  <script>
+    const { reactive, effect } = Vue;
+    const person = { name: "kw", age: 18 };
+    const state = reactive(person);
+
+    // effect 方法接收一个函数作为参数。
+    effect(() => {
+      app.innerHTML = "Hello! " + state.name;
+    });
+
+    setTimeout(() => {
+      state.name = "zk";
+    }, 1000);
+  </script>
+</body>

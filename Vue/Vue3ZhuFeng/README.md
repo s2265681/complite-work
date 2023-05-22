@@ -58,3 +58,11 @@ pnpm install @vue/shared --filter @vue/reactivity
 pnpm install @vue/shared@workspace --filter @vue/reactivity
 pnpm install minimist esbuild
 ```
+
+#### reactive
+
+> 使用 reactive 时需要注意的地方：
+> 只能实现对象数据的响应式
+> 同一个对象，只会被代理一次
+> 被代理过的对象，不会被再次代理
+> 支持嵌套属性的响应式

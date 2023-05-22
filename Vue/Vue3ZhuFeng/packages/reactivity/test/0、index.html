@@ -1,0 +1,17 @@
+<body>
+  <div id="app"></div>
+  <!-- <script type="module" src="../dist/reactivity.esm.js"></script> -->
+  <script type="module">
+    // 原生使用
+    import { reactive } from "../dist/reactivity.esm.js";
+    console.log(reactive);
+    const state = reactive({ count: 0 });
+    console.log(state, "state");
+    // effect(() => {
+    //   console.log(state.count);
+    // });
+    // setInterval(() => {
+    //   state.count++;
+    // }, 1000);
+  </script>
+</body>
