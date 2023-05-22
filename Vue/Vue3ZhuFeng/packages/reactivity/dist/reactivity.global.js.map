@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../shared/src/index.ts", "../src/index.ts"],
+  "sourcesContent": ["// src/index.ts\n/**\n * \u5224\u65AD\u5BF9\u8C61\n */\nexport const isObject = (value) => {\n  return typeof value === \"object\" && value !== null;\n};\n/**\n * \u5224\u65AD\u51FD\u6570\n */\nexport const isFunction = (value) => {\n  return typeof value === \"function\";\n};\n/**\n * \u5224\u65AD\u5B57\u7B26\u4E32\n */\nexport const isString = (value) => {\n  return typeof value === \"string\";\n};\n/**\n * \u5224\u65AD\u6570\u5B57\n */\nexport const isNumber = (value) => {\n  return typeof value === \"number\";\n};\n/**\n * \u5224\u65AD\u6570\u7EC4\n */\nexport const isArray = Array.isArray;\n", "import { isObject } from \"@my-vue/shared\";\nconst obj = { name: \"Vue3\" };\nconsole.log(isObject(obj));\n"],
+  "mappings": ";;AAIO,MAAM,WAAW,CAAC,UAAU;AACjC,WAAO,OAAO,UAAU,YAAY,UAAU;AAAA,EAChD;AAsBO,MAAM,UAAU,MAAM;;;AC3B7B,MAAM,MAAM,EAAE,MAAM,OAAO;AAC3B,UAAQ,IAAI,SAAS,GAAG,CAAC;",
+  "names": []
+}
