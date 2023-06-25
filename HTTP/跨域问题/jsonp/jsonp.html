@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jsonp</title>
+  </head>
+  <body>
+    <input type="text" id="search-input" placeholder="请输入关键词" />
+
+    <ul id="suggest-list"></ul>
+
+    <script>
+      function jsonp({ url, jsonp, data }, callback) {
+        return new Promise((resolve, reject) => {
+          // 创建一个脚本标签
+          const script = document.createElement("script");
+          const callbackName = "jQuery" + Date.now();
+
+          window[callbackName] = function (data) {
+            // 服务器返回的数据传递给resolve
+            resolve(data);
+            document.body.removeChild(script);
+            callback?.callback(data);
+            delete window[jsonp];
+          };
+
+          data = { ...data };
+
+          const arr = [];
+          for (let key in data) {
+            arr.push(`${key}=${data[key]}`);
+          }
+          // 设置脚本标签的src属性
+          script.src = `${url}?${arr.join("&")}&${jsonp}=${callbackName}`;
+
+          // 将脚本标签添加到head中
+          document.head.appendChild(script);
+        });
+      }
+      let searchInput = document.getElementById("search-input");
+      let suggestList = document.getElementById("suggest-list");
+      // jQuery110204251892778021369_1687695025544({q: "b", p: false, g: [{type: "sug", sa: "s_1", q: "bilibili"}, {type: "sug", sa: "s_2", q: "b站"},…],…})
+      searchInput.addEventListener("input", (e) => {
+        jsonp({
+          // url: `https://www.baidu.com/sugrec`, // 调用jsonp接口
+          url: "http://localhost:3000/sugrec",
+          jsonp: `cb`, // cb = jQuery110204251892778021369_1687695025544 传入jsonp回调的函数名的参数名
+          data: {
+            prod: "pc",
+            wd: event.target.value,
+            from: "pc_web",
+          },
+        }).then((response) => {
+          console.log(response, "response....");
+          const suggestions = response.g;
+          let html = ``;
+          for (const key in suggestions) {
+            html += `<li>${suggestions[key].q}</li>`;
+          }
+          suggestList.innerHTML = html;
+        });
+      });
+
+      // https://www.baidu.com/sugrec?prod=pc&from=pc_web&wd=b&cb=jQuery110204251892778021369_1687695025544&_=1687695025546
+      // https://suggestion.baidu.com/sugrec?prod=pc&wd=1&from=pc_web&cb=jQuery1687698571522
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    add.....
+  </body>
+  <script>
+    async function getCount() {
+      const response = await fetch("http://localhost:4000/count", {
+        method: "GET",
+        withCredentials: true, // 重点 如果想客户端在跨域的时候携带 要设置此项 Origin不能*
+      });
+      const data = await response.json();
+      console.log(data);
+      document.body.innerHTML = data;
+    }
+    getCount();
+  </script>
+</html>

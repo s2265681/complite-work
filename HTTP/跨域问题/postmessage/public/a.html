@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <iframe
+      id="iframe"
+      src="http://localhost:4000/b.html"
+      onload="loaded()"
+    ></iframe>
+  </body>
+  <script>
+    window.addEventListener("message", function (e) {
+      if (e.origin !== "http://localhost:4000") return;
+      console.log(e, "监听b页面给我发来的消息");
+    });
+    function loaded() {
+      const bwindow = document.getElementById("iframe").contentWindow;
+      // 向bwindow发消息
+      bwindow.postMessage("hello", "http://localhost:4000");
+    }
+  </script>
+</html>
