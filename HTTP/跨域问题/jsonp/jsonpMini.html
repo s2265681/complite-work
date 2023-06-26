@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONP</title>
+  </head>
+  <body>
+    JSONP
+  </body>
+  <script>
+    // 像页面中添加一个script标签， 通过script标签进行访问， 返回一个可执行的 函数
+    function sendJsonp() {
+      const callbackName = `jsonpFn_${Date.now()}`; // 为了防止缓存 加一个时间戳
+      // 发送请求前先将函数名放到window上， 赋值一个函数， 当后端收到请求后，会返回一个该函数执行的脚本， 并将函数的参数传入到该函数中
+      window[callbackName] = function (data) {
+        console.log(data, ".datadatadatadata");
+      };
+      // 将该函数拼成一个url地址请求到后端
+      const url = `http://localhost:4000/jsonp?q=1&w=2&jsonp=${callbackName}`;
+      const script = document.createElement("script");
+      script.src = url;
+      // 将脚本标签添加到head中,发送请求
+      document.head.appendChild(script);
+    }
+    sendJsonp();
+  </script>
+</html>
