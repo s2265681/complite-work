@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
 
-app.use(express.static("./public"));
+app.use(express.static("public"));
 
-// 404 错误处理中间件
-app.use((req, res, next) => {
-  res.status(404).send("Sorry, the page you requested was not found.");
+app.get("/count", (req, res) => {
+  // 从请求中获取 cookie
+  console.log(req.cookie, "cookie");
+  const count = req.cookies?.count;
+  // 设置 cookie
+  res.cookie("count", count + 1, { maxAge: 3600000 });
+  res.send("Hello, world!");
 });
 
 app.listen(3000, () => {

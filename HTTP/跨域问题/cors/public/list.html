@@ -7,19 +7,47 @@
     <title>Document</title>
   </head>
   <body>
+    <div>
+      <button onclick="writeCookie()">write cookie</button>
+
+      <a onclick="YIYAN()">YIYAN</a>
+      计数器：
+      <div class="numer"></div>
+    </div>
     <script>
-      // http://localost:3000/list.html
       async function getUsers() {
         const response = await fetch("http://localhost:4000/users", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            custom: "3000",
           },
         });
         const data = await response.json();
         console.log(data);
       }
+
       getUsers();
+
+      async function writeCookie() {
+        const response = await fetch("http://localhost:4000/count", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const data = await response.json();
+        console.log(data, "datacount");
+        document.querySelector(".numer").innerHTML = data.count;
+      }
+
+      function YIYAN() {
+        fetch(
+          "https://hitokoto.cn/api/common/v1/like?sentence_uuid=d7b75a3c-e022-4a9a-b7d3-4710646a99f0",
+          {
+            method: "GET",
+          }
+        );
+      }
     </script>
   </body>
 </html>
