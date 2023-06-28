@@ -8,6 +8,7 @@
   </head>
   <body>
     JSONP
+    <img src="" alt="" />
   </body>
   <script>
     // 像页面中添加一个script标签， 通过script标签进行访问， 返回一个可执行的 函数
@@ -20,9 +21,13 @@
       // 将该函数拼成一个url地址请求到后端
       const url = `http://localhost:4000/jsonp?q=1&w=2&jsonp=${callbackName}`;
       const script = document.createElement("script");
+      // const img = document.createElement("img");
+      // img.src = url;
+      // img.alt = "";
       script.src = url;
       // 将脚本标签添加到head中,发送请求
       document.head.appendChild(script);
+      // document.body.appendChild(img);
     }
     sendJsonp();
   </script>
