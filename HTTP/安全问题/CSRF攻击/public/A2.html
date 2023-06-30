@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>A2 iframe 内嵌页面 获取cookie</h1>
+
+      <iframe
+        id="iframe"
+        src="http://localhost:4000/B2.html"
+        onload="login()"
+      ></iframe>
+      <br />
+      <button
+        onclick="request({
+        url:'/list'
+      })"
+      >
+        伪造数据
+      </button>
+    </div>
+
+    <ul class="box"></ul>
+    <div class="tip"></div>
+
+    <script>
+      const bwindow = document.getElementById("iframe").contentWindow;
+      window.addEventListener("message", function (e) {
+        if (e.origin !== "http://localhost:4000") return;
+        console.log(e.data, "收到页面的消息");
+        if (e.data.url === "cookie") {
+          console.log("cookie: ", e.data);
+        }
+        if (e.data.url === "/login") {
+          document.querySelector(".tip").innerHTML = "登录成功， 可以拿数据";
+        }
+        if (e.data.url === "/list") {
+          document.querySelector(".tip").innerHTML = "";
+          let html = "";
+          e.data.data.map((el) => {
+            html += `<div>${el.id} - ${el.name}</div>`;
+          });
+          document.querySelector(".box").innerHTML = html;
+        }
+      });
+
+      function login() {
+        request({
+          url: "/cookie",
+        });
+
+        request({
+          url: "/login",
+          method: "POST",
+        });
+      }
+
+      function request(data) {
+        // 向bwindow发消息
+        bwindow.postMessage(data, "http://localhost:4000");
+      }
+    </script>
+  </body>
+</html>

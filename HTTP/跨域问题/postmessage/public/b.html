@@ -7,12 +7,20 @@
     <title>Document</title>
   </head>
   <body>
-    bbbbb
+    B页面
     <script>
-      window.addEventListener("message", function (e) {
-        console.log("监听a页面发来的消息", e.origin, e.data, e.source);
-        if (e.origin === "http://localhost:3000") {
-          e.source.postMessage("hi", e.origin);
+      window.addEventListener("message", async function (e) {
+        if (e.origin === "http://127.0.0.1:5501") {
+          console.log("监听a页面发来的消息", e.origin, e.data, e.source);
+          const response = await fetch(e.data.url, e.data);
+          const result = await response.json();
+          e.source.postMessage(
+            {
+              url: e.data.url,
+              data: result,
+            },
+            e.origin
+          );
         }
       });
     </script>

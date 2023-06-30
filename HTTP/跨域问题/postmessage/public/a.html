@@ -11,17 +11,33 @@
       id="iframe"
       src="http://localhost:4000/b.html"
       onload="loaded()"
+      hidden
     ></iframe>
+    <button onclick="request({ url: '/list'});">请求列表</button>
   </body>
   <script>
+    const bwindow = document.getElementById("iframe").contentWindow;
+
     window.addEventListener("message", function (e) {
       if (e.origin !== "http://localhost:4000") return;
-      console.log(e, "监听b页面给我发来的消息");
+      console.log(e.data, e, "监听b页面给我发来的消息");
+      if (e.data.url === "/users") {
+        console.log("users:", e.data);
+      }
+      if (e.data.url === "/list") {
+        console.log("users:", e.data);
+      }
     });
+
     function loaded() {
-      const bwindow = document.getElementById("iframe").contentWindow;
+      request({
+        url: "/users",
+      });
+    }
+
+    function request(data) {
       // 向bwindow发消息
-      bwindow.postMessage("hello", "http://localhost:4000");
+      bwindow.postMessage(data, "http://localhost:4000");
     }
   </script>
 </html>
