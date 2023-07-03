@@ -9,9 +9,17 @@
   <body>
     <div>
       伪造者页面 A
-      <form action="http://localhost:4000/delete" method="POST">
+      <!-- <form action="http://localhost:4000/delete" method="POST">
+        <input type="hidden" name="account" value="xiaoming" />
+      </form> -->
+
+      <form action="http://localhost:4000/list" method="GET">
         <input type="hidden" name="account" value="xiaoming" />
       </form>
+
+      <!-- <a href="http://localhost:4000/list" rel="noreferrer">点击下载</a> -->
+
+      <!-- <img src="http://localhost:4000/list" alt="" /> -->
       <script>
         // 这行可以放到控制台输入
         // document.forms[0].submit();

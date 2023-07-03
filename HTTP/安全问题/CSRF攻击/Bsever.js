@@ -5,7 +5,7 @@ app.use(express.json()); // json
 app.use(express.urlencoded({ extends: true })); // x-www-form-urlencoded
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   // 允许客户端跨域传递的请求头
   res.header("Access-Control-Allow-Headers", "Content-Type");
   res.header("Access-Control-Allow-Credentials", true);
@@ -17,6 +17,7 @@ app.use(express.static("public"));
 
 app.get("/list", (req, res) => {
   const cookie = req.headers.cookie;
+  console.log(req.headers.referer, "req.headers.referer...");
   if (cookie !== "user=allow") {
     res.sendStatus("500");
   } else {
@@ -28,10 +29,10 @@ app.get("/list", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(1);
   res.cookie("user", "allow", {
     expires: new Date(Date.now() + 86400 * 1000),
     sameSite: "lax",
+    secure: true,
   });
   res.send({ data: "success" });
 });
