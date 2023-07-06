@@ -34,14 +34,14 @@
     box =  document.getElementsByClassName('box')[0],
     inner =  document.getElementsByClassName('inner')[0];
     // addEventListener中的第三个参数是控制是冒泡还是捕获阶段触发，默认冒泡false
-    outer.addEventListener('click',function(e){
+    outer.addEventListener('contextmenu',function(e){
          alert('outer')
     },false)
-    box.addEventListener('click',function(e){
+    box.addEventListener('contextmenu',function(e){
          alert('box')
     },false)
 
-    inner.addEventListener('click',function(e){
+    inner.addEventListener('contextmenu',function(e){
         e.stopPropagation()  // 阻止事件冒泡
          alert('inner')
     },false)
