@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 500px;
+      height: 500px;
+      background-color: #ff0;
+      margin: 0 auto;
+    }
+
+    .box .row .label {
+      margin-right: 30px;
+      white-space: nowrap;
+    }
+
+    .table {
+      display: table;
+      border: 1px solid #f00;
+    }
+
+    .row {
+      display: table-row;
+      border: 1px solid #ccc;
+    }
+
+    .cell {
+      display: table-cell;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+  </style>
+  <body>
+    <div class="box table">
+      <div class="row">
+        <div class="label cell">
+          标题1, 可以很长, 很短, 下面的label宽度需要和这里对齐
+        </div>
+        <div class="content cell">
+          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
+          带换行的
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label cell">标题2,可以很长</div>
+        <div class="content cell">
+          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
+          带换行的 内容可以很多， 带换行的
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

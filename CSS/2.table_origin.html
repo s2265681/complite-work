@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 500px;
+      height: 500px;
+      background-color: #ff0;
+      margin: 0 auto;
+    }
+
+    .box .row {
+      display: flex;
+    }
+
+    .box .row .label {
+      margin-right: 30px;
+      white-space: nowrap;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <div class="row">
+        <div class="label">标题1</div>
+        <div class="content">
+          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
+          带换行的
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">标题2</div>
+        <div class="content">
+          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
+          带换行的 内容可以很多， 带换行的
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
