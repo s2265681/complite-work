@@ -8,8 +8,7 @@
   <style>
     .box {
       width: 500px;
-      height: 500px;
-      background-color: #ff0;
+      background-color: rgb(249, 232, 245);
       margin: 0 auto;
     }
 
@@ -20,38 +19,35 @@
 
     .table {
       display: table;
-      border: 1px solid #f00;
+      border-collapse: collapse;
     }
 
     .row {
       display: table-row;
       border: 1px solid #ccc;
+      border: none;
     }
 
     .cell {
       display: table-cell;
       border: 1px solid #ccc;
       padding: 5px;
+      border: none;
     }
   </style>
   <body>
     <div class="box table">
       <div class="row">
-        <div class="label cell">
-          标题1, 可以很长, 很短, 下面的label宽度需要和这里对齐
-        </div>
+        <div class="label cell">标题1 标题1 标题1</div>
         <div class="content cell">
-          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
-          带换行的
+          内容, 内容是很多的， 超出一行，需要换行显示， 内容, 内容是很多的，
+          超出一行，需要换行显示
         </div>
       </div>
 
       <div class="row">
-        <div class="label cell">标题2,可以很长</div>
-        <div class="content cell">
-          内容可以很多， 带换行的 内容可以很多， 带换行的 内容可以很多，
-          带换行的 内容可以很多， 带换行的
-        </div>
+        <div class="label cell">标题2</div>
+        <div class="content cell">内容可以很多</div>
       </div>
     </div>
   </body>

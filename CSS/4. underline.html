@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .ddd {
+      background-color: #f00;
+    }
+    .underline {
+      --color: rgb(200, 122, 32);
+      position: relative;
+      cursor: pointer;
+      color: var(--color);
+    }
+    .underline:before {
+      position: absolute;
+      content: "";
+      bottom: -2px;
+      right: 0;
+      height: 1px;
+      width: 100%;
+      background-color: inherit;
+      transition: 0.2s ease-in;
+    }
+    .underline:hover:before {
+      left: 0;
+      width: 100%;
+    }
+  </style>
+  <body>
+    <div class="ddd">
+      <span class="underline">左划入右滑出</span>
+    </div>
+  </body>
+</html>
