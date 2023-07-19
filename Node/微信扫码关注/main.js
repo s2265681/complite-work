@@ -7,12 +7,9 @@ const fs = require("fs");
 const https = require("https");
 const axios = require("axios");
 
-// const APP_ID = "wx01c45b63824bfb0c";
-// const APP_SECRET = "46b34ae0435fd5f277366082c8b84054";
+const APP_ID = "wx01c45b63824bfb0c";
+const APP_SECRET = "46b34ae0435fd5f277366082c8b84054";
 // const TOKEN = "test666";
-
-const APP_ID = "wx18896459fb483c0a";
-const APP_SECRET = "06390a237bcd3d36ff08219ce8592f79";
 const TOKEN = "";
 
 let needRefresh = true; // 是否需要刷新凭证
