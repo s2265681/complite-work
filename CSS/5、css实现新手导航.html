@@ -20,6 +20,8 @@
       }
 
       .button {
+        position: relative;
+        z-index: 1;
         width: 400px;
         height: 100px;
       }
@@ -56,14 +58,83 @@
           height: 100vh;
           background-color: #f00;
         } */
-      canvas {
+      /* canvas {
         position: fixed;
         top: 0;
-      }
+      } */
 
       /* 方案四 antd Tour 的实现方式 获取元素位置，通过svg拼接四块元素的宽高定位*/
 
       /* 方案五 clip-path */
+      /* .mask3 {
+        position: absolute;
+        inset:0;
+        background-color: #f00;
+        clip-path: polygon(
+          0% 0%,
+          0% 100%,
+          calc(50vw - 200px) 100%,
+          calc(50vw - 200px) calc(50vh - 50px),
+          calc(50vw + 200px) calc(50vh - 50px),
+          calc(50vw + 200px) calc(50vh + 50px),
+          calc(50vw - 200px) calc(50vh + 50px),
+          calc(50vw - 200px) 100%,
+          100% 100%,
+          100% 0%
+        );
+      } */
+      /* 方案六 利用元素复制提高层级 + mask 遮罩 */
+      .mask4 {
+        position: absolute;
+        inset: 0;
+        background-color: rgb(155, 131, 131, 0.5);
+      }
+
+      .mask4 .button {
+        content: "copy 新手指导 copy";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 100px;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* 方案七  元素拼接*/
+      .mask5 {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        inset: 0;
+      }
+      .mask5 .horizon {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .mask5 .horizon div {
+        height: 100vh;
+        width: calc(50vw - 200px);
+        background-color: #f00;
+      }
+
+      .mask5 .vertival {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: absolute;
+        top: 0;
+        height: 100vh;
+      }
+
+      .mask5 .vertival div {
+        width: 100vw;
+        height: calc(50vh - 50px);
+        background-color: #ff0;
+      }
     </style>
     <div class="box">
       <button class="button">新手指导</button>
@@ -71,10 +142,29 @@
     <!-- <div class="mask1"></div> -->
     <!-- <div class="mask2">11</div> -->
     <!-- canvas 方式 -->
-    <canvas id="canvas"></canvas>
+    <!-- <canvas id="canvas"></canvas> -->
+    <!-- clip-path -->
+    <!-- <div class="mask3"> -->
+    <!-- <button>下一步</button> -->
+    <!-- </div> -->
+    <!-- 利用mask + 复制一个一摸一样的假元素， 以假乱真-->
+    <!-- <div class="mask4">
+      <button class="button">新手指导</button>
+    </div> -->
+    <!-- 元素拼接， 分为上下左右四块元素拼接 -->
+    <div class="mask5">
+      <div class="horizon">
+        <div></div>
+        <div></div>
+      </div>
+      <div class="vertival">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </body>
 
-  <script>
+  <!-- <script>
     const button = document.querySelector(".button");
     const rect = button.getBoundingClientRect();
     const canvas = document.getElementById("canvas");
@@ -84,5 +174,5 @@
     ctx.fillStyle = "green";
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
     ctx.clearRect(rect.left, rect.top, rect.width, rect.height);
-  </script>
+  </script> -->
 </html>
