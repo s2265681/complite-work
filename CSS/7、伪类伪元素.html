@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>伪类伪元素</title>
+  </head>
+  <style>
+    /* 加载中... */
+    p {
+      position: absolute;
+      font-size: 6vw;
+      min-width: 300px;
+    }
+
+    p::after {
+      content: "加载中";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      animation: dot 3s infinite steps(3, start);
+    }
+
+    @keyframes dot {
+      33.33% {
+        content: "加载中.";
+      }
+      66.67% {
+        content: "加载中..";
+      }
+      100% {
+        content: "加载中...";
+      }
+    }
+
+    .unread {
+      position: relative;
+      width: 100px;
+      height: 30px;
+      background-color: #ff0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .unread::after {
+      content: attr(data-count);
+      font-size: 20px;
+      color: white;
+      background: #626aff;
+      box-shadow: 0px 0px 16px rgba(6, 6, 15, 0.2);
+      transform: scale(0.5);
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      border-radius: 10px;
+      position: absolute;
+      right: -10px;
+      top: -8px;
+    }
+  </style>
+  <body>
+    <p></p>
+
+    <div class="unread" data-count="5">未读</div>
+    <br />
+    <br />
+  </body>
+</html>

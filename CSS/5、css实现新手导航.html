@@ -31,6 +31,7 @@
         width: 400px;
         height: 100px;
         position: fixed;
+        inset: 0;
         border-style: solid;
         border-color: rgb(177, 169, 169);
         border-width: 10px;
@@ -135,6 +136,12 @@
         height: calc(50vh - 50px);
         background-color: #ff0;
       }
+
+      /* canvas 实现 */
+      canvas {
+        position: absolute;
+        top: 0;
+      }
     </style>
     <div class="box">
       <button class="button">新手指导</button>
@@ -142,7 +149,7 @@
     <!-- <div class="mask1"></div> -->
     <!-- <div class="mask2">11</div> -->
     <!-- canvas 方式 -->
-    <!-- <canvas id="canvas"></canvas> -->
+    <canvas id="canvas"></canvas>
     <!-- clip-path -->
     <!-- <div class="mask3"> -->
     <!-- <button>下一步</button> -->
@@ -152,7 +159,7 @@
       <button class="button">新手指导</button>
     </div> -->
     <!-- 元素拼接， 分为上下左右四块元素拼接 -->
-    <div class="mask5">
+    <!-- <div class="mask5">
       <div class="horizon">
         <div></div>
         <div></div>
@@ -161,7 +168,7 @@
         <div></div>
         <div></div>
       </div>
-    </div>
+    </div> -->
   </body>
 
   <!-- <script>

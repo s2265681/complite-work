@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button {
+      position: relative;
+      z-index: 1;
+      width: 400px;
+      height: 100px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <button class="button">新手指导</button>
+    </div>
+    <canvas id="canvas"></canvas>
+  </body>
+
+  <script>
+    const button = document.querySelector(".button");
+    const rect = button.getBoundingClientRect();
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.setAttribute("width", window.innerWidth + "px");
+    canvas.setAttribute("height", window.innerHeight + "px");
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(rect.left, rect.top, rect.width, rect.height);
+  </script>
+</html>
