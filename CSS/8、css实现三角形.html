@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .triangle1 {
+      width: 0;
+      height: 0;
+      border: 100px;
+      border-style: solid;
+      border-color: #f00 #ff0 #0ff #0f0;
+      border-width: 100px 100px 100px 100px;
+    }
+
+    .triangle2 {
+      width: 200px;
+      height: 100px;
+      /* background: linear-gradient(
+        -25deg,
+        transparent 0% 50%,
+        #0ff 50%,
+        #0ff 100%
+      );
+       */
+      background: conic-gradient(
+        from 90deg at 50% 0,
+        deeppink 0,
+        deeppink 45deg,
+        transparent 45.1deg
+      );
+
+      /* border: rgb(55, 0, 255) 1px solid; */
+    }
+
+    .triangle3 {
+      width: 200px;
+      height: 100px;
+      background-color: #f00;
+      clip-path: polygon(56% 17%, 0 71%, 100% 100%);
+    }
+
+    .triangle4 {
+      width: 200px;
+      height: 100px;
+      background-color: rgba(0, 300, 0, 0.3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .triangle4::after {
+      position: absolute;
+      content: "";
+      transform: rotate(326deg);
+      background-color: #fff;
+      width: 125%;
+      height: 175%;
+    }
+
+    .triangle5 {
+      color: #f00;
+      font-size: 23px;
+      transform: rotate(45deg);
+    }
+  </style>
+  <body>
+    <div class="box">
+      <!-- <div class="triangle1"></div> -->
+      <!-- <div class="triangle2"></div> -->
+
+      <!-- <div class="triangle3"></div> -->
+
+      <!-- <div class="triangle4"></div> -->
+
+      <!-- <svg height="210" width="500">
+        <polygon
+          points="200,10 250,190 160,210"
+          style="fill: lime; stroke: purple; stroke-width: 1"
+        />
+      </svg> -->
+
+      <div class="triangle5">
+        <div class="normal">&#9660;</div>
+      </div>
+    </div>
+  </body>
+</html>
