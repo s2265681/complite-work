@@ -9,6 +9,9 @@ export default function One() {
   const { t } = useTranslation();
 
   let name = "janny" as ReactI18NextChild;
+
+  const detailRemain = 15;
+  const number = 10;
   return (
     <>
       <Trans>content.One</Trans>
@@ -34,7 +37,7 @@ export default function One() {
       ></Trans> */}
       <Trans i18nKey="userMessagesUnread" count={count}>
         Hello
-        <a href="baidu">{/* <strong>{{ t(name) }}</strong> */}</a>, you have
+        <a href="baidu">LiMing</a>, you have
         {{ count }} unread message. <Link to="/msgs">Go to messages</Link>.
       </Trans>
 
@@ -55,6 +58,19 @@ export default function One() {
         values={{ what: "world" }}
         components={{ italic: <a />, bold: <strong /> }}
       />
+
+      <br />
+      <br />
+      <br />
+      <Trans
+        i18nKey={"detail_remains"}
+        number={number}
+        detailRemain={detailRemain}
+      >
+        Free trial accounts are allowed <b>{{ number: number }}</b> visits to
+        the details page per day. You have <b>{{ detailRemain }}</b> visits
+        remaining.
+      </Trans>
     </>
   );
 }

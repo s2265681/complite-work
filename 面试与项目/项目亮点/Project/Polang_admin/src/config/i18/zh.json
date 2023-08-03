@@ -15,5 +15,6 @@
   "hello beautiful": "你好，美丽世界",
   "userMessagesUnread": "你好 <1>姓名</1>, 你有 {{count}} 未读消息.  <5>去读消息吧</5>.",
   "gotolink": "点击<1>链接</1>啊",
-  "myKey": "你好 美丽 世界"
+  "myKey": "你好 美丽 世界",
+  "detail_remains": "试用账户每天可查看 <1>{{number}}</1>次详情页，今天剩余 <1>{{ detailRemain }}</1> 次。"
 }
