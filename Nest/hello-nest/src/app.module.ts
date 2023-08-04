@@ -7,10 +7,11 @@ import {
   LoggerMiddleware,
   logger,
 } from './common/middleware/logger.middleware';
+import { BooksModule } from './books/books.module';
 
 const User = { name: 1 };
 @Module({
-  imports: [CatsModule, DatabaseModule.forRoot([User])],
+  imports: [CatsModule, DatabaseModule.forRoot([User]), BooksModule],
   controllers: [AppController],
   providers: [AppService],
   exports: [DatabaseModule],
