@@ -1,0 +1,1 @@
+https://www.tiktok.com/v2/auth/authorize/?client_key=awmytdmj7dyr2w28&scope=user.info.basic&response_type=code&redirect_uri=https://kalodata.com/for-you&state=qzcl70lkz2p&error=invalid_request&error_type=redirect_uri
