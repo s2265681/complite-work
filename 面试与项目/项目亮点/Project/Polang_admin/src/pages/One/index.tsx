@@ -71,6 +71,27 @@ export default function One() {
         the details page per day. You have <b>{{ detailRemain }}</b> visits
         remaining.
       </Trans>
+
+      <br />
+      <br />
+      <br />
+      <Trans i18nKey={"cookie_service"}>
+        Please see our
+        <a
+          href="https://kalowave.feishu.cn/docx/K2CCdCjiood6Brxtzq9cnLyxn8b"
+          target="_blank"
+        >
+          <b>Terms of Service</b>
+        </a>
+        and
+        <a
+          href="https://kalowave.feishu.cn/docx/EOMjd0fa2oAjdxxlRCeclHRznWc"
+          target="_blank"
+        >
+          <b>Privacy Policy</b>
+        </a>
+        for more information.
+      </Trans>
     </>
   );
 }
