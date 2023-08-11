@@ -81,16 +81,20 @@ export default function One() {
           href="https://kalowave.feishu.cn/docx/K2CCdCjiood6Brxtzq9cnLyxn8b"
           target="_blank"
         >
-          <b>Terms of Service</b>
+          Terms of Service
         </a>
-        and
-        <a
-          href="https://kalowave.feishu.cn/docx/EOMjd0fa2oAjdxxlRCeclHRznWc"
-          target="_blank"
-        >
-          <b>Privacy Policy</b>
-        </a>
-        for more information.
+        and <Link to="/msgs">Privacy Policy</Link> for more information.
+      </Trans>
+
+      <br />
+      <br />
+      <br />
+
+      <Trans i18nKey="userMessagesUnread2">
+        Please see our
+        <a href="baidu1">Terms of Service</a>, you have
+        {{}} unread message. <a href="baidu2">Privacy Policy</a> for more
+        information.
       </Trans>
     </>
   );

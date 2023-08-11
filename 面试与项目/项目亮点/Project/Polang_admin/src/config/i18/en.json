@@ -15,5 +15,8 @@
   "gotolink": "click<1>www.baidu.com</1>dddd",
   "myKey": "hello beautiful world",
   "detail_remains": "Free trial accounts are allowed <1>{{number}}</1> visits to the details page per day. You have <1>{{ detailRemain }}</1> visits remaining.",
-  "cookie_service":"Please see our <1>Terms of Service</1> and <1>Privacy Policy</1> for more information."
+  "cookie_service":"Please see our <1>{{Terms of Service}}</1> and <5>Privacy Policy</5> for more information.",
+  "userMessagesUnread2": "Please see our <1>Terms of Service</1> and <5>Privacy Policy</5> for more information."
+
+
 }
