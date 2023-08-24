@@ -18,6 +18,9 @@
   "myKey": "你好 美丽 世界",
   "detail_remains": "试用账户每天可查看 <1>{{number}}</1>次详情页，今天剩余 <1>{{ detailRemain }}</1> 次。",
   "cookie_service":"<1>服务条款</1>和<1>隐私政策</1>以了解更多信息。",
-  "userMessagesUnread2": "请参阅我们的<1>服务条款</1>和<5>隐私政策</5>以了解更多信息。"
-
+  "userMessagesUnread2": "请参阅我们的<1>服务条款</1>和<5>隐私政策</5>以了解更多信息。",
+  "concatLink3":"接收验证码时遇到问题？ <1>通过 TikTok 注册</1>或 <5>联系我们</5>",
+  "helloWorld": "你好 点击 {linkA} 去 {linkB}.",
+ "signupErrorTip": "接收验证码时遇到问题？ <1>通过 TikTok 注册</1>或<2>联系我们</2>",
+ "accountTiktokHelp":"<1>如何添加通过 TikTok 注册的账号？</1><2>第1步，在“我的Kalodata”中完成该账号的手机号码验证。</2><3>第2步，将此手机号码添加为子账号。</3>"
 }

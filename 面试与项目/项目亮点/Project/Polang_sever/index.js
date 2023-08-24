@@ -35,6 +35,7 @@ app.get("/oauth", (req, res) => {
 // 2、通过 code 去获取 access_token Fetch an access token using an authorization code
 app.get("/tiktok", (req, res) => {
   const { code, scopes, state } = req.query;
+  console.log(code, "code");
   let url = "https://open.tiktokapis.com/v2/oauth/token/";
   const formData = new URLSearchParams();
   formData.append("client_key", CLIENT_KEY);
