@@ -175,6 +175,19 @@ export default function One() {
           3: <div>Step 2, add this phone number as a sub-account.</div>,
         }}
       ></Trans>
+
+      <br />
+
+      <Trans
+        i18nKey={"query_remains_search"}
+        values={{ level: "tril", total: 222, remain: 1 }}
+        defaults="<1>{{level}}</1> accounts are allowed <2>{{total}}</2> search submit times  per day. You have <3>{{remain}}</3> searchs remaining."
+        components={{
+          1: <span />,
+          2: <b />,
+          3: <b />,
+        }}
+      />
     </>
   );
 }
