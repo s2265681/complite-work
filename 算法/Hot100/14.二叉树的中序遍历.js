@@ -32,19 +32,19 @@
 //   return res;
 // };
 
-var inorderTraversal = function (root) {
-  // 递归法
-  const res = [];
-  const inorder = (root) => {
-    if (root == null) return;
-    inorder(root.left);
-    res.push(root.val);
-    inorder(root.right);
-  };
-  inorder(root);
-  console.log(res, "res");
-  return res;
-};
+// var inorderTraversal = function (root) {
+//   // 递归法
+//   const res = [];
+//   const inorder = (root) => {
+//     if (root == null) return;
+//     inorder(root.left);
+//     res.push(root.val);
+//     inorder(root.right);
+//   };
+//   inorder(root);
+//   console.log(res, "res");
+//   return res;
+// };
 // 输入：root = [1,null,2,3]
 // 输出：[1,3,2]
 // 示例 2：
@@ -77,4 +77,39 @@ root = {
     },
   },
 };
-console.log(inorderTraversal(root)); // C 、 B 、 D 、 A 、 F 、E G
+
+// 复习
+const inorderTraversal = (root) => {
+  // // 1、递归
+  // const res = [];
+  // const inorder = (root) => {
+  //   if (root == null) return;
+  //   inorder(root.left);
+  //   inorder(root.right);
+  //   res.push(root.val);
+  // };
+  // inorder(root);
+  // return res;
+
+  // 2、迭代
+  const stack = [],
+    res = [];
+  // while (root) {
+  //   stack.push(root);
+  //   root = root.left;
+  // }
+  // while (stack.length) {
+  //   let node = stack.pop();
+  //   res.push(node.val);
+  //   node = node.right;
+  //   while (node) {
+  //     stack.push(node);
+  //     node = node.left;
+  //   }
+  // }
+  // return res;
+};
+console.log(inorderTraversal(root));
+//中序： C 、 B 、 D 、 A 、 F 、 E 、 G
+//前序： A 、 B 、 C 、 D 、 E 、 F 、 G
+//后序： C 、 D 、 B 、 F 、 G 、 E 、 A
