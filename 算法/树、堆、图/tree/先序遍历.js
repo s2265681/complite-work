@@ -12,14 +12,17 @@ const btJson = require("./btJson");
 
 // 非递归版
 const preorder = (root) => {
-  if (!root) return;
-  const stack = [root];
+  if (root == null) return;
+  const stack = [root],
+    res = [];
   while (stack.length) {
     const n = stack.pop();
-    console.log(n.val);
-    if (n.right) stack.push(n.right);
-    if (n.left) stack.push(n.left);
+    if (n == null) continue;
+    res.push(n.val);
+    n.right && stack.push(n.right);
+    n.left && stack.push(n.left);
   }
+  return res;
 };
 
-preorder(btJson);
+console.log(preorder(btJson));

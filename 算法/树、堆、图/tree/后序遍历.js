@@ -28,4 +28,21 @@ const postorder = (root) => {
 //   }
 // };
 
+// 非递归版 中右左 翻转整个数组 左右中
+const postorder2 = (root) => {
+  if (root == null) return;
+  const stack = [root],
+    res = [];
+  while (stack.length) {
+    const n = stack.pop();
+    if (n == null) continue;
+    res.push(n.val);
+    n.left && stack.push(n.left);
+    n.right && stack.push(n.right);
+  }
+  return res.reverse();
+};
+
+console.log(postorder2(btJson));
+
 postorder(btJson);

@@ -26,7 +26,25 @@ const inorder = (root) => {
   }
 };
 
-inorder(btJson);
+const inorder2 = (root) => {
+  if (root == null) return;
+  const stack = [];
+  let cur = root;
+  let res = [];
+  while (cur !== null || stack.length) {
+    if (cur) {
+      stack.push(cur);
+      cur = cur.left;
+    } else {
+      cur = stack.pop();
+      res.push(cur.val);
+      cur = cur.right;
+    }
+  }
+  return res;
+};
+
+console.log(inorder(btJson));
 
 // 参考答案
 var inorderTraversal = function (root) {
