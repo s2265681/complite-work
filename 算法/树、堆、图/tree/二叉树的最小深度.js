@@ -30,3 +30,5 @@ var minDepth = function (root) {
 };
 
 console.log(minDepth(root));
+
+console.log(first);

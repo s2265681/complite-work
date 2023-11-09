@@ -38,5 +38,3 @@ var isSymmetric = function (root) {
   inorder(root);
   console.log(map, "map;;;;;");
 };
-
-console.log(isSymmetric(root));
