@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>跨标签通讯</title>
+  </head>
+  <style>
+    .board {
+      width: 300px;
+      height: 50px;
+      background-color: #f00;
+      position: fixed;
+      bottom: 0;
+      left: 100px;
+      /* visibility: hidde`fn; */
+    }
+  </style>
+  <body>
+    <div class="board">我是可以移动的元素</div>
+    <div class="gamestart"></div>
+    <div class="gameover"></div>
+  </body>
+  <script>
+    // util
+    // 检查元素是否在屏幕外
+    function isElementOutViewport(el) {
+      var rect = el.getBoundingClientRect();
+      return (
+        rect.top < 0 ||
+        rect.left < 0 ||
+        rect.bottom >
+          (window.innerHeight || document.documentElement.clientHeight) ||
+        rect.right > (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+    //  计算浏览器的bar高度
+    const barHeight = () => window.outerHeight - window.innerHeight;
+
+    // 屏幕坐标转换为窗口坐标
+    const screenToClient = (screenX, screenY) => {
+      const clienX = screenX - window.screenX;
+      const clienY = screenY - window.screenY - barHeight();
+      return [clienX, clienY];
+    };
+
+    // 控制当前页面背景
+    document.body.style.background =
+      new URLSearchParams(window.location.search).get("color") || "#fff";
+  </script>
+  <script>
+    const channel = new BroadcastChannel("myChannel");
+    class Ball {
+      constructor(size = 3, color = "#000") {
+        // 设置尺寸
+        this.size = size;
+        // 设置颜色
+        this.color = color;
+        // 创造标签
+        this.ballDom = document.createElement("div");
+        this.top = 0;
+        // 是否反转
+        this.revert = false;
+      }
+      render() {
+        this.left = Math.floor(Math.random() * window.innerWidth);
+        this.ballDom.style.background = this.color;
+        this.ballDom.style.width = this.size * 10 + "px";
+        this.ballDom.style.height = this.size * 10 + "px";
+        this.ballDom.style.left = this.left + "px";
+        this.ballDom.style.top = this.top + "px";
+        this.ballDom.style.borderRadius = "50%";
+        this.ballDom.style.position = "fixed";
+        document.body.appendChild(this.ballDom);
+      }
+
+      dropFn(speed = 0.03, destoryFn) {
+        let animationId;
+        const doSomething = () => {
+          // 小球超出浏览器窗口销毁
+          if (isElementOutViewport(this.ballDom)) {
+            cancelAnimationFrame(animationId);
+            this.ballDom.remove();
+            destoryFn();
+          }
+          // 改变小球的高度
+          this.top += 1 + speed;
+          this.ballDom.style.top = this.top + "px";
+          // 在任务中再次调用 requestAnimationFrame
+          animationId = requestAnimationFrame(doSomething);
+        };
+        // 启动周期性任务
+        animationId = requestAnimationFrame(doSomething);
+      }
+    }
+    class Game {
+      constructor(nums = 10) {
+        this.maxNums = this.nums;
+      }
+      generateBalls(nums = 1, speed = 0.05) {
+        // 生成小球
+        this.curball = new Ball();
+        // 渲染
+        this.curball.render();
+        this.curball.dropFn(3, () => {
+          console.log("销毁");
+        });
+      }
+      // 游戏开始
+      start(nums, speed) {
+        game.generateBalls(nums, speed);
+      }
+    }
+    const game = new Game();
+    game.start(3, 10);
+  </script>
+</html>
