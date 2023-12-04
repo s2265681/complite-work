@@ -30,7 +30,7 @@ const useDrag = (uploadContainerRef) => {
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
-      message.error("文件大小不能超过2GB");
+      message.error("文件大小不能超过20GB");
       return;
     }
     if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
@@ -60,7 +60,14 @@ const useDrag = (uploadContainerRef) => {
     };
   }, []);
 
-  return { selectedFile, filePreview };
+  const resetFileStatus = () => {
+    setSelectedFile(null);
+    setFilePreview({
+      url: null,
+      type: null,
+    });
+  };
+  return { selectedFile, filePreview, resetFileStatus };
 };
 
 export default useDrag;
