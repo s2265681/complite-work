@@ -1,7 +1,7 @@
 import { CHUNK_SIZE } from "./constant";
+import axios from "axios";
 import axiosInstance from "./axiosInstance";
 import { message } from "antd";
-import axios from "axios";
 
 // 获取文件的hash name
 export const getFileName = async (file) => {
@@ -37,13 +37,14 @@ export async function uploadFile(
   }
   //把在文件进行切片
   const chunks = createFileChunks(file, filename);
+  console.log(chunks, "chunks");
   const newCancelTokens = [];
   //实现并行上传
   const requests = chunks.map(({ chunk, chunkFileName }) => {
     const cancelToken = axios.CancelToken.source();
     console.log(cancelToken, "cancelToken");
     newCancelTokens.push(cancelToken);
-    createRequest(
+    return createRequest(
       filename,
       chunkFileName,
       chunk,
@@ -51,13 +52,15 @@ export async function uploadFile(
       cancelToken
     );
   });
+  setCancelTokens(newCancelTokens);
   try {
-    setCancelTokens(newCancelTokens);
     await Promise.all(requests);
     await axiosInstance.get(`/merge/${filename}`);
     message.success("上传完成");
     resetAllStatus();
   } catch (error) {
+    //如果是由于用户主动点击了暂停的按钮，暂停了上传
+    console.log(error, "error.........");
     if (axios.isCancel(error)) {
       console.log("上传暂停");
       message.error("上传暂停");
@@ -68,7 +71,7 @@ export async function uploadFile(
   }
 }
 
-async function createRequest(
+function createRequest(
   filename,
   chunkFileName,
   chunk,
