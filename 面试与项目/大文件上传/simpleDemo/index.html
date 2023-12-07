@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .ball {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #f00;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+  <body>
+    <div class="ball"></div>
+    <input type="file" />
+    <img id="showImg" alt="" />
+    <video id="showVideo" controls style="display: none"></video>
+    <script>
+      const ball = document.querySelector(".ball");
+      let revert = false;
+      setInterval(() => {
+        let left = parseInt(window.getComputedStyle(ball).left);
+
+        if (left >= window.innerWidth - 100) {
+          revert = true;
+        }
+        if (left <= 0) {
+          revert = false;
+        }
+
+        if (!revert) {
+          left += 1;
+        } else {
+          left -= 1;
+        }
+
+        ball.style.left = left + "px";
+      }, 10);
+    </script>
+  </body>
+  <script type="module" src="./main.js"></script>
+</html>
