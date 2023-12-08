@@ -15,6 +15,19 @@
       border-radius: 50%;
       width: 100px;
       height: 100px;
+      animation: move 4s linear infinite;
+    }
+
+    @keyframes move {
+      0% {
+        left: 0;
+      }
+      50% {
+        left: calc(100% - 100px);
+      }
+      100% {
+        left: 0;
+      }
     }
   </style>
   <body>
@@ -22,28 +35,6 @@
     <input type="file" />
     <img id="showImg" alt="" />
     <video id="showVideo" controls style="display: none"></video>
-    <script>
-      const ball = document.querySelector(".ball");
-      let revert = false;
-      setInterval(() => {
-        let left = parseInt(window.getComputedStyle(ball).left);
-
-        if (left >= window.innerWidth - 100) {
-          revert = true;
-        }
-        if (left <= 0) {
-          revert = false;
-        }
-
-        if (!revert) {
-          left += 1;
-        } else {
-          left -= 1;
-        }
-
-        ball.style.left = left + "px";
-      }, 10);
-    </script>
   </body>
   <script type="module" src="./main.js"></script>
 </html>
