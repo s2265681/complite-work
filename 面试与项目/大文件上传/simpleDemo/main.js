@@ -1,11 +1,11 @@
 import { createChunk } from "./createChunk.js";
 
+let THREAD_COUNT = 2; // navigator.hardwareConcurrency || 4; // 开启4个线程
+const CHUNK_SIZE = 20 * 1024 * 1024; // 500M
+
 const showImg = document.getElementById("showImg");
 const showVideo = document.getElementById("showVideo");
-let THREAD_COUNT = navigator.hardwareConcurrency || 4; // 开启4个线程
-const CHUNK_SIZE = 200 * 1024 * 1024; // 500M
-
-async function render(event) {
+function render(event) {
   const file = event.target.files[0];
   const url = URL.createObjectURL(file);
   if (file.type.includes("video")) {
@@ -14,19 +14,27 @@ async function render(event) {
   } else {
     showImg.setAttribute("src", url);
   }
+  // 切割文件
+  cutFile(file);
+}
+
+async function cutFile(file) {
   // 文件切割
   const chunkCount = Math.ceil(file.size / CHUNK_SIZE);
   console.log(chunkCount); // 20
+  console.log("start...");
 
-  // console.time("111");
-  // const result1 = await chunkFileNotWork(file, chunkCount);
-  // console.log(result1, "result1...");
-  // console.timeEnd("111");
+  console.time("111");
+  const result1 = await chunkFileNotWork(file, chunkCount);
+  console.log(result1, "result1...");
+  console.timeEnd("111");
 
   console.time("222");
   const result2 = await chunkFileWithWork(file, chunkCount);
   console.log(result2, "result2");
   console.timeEnd("222");
+
+  console.log("end...");
 }
 
 async function chunkFileNotWork(file, chunkCount) {
