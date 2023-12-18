@@ -1,0 +1,152 @@
+<!-- 
+```text
+ResizeObserver 接口可以监听到 Element 的内容区域或 SVGElement的边界框改变
+ResizeObserver避免了在自身回调中调整大小，从而触发的无限回调和循环依赖。
+它仅通过在后续帧中处理DOM中更深层次的元素来实现这一点。
+如果（浏览器）遵循规范，只会在绘制前或布局后触发调用
+``` -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .wrapper {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+    .box {
+      display: flex;
+      gap: 10px;
+      width: 300px;
+      height: 100px;
+      overflow-x: auto;
+      list-style: none;
+    }
+    .box > li {
+      width: 100px;
+      height: 100px;
+      background-color: #f00;
+      flex: none;
+    }
+    .left,
+    .right {
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div class="left" onclick="swipeLeft()"><</div>
+      <ul class="box">
+        <li class="li1">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+      </ul>
+      <div class="right" onclick="swipeRight()">></div>
+    </div>
+  </body>
+  <script>
+    const $box = document.querySelector(".box");
+    const leftBtn = document.querySelector(".left");
+    const rightBtn = document.querySelector(".right");
+
+    const swipeLeft = () => {
+      if ($box) {
+        $box.scrollTo({
+          left: $box.scrollLeft - $box.clientWidth,
+          behavior: "smooth",
+        });
+      }
+    };
+
+    const swipeRight = () => {
+      if ($box) {
+        $box.scrollTo({
+          left: $box.scrollLeft + $box.clientWidth,
+          behavior: "smooth",
+        });
+      }
+    };
+
+    function updateSwiperBtn() {
+      if ($box.scrollLeft > 0) {
+        leftBtn.style.opacity = 1;
+      } else {
+        leftBtn.style.opacity = 0;
+      }
+      if ($box.scrollLeft + $box.clientWidth < $box.scrollWidth) {
+        rightBtn.style.opacity = 1;
+      } else {
+        rightBtn.style.opacity = 0;
+      }
+    }
+
+    const updateSwriper = () => {
+      $box.addEventListener("scrollend", () => {
+        updateSwiperBtn();
+        console.log("scrollend");
+      });
+      $box.addEventListener("resize", () => {
+        updateSwiperBtn();
+        console.log("resize");
+      });
+      $box.addEventListener("scroll", () => {
+        updateSwiperBtn();
+        console.log("scroll");
+      });
+    };
+
+    updateSwriper();
+    // 新建obsever对象 不能监听子元素变化
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        if (entry.target === $box) {
+          console.log("rrrrrrrrrr");
+          updateSwriper();
+        }
+      }
+    });
+    // 开始监听，传入dom对象
+    resizeObserver.observe($box);
+
+    {
+      /* 使用 MutationObserver */
+    }
+    // 先创建一个回调函数，mutation.type表示监听变化的类型
+    var callback = function (mutationsList) {
+      for (var mutation of mutationsList) {
+        if (mutation.type == "attributes") {
+          console.log(
+            "The " + mutation.attributeName + " attribute was modified."
+          );
+        } else if (mutation.type == "childList") {
+          console.log("A child node has been added or removed.");
+        }
+      }
+    };
+    // 创建对象实例
+    var observer = new MutationObserver(callback);
+    var config = { attributes: true, childList: true, subtree: true };
+    // 开始执行监听，传入监听的dom对象与config
+    observer.observe($box, config);
+    // observer.disconnect()
+
+    setTimeout(() => {
+      //   $box.style.width = "350px";
+      // 子元素变化无法监听
+      document.querySelector(".li1").style.width = "150px";
+    }, 2000);
+  </script>
+</html>
