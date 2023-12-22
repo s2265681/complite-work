@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .scroll_box {
+      width: 100%;
+      height: 200px;
+      background-color: rgba(250, 250, 0, 0.1);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .scroll_block {
+      width: 300px;
+      height: 100px;
+      background-color: aqua;
+      color: #f00;
+      position: absolute;
+      left: 0;
+    }
+  </style>
+  <body>
+    <div class="scroll_box">
+      <div class="scroll_block">这里是一些需要滚动的文字</div>
+    </div>
+  </body>
+  <script>
+    const scroll_block = document.querySelector(".scroll_block");
+    scroll_block.getBoundingClientRect();
+
+    const scroll_block2 = document.createElement("div");
+    scroll_block2.innerText = scroll_block.innerText;
+    scroll_block2.classList.add("scroll_block");
+    document.querySelector(".scroll_box").appendChild(scroll_block2);
+  </script>
+</html>

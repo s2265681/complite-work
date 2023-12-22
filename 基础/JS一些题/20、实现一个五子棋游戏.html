@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .outer {
+      display: flex;
+    }
+    .inner {
+      width: 100px;
+      height: 100px;
+      background-color: #ff0;
+      border: 1px solid #f00;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <h2>实现一个五子棋游戏</h2>
+    <div id="pieces_box"></div>
+  </body>
+  <script>
+    // 创建一个五子棋的类， 控制五子棋的 长款
+    // 1、 选择数据类型 数组 =》 比如 生成 2行5列的二维数组
+    // [
+    //   [], [], [], [], []
+    //   [], [], [], [], []
+    // ]
+    const pieces_box = document.querySelector("#pieces_box");
+    function generator(rlength, clength) {
+      let array = [];
+      for (let i = 0; i < rlength; i++) {
+        array[i] = [];
+        for (let j = 0; j < clength; j++) {
+          array[i].push([]);
+        }
+      }
+      return array;
+    }
+
+    const piecesArr = generator(8, 8);
+
+    function renderPieces() {
+      let renderText = "";
+      piecesArr.map((items, yindex) => {
+        renderText += '<div class="outer">';
+        items.map((item, xindex) => {
+          renderText += `<div class="inner" id="${[xindex, yindex]}"></div>`;
+        });
+        renderText += "</div>";
+      });
+      pieces_box.innerHTML = renderText;
+    }
+    renderPieces();
+
+    let currentColor = "#fff";
+    pieces_box.addEventListener("click", (e) => {
+      if (e.target.closest(".inner") && !e.target.style.background) {
+        currentColor = currentColor === "#fff" ? "#000" : "#fff";
+        e.target.style.background = currentColor;
+        const currentPos = e.target.id.split(",").map(Number);
+        piecesArr[currentPos[0]][currentPos[1]].push(currentColor);
+        setTimeout(() => {
+          const result = isWin(currentPos);
+          if (result) {
+            alert(`恭喜${currentColor}获得了胜利`);
+          }
+        }, 100);
+      }
+    });
+
+    // -------------------------------------------------------  //  重构。。。。。。。。。。
+    // 重新更改逻辑。 改为判断坐标位置，
+    const isWin = (point) => {
+      return (
+        horJudgement(point) ||
+        verJudegment(point) ||
+        slashJudgement(point) ||
+        backslashJudgement(point)
+      );
+    };
+    const horJudgement = createJudgement(
+      ([i, j]) => [i, j - 1],
+      ([i, j]) => [i, j + 1]
+    );
+    const verJudegment = createJudgement(
+      ([i, j]) => [i - 1, j],
+      ([i, j]) => [i + 1, j]
+    );
+    const slashJudgement = createJudgement(
+      ([i, j]) => [i + 1, j - 1],
+      ([i, j]) => [i - 1, j + 1]
+    );
+    const backslashJudgement = createJudgement(
+      ([i, j]) => [i - 1, j - 1],
+      ([i, j]) => [i + 1, j + 1]
+    );
+
+    function createJudgement(p1Movement, p2Movement) {
+      return function (point) {
+        let count = 1;
+        let p1 = p1Movement(point);
+        let p2 = p2Movement(point);
+        while (1) {
+          let p1Changed = false,
+            p2Chanhed = false;
+          if (isValid(p1)) {
+            count++;
+            p1 = p1Movement(p1);
+            p1Changed = true;
+          }
+          if (isValid(p2)) {
+            count++;
+            p2 = p2Movement(p2);
+            p2Chanhed = true;
+          }
+          if (count >= 5) {
+            return true;
+          }
+          if (!p1Changed && !p2Chanhed) {
+            return false;
+          }
+        }
+      };
+    }
+
+    function isValid(point) {
+      const ROWS = piecesArr.length;
+      const COLS = piecesArr[0].length;
+      const [x, y, c] = point;
+      const cur = piecesArr[x]?.[y];
+      // point在棋盘之内 && point 的颜色和落子颜色一致
+      if (
+        cur &&
+        currentColor === cur[0] &&
+        x >= 0 &&
+        y >= 0 &&
+        x < ROWS &&
+        y < COLS
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+</html>
