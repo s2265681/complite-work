@@ -7,9 +7,21 @@
   </head>
 
   <style>
+    * {
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+      gap: 150px;
+    }
+
     .scroll_box {
-      width: 100%;
-      height: 200px;
+      width: 200px;
+      height: 300px;
       background-color: rgba(250, 250, 0, 0.1);
       display: flex;
       align-items: center;
@@ -17,26 +29,160 @@
     }
 
     .scroll_block {
-      width: 300px;
       height: 100px;
-      background-color: aqua;
-      color: #f00;
+      background-color: rgba(4, 172, 172, 0.2);
+      color: rgba(10, 1, 1);
       position: absolute;
-      left: 0;
+      left: -200px;
+      white-space: nowrap;
     }
   </style>
   <body>
-    <div class="scroll_box">
-      <div class="scroll_block">这里是一些需要滚动的文字</div>
+    <div class="wrapper">
+      <div class="scroll_box">
+        <div class="scroll_block">这里是一些需要滚动的文字</div>
+      </div>
+
+      <div class="scroll_box">
+        <div class="scroll_block scroll_block2">这里是一些需要滚动的文字</div>
+      </div>
+
+      <div class="scroll_box">
+        <div class="scroll_block scroll_block3">这里是一些需要滚动的文字</div>
+      </div>
+
+      <div class="scroll_box">
+        <div class="scroll_block scroll_block4">这里是一些需要滚动的文字</div>
+      </div>
     </div>
   </body>
   <script>
-    const scroll_block = document.querySelector(".scroll_block");
-    scroll_block.getBoundingClientRect();
+    class RepeatedRolling {
+      constructor(config) {
+        const { selector, speed, mouseEntry, mouseLeave, dir } = {
+          selector: document.body,
+          speed: 1,
+          dir: "LEFT",
+          mouseEntry: () => {},
+          mouseLeave: () => {},
+          ...config,
+        };
+        this.currentEle = document.querySelector(selector);
+        this.parentEle = this.currentEle.parentElement || document.body;
+        this.parentEle.style.overflow = "hidden";
+        this.SPEED = speed;
+        this._animationId = null;
+        this.currentInfo = this.currentEle.getBoundingClientRect();
+        this.cloneCurrent = this.currentEle.cloneNode(true);
+        this.offSetWidth = Math.max(
+          this.parentEle.clientWidth,
+          this.currentInfo.width
+        );
+        this.scrollLeft1 = this.currentInfo.left;
+        this.scrollLeft2 = this.scrollLeft1 + this.offSetWidth;
+        this.elementWidth = this.currentInfo.width;
+        this._bindEventFn();
+        this._mouseEntry = mouseEntry;
+        this._mouseLeave = mouseLeave;
+        this._dir = {
+          UP: 270,
+          DOWN: 90,
+          LEFT: 0,
+          RIGHT: 180,
+        }[dir];
+        this.parentEle.appendChild(this.cloneCurrent);
+      }
+      _bindEventFn() {
+        [this.currentEle, this.cloneCurrent].map((dom) => {
+          dom.addEventListener("mouseover", () => {
+            this._mouseEntry?.();
+          });
+          dom.addEventListener("mouseleave", () => {
+            this._mouseLeave?.();
+          });
+        });
+      }
+      _doWorking = () => {
+        // X 和 Y 两个始终在一定的差距内， 各自相减 各自移动， 当 <= -宽度时， 让left = 宽度
+        if (this.scrollLeft1 <= -this.elementWidth) {
+          this.scrollLeft1 = this.scrollLeft2 + this.offSetWidth;
+        }
+        if (this.scrollLeft2 <= -this.elementWidth) {
+          this.scrollLeft2 = this.scrollLeft1 + this.offSetWidth;
+        }
+        this.scrollLeft1 -= this.SPEED;
+        this.scrollLeft2 -= this.SPEED;
+        this.currentEle.style.left = this.scrollLeft1 + "px";
+        this.cloneCurrent.style.left = this.scrollLeft2 + "px";
+        this.cloneCurrent.style.backgroundColor = "rgba(255,20,250,0.2)";
+        if (this._dir) {
+          this.parentEle.style.transform = `rotate(-${this._dir}deg)`;
+          this.currentEle.style.transform = `rotate(${this._dir}deg)`;
+          this.cloneCurrent.style.transform = `rotate(${this._dir}deg`;
+        }
+      };
+      _handleAnimate = () => {
+        this._doWorking();
+        this._animationId = requestAnimationFrame(this._handleAnimate);
+      };
+      start() {
+        this._animationId = requestAnimationFrame(this._handleAnimate);
+      }
+      stop() {
+        cancelAnimationFrame(this._animationId);
+      }
+    }
 
-    const scroll_block2 = document.createElement("div");
-    scroll_block2.innerText = scroll_block.innerText;
-    scroll_block2.classList.add("scroll_block");
-    document.querySelector(".scroll_box").appendChild(scroll_block2);
+    const Rolling1 = new RepeatedRolling({
+      selector: ".scroll_block",
+      speed: 2,
+      dir: "LEFT",
+      mouseEntry: () => {
+        Rolling1.stop();
+      },
+      mouseLeave: () => {
+        Rolling1.start();
+      },
+    });
+    Rolling1.start();
+
+    const Rolling2 = new RepeatedRolling({
+      selector: ".scroll_block2",
+      speed: 2,
+      dir: "RIGHT",
+      mouseEntry: () => {
+        Rolling2.stop();
+      },
+      mouseLeave: () => {
+        Rolling2.start();
+      },
+    });
+    Rolling2.start();
+
+    const Rolling3 = new RepeatedRolling({
+      selector: ".scroll_block3",
+      speed: 3,
+      dir: "UP",
+      mouseEntry: () => {
+        Rolling3.stop();
+      },
+      mouseLeave: () => {
+        Rolling3.start();
+      },
+    });
+    Rolling3.start();
+
+    const Rolling4 = new RepeatedRolling({
+      selector: ".scroll_block4",
+      speed: 3,
+      dir: "DOWN",
+      mouseEntry: () => {
+        Rolling4.stop();
+      },
+      mouseLeave: () => {
+        Rolling4.start();
+      },
+    });
+    Rolling4.start();
   </script>
 </html>
