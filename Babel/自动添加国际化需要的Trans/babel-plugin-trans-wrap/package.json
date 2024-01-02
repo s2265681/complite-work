@@ -1,0 +1,16 @@
+{
+  "name": "babel-plugin-trans-wrap",
+  "version": "1.0.0",
+  "description": "react jsx 节点增加国际化Trans的包裹组件插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Trans",
+    "i18n",
+    "plugin"
+  ],
+  "author": "rockshang",
+  "license": "ISC"
+}
