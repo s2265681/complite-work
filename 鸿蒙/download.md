@@ -12,3 +12,12 @@ https://developer.harmonyos.com/cn/documentation/overview/?catalogVersion=V3
 安装问题
 
 sudo chown -R $(whoami) ~/.npm
+
+快捷键
+
+- 折叠打开代码 cmd + shift + (-+) 有 shift 收起展开全部
+- 光标上一个或者下一个位置 cmd + [ or ]
+- 查找所欧东西 2 \* shift
+- 文件内查找 cmd + f
+- 全局查找 cmd + shift + f
+- 格式化 cmd + shift + opt + L
