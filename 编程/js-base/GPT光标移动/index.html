@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>光标移动</title>
+  </head>
+  <style>
+    .cursor {
+      width: 10px;
+      height: 10px;
+      background-color: #000;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      left: 0px;
+      animation: blink 1s infinite;
+      -webkit-animation: blink 1s infinite;
+      will-change: auto;
+
+      transform: translate(-50%, -50%);
+    }
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .text-container {
+      position: relative;
+      display: inline-block;
+      width: 300px;
+      height: 300px;
+      overflow: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+  <body>
+    <div class="text-container">
+      <div class="text"></div>
+      <div class="cursor"></div>
+    </div>
+  </body>
+  <script>
+    const textContainer = document.querySelector(".text-container");
+    const textElm = document.querySelector(".text");
+    const cursor = document.querySelector(".cursor");
+
+    async function autoAppend() {
+      function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      function transfer(text) {
+        // 将文本添加p标签，如遇到换行，重新创建新的p标签进行添加
+        let textArr = text.split(" ");
+        console.log(textArr, "textArr");
+        let result = "";
+        for (let i = 0; i < textArr.length; i++) {
+          result += `<p>${textArr[i]}</p>`;
+        }
+        return result;
+      }
+
+      let i = 0;
+      const content = `以下是
+
+      
+        一个JavaScript示例代码
+        用于查询当前节点的最后一个文本节点
+        好对大会啊说会会啊的
+        的擦都擦
+        `;
+      for (let i = 0; i < content.length; i++) {
+        let text = content.slice(0, i);
+        let result = transfer(text);
+        textElm.innerHTML = result;
+        updateCursor();
+        await delay(100);
+      }
+    }
+    autoAppend();
+
+    //js查询当前节点的最后一个文本节点
+    function getLastTextNode(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        return node;
+      }
+      let children = node.childNodes;
+      for (let i = children.length - 1; i >= 0; i--) {
+        let result = getLastTextNode(children[i]);
+        if (result) {
+          return result;
+        }
+      }
+      return null;
+    }
+
+    function updateCursor() {
+      // js查询当前节点的最后一个文本节点
+      const lastTextNode = getLastTextNode(textElm);
+      // 创建一个文本节点
+      const tempText = document.createTextNode("商");
+      // 在最后一个文本节点后面插入文本节点
+      if (lastTextNode) {
+        lastTextNode.parentNode.appendChild(tempText);
+      } else {
+        textElm.appendChild(tempText);
+      }
+      // 根据文字位置设置光标位置 创建range元素 找到文字的位置信息
+      const range = document.createRange();
+      range.selectNode(tempText);
+      const textRect = range.getBoundingClientRect();
+      const rect = textContainer.getBoundingClientRect();
+      const x = textRect.x - rect.x;
+      const y = textRect.y - rect.y;
+      cursor.style.transform = `translate(${x}px, ${y}px)`;
+      // 移除文本节点
+      tempText.remove();
+    }
+  </script>
+</html>
