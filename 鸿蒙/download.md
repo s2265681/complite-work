@@ -21,3 +21,15 @@ sudo chown -R $(whoami) ~/.npm
 - 文件内查找 cmd + f
 - 全局查找 cmd + shift + f
 - 格式化 cmd + shift + opt + L
+
+# 设置网络请求权限
+
+src/ohosTest/module.json5
+
+# 新建 page 是可以路由跳转的
+
+src/main/resources/base/profile/main_pages.json
+
+# 本地图片存放地址
+
+src/main/resources/base/media/ic_gallery_create.svg
