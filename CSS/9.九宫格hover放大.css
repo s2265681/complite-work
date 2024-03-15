@@ -1,0 +1,100 @@
+.container {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.container .item {
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item:nth-child(1) {
+  background-color: hsl(0, 100%, 70%);
+}
+
+.container:has(.item:nth-child(1):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+
+.item:nth-child(2) {
+  background-color: hsl(40, 100%, 70%);
+}
+
+.container:has(.item:nth-child(2):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+
+.item:nth-child(3) {
+  background-color: hsl(80, 100%, 70%);
+}
+
+.container:has(.item:nth-child(3):hover) {
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+
+.item:nth-child(4) {
+  background-color: hsl(120, 100%, 70%);
+}
+
+.container:has(.item:nth-child(4):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.item:nth-child(5) {
+  background-color: hsl(160, 100%, 70%);
+}
+
+.container:has(.item:nth-child(5):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.item:nth-child(6) {
+  background-color: hsl(200, 100%, 70%);
+}
+
+.container:has(.item:nth-child(6):hover) {
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.item:nth-child(7) {
+  background-color: hsl(240, 100%, 70%);
+}
+
+.container:has(.item:nth-child(7):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr;
+}
+
+.item:nth-child(8) {
+  background-color: hsl(280, 100%, 70%);
+}
+
+.container:has(.item:nth-child(8):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr;
+}
+
+.item:nth-child(9) {
+  background-color: hsl(320, 100%, 70%);
+}
+
+.container:has(.item:nth-child(9):hover) {
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 1fr 1fr 2fr;
+}
+
+/*# sourceMappingURL=9.%E4%B9%9D%E5%AE%AB%E6%A0%BChover%E6%94%BE%E5%A4%A7.css.map */

@@ -1,0 +1,34 @@
+// sass --watch '/Users/mac/Work/complite-work/CSS/9.九宫格hover放大.scss':'/Users/mac/Work/complite-work/CSS/9.九宫格hover放大.css' --style expanded
+
+.container {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: 30px;
+  margin-left: 30px;
+  .item {
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@for $i from 0 through 8 {
+  .item:nth-child(#{$i + 1}) {
+    background-color: hsl($i * 40%, 100%, 70%);
+  }
+  .container:has(.item:nth-child(#{$i + 1}):hover) {
+    $r: floor($i / 3 + 1); // 1-3 前三个都是第一行
+    $c: $i % 3 + 1; // 1-3 前三个是 1 2 3 列
+    $arr: 1fr 1fr 1fr;
+    $rows: set-nth($arr, $r, 2fr);
+    $cols: set-nth($arr, $c, 2fr);
+    grid-template-columns: $cols;
+    grid-template-rows: $rows;
+  }
+}
