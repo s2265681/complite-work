@@ -24,7 +24,7 @@ app.get("/oauth", (req, res) => {
   let url = "https://www.tiktok.com/v2/auth/authorize/";
   // the following params need to be in `application/x-www-form-urlencoded` format.
   url += `?client_key=${CLIENT_KEY}`;
-  url += "&scope=user.info.basic";
+  url += "&scope=user.info.basic,user.info.profile";
   url += "&response_type=code";
   url += `&redirect_uri=${SERVER_ENDPOINT_REDIRECT}`;
   url += "&state=" + csrfState;
@@ -69,7 +69,7 @@ app.get("/tiktok", (req, res) => {
 // 3、 拿到asscess_token 去获取用户信息 // act.8796187bbdc1e7410e55619cc7ee87675jIyQlurmGivRt7gy6uRkopBkdBD!5453
 const getUserInfo = async (access_token) => {
   const bearer_access_token = `Bearer ${access_token}`;
-  let url = `https://open.tiktokapis.com/v2/user/info/?fields=avatar_url,union_id,open_id,display_name`;
+  let url = `https://open.tiktokapis.com/v2/user/info/?fields=avatar_url,union_id,open_id,display_name,username`;
   return fetch(url, {
     method: "GET",
     headers: {
