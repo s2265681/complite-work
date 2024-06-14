@@ -1,0 +1,110 @@
+<!-- 3、宽度不固定的容器、实现高度和宽度相等 -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 200px;
+      background-color: #f00;
+      /* aspect-ratio: 1/1; */
+      padding-bottom: 200px; /*子元素需要浮动 或者 定位*/
+      /* calc */
+    }
+  </style>
+  <body>
+    <div class="box">1111</div>
+  </body>
+</html> -->
+
+<!-- 1、宽度不固定容器， 每行5个元素、支持换行、没两个元素之间间隔20px -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      background-color: #ff0;
+      gap: 20px;
+      /* grid */
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      /* width: fit-content; */
+
+      /* display: grid;
+         grid-template-columns: repeat(3, 1fr);
+          grid-auto-flow: dense; 
+         */
+
+      /* flex */
+      /* display: flex;
+      flex-wrap: wrap; */
+    }
+    .item {
+      width: 100px;
+      height: 100px;
+      /* width: calc(100% / 5 - 16px); */
+      background-color: #f00;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+    </div>
+  </body>
+</html>
+<!-- 2、大容器高度不固定、上面高度固定、下面高度固定、中间高度不固定 自适应撑满容器、 中间内容超出、则展g滚动条 -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 300px;
+      height: fit-content;
+      background-color: #ff0;
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+    }
+
+    .top,
+    .bottom {
+      width: 100%;
+      height: 100px;
+      background-color: #ff0;
+    }
+
+    .middle {
+      width: 100%;
+      max-height: 300px;
+      background-color: #f00;
+      overflow: auto;
+      flex: 1;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <div class="top">top - 100px</div>
+      <div class="middle">middle height - min-height = 300px overflow-auto</div>
+      <div class="bottom">top - 100px</div>
+    </div>
+  </body>
+</html> -->
