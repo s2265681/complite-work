@@ -1,0 +1,136 @@
+{
+  "listData": [
+    {
+      "tag": "001",
+      "name": "必点招牌",
+      "foods": [
+        {
+          "id": 1001001,
+          "name": "猪脚饭+肉卷+鸡蛋",
+          "positive_reviews": "好评度100%",
+          "monthly_sales": 80,
+          "food_label_list": [
+            "5人评价，食材新鲜"
+          ],
+          "price": 18,
+          "picture": "https://p1.meituan.net/wmproduct/ecb9eba0fcbe513e3d46282c33aea59e166432.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20",
+          "description": "米饭、猪脚",
+          "tag": "001"
+        },
+        {
+          "id": 1001002,
+          "name": "黄焖鸡米饭",
+          "positive_reviews": "好评度81%",
+          "monthly_sales": 120,
+          "food_label_list": [],
+          "price": 39,
+          "picture": "https://bkimg.cdn.bcebos.com/pic/1b4c510fd9f9d72a60595dbe6a603f34349b033b0d77",
+          "description": "小公鸡、小米辣",
+          "tag": "001"
+        },
+        {
+          "id": 1001003,
+          "name": "捞汁龙虾尾",
+          "positive_reviews": "好评度91%",
+          "monthly_sales": 30,
+          "food_label_list": [],
+          "price": 34.32,
+          "picture": "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F3c35bdf6-3312-4ae7-949e-d1234d26cdad%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1711629845&t=1a8d02f8dbd935374a0ecda5907a28a5",
+          "description": "龙虾、小米辣、柠檬、胡萝卜",
+          "tag": "001"
+        },
+        {
+          "id": 1001004,
+          "name": "肉夹馍",
+          "positive_reviews": "好评度73%",
+          "monthly_sales": 79,
+          "food_label_list": [
+            "味道好"
+          ],
+          "price": 15,
+          "picture": "https://img2.baidu.com/it/u=1006428406,2468774250&fm=253&fmt=auto&app=138&f=JPEG?w=652&h=500",
+          "description": "白皮饼、猪肉",
+          "tag": "001"
+        }
+      ]
+    },
+    {
+      "tag": "002",
+      "name": "超值套餐",
+      "foods": [
+        {
+          "id": 2002001,
+          "name": "香蕉三明治套餐",
+          "positive_reviews": "",
+          "monthly_sales": 10,
+          "food_label_list": [],
+          "price": 34,
+          "picture": "https://cp1.douguo.com/upload/caiku/b/1/a/400x266_b141d6e44a59241955e07a7742b1d4da.jpg",
+          "description": "吐司,香蕉,火腿肠,鸡蛋,胡萝卜,甜玉米粒,海苔,千岛酱",
+          "tag": "002"
+        },
+        {
+          "id": 2002002,
+          "name": "意面披萨套餐",
+          "positive_reviews": "",
+          "monthly_sales": 30,
+          "food_label_list": [],
+          "price": 39,
+          "picture": "https://cp1.douguo.com/upload/caiku/b/7/e/400x266_b71a3f5e8843e0ffe8c9e0cd07358a6e.jpg",
+          "description": "意面,火腿肠,皮萨饼",
+          "tag": "002"
+        },
+        {
+          "id": 2002003,
+          "name": "彩色华夫饼套餐",
+          "positive_reviews": "",
+          "monthly_sales": 130,
+          "food_label_list": [],
+          "price": 35,
+          "picture": "https://cp1.douguo.com/upload/caiku/f/e/3/400x266_feac0320e8f64a07bb83c82bb2e549c3.jpeg",
+          "description": "西蓝花,紫薯,胡萝卜,南瓜,鸡蛋,千岛酱,沙拉酱,蕃茄酱,芹菜,红心火龙果,巧克力",
+          "tag": "002"
+        }
+      ]
+    },
+    {
+      "tag": "003",
+      "name": "饮料专区",
+      "foods": [
+        {
+          "id": 3003001,
+          "name": "椰谷（YEGU） ",
+          "positive_reviews": "",
+          "monthly_sales": 100,
+          "food_label_list": ["单点不送"],
+          "price": 29.9,
+          "picture": "https://img1.360buyimg.com/n6/jfs/t1/127572/25/3004/260651/5ecb891fE3395ead2/e2bdd89cf13d48f7.jpg",
+          "description": "鲜椰汁",
+          "tag": "003"
+        },
+        {
+          "id": 3003002,
+          "name": "娃哈哈",
+          "positive_reviews": "好评度100%",
+          "monthly_sales": 200,
+          "food_label_list": ["单点不送"],
+          "price": 2.8,
+          "picture": "https://img1.360buyimg.com/n6/jfs/t1/137156/28/32057/99568/6368c993Ef2d6deb8/0f7faf63049ce341.jpg",
+          "description": "AD钙奶 含乳饮料",
+          "tag": "003"
+        },
+        {
+          "id": 3003003,
+          "name": "脉动菠萝口味",
+          "positive_reviews": "好评度100%",
+          "monthly_sales": 20,
+          "food_label_list": ["单点不送"],
+          "price": 6,
+          "picture": "https://img1.360buyimg.com/n6/jfs/t1/100855/36/47488/172555/65dc3f40Faffcc071/6d2b9c20965e7fa9.jpg",
+          "description": "维C 低糖饮料",
+          "tag": "003"
+        }
+      ]
+    }
+  ]
+}

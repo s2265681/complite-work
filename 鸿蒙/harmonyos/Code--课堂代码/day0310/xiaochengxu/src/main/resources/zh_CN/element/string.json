@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "XiaochengxuAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "XiaochengxuAbility_label",
+      "value": "label"
+    }
+  ]
+}

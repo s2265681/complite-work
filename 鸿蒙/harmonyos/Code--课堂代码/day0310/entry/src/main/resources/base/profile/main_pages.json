@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/OnePage",
+    "pages/TwoPage",
+    "pages/AppStorageA",
+    "pages/ThreePage",
+    "pages/StartPage",
+    "pages/CricleIndex"
+  ]
+}

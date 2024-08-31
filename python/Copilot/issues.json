@@ -1,0 +1,120 @@
+{
+  "title": "useInterval重启有问题",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2569"
+}
+{
+  "title": "fix: useRequest pollingInterval invalid after staleTime  is enabled",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2568"
+}
+{
+  "title": "feat(useInfiniteScroll): support scroll to top",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2565"
+}
+{
+  "title": "增加pollingLoading状态返回来区分polling请求和非polling请求的loading状态",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2564"
+}
+{
+  "title": "feature/imperative-set-timeout",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2560"
+}
+{
+  "title": "feat(useEventTarget): return setValue for direct update state value",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2556"
+}
+{
+  "title": "useAntdTable在manual=true的情况下,defaultParam和手动run都不会填充表单默认值",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2553"
+}
+{
+  "title": "resetState的随机数问题",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2552"
+}
+{
+  "title": "fix: 修复重置 loadingDelay 为 undefined 后，定时器没有被清理而导致 loading 始终为 true 的 bug",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2550"
+}
+{
+  "title": "useUrlState doesn't delete initialState when state is set to undefined",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2549"
+}
+{
+  "title": " useLongPress在pc电脑外接触控评时，不触发",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2548"
+}
+{
+  "title": "runAsync 时能否重新指定options",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2547"
+}
+{
+  "title": "feat: useSwipeEvent hook",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2543"
+}
+{
+  "title": "[RFC]useSwipeEvent",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2541"
+}
+{
+  "title": "feat: useInViewport support once API",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2539"
+}
+{
+  "title": "feat(useWebSocket): add on max attempt callback",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2538"
+}
+{
+  "title": "能不能把useTimeout升级一下？",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2537"
+}
+{
+  "title": "feat(useEventBus): support-new-way-publish-subscribe",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2535"
+}
+{
+  "title": "feat(useWebSocket): add heartbeat feature",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2534"
+}
+{
+  "title": "[RFC] useEventBus",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2533"
+}
+{
+  "title": "useInViewport 弄一個triggerOnce的參數比較好",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2531"
+}
+{
+  "title": "fix(useClickAway): callback shouldn't be invoked when a dynamic element inside target is clicked",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2530"
+}
+{
+  "title": "useRequest在严格模式StrictMode下，缓存失效",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2526"
+}
+{
+  "title": "feat: add useProState hook",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2520"
+}
+{
+  "title": "useRequest 在 React 18 部分场景下不兼容, 存在严重问题",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2514"
+}
+{
+  "title": "useRequest 的 setCache 和 getCache 似乎不支持异步",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2509"
+}
+{
+  "title": "useInfiniteScroll reload 重置问题",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2507"
+}
+{
+  "title": "useRequest 开启 staleTime 缓存后轮询失效",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2505"
+}
+{
+  "title": "useVirtualList 最后一个元素的高度不能超过 container 的高度",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2496"
+}
+{
+  "title": "[Feature]希望新增一个useWorker的hooks方便操作web worker",
+  "url": "https://api.github.com/repos/alibaba/hooks/issues/2494"
+}

@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/DetailPageA",
+    "pages/DetailPageB",
+    "pages/CriclePage",
+    "pages/otherPage",
+    "pages/PagePage",
+    "pages/NewsPage",
+    "pages/VideoPageA",
+    "pages/CanvasPage"
+  ]
+}

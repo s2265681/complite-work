@@ -1,0 +1,27 @@
+{
+  "module": {
+    "name": "xiaochengxu",
+    "type": "feature",
+    "description": "$string:module_desc",
+    "mainElement": "XiaochengxuAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "XiaochengxuAbility",
+        "srcEntry": "./ets/xiaochengxuability/XiaochengxuAbility.ts",
+        "description": "$string:XiaochengxuAbility_desc",
+        "icon": "$media:icon",
+        "label": "$string:XiaochengxuAbility_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ]
+  }
+}

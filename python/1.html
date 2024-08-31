@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>返回翻页效果示例</title>
+    <style>
+      /* 翻页动画效果 */
+      .page-flip {
+        animation: flip 0.5s ease-in-out;
+      }
+
+      @keyframes flip {
+        from {
+          transform: rotateY(0deg);
+        }
+        to {
+          transform: rotateY(-180deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="page"
+      style="width: 100%; height: 100vh; background-color: skyblue"
+    >
+      <!-- 页面内容 -->
+    </div>
+
+    <script>
+      // 模拟返回按钮被点击
+      document.getElementById("page").addEventListener("click", function () {
+        this.classList.add("page-flip");
+        // 在动画结束后，可以进行页面跳转或其他操作
+        setTimeout(() => {
+          // 这里可以添加页面跳转或返回上一页的代码
+          alert("返回操作");
+        }, 500); // 确保与动画时间相匹配
+      });
+    </script>
+  </body>
+</html>
