@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "koa": "^2.12.1",
     "koa-router": "^9.0.1",
     "koa-send": "^5.0.0"

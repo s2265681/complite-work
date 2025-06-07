@@ -22,19 +22,42 @@
       扫码关注公众号
       <img class="wx_code" src="" alt="" />
     </div>
+
+
+    <button id="getCode2">h5公众号</button>
   </body>
 
   <script>
+    // http://localhost:5501/wechat/index.html
     const wxCode = document.querySelector(".wx_code");
     document.querySelector("#getCode").onclick = function () {
       $.ajax({
         type: "get",
-        url: "/wechat/get_user_code",
+        url: "http://localhost:5501/wechat/get_user_code",
         success: function (data) {
           wxCode.src = data.url
         },
         dataType: "json",
       });
     };
+    const APP_ID = "wxb93ef70dd4d56d91" 
+    const callbackUrl = encodeURIComponent(
+    "http://develop.kalodata.com/login"
+  );
+    document.querySelector("#getCode2").onclick = function () {
+      // $.ajax({
+      //   type: "get",
+      //   url: "http://localhost:5501/wechat/authorize",
+      // });
+      // window.open(`https://open.weixin.qq.com/sns/explorer_broker?appid=${APP_ID}&redirect_uri=${callbackUrl}&response_type=code&scope=snsapi_userinfo&state=STATE_014916#wechat_redirect`)
+
+      window.open(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&redirect_uri=${callbackUrl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+    };
   </script>
 </html>
+
+
+
+
+<!-- 91_JK27wOHDCjhLMP4h4X2lXR43IaLOQwvTFwcwhL86t2vLAvjcpcKX-8HaR85UJLnNOnTcQ3id7wajWGJ9cMiuVHTibs6j3vZUhjNBU3DAI-QjdywLVZricLn9kJ8QVKeAHAHMB
+gQGS8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydmNPSUJuSzRmOEUxMDAwMGcwM3AAAgSd8PVnAwQAAAAA -->

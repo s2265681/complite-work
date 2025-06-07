@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "testMode": true,
+  "testIdentifier": "WWWW",
+  "groups": [
+    {
+      "id": "group_test_001",
+      "name": "测试开发团队",
+      "description": "用于测试的开发团队配置",
+      "members": [
+        {
+          "id": "user_test_001",
+          "name": "测试用户1",
+          "email": "test1@example.com",
+          "role": "前端开发工程师"
+        },
+        {
+          "id": "user_test_002",
+          "name": "测试用户2",
+          "email": "test2@example.com",
+          "role": "后端开发工程师"
+        }
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": "group_test_002",
+      "name": "测试产品团队",
+      "description": "用于测试的产品团队配置",
+      "members": [
+        {
+          "id": "user_test_003",
+          "name": "测试用户3",
+          "email": "test3@example.com",
+          "role": "产品经理"
+        },
+        {
+          "id": "user_test_004",
+          "name": "测试用户4",
+          "email": "test4@example.com",
+          "role": "UI/UX 设计师"
+        }
+      ],
+      "created_at": "2024-01-02T00:00:00Z",
+      "updated_at": "2024-01-16T14:20:00Z"
+    }
+  ],
+  "metadata": {
+    "total_groups": 2,
+    "total_members": 4,
+    "last_sync": "2024-01-16T14:20:00Z",
+    "format_version": "1.0",
+    "test_run": true,
+    "test_timestamp": "2024-01-16T15:00:00Z"
+  }
+} 

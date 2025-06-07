@@ -116,3 +116,6 @@ typings/
 .next
 
 # dist
+
+
+.env

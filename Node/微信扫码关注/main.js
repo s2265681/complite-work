@@ -6,9 +6,11 @@ const crypto = require("crypto");
 const fs = require("fs");
 const https = require("https");
 const axios = require("axios");
+const cors = require("@koa/cors");
 
-const APP_ID = "wx01c45b63824bfb0c";
-const APP_SECRET = "46b34ae0435fd5f277366082c8b84054";
+// 101.70.126.87
+const APP_ID = "wxb93ef70dd4d56d91"// "wxb93ef70dd4d56d91" // 开放平台 "wx7e2f59ab95a9081f" // "wx01c45b63824bfb0c";
+const APP_SECRET = '3b326e3e612b8e4ac546e5c5e2d6db5e' // "3b326e3e612b8e4ac546e5c5e2d6db5e"// 开放平台 "4ad828b563537894ca5a538aa3857b9c" //"46b34ae0435fd5f277366082c8b84054";
 // const TOKEN = "test666";
 const TOKEN = "";
 
@@ -21,6 +23,13 @@ const reg = new RegExp("^/wechat/(.*)$");
 const root = __dirname + "/public";
 
 const router = new Router({ prefix });
+
+
+// 注册 cors 中间件
+app.use(cors({
+  origin: '*', //允许所有域名访问
+  credentials: true, //允许携带cookie
+}));
 
 /**
  * 加密/校验流程如下：
@@ -48,18 +57,23 @@ router.get("/verify", async (ctx) => {
  * 授权页面
  */
 router.get("/authorize", async (ctx) => {
+  // `https://open.weixin.qq.com/sns/explorer_broker?appid=${APP_ID}&redirect_uri=${callbackUrl}&response_type=code&scope=snsapi_userinfo&state=STATE_014916#wechat_redirect`
+  return
   const callbackUrl = encodeURIComponent(
     "http://2dr9486273.wicp.vip/api/passport/wechat-checkSignature"
   );
   ctx.redirect(
     `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&redirect_uri=${callbackUrl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
   );
+  // https://open.weixin.qq.com/sns/explorer_broker?appid=wxb93ef70dd4d56d91&redirect_uri=https%3A%2F%2Faccount.xiaomi.com%2Fpass%2Fsns%2Flogin%2Fload&response_type=code&scope=snsapi_userinfo&state=STATE_809568#wechat_redirect
 });
 
 /**
  * 获取用户openid（微信回调地址）
  */
-router.get("/get_user_openid", async (ctx) => {
+router.get("/webhook/wechatAccount/callback", async (ctx) => {
+// router.get("/get_user_openid", async (ctx) => {
+  console.log('调用，，，，，')
   const code = ctx.query.code;
   log2file(`code:${code}`);
   const openId = await getUserOpenId(code);
@@ -73,6 +87,7 @@ router.get("/get_user_openid", async (ctx) => {
   ctx.redirect("/wechat/index.html");
 });
 
+// https://develop.kalodata.com/webhook/wechatAccount/callback
 /**
  * 校验用户accessToken是否失效
  */
@@ -109,7 +124,7 @@ router.get("/get_user_code", async (ctx) => {
   //  ctx.body = apiAccessToken
   const accessToken = await getApiAccessToken();
   const ticketData = await getTicket(accessToken);
-  const ticket = ticketData.data.ticket;
+  const ticket = ticketData.ticket;
   const data = {
     url: "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticket,
     message: "二维码图片",
@@ -234,10 +249,11 @@ function getApiAccessToken() {
     if (jsonData) jsonData = JSON.parse(jsonData);
     apiAccessToken = jsonData.accessToken;
     const expiresAt = jsonData.expiresAt;
+    console.log(apiAccessToken,'apiAccessToken')
     // 如果没过期不需要重新获取
-    if (expiresAt > Date.now()) {
-      needRefresh = false;
-    }
+    // if (expiresAt > Date.now()) {
+    //   needRefresh = false;
+    // }
   }
 
   if (needRefresh) {
@@ -383,7 +399,8 @@ function getTicket(accessToken) {
  * @returns {Promise}
  */
 function getTicket(accessToken) {
-  console.log(accessToken, "accessToken...");
+  debugger
+  console.log(accessToken, "accessToken111...");
   var url =
     "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" +
     accessToken;
@@ -391,7 +408,14 @@ function getTicket(accessToken) {
     action_name: "QR_LIMIT_SCENE",
     action_info: { scene: { scene_id: "123" } },
   };
-  return axios.post(url, params);
+  return axios.post(url, params).then((res) => {
+    console.log(res.data, "res.data");
+    return res.data;
+  }
+  ).catch((err) => {
+    console.log(err, "err");
+  }
+  );
 }
 
 function log2file(log) {
@@ -402,7 +426,7 @@ function log2file(log) {
   );
 }
 
-app.listen(4001);
+app.listen(5501);
 
 function post(url, data, fn) {
   data = data || {};
@@ -431,3 +455,46 @@ function post(url, data, fn) {
   req.write(content);
   req.end();
 }
+
+
+// const REDIRECT_URI = 'https://develop.kalodata.com/login';
+
+// // 生成随机state
+// const generateState = () => Math.random().toString(36).substring(7);
+// // 新增获取二维码接口v2
+// router.get("/wechat-qrcode", async (ctx) => {
+//   const state = generateState();
+//   // ctx.req.session.state = state;
+//   console.log('AAAAAA')
+//   const authUrl = `https://open.weixin.qq.com/connect/qrconnect?appid=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=snsapi_login&state=${state}#wechat_redirect`;
+//   const data = {
+//     url: authUrl, state
+//   };
+//     console.log('AAAAAA')
+//   ctx.body = data;
+// });
+
+
+
+// // 微信回调处理
+// router.get('/wechat-callback', async (ctx) => {
+//   const { code, state } = ctx.req.query;
+//   // 验证state
+//   // if (state !== ctx.req.session.state) {
+//   //   return res.status(400).send('Invalid state');
+//   // }
+//   try {
+//     // 获取access_token
+//     const tokenRes = await axios.get(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APP_ID}&secret=${APP_SECRET}&code=${code}&grant_type=authorization_code`);
+//     const { access_token, openid } = tokenRes.data;
+//     // 获取用户信息
+//     const userRes = await axios.get(`https://api.weixin.qq.com/sns/userinfo?access_token=${access_token}&openid=${openid}`);
+//     const userInfo = userRes.data;
+//     // 这里处理用户登录/注册逻辑
+//     console.log(userInfo,'userInfo>>>>')
+//     res.redirect('/login-success');
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Authentication failed');
+//   }
+// });
