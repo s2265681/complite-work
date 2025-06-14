@@ -1,0 +1,3 @@
+[submodule "aws-test-project"]
+	path = aws-test-project
+	url = https://github.com/s2265681/aws-test-project.git
